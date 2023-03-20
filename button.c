@@ -48,30 +48,40 @@ void add_button(s_appdata *adata, char *id, int type, int layer)
 
     switch (type) {
         case TYPE_RECT:
+            {
             char *rect_id = str_add(id, "@[:rect]");
             add_rect(adata, rect_id, layer);
             new_button->elem = get_ref(adata, get_rect(adata, rect_id), TYPE_RECT);
             break;
+            }
         case TYPE_CIRCLE:
+            {
             char *circle_id = str_add(id, "@[:circle]");
             add_circle(adata, circle_id, layer);
             new_button->elem = get_ref(adata, get_circle(adata, circle_id), TYPE_CIRCLE);
             break;
+            }
         case TYPE_SPRITE:
+            {
             char *sprite_id = str_add(id, "@[:sprite]");
             add_sprite(adata, sprite_id, layer);
             new_button->elem = get_ref(adata, get_sprite(adata, sprite_id), TYPE_SPRITE);
             break;
+            }
         case TYPE_TEXT:
+            {
             char *text_id = str_add(id, "@[:text_sub]");
             add_text(adata, text_id, layer);
             new_button->elem = get_ref(adata, get_text(adata, text_id), TYPE_TEXT);
             break;
+            }
         case TYPE_VERTEX:
+            {
             char *vertex_id = str_add(id, "@[:vertex]");
             add_vertex(adata, vertex_id, layer);
             new_button->elem = get_ref(adata, get_vertex(adata, vertex_id), TYPE_VERTEX);
             break;
+            }
     }
 
     linked_add(adata->lists->buttons, new_button);
