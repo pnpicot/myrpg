@@ -1,0 +1,61 @@
+# <type> <id> = <value>
+
+# -- misc -- begin
+string default_font = mono
+# -- misc -- end
+
+# -- window -- begin
+int win_w = 1920
+int win_h = 1080
+float app_rate = 0.0001f
+float update_rate = 0.001f
+float render_rate = 0.001f
+int max_frame_rate = 360
+# -- window -- end
+
+# -- switch -- begin
+float switch_size = 25.0f
+float switch_length = 50.0f
+float switch_padding = 4.0f
+color switch_off = 160,160,160,255
+color switch_on = 10,150,10,255
+color switch_indicator_idle = 210,210,210,255
+color switch_indicator_hover = 225,225,225,255
+color switch_indicator_pressed = 255,255,255,255
+# -- switch -- end
+
+# -- slider -- begin
+float slider_size = 8.0f
+float slider_length = 325.0f
+float slider_node_size = 13.0f
+int slider_min = 0 
+int slider_max = 100
+int slider_current = 50
+color slider_background = 168,154,219,255
+color slider_filled = 95,57,230,255
+color slider_node_idle = 210,210,210,255
+color slider_node_hover = 225,225,225,255
+color slider_node_pressed = 255,255,255,255
+string slider_font_id = courier
+int slider_font_size = 22
+color slider_text = 255,255,255,255
+float slider_ind_padding = 3.0f
+float slider_ind_xpad = 12.0f
+color slider_ind = 30,30,30,255
+float slider_triangle_size = 7.0f
+# -- slider -- end
+
+# -- input -- begin
+float input_width = 375.0f
+float input_height = 45.0f
+float input_x_padding = 10.0f
+float input_caret_speed = 0.45f
+float input_speed = 0.08f
+color input_background = 60,60,60,150
+color input_background_hover = 80,80,80,150
+color input_background_pressed = 100,100,100,150
+color input_foreground = 240,240,240,255
+color input_idle = 150,150,150,255
+string input_placeholder = ...
+int input_font_size = 22
+# -- input -- end

@@ -1,0 +1,11 @@
+# <id> = <filename>
+
+mono_bold = UbuntuMono-Bold
+mono_boldita = UbuntuMono-BoldItalic
+mono_italic = UbuntuMono-Italic
+mono = UbuntuMono-Regular
+lobster = Lobster-Regular
+courier_bold = CourierPrime-Bold
+courier_boldita = CourierPrime-BoldItalic
+courier_ita = CourierPrime-Italic
+courier = CourierPrime-Regular

@@ -1,0 +1,12 @@
+*.log
+*.out
+*.o
+*.7z
+*.gch
+*.a
+*.so
+*.d
+temp/
+*~
+app
+.vscode/
