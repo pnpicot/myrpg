@@ -59,3 +59,16 @@ color input_idle = 150,150,150,255
 string input_placeholder = ...
 int input_font_size = 22
 # -- input -- end
+
+# -- progression bar -- begin
+float bar_min = 0 
+float bar_max = 100000
+float bar_current = 36874
+float bar_width = 500.0f
+float bar_height = 30.0f
+color bar_empty = 247,176,173,255
+color bar_filled = 245,72,66,255
+color bar_foreground = 50,50,50,255
+int bar_font_size = 22
+string bar_font = courier_bold
+# -- progression bar -- end

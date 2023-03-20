@@ -106,6 +106,7 @@ typedef struct {
     linked_node *sliders;
     linked_node *inputs;
     linked_node *keymaps;
+    linked_node *bars;
 } s_linkeds;
 
 typedef struct {
@@ -218,6 +219,7 @@ typedef struct {
     int min;
     int max;
     int current;
+    int last;
     s_button *left_round;
     s_button *right_round;
     s_button *middle_rect;
@@ -228,20 +230,32 @@ typedef struct {
     s_vertex *indicator_triangle;
     s_rect *indicator_rect;
     s_text *indicator_text;
+    void (*on_change)(s_appdata *adata, s_ref *ref);
 } s_slider;
 
 typedef struct {
     char *id;
-    int max_length;
+    char *placeholder;
     s_text *input_text;
     s_rect *input_rect;
     s_rect *input_caret;
+    int max_length;
     int align;
+    int contains;
     float x_padding;
     sfClock *caret_clock;
-    int contains;
-    char *placeholder;
+    void (*on_input)(s_appdata *adata, const char *str);
 } s_input;
+
+typedef struct {
+    char *id;
+    s_rect *back_rect;
+    s_rect *fill_rect;
+    s_text *text;
+    float min;
+    float max;
+    float current;
+} s_bar;
 
 #include "pre_init.h"
 #include "error.h"
@@ -275,3 +289,4 @@ typedef struct {
 #include "slider.h"
 #include "input.h"
 #include "keymap.h"
+#include "bar.h"

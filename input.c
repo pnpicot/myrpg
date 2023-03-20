@@ -179,7 +179,7 @@ void input_type(s_appdata *adata, int keycode)
     int len = my_strlen(text);
     int is_del = len >= input->max_length && keycode != sfKeyBack;
     int banned = keycode == sfKeyLShift || keycode == sfKeyLControl;
-    banned = banned || keycode == sfKeyEscape;
+    banned = banned || keycode == sfKeyEscape || keycode == -1;
 
     if (is_del || banned) return;
 
@@ -192,6 +192,7 @@ void input_type(s_appdata *adata, int keycode)
         update_input(adata, input);
 
         if (!my_strlen(new_str)) input->contains = 0;
+        if (input->on_input != NULL) (*input->on_input)(adata, new_str);
 
         return;
     }
@@ -208,6 +209,8 @@ void input_type(s_appdata *adata, int keycode)
     update_input(adata, input);
 
     input->contains = 1;
+
+    if (input->on_input != NULL) (*input->on_input)(adata, str_add(text, char_str));
 }
 
 void add_input(s_appdata *adata, char *id, int layer)
@@ -234,6 +237,7 @@ void add_input(s_appdata *adata, char *id, int layer)
     new_input->max_length = 100;
     new_input->align = 1;
     new_input->contains = 0;
+    new_input->on_input = NULL;
     new_input->caret_clock = sfClock_create();
     new_input->x_padding = get_float(adata, "input_x_padding");
 
@@ -438,4 +442,30 @@ void set_input_align(s_appdata *adata, char *id, char *align)
     }
 
     update_input(adata, input);
+}
+
+void set_input_oninput(s_appdata *adata, char *id, void (*on_input)(s_appdata *adata, const char *str))
+{
+    s_input *input = get_input(adata, id);
+
+    if (input == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    input->on_input = on_input;
+}
+
+void set_input_maxlength(s_appdata *adata, char *id, int max_length)
+{
+    s_input *input = get_input(adata, id);
+
+    if (input == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    if (max_length < 0) max_length = 0;
+
+    input->max_length = max_length;
 }

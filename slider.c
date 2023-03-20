@@ -193,6 +193,9 @@ void slider_update_change(s_appdata *adata)
 
     slider->current = in_range;
 
+    if (slider->current != slider->last && slider->on_change != NULL)
+        (*slider->on_change)(adata, NULL);
+
     update_slider(adata, slider);
 }
 
@@ -230,6 +233,7 @@ void set_slider_onchange(s_appdata *adata, char *id, void (*on_change)(s_appdata
     set_object_onpressed(adata, left_obj, on_change);
     set_object_onpressed(adata, middle_obj, on_change);
     set_object_onpressed(adata, right_obj, on_change);
+    slider->on_change = on_change;
 }
 
 void update_slider(s_appdata *adata, s_slider *slider)
@@ -347,6 +351,7 @@ void add_slider(s_appdata *adata, char *id, int layer)
     new_slider->min = get_int(adata, "slider_min");
     new_slider->max = get_int(adata, "slider_max");
     new_slider->current = get_int(adata, "slider_current");
+    new_slider->last = new_slider->current;
     new_slider->left_round = get_slider_left(adata, id, layer);
     new_slider->right_round = get_slider_right(adata, id, layer);
     new_slider->middle_rect = get_slider_middle(adata, id, layer);
@@ -357,6 +362,7 @@ void add_slider(s_appdata *adata, char *id, int layer)
     new_slider->indicator_text = get_slider_text(adata, id, layer);
     new_slider->indicator_rect = get_slider_rect(adata, id, layer);
     new_slider->indicator_triangle = get_slider_triangle(adata, id, layer);
+    new_slider->on_change = NULL;
 
     update_slider(adata, new_slider);
     linked_add(adata->lists->sliders, new_slider);

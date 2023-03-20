@@ -24,11 +24,27 @@ void switch_tog(s_appdata *adata, s_ref *ref)
 void slider_ch(s_appdata *adata, s_ref *ref)
 {
     slider_change(adata, "slider_0");
+    set_bar_current(adata, "bar_0", get_slider_value(adata, "slider_0"));
 }
 
 void slider_ch2(s_appdata *adata, s_ref *ref)
 {
     slider_change(adata, "slider_1");
+}
+
+void input_trigger(s_appdata *adata, const char *str)
+{
+    edit_text(adata, "text_0", str);
+
+    sfVector2f circle_pos = get_circle_pos(adata, "circle_0");
+    float circle_radius = get_circle_radius(adata, "circle_0");
+    sfFloatRect text_bounds = get_text_bounds(adata, "text_0");
+    sfVector2f text_pos;
+
+    text_pos.x = (circle_pos.x + circle_radius) - (text_bounds.width / 2);
+    text_pos.y = (circle_pos.y + circle_radius) - (text_bounds.height / 2);
+
+    move_text(adata, "text_0", text_pos);
 }
 
 void init_tests(s_appdata *adata)
@@ -174,6 +190,7 @@ void init_tests(s_appdata *adata)
     add_input(adata, input_id, 5);
     set_input_rtex(adata, input_id, rtex_fourth);
     move_input(adata, input_id, (sfVector2f) { 30, 30 });
+    set_input_maxlength(adata, input_id, 32);
 
     char *input_two = "input_1";
 
@@ -182,6 +199,18 @@ void init_tests(s_appdata *adata)
     move_input(adata, input_two, (sfVector2f) { 30, 85 });
     set_input_placeholder(adata, input_two, "Example placeholder");
     set_input_align(adata, input_two, "center");
+    set_input_oninput(adata, input_two, &input_trigger);
+    set_input_maxlength(adata, input_two, 32);
+
+    char *bar_id = "bar_0";
+
+    add_bar(adata, bar_id, 5);
+    set_bar_rtex(adata, bar_id, rtex_fourth);
+    set_bar_display(adata, bar_id, sfTrue);
+    set_bar_min(adata, bar_id, 0);
+    set_bar_max(adata, bar_id, 100);
+    set_bar_current(adata, bar_id, 50);
+    move_bar(adata, bar_id, (sfVector2f) { 700, 980 });
 }
 
 void post_init(s_appdata *adata)

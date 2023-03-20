@@ -85,6 +85,7 @@ void init_appdata_linkeds(s_appdata *adata)
     lists->sliders = linked_new();
     lists->inputs = linked_new();
     lists->keymaps = linked_new();
+    lists->bars = linked_new();
 }
 
 void init_appdata_misc(s_appdata *adata)

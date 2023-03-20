@@ -34,3 +34,5 @@ void resize_input_text(s_appdata *adata, char *id, int font_size);
 sfVector2f get_input_pos(s_appdata *adata, char *id);
 sfVector2f get_input_origin(s_appdata *adata, char *id);
 void set_input_align(s_appdata *adata, char *id, char *align);
+void set_input_oninput(s_appdata *adata, char *id, void (*on_input)(s_appdata *adata, const char *str));
+void set_input_maxlength(s_appdata *adata, char *id, int max_length);
