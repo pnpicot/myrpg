@@ -27,3 +27,4 @@ sfVector3f sfColor_toHSL(sfColor old);
 sfVector2f get_mouse(s_appdata *adata);
 sfColor lighten(sfColor old, int value);
 sfColor darken(sfColor old, int value);
+char *get_random_id(int len);

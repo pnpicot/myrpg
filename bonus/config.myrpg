@@ -22,6 +22,7 @@ color switch_on = 10,150,10,255
 color switch_indicator_idle = 210,210,210,255
 color switch_indicator_hover = 225,225,225,255
 color switch_indicator_pressed = 255,255,255,255
+float switch_animation_speed = 0.06f
 # -- switch -- end
 
 # -- slider -- begin

@@ -192,17 +192,29 @@ void toggle_switch(s_appdata *adata, char *id)
     sfColor off_color = get_config_color(adata, "switch_off");
     sfColor on_color = get_config_color(adata, "switch_on");
 
-    if (switch_->state) {
-        translate_button(adata, switch_->indicator->id, (sfVector2f) { length, 0 });
-        color_button_bg(adata, switch_->left_round->id, on_color);
-        color_button_bg(adata, switch_->middle_rect->id, on_color);
-        color_button_bg(adata, switch_->right_round->id, on_color);
-    } else {
-        translate_button(adata, switch_->indicator->id, (sfVector2f) { -length, 0 });
-        color_button_bg(adata, switch_->left_round->id, off_color);
-        color_button_bg(adata, switch_->middle_rect->id, off_color);
-        color_button_bg(adata, switch_->right_round->id, off_color);
-    }
+    if (!switch_->state) length *= -1;
+
+    sfVector2f new_pos = get_button_pos(adata, switch_->indicator->id);
+    new_pos.x += length;
+
+    s_target indicator_target;
+    indicator_target.pos = new_pos;
+    indicator_target.flags = trf_move;
+
+    s_target color_target;
+    color_target.color = switch_->state ? on_color : off_color;
+    color_target.flags = trf_color;
+
+    float anim_speed = get_float(adata, "switch_animation_speed");
+    s_ref *indicator_ref = get_ref(adata, get_button(adata, switch_->indicator->id), TYPE_BUTTON);
+    s_ref *left_ref = get_ref(adata, get_button(adata, switch_->left_round->id), TYPE_BUTTON);
+    s_ref *middle_ref = get_ref(adata, get_button(adata, switch_->middle_rect->id), TYPE_BUTTON);
+    s_ref *right_ref = get_ref(adata, get_button(adata, switch_->right_round->id), TYPE_BUTTON);
+
+    transform(adata, indicator_ref, anim_speed, indicator_target);
+    transform(adata, left_ref, anim_speed * 2, color_target);
+    transform(adata, middle_ref, anim_speed * 2, color_target);
+    transform(adata, right_ref, anim_speed * 2, color_target);
 }
 
 sfBool get_switch_state(s_appdata *adata, char *id)

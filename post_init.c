@@ -34,7 +34,7 @@ void slider_ch2(s_appdata *adata, s_ref *ref)
 
 void input_trigger(s_appdata *adata, const char *str)
 {
-    edit_text(adata, "text_0", str);
+    edit_text(adata, "text_0", (char *) str);
 
     sfVector2f circle_pos = get_circle_pos(adata, "circle_0");
     float circle_radius = get_circle_radius(adata, "circle_0");
@@ -211,6 +211,28 @@ void init_tests(s_appdata *adata)
     set_bar_max(adata, bar_id, 100);
     set_bar_current(adata, bar_id, 50);
     move_bar(adata, bar_id, (sfVector2f) { 700, 980 });
+
+    char *btn_id = "button_25";
+
+    add_button(adata, btn_id, TYPE_CIRCLE, 8);
+    resize_button(adata, btn_id, (sfVector2f) { 150.0f, 0 });
+    color_button_bg(adata, btn_id, sfYellow);
+    set_button_font(adata, btn_id, get_font(adata, "lobster"));
+    edit_button(adata, btn_id, "Example");
+    color_button_fg(adata, btn_id, sfRed);
+    set_button_rtex(adata, btn_id, rtex_fourth);
+    move_button(adata, btn_id, (sfVector2f) { 50, (win_h / 2) - 150.0f });
+
+    s_target target;
+    target.rotation = 50.0f;
+    target.pos = (sfVector2f) { win_w - (450.0f), (win_h / 2) - 150.0f };
+    target.color = sfBlue;
+    target.scale = (sfVector2f) { 1.4, 1.4 };
+    target.flags = trf_move | trf_scale | trf_color;
+
+    s_ref *btn_ref = get_ref(adata, get_button(adata, btn_id), TYPE_BUTTON);
+    
+    transform(adata, btn_ref, 5.0f, target);
 }
 
 void post_init(s_appdata *adata)

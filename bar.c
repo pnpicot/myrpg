@@ -328,7 +328,7 @@ int get_bar_rest(s_appdata *adata, char *id)
 
     if (bar == NULL) {
         my_printf(get_error(adata, "unknown_id"));
-        return;
+        return (-1);
     }
 
     return (bar->max - bar->current);

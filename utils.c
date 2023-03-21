@@ -102,12 +102,12 @@ float rand_float(float min, float max)
 
 sfVector2f rand_screen_pos(s_appdata *adata)
 {
-    float win_w = get_float(adata, "win_w");
-    float win_h = get_float(adata, "win_h");
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
     sfVector2f pos;
 
-    pos.x = rand_float(0, win_w);
-    pos.y = rand_float(0, win_h);
+    pos.x = rand_float(0, (float) win_w);
+    pos.y = rand_float(0, (float) win_h);
 
     return (pos);
 }
@@ -243,4 +243,16 @@ sfVector3f sfColor_toHSL(sfColor old)
     if (h > 1) h--;
 
     return ((sfVector3f) { h, s, l });
+}
+
+char *get_random_id(int len)
+{
+    char *id = malloc(sizeof(char) * (len + 1));
+    id[len] = '\0';
+
+    for (int i = 0; i < len; i++) {
+        id[i] = (signed char) rand_int(0, 1) ? rand_int(65, 90) : rand_int(97, 122);
+    }
+
+    return (id);
 }

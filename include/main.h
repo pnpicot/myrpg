@@ -24,6 +24,11 @@
 #define obj_onclick 0x08
 #define obj_onhover 0x10
 
+#define trf_move 0x01
+#define trf_rot 0x02
+#define trf_scale 0x04
+#define trf_color 0x08
+
 typedef struct {
     int exit_status;
     int min_layer;
@@ -107,6 +112,7 @@ typedef struct {
     linked_node *inputs;
     linked_node *keymaps;
     linked_node *bars;
+    linked_node *transforms;
 } s_linkeds;
 
 typedef struct {
@@ -257,6 +263,42 @@ typedef struct {
     float current;
 } s_bar;
 
+typedef struct {
+    sfVector2f pos;
+    sfVector2f scale;
+    float rotation;
+    sfColor color;
+    int flags;
+} s_target;
+
+typedef struct {
+    char *id;
+    sfVector2f target_pos;
+    sfVector2f target_scale;
+    float target_rotation;
+    sfColor target_color;
+    sfVector2f old_pos;
+    sfVector2f old_scale;
+    float old_rotation;
+    sfColor old_color;
+    float move_speed;
+    float scale_speed;
+    float rotation_speed;
+    sfVector2f color_red;
+    sfVector2f color_green;
+    sfVector2f color_blue;
+    sfVector2f color_alpha;
+    s_ref *ref;
+    void (*callback)(s_appdata *adata, s_ref *ref);
+    sfClock *move_clock;
+    sfClock *color_clock;
+    sfClock *rot_clock;
+    sfClock *scale_clock;
+    sfClock *end_clock;
+    float delta_time;
+    int flags;
+} s_transform;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -290,3 +332,4 @@ typedef struct {
 #include "input.h"
 #include "keymap.h"
 #include "bar.h"
+#include "transform.h"
