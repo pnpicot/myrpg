@@ -31,3 +31,16 @@ void set_sprite_active(s_appdata *adata, char *id, sfUint8 active)
 
     sprite->active = active;
 }
+
+void set_sprite_repeat(s_appdata *adata, char *id, sfBool repeat)
+{
+    s_sprite *sprite = get_sprite(adata, id);
+
+    if (sprite == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    sfTexture_setRepeated(sprite->texture, repeat);
+    sfSprite_setTexture(sprite->elem, sprite->texture, sfFalse);
+}

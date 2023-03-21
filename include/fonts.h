@@ -12,4 +12,3 @@
 sfFont *get_font(s_appdata *adata, char *id);
 void add_font(s_appdata *adata, char *id, char *filename);
 void load_fonts(s_appdata *adata);
-

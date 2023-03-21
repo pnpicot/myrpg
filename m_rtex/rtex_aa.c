@@ -21,3 +21,16 @@ s_rtex *get_rtex_d(s_appdata *adata, int depth)
 
     return (NULL);
 }
+
+void set_rtex_shader(s_appdata *adata, char *id, sfShader *shader)
+{
+    s_rtex *rtex = get_rtex(adata, id);
+
+    if (rtex == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    rtex->state->shader = shader;
+    rtex->shader = shader;
+}

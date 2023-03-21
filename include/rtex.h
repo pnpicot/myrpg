@@ -18,5 +18,4 @@ void set_rtex_blendmode(s_appdata *adata, char *id, sfBlendMode mode);
 void clear_rtex(s_appdata *adata, char *id, sfColor color);
 void set_rtex_inherit(s_appdata *adata, char *id, sfUint8 inherit);
 sfShader *get_rtex_shader(s_appdata *adata, char *id);
-sfBlendMode get_rtex_blendmode(s_appdata *adata, char *id);
 s_rtex *get_rtex_d(s_appdata *adata, int depth);

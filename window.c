@@ -12,7 +12,8 @@ void close_window(s_appdata *adata)
     sfRenderWindow_close(adata->win);
 }
 
-void window_loop(s_appdata *adata, float app_rate, float update_rate, float render_rate)
+void window_loop(s_appdata *adata, float app_rate, \
+float update_rate, float render_rate)
 {
     sfEvent event;
     s_clocks *clocks = adata->clocks;
@@ -50,21 +51,17 @@ void create_window(s_appdata *adata)
 {
     init(adata);
     post_init(adata);
-
     sfVideoMode mode = { get_int(adata, "win_w"), get_int(adata, "win_h"), 32 };
     sfRenderWindow* window;
-
     char *title = "MyRPG";
     window = sfRenderWindow_create(mode, title, sfClose | sfResize, NULL);
-
     if (!window) {
         adata->integers->exit_status = 84;
         return;
     }
-
     adata->win = window;
-
-    sfRenderWindow_setFramerateLimit(adata->win, get_int(adata, "max_frame_rate"));
+    int limit = get_int(adata, "max_frame_rate");
+    sfRenderWindow_setFramerateLimit(adata->win, limit);
     run_window(adata);
     sfRenderWindow_destroy(window);
 }

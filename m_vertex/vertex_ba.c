@@ -25,58 +25,45 @@ s_vertex *get_vertex(s_appdata *adata, char *id)
 void delete_vertex(s_appdata *adata, char *id)
 {
     s_vertex *vertex = get_vertex(adata, id);
-
     if (vertex == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
     }
-
     linked_node *vertexes = adata->lists->vertexes;
     int ite = 0;
-
     while (vertexes != NULL && vertexes->data != NULL) {
         s_vertex *cur = (s_vertex *) vertexes->data;
-
         if (!my_strcmp(cur->id, id)) {
             sfVertexArray_destroy(cur->elem);
             break;
         }
-
         ite++;
         vertexes = vertexes->next;
     }
-
     linked_delete(&adata->lists->vertexes, ite);
 }
 
 void add_vertex(s_appdata *adata, char *id, int layer)
 {
     s_vertex *vertex = get_vertex(adata, id);
-
     if (vertex != NULL) {
         my_printf(get_error(adata, "already_exists"));
         return;
     }
-
     s_vertex *new_vertex = malloc(sizeof(s_vertex));
-
     if (new_vertex == NULL) {
         my_printf(get_error(adata, "mem_alloc"));
         return;
     }
-
     s_ints *integers = adata->integers;
-
     new_vertex->active = 1;
     new_vertex->elem = sfVertexArray_create();
     new_vertex->hidden = 0;
     new_vertex->id = id;
     new_vertex->rtex_id = NULL;
     new_vertex->layer = layer;
-
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
-
     linked_add(adata->lists->vertexes, new_vertex);
 }
 

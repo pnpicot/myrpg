@@ -15,7 +15,8 @@ void add_rect(s_appdata *adata, char *id, int layer);
 void resize_rect(s_appdata *adata, char *id, sfVector2f size);
 void move_rect(s_appdata *adata, char *id, sfVector2f pos);
 void color_rect(s_appdata *adata, char *id, sfColor color);
-void set_rect_outline(s_appdata *adata, char *id, sfColor color, float thickness);
+void set_rect_outline(s_appdata *adata, char *id, \
+sfColor color, float thickness);
 void set_rect_origin(s_appdata *adata, char *id, sfVector2f origin);
 void rotate_rect(s_appdata *adata, char *id, float angle);
 void scale_rect(s_appdata *adata, char *id, sfVector2f factors);

@@ -5,7 +5,7 @@
 ** Pre-initialization module
 */
 
-#include "include/main.h"
+#include "../include/main.h"
 
 void init_appdata_ints(s_appdata *adata)
 {
@@ -54,6 +54,22 @@ void init_appdata_clocks(s_appdata *adata)
     clocks->input_clock = sfClock_create();
 }
 
+void init_appdata_linkeds_next(s_linkeds *lists)
+{
+    lists->fonts = linked_new();
+    lists->texts = linked_new();
+    lists->vertexes = linked_new();
+    lists->containers = linked_new();
+    lists->buttons = linked_new();
+    lists->objects = linked_new();
+    lists->switches = linked_new();
+    lists->sliders = linked_new();
+    lists->inputs = linked_new();
+    lists->keymaps = linked_new();
+    lists->bars = linked_new();
+    lists->transforms = linked_new();
+}
+
 void init_appdata_linkeds(s_appdata *adata)
 {
     adata->lists = malloc(sizeof(s_linkeds));
@@ -75,36 +91,5 @@ void init_appdata_linkeds(s_appdata *adata)
     lists->textures = linked_new();
     lists->sprites = linked_new();
     lists->circles = linked_new();
-    lists->fonts = linked_new();
-    lists->texts = linked_new();
-    lists->vertexes = linked_new();
-    lists->containers = linked_new();
-    lists->buttons = linked_new();
-    lists->objects = linked_new();
-    lists->switches = linked_new();
-    lists->sliders = linked_new();
-    lists->inputs = linked_new();
-    lists->keymaps = linked_new();
-    lists->bars = linked_new();
-    lists->transforms = linked_new();
-}
-
-void init_appdata_misc(s_appdata *adata)
-{
-    adata->win = NULL;
-    adata->last_pressed = NULL;
-    adata->last_slider = NULL;
-    adata->last_input = NULL;
-}
-
-void pre_init(s_appdata *adata)
-{
-    srand(time(NULL));
-    init_appdata_ints(adata);
-    init_appdata_floats(adata);
-    init_appdata_clocks(adata);
-    init_appdata_linkeds(adata);
-    init_appdata_misc(adata);
-    init_errors(adata);
-    init_config(adata);
+    init_appdata_linkeds_next(lists);
 }

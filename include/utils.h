@@ -11,6 +11,8 @@
 
 sfBool in_range(float value, float min, float max);
 float force_range(float value, float min, float max);
+sfColor lighten(sfColor old, int value);
+sfColor darken(sfColor old, int value);
 sfColor get_color(int r, int g, int b, int a);
 sfColor get_grayscale(sfColor color);
 float get_vec_dist(sfVector2f vec_a, sfVector2f vec_b);
@@ -21,10 +23,8 @@ int rand_int(int min, int max);
 float rand_float(float min, float max);
 sfVector2f rand_screen_pos(s_appdata *adata);
 sfColor rand_color(sfUint8 alpha);
-sfBool rect_intersects_circle(sfFloatRect rect, sfVector2f circle_pos, float radius);
-sfColor sfColor_toRGB(sfVector3f old);
-sfVector3f sfColor_toHSL(sfColor old);
+sfBool rect_intersects_circle(sfFloatRect rect, \
+sfVector2f circle_pos, float radius);
 sfVector2f get_mouse(s_appdata *adata);
-sfColor lighten(sfColor old, int value);
-sfColor darken(sfColor old, int value);
+float get_clock_seconds(sfClock *clock);
 char *get_random_id(int len);

@@ -9,5 +9,5 @@
 
 void register_windowresize(s_appdata *adata, sfSizeEvent size)
 {
-    
+    // ...
 }

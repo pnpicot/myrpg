@@ -54,15 +54,3 @@ sfShader *get_rtex_shader(s_appdata *adata, char *id)
 
     return (rtex->shader);
 }
-
-sfBlendMode get_rtex_blendmode(s_appdata *adata, char *id)
-{
-    s_rtex *rtex = get_rtex(adata, id);
-
-    if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
-        return (sfBlendNone);
-    }
-
-    return (rtex->state->blendMode);
-}

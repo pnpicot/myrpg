@@ -15,9 +15,16 @@ s_button *get_switch_right(s_appdata *adata, char *id, int layer);
 s_button *get_switch_middle(s_appdata *adata, char *id, int layer);
 s_button *get_switch_indicator(s_appdata *adata, char *id, int layer);
 void update_switch(s_appdata *adata, s_switch *switch_);
+void add_switch_next(s_appdata *adata, char *id, \
+int layer, s_switch *new_switch);
 void add_switch(s_appdata *adata, char *id, int layer);
 void set_switch_rtex(s_appdata *adata, char *id, char *rtex_id);
-void set_switch_ontoggle(s_appdata *adata, char *id, void (*on_toggle)(s_appdata *adata, s_ref *ref));
+void set_switch_ontoggle(s_appdata *adata, char *id, \
+void (*on_toggle)(s_appdata *adata, s_ref *ref));
+void toggle_switch_final(s_appdata *adata, s_switch *switch_, \
+s_target color_target, s_target indicator_target);
+void toggle_switch_next(s_appdata *adata, sfVector2f new_pos, \
+sfColor on_color, s_switch *switch_);
 void toggle_switch(s_appdata *adata, char *id);
 sfBool get_switch_state(s_appdata *adata, char *id);
 void delete_switch(s_appdata *adata, char *id);

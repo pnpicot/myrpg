@@ -7,23 +7,8 @@
 
 #include "include/main.h"
 
-void register_event(s_appdata *adata, sfEvent event)
+void register_event_next(s_appdata *adata, sfEvent event)
 {
-    if (event.type == sfEvtClosed) {
-        close_window(adata);
-        return;
-    }
-
-    if (event.type == sfEvtKeyReleased) {
-        register_keyrelease(adata, event.key.code);
-        return;
-    }
-
-    if (event.type == sfEvtKeyPressed) {
-        register_keypress(adata, event.key.code);
-        return;
-    }
-
     if (event.type == sfEvtMouseMoved) {
         register_mousemove(adata, event.mouseMove);
         return;
@@ -43,4 +28,24 @@ void register_event(s_appdata *adata, sfEvent event)
         register_windowresize(adata, event.size);
         return;
     }
+}
+
+void register_event(s_appdata *adata, sfEvent event)
+{
+    if (event.type == sfEvtClosed) {
+        close_window(adata);
+        return;
+    }
+
+    if (event.type == sfEvtKeyReleased) {
+        register_keyrelease(adata, event.key.code);
+        return;
+    }
+
+    if (event.type == sfEvtKeyPressed) {
+        register_keypress(adata, event.key.code);
+        return;
+    }
+
+    register_event_next(adata, event);
 }

@@ -19,7 +19,8 @@ void color_rect(s_appdata *adata, char *id, sfColor color)
     sfRectangleShape_setFillColor(rect->elem, color);
 }
 
-void set_rect_outline(s_appdata *adata, char *id, sfColor color, float thickness)
+void set_rect_outline(s_appdata *adata, char *id, \
+sfColor color, float thickness)
 {
     s_rect *rect = get_rect(adata, id);
 

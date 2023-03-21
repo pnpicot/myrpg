@@ -25,30 +25,23 @@ sfFont *get_font(s_appdata *adata, char *id)
 void add_font(s_appdata *adata, char *id, char *filename)
 {
     sfFont *font = get_font(adata, id);
-
     if (font != NULL) {
         my_printf(get_error(adata, "already_exists"));
         return;
     }
-
     char *path = str_m_add(3, "bonus/fonts/", filename, ".ttf");
     struct stat buffer;
-
     if (stat(path, &buffer) == -1) {
         my_printf(get_error(adata, "no_file"));
         return;
     }
-
     s_font *new_font = malloc(sizeof(s_font));
-
     if (new_font == NULL) {
         my_printf(get_error(adata, "mem_alloc"));
         return;
     }
-
     new_font->font = sfFont_createFromFile(path);
     new_font->id = id;
-
     linked_add(adata->lists->fonts, new_font);
 }
 

@@ -269,6 +269,7 @@ typedef struct {
     float rotation;
     sfColor color;
     int flags;
+    s_ref *ref;
 } s_target;
 
 typedef struct {
@@ -298,6 +299,12 @@ typedef struct {
     float delta_time;
     int flags;
 } s_transform;
+
+typedef struct {
+    int type;
+    int layer;
+    char *id;
+} s_btn_next;
 
 #include "pre_init.h"
 #include "error.h"
