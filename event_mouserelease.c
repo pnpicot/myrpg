@@ -12,4 +12,6 @@ void register_mouserelease(s_appdata *adata, sfMouseButtonEvent mouse)
     input_check_released(adata);
     slider_check_released(adata);
     object_check_released(adata);
+
+    adata->current_wall = NULL;
 }

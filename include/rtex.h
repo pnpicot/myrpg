@@ -19,3 +19,6 @@ void clear_rtex(s_appdata *adata, char *id, sfColor color);
 void set_rtex_inherit(s_appdata *adata, char *id, sfUint8 inherit);
 sfShader *get_rtex_shader(s_appdata *adata, char *id);
 s_rtex *get_rtex_d(s_appdata *adata, int depth);
+const sfTexture *get_rtex_tex(s_appdata *adata, char *id);
+void set_rtex_clear(s_appdata *adata, char *id, sfColor color);
+void force_rtex(s_appdata *adata, char *id);

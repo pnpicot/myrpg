@@ -37,6 +37,7 @@ typedef struct {
     int max_depth;
     int last_keycode;
     int capital;
+    int wall_layer;
 } s_ints;
 
 typedef struct {
@@ -68,6 +69,7 @@ typedef struct {
     sfSprite *sprite;
     sfUint8 inherit;
     int depth;
+    sfColor clear_color;
 } s_rtex;
 
 typedef struct {
@@ -113,6 +115,9 @@ typedef struct {
     linked_node *keymaps;
     linked_node *bars;
     linked_node *transforms;
+    linked_node *shaders;
+    linked_node *lights;
+    linked_node *walls;
 } s_linkeds;
 
 typedef struct {
@@ -185,6 +190,12 @@ typedef struct {
     void *last_pressed;
     void *last_slider;
     void *last_input;
+    s_rtex *light_rtex;
+    s_rtex *wall_rtex;
+    s_rtex *mask_rtex;
+    s_rtex *light_blend_rtex;
+    s_rtex *light_res_rtex;
+    char *current_wall;
 } s_appdata;
 
 typedef struct {
@@ -238,6 +249,11 @@ typedef struct {
     s_text *indicator_text;
     void (*on_change)(s_appdata *adata, s_ref *ref);
 } s_slider;
+
+typedef struct {
+    sfShader *shader;
+    char *id;
+} s_shader;
 
 typedef struct {
     char *id;
@@ -306,6 +322,23 @@ typedef struct {
     char *id;
 } s_btn_next;
 
+typedef struct {
+    char *id;
+    sfVector2f pos;
+    float inner_radius;
+    float outer_radius;
+    sfColor color;
+    float intensity;
+    sfBool active;
+    sfCircleShape *inner_light;
+    sfCircleShape *outer_light;
+} s_light;
+
+typedef struct {
+    s_rect *hitbox;
+    char *id;
+} s_wall;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -340,3 +373,8 @@ typedef struct {
 #include "keymap.h"
 #include "bar.h"
 #include "transform.h"
+#include "shader.h"
+#include "light.h"
+#include "wall.h"
+#include "light_render.h"
+#include "collision.h"

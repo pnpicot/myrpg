@@ -13,6 +13,12 @@ void init_appdata_misc(s_appdata *adata)
     adata->last_pressed = NULL;
     adata->last_slider = NULL;
     adata->last_input = NULL;
+    adata->light_rtex = NULL;
+    adata->wall_rtex = NULL;
+    adata->mask_rtex = NULL;
+    adata->light_res_rtex = NULL;
+    adata->light_blend_rtex = NULL;
+    adata->current_wall = NULL;
 }
 
 void pre_init(s_appdata *adata)

@@ -73,3 +73,13 @@ color bar_foreground = 50,50,50,255
 int bar_font_size = 22
 string bar_font = courier_bold
 # -- progression bar -- end
+
+# -- lights -- begin
+float light_inner = 40.0f
+float light_outer = 450.0f
+float light_intensity = 100.0f
+float shadow_dist = -2000.0f
+float shadow_median = -3200.0f
+color shadow_mask = 0,0,0,255
+color shadow_cast = 0,0,0,120
+# -- lights -- end

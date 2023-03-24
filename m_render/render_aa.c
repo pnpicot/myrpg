@@ -29,6 +29,11 @@ void render_textures(s_appdata *adata, int depth)
             rtexs = rtexs->next;
             continue;
         }
+        if (cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth) {
+            rtexs = rtexs->next;
+            continue;
+        }
+        if (!my_strcmp(cur->id, adata->wall_rtex->id)) render_lights(adata);
         render_elements(adata, cur);
         s_rtex *next = get_rtex_d(adata, depth + 1);
         const sfTexture *cur_tex = sfRenderTexture_getTexture(cur->texture);
@@ -49,7 +54,7 @@ void clear_rtexs(s_appdata *adata)
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;
 
-        sfRenderTexture_clear(cur->texture, sfTransparent);
+        sfRenderTexture_clear(cur->texture, cur->clear_color);
 
         rtexs = rtexs->next;
     }

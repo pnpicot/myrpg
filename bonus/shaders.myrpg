@@ -1,0 +1,12 @@
+# <id> = <vertex-path>,<frag-path>
+# Only frag :   <id> = NULL,<frag-path>
+# Only vertex : <id> = <vertex-path>,NULL
+
+bloom_threshold = NULL,bloom_threshold.frag
+bloom_blur_x = NULL,bloom_blur.frag
+bloom_blur_y = NULL,bloom_blur.frag
+threshold_blur_x = NULL,bloom_blur.frag
+post_blur_x = NULL,bloom_blur.frag
+post_blur_y = NULL,bloom_blur.frag
+mask = NULL,mask.frag
+gradient = NULL,gradient.frag

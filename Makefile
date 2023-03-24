@@ -38,7 +38,7 @@ library:
 	make -C lib/my
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) $(CSFML) lib/libmy.a
+	gcc -o $(NAME) $(OBJ) $(CSFML) -O3 lib/libmy.a
 
 clean:
 	rm -f $(OBJ)

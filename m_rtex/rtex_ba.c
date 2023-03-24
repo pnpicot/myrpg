@@ -45,6 +45,7 @@ void add_rtex_next(s_appdata *adata, char *id, int depth, s_rtex *new_rtex)
     new_rtex->mode = sfBlendNone;
     new_rtex->shader = NULL;
     new_rtex->sprite = sfSprite_create();
+    new_rtex->clear_color = sfBlack;
     new_rtex->state = get_default_rstate();
     new_rtex->texture = sfRenderTexture_create(win_w, win_h, sfFalse);
     if (depth < ints->min_depth) ints->min_depth = depth;

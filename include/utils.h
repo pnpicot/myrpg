@@ -28,3 +28,5 @@ sfVector2f circle_pos, float radius);
 sfVector2f get_mouse(s_appdata *adata);
 float get_clock_seconds(sfClock *clock);
 char *get_random_id(int len);
+sfVector2f get_projected(sfVector2f origin, sfVector2f point, float dist);
+sfColor rand_light_color(sfUint8 alpha);

@@ -7,3 +7,4 @@ no_file = [MyRPG] can't access file/dir (no such file or directory).
 tex_load_fail = [MyRPG] can't load texture (unknown error).
 vertex_unknown = [MyRPG] can't access vertex from array (index out of bounds).
 container_empty = [MyRPG] can't get bounds of an empty container.
+missing_light_rtex = [MyRPG] first define a render texture for lighting rendering.

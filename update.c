@@ -24,6 +24,10 @@ void update(s_appdata *adata, float update_rate)
             input_type(adata, integers->last_keycode);
             sfClock_restart(clocks->input_clock);
         }
+
+        //
+        update_current_wall(adata);
+        //
         sfClock_restart(clocks->update_clock);
     }
 }

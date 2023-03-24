@@ -25,6 +25,7 @@ void init_appdata_ints(s_appdata *adata)
     integers->max_depth = 0;
     integers->capital = 0;
     integers->last_keycode = -1;
+    integers->wall_layer = 0;
 }
 
 void init_appdata_floats(s_appdata *adata)
@@ -68,6 +69,9 @@ void init_appdata_linkeds_next(s_linkeds *lists)
     lists->keymaps = linked_new();
     lists->bars = linked_new();
     lists->transforms = linked_new();
+    lists->shaders = linked_new();
+    lists->lights = linked_new();
+    lists->walls = linked_new();
 }
 
 void init_appdata_linkeds(s_appdata *adata)

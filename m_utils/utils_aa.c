@@ -35,3 +35,29 @@ char *get_random_id(int len)
 
     return (id);
 }
+
+sfVector2f get_projected(sfVector2f origin, sfVector2f point, float dist)
+{
+    sfVector2f dv_b;
+    dv_b.x = origin.x - point.x;
+    dv_b.y = origin.y - point.y;
+
+    float dn_b = sqrt(pow(dv_b.x, 2) + pow(dv_b.y, 2));
+    sfVector2f proj = { point.x, point.y };
+
+    proj.x += (dist / dn_b) * dv_b.x;
+    proj.y += (dist / dn_b) * dv_b.y;
+
+    return (proj);
+}
+
+sfColor rand_light_color(sfUint8 alpha)
+{
+    sfColor new_color;
+    new_color.r = rand_int(170, 255);
+    new_color.g = rand_int(170, 255);
+    new_color.b = rand_int(170, 255);
+    new_color.a = alpha ? rand_int(0, 255) : 255;
+
+    return (new_color);
+}
