@@ -320,6 +320,11 @@ typedef struct {
 } s_target;
 
 typedef struct {
+    float dist;
+    sfVector2f pos;
+} s_dist;
+
+typedef struct {
     char *id;
     sfVector2f target_pos;
     sfVector2f target_scale;

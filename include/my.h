@@ -130,7 +130,7 @@ void linked_swap_next(linked_node **list, int first, \
 int second, linked_swap_s swap);
 void linked_swap(linked_node **list, int first, int second);
 void linked_sort(linked_node **list, \
-int *comp_func(linked_node *first_node, linked_node *second_node));
+int (*comp_func)(linked_node *first_node, linked_node *second_node));
 void linked_reverse(linked_node **list);
 void linked_fuse(linked_node *list1, linked_node *list2);
 char *substr(const char *str, int start, int end);

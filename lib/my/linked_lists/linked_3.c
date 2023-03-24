@@ -73,7 +73,7 @@ void linked_swap(linked_node **list, int first, int second)
 }
 
 void linked_sort(linked_node **list, \
-int *comp_func(linked_node *first_node, linked_node *second_node))
+int (*comp_func)(linked_node *first_node, linked_node *second_node))
 {
     int ite = 0;
     linked_node *node = *list;

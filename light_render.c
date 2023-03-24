@@ -19,11 +19,6 @@ void set_lightmask_rtex(s_appdata *adata, char *rtex_id)
     adata->mask_rtex = rtex;
 }
 
-typedef struct {
-    float dist;
-    sfVector2f pos;
-} s_dist;
-
 int dist_cmp(linked_node *first_node, linked_node *second_node)
 {
     s_dist *dist_a = (s_dist *) first_node->data;
@@ -159,14 +154,10 @@ void draw_light(s_appdata *adata, s_light *light)
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->inner_light, NULL);
     force_rtex(adata, adata->light_rtex->id);
 
-    s_ints *integers = adata->integers;
+    for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
+        s_rtex *rtex = get_rtex_d(adata, i);
 
-    for (int i = integers->min_depth; i <= integers->max_depth; i++) {
-        if (i > adata->light_rtex->depth && i <= adata->light_res_rtex->depth) {
-            s_rtex *rtex = get_rtex_d(adata, i);
-
-            force_rtex(adata, rtex->id);
-        }
+        force_rtex(adata, rtex->id);
     }
 
     s_rtex *blend = get_rtex(adata, adata->light_blend_rtex->id);
@@ -200,7 +191,6 @@ void render_lights(s_appdata *adata)
     if (adata->mask_rtex == NULL || adata->light_rtex == NULL) return;
 
     linked_node *lights = adata->lists->lights;
-    s_ints *integers = adata->integers;
 
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
@@ -209,12 +199,10 @@ void render_lights(s_appdata *adata)
         clear_rtex(adata, adata->mask_rtex->id, adata->mask_rtex->clear_color);
         clear_rtex(adata, adata->light_rtex->id, adata->light_rtex->clear_color);
 
-        for (int i = integers->min_depth; i <= integers->max_depth; i++) {
-            if (i > adata->light_rtex->depth && i <= adata->light_res_rtex->depth) {
-                s_rtex *rtex = get_rtex_d(adata, i);
+        for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
+            s_rtex *rtex = get_rtex_d(adata, i);
 
-                clear_rtex(adata, rtex->id, rtex->clear_color);
-            }
+            clear_rtex(adata, rtex->id, rtex->clear_color);
         }
 
         lights = lights->next;
