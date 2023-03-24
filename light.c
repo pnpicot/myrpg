@@ -374,3 +374,63 @@ void toggle_light(s_appdata *adata, char *id)
 
     light->active = active ? sfFalse : sfTrue;
 }
+
+void init_light_recommended(s_appdata *adata, int depth_start)
+{
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfVector2f res = { win_w, win_h };
+
+    add_rtex(adata, "light_mask", depth_start);
+    set_lightmask_rtex(adata, "light_mask");
+    set_rtex_blendmode(adata, "light_mask", sfBlendNone);
+    set_rtex_clear(adata, "light_mask", sfWhite);
+
+    add_rtex(adata, "light_blur_x", depth_start + 1);
+    set_rtex_blendmode(adata, "light_blur_x", sfBlendAdd);
+    set_shader_texture(adata, "bloom_blur_x", "texture", get_rtex_tex(adata, "light_blur_x"));
+    set_shader_vec2(adata, "bloom_blur_x", "blur_radius", (sfVector2f) { 0.004f, 0 });
+    set_rtex_shader(adata, "light_blur_x", get_shader(adata, "bloom_blur_x"));
+    set_light_rtex(adata, "light_blur_x");
+
+    add_rtex(adata, "light_blur_y", depth_start + 2);
+    set_rtex_inherit(adata, "light_blur_y", 1);
+    set_rtex_blendmode(adata, "light_blur_y", sfBlendAlpha);
+    set_shader_texture(adata, "bloom_blur_y", "texture", get_rtex_tex(adata, "light_blur_y"));
+    set_shader_vec2(adata, "bloom_blur_y", "blur_radius", (sfVector2f) { 0, 0.008f });
+    set_rtex_shader(adata, "light_blur_y", get_shader(adata, "bloom_blur_y"));
+    set_rtex_clear(adata, "light_blur_y", sfTransparent);
+
+    add_rtex(adata, "light_post_blur_y", depth_start + 3);
+    set_rtex_inherit(adata, "light_post_blur_y", 1);
+    set_shader_texture(adata, "post_blur_y", "texture", get_rtex_tex(adata, "light_post_blur_y"));
+    set_shader_vec2(adata, "post_blur_y", "blur_radius", (sfVector2f) { 0, 0.008f });
+    set_rtex_shader(adata, "light_post_blur_y", get_shader(adata, "post_blur_y"));
+    set_rtex_clear(adata, "light_post_blur_y", sfTransparent);
+
+    add_rtex(adata, "light_gradient", depth_start + 4);
+    set_rtex_inherit(adata, "light_gradient", 1);
+    set_shader_texture(adata, "gradient", "tex", get_rtex_tex(adata, "light_gradient"));
+    set_shader_vec2(adata, "gradient", "resolution", res);
+    set_rtex_shader(adata, "light_gradient", get_shader(adata, "gradient"));
+    set_rtex_clear(adata, "light_gradient", sfTransparent);
+
+    add_rtex(adata, "light_overlay", depth_start + 5);
+    set_rtex_inherit(adata, "light_overlay", 1);
+    set_rtex_blendmode(adata, "light_overlay", sfBlendAdd);
+    set_rtex_clear(adata, "light_overlay", sfTransparent);
+    set_lightres_rtex(adata, "light_overlay");
+    set_rtex_shader(adata, "light_overlay", get_shader(adata, "mask"));
+    set_shader_texture(adata, "mask", "texture", get_rtex_tex(adata, "light_mask"));
+    set_shader_texture(adata, "mask", "add_texture", get_rtex_tex(adata, "light_overlay"));
+
+    add_rtex(adata, "light_blend", depth_start + 6);
+    set_rtex_blendmode(adata, "light_blend", sfBlendAlpha);
+    set_rtex_clear(adata, "light_blend", get_color(10, 10, 10, 255));
+    set_lightblend_rtex(adata, "light_blend");
+
+    add_rtex(adata, "walls", depth_start + 7);
+    set_rtex_blendmode(adata, "walls", sfBlendAlpha);
+    set_rtex_clear(adata, "walls", sfTransparent);
+    set_wall_rtex(adata, "walls", 1);
+}

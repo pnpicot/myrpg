@@ -20,4 +20,6 @@ void register_keypress(s_appdata *adata, int keycode)
         input_type(adata, keycode);
         sfClock_restart(clocks->input_clock);
     }
+
+    adata->keys[keycode] = 1;
 }

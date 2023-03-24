@@ -226,6 +226,7 @@ typedef struct {
     s_rtex *light_blend_rtex;
     s_rtex *light_res_rtex;
     char *current_wall;
+    int *keys;
 } s_appdata;
 
 typedef struct {
@@ -410,3 +411,4 @@ typedef struct {
 #include "collision.h"
 #include "audio.h"
 #include "animation.h"
+#include "key.h"

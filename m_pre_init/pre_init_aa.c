@@ -19,6 +19,8 @@ void init_appdata_misc(s_appdata *adata)
     adata->light_res_rtex = NULL;
     adata->light_blend_rtex = NULL;
     adata->current_wall = NULL;
+
+    init_keys(adata);
 }
 
 void pre_init(s_appdata *adata)

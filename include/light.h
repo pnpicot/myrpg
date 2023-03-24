@@ -33,3 +33,4 @@ sfBool get_light_active(s_appdata *adata, char *id);
 void toggle_light(s_appdata *adata, char *id);
 void set_lightres_rtex(s_appdata *adata, char *rtex_id);
 void set_lightblend_rtex(s_appdata *adata, char *rtex_id);
+void init_light_recommended(s_appdata *adata, int depth_start);
