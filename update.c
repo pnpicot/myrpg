@@ -17,6 +17,7 @@ void update(s_appdata *adata, float update_rate)
         slider_update_change(adata);
         input_update(adata);
         transform_update(adata);
+        update_animations(adata);
         int can_input = input_seconds >= get_float(adata, "input_speed");
         int last_key = integers->last_keycode != -1;
         int last_input = adata->last_input != NULL;

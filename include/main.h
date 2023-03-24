@@ -29,6 +29,9 @@
 #define trf_scale 0x04
 #define trf_color 0x08
 
+#define animation_restart 0
+#define animation_reverse 1
+
 typedef struct {
     int exit_status;
     int min_layer;
@@ -93,6 +96,17 @@ typedef struct {
 } s_keymap;
 
 typedef struct {
+    char *id;
+    sfMusic *music;
+} s_music;
+
+typedef struct {
+    char *id;
+    sfSound *sound;
+    sfSoundBuffer *sound_buffer;
+} s_sound;
+
+typedef struct {
     linked_node *config_ints;
     linked_node *config_floats;
     linked_node *config_strings;
@@ -118,6 +132,10 @@ typedef struct {
     linked_node *shaders;
     linked_node *lights;
     linked_node *walls;
+    linked_node *musics;
+    linked_node *sounds;
+    linked_node *sound_queue;
+    linked_node *animations;
 } s_linkeds;
 
 typedef struct {
@@ -180,6 +198,18 @@ typedef struct {
     sfUint8 hidden;
     int layer;
 } s_sprite;
+
+typedef struct {
+    s_sprite *sprite;
+    sfClock *anim_clock;
+    float clock_rate;
+    sfVector2f base_size;
+    int width;
+    int height;
+    sfVector2f pos;
+    int mode;
+    int reverse_state;
+} s_animation;
 
 typedef struct {
     sfRenderWindow *win;
@@ -378,3 +408,5 @@ typedef struct {
 #include "wall.h"
 #include "light_render.h"
 #include "collision.h"
+#include "audio.h"
+#include "animation.h"

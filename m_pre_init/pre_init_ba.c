@@ -72,6 +72,10 @@ void init_appdata_linkeds_next(s_linkeds *lists)
     lists->shaders = linked_new();
     lists->lights = linked_new();
     lists->walls = linked_new();
+    lists->musics = linked_new();
+    lists->sounds = linked_new();
+    lists->sound_queue = linked_new();
+    lists->animations = linked_new();
 }
 
 void init_appdata_linkeds(s_appdata *adata)

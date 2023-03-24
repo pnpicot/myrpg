@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <SFML/Graphics.h>
+#include <SFML/Audio.h>
 
 #define gf_dirs 0x01
 #define gf_roots 0x02

@@ -80,6 +80,24 @@ void init_tests(s_appdata *adata)
     set_light_outer(adata, light_id, rand_float(450.0f, 850.0f));
     set_light_intensity(adata, light_id, rand_float(30.0f, 50.0f));
     // -- light -- end
+
+    /* add_rtex(adata, "base_game", 9);
+    set_rtex_blendmode(adata, "base_game", sfBlendMultiply);
+    set_rtex_clear(adata, "base_game", sfTransparent);
+
+    add_sprite(adata, "example", 1);
+    set_sprite_rtex(adata, "example", "base_game");
+    set_sprite_texture(adata, "example", get_texture(adata, "sheet"));
+    scale_sprite(adata, "example", (sfVector2f) { 0.3f, 0.3f });
+    animate_sprite(adata, "example");
+    set_animation_cols(adata, "example", 4);
+    set_animation_rows(adata, "example", 4);
+    set_animation_speed(adata, "example", 0.1f);
+    shift_animation_row(adata, "example", 1); */
+
+    play_music(adata, "theme");
+    set_music_loop(adata, "theme", sfTrue);
+    set_music_volume(adata, "theme", 20.0f);
 }
 
 void add_light_to_cursor(s_appdata *adata)
@@ -92,6 +110,7 @@ void add_light_to_cursor(s_appdata *adata)
     set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
     set_light_intensity(adata, light_id, rand_float(30.0f, 50.0f));
     move_light(adata, light_id, get_mouse(adata));
+    play_sound(adata, "bonus", 15.0f, get_mouse(adata));
 }
 
 void post_init(s_appdata *adata)

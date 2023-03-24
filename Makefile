@@ -30,7 +30,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	app
 
-CSFML = -lcsfml-window -lcsfml-graphics -lcsfml-system -lm
+CSFML = -lcsfml-window -lcsfml-graphics -lcsfml-audio -lcsfml-system -lm
 
 all:	$(NAME)
 
