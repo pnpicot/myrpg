@@ -47,6 +47,26 @@ void init_tests(s_appdata *adata)
     set_rtex_clear(adata, "game", sfTransparent);
     set_rtex_blendmode(adata, "game", sfBlendMultiply);
 
+    char *emiter_id = "emiter_0";
+
+    add_emiter(adata, emiter_id);
+    set_emiter_rtex(adata, emiter_id, "game");
+    move_emiter(adata, emiter_id, (sfVector2f) { win_w / 2, win_h / 2 });
+    set_emiter_lifetime(adata, emiter_id, 150000);
+    set_emiter_particle_lifetime(adata, emiter_id, 5000);
+    set_emiter_particle_max(adata, emiter_id, 80);
+
+    sfSprite *particle_model = sfSprite_create();
+    sfSprite_setTexture(particle_model, get_texture(adata, "particle"), sfTrue);
+
+    set_emiter_model(adata, emiter_id, particle_model);
+    set_emiter_rotation_dir(adata, emiter_id, particle_clockwise);
+    set_emiter_rotation_speed(adata, emiter_id, 0);
+    set_emiter_spawnrate(adata, emiter_id, 1.0f);
+    set_emiter_particle_speed(adata, emiter_id, 120.0f);
+    set_emiter_spawn_offset(adata, emiter_id, (sfVector2f) { -13.0f, 13.0f });
+    set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.6f, 0.6f }, (sfVector2f) { -0.3f, -0.3f });
+
     // -- particles -- end
 }
 

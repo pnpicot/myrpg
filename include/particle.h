@@ -26,3 +26,4 @@ void add_emiter(s_appdata *adata, char *id);
 void try_new_particle(s_appdata *adata, s_particle_src *emiter);
 void cycle_emiter(s_appdata *adata, s_particle_src *emiter);
 void update_emiters(s_appdata *adata);
+void set_emiter_spawn_offset(s_appdata *adata, char *id, sfVector2f offset);

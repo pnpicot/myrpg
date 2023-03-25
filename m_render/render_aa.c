@@ -22,6 +22,7 @@ void render_elements(s_appdata *adata, s_rtex *rtex)
 
 void render_textures(s_appdata *adata, int depth)
 {
+    update_emiters(adata);
     linked_node *rtexs = adata->lists->rtexs;
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;

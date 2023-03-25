@@ -382,10 +382,10 @@ typedef struct {
 
 typedef struct {
     sfSprite *model;
-    float angle_min;
-    float angle_max;
     sfBool rotation_dir;
     sfBool active;
+    float angle;
+    int life;
 } s_particle;
 
 typedef struct {
@@ -404,6 +404,9 @@ typedef struct {
     sfVector2f end_size;
     int life_time;
     int emiter_life;
+    sfVector2f sprite_origin;
+    sfVector2f spawn_offset;
+    sfClock *delta_clock;
 } s_particle_src;
 
 #include "pre_init.h"
