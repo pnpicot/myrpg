@@ -166,6 +166,10 @@ void draw_light(s_appdata *adata, s_light *light)
 
     sfSprite *tmp = sfSprite_create();
     sfSprite_setTexture(tmp, cur_tex, sfTrue);
+
+    sfRenderStates *state = light_rtex->state;
+    state->blendMode = sfBlendAlpha;
+
     sfRenderTexture_drawSprite(blend->texture, tmp, light_rtex->state);
 }
 

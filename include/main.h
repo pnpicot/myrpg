@@ -32,6 +32,10 @@
 #define animation_restart 0
 #define animation_reverse 1
 
+#define particle_clockwise 1
+#define particle_anticlockwise 2
+#define particle_random_dir 3
+
 typedef struct {
     int exit_status;
     int min_layer;
@@ -136,6 +140,7 @@ typedef struct {
     linked_node *sounds;
     linked_node *sound_queue;
     linked_node *animations;
+    linked_node *emiters;
 } s_linkeds;
 
 typedef struct {
@@ -375,6 +380,32 @@ typedef struct {
     char *id;
 } s_wall;
 
+typedef struct {
+    sfSprite *model;
+    float angle_min;
+    float angle_max;
+    sfBool rotation_dir;
+    sfBool active;
+} s_particle;
+
+typedef struct {
+    char *id;
+    s_rtex *render_tex;
+    sfVector2f emiter_pos;
+    int particle_max;
+    int particle_count;
+    float spawn_chance;
+    sfSprite *particle_model;
+    linked_node *particle_pool;
+    int rotation_dir;
+    float rotation_speed;
+    float speed;
+    sfVector2f start_size;
+    sfVector2f end_size;
+    int life_time;
+    int emiter_life;
+} s_particle_src;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -417,3 +448,4 @@ typedef struct {
 #include "audio.h"
 #include "animation.h"
 #include "key.h"
+#include "particle.h"

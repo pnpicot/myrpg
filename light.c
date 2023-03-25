@@ -404,7 +404,7 @@ void init_light_recommended(s_appdata *adata, int depth_start)
     add_rtex(adata, "light_post_blur_y", depth_start + 3);
     set_rtex_inherit(adata, "light_post_blur_y", 1);
     set_shader_texture(adata, "post_blur_y", "texture", get_rtex_tex(adata, "light_post_blur_y"));
-    set_shader_vec2(adata, "post_blur_y", "blur_radius", (sfVector2f) { 0, 0.008f });
+    set_shader_vec2(adata, "post_blur_y", "blur_radius", (sfVector2f) { 0, 0.012f });
     set_rtex_shader(adata, "light_post_blur_y", get_shader(adata, "post_blur_y"));
     set_rtex_clear(adata, "light_post_blur_y", sfTransparent);
 

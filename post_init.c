@@ -40,6 +40,14 @@ void init_tests(s_appdata *adata)
     play_music(adata, "theme");
     set_music_loop(adata, "theme", sfTrue);
     set_music_volume(adata, "theme", 20.0f);
+
+    // -- particles -- begin
+
+    add_rtex(adata, "game", 8);
+    set_rtex_clear(adata, "game", sfTransparent);
+    set_rtex_blendmode(adata, "game", sfBlendMultiply);
+
+    // -- particles -- end
 }
 
 void add_light_to_cursor(s_appdata *adata)
