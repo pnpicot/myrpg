@@ -39,7 +39,7 @@ void init_tests(s_appdata *adata)
 
     play_music(adata, "theme");
     set_music_loop(adata, "theme", sfTrue);
-    set_music_volume(adata, "theme", 20.0f);
+    set_music_volume(adata, "theme", 5.0f);
 
     // -- particles -- begin
 
@@ -53,20 +53,20 @@ void init_tests(s_appdata *adata)
     set_emiter_rtex(adata, emiter_id, "game");
     move_emiter(adata, emiter_id, (sfVector2f) { win_w / 2, win_h / 2 });
     set_emiter_lifetime(adata, emiter_id, 150000);
-    set_emiter_particle_lifetime(adata, emiter_id, 5000);
-    set_emiter_particle_max(adata, emiter_id, 80);
+    set_emiter_particle_lifetime(adata, emiter_id, 9000);
+    set_emiter_particle_max(adata, emiter_id, 350);
 
     sfSprite *particle_model = sfSprite_create();
-    sfSprite_setTexture(particle_model, get_texture(adata, "particle"), sfTrue);
+    sfSprite_setTexture(particle_model, get_texture(adata, "star"), sfTrue);
 
     set_emiter_model(adata, emiter_id, particle_model);
     set_emiter_rotation_dir(adata, emiter_id, particle_random_dir);
     set_emiter_rotation_speed(adata, emiter_id, 150.0f);
     set_emiter_spawnrate(adata, emiter_id, 1.0f);
-    set_emiter_particle_speed(adata, emiter_id, 120.0f);
-    set_emiter_cone(adata, emiter_id, (sfVector2f) { 230.0f, 320.0f });
+    set_emiter_particle_speed(adata, emiter_id, 180.0f);
+    set_emiter_cone(adata, emiter_id, (sfVector2f) { 0.0f, 360.0f });
     set_emiter_spawn_offset(adata, emiter_id, (sfVector2f) { -20.0f, 20.0f });
-    set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.6f, 0.6f }, (sfVector2f) { -0.3f, -0.3f });
+    set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.4f, 0.4f }, (sfVector2f) { -0.7f, -0.7f });
 
     // -- particles -- end
 }

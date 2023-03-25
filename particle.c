@@ -299,8 +299,14 @@ void display_particles(s_appdata *adata, s_particle_src *emiter)
 
     while (particles != NULL && particles->data != NULL) {
         s_particle *cur = (s_particle *) particles->data;
+        sfRenderStates *state = malloc(sizeof(sfRenderStates));
 
-        sfRenderTexture_drawSprite(emiter->render_tex->texture, cur->model, NULL);
+        state->blendMode = sfBlendAlpha;
+        state->shader = NULL;
+        state->texture = NULL;
+        state->transform = sfTransform_Identity;
+
+        sfRenderTexture_drawSprite(emiter->render_tex->texture, cur->model, state);
 
         particles = particles->next;
     }
@@ -343,7 +349,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         } else if (cur->rotation_dir == particle_anticlockwise) {
             cur_angle -= emiter->rotation_speed * delta;
 
-            if (cur_angle < 0) cur_angle *= -1;
+            if (cur_angle < 0) cur_angle += 360.0f ;
         }
         
         sfSprite_setRotation(cur->model, cur_angle);
