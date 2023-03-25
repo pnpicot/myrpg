@@ -354,12 +354,14 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
             float rand_x = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
             float rand_y = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
             sfVector2f new_pos = emiter->emiter_pos;
+
             new_pos.x += rand_x;
             new_pos.y += rand_y;
 
             sfSprite_setPosition(cur->model, new_pos);
             sfSprite_setScale(cur->model, emiter->start_size);
             sfSprite_setOrigin(cur->model, emiter->sprite_origin);
+
             cur->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
             cur->life = emiter->life_time;
         }
@@ -382,6 +384,8 @@ void cycle_emiter(s_appdata *adata, s_particle_src *emiter)
 
     update_particles(adata, emiter);
     display_particles(adata, emiter);
+
+    // emiter->emiter_life--;
 }
 
 void update_emiters(s_appdata *adata)
