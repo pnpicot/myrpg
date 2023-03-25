@@ -386,6 +386,7 @@ typedef struct {
     sfBool active;
     float angle;
     int life;
+    float vortex_speed;
 } s_particle;
 
 typedef struct {
@@ -408,6 +409,8 @@ typedef struct {
     sfVector2f spawn_offset;
     sfVector2f cone_range;
     sfClock *delta_clock;
+    int vortex_dir;
+    sfVector2f vortex_speed;
 } s_particle_src;
 
 #include "pre_init.h"

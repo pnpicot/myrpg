@@ -63,10 +63,12 @@ void init_tests(s_appdata *adata)
     set_emiter_rotation_dir(adata, emiter_id, particle_random_dir);
     set_emiter_rotation_speed(adata, emiter_id, 150.0f);
     set_emiter_spawnrate(adata, emiter_id, 1.0f);
-    set_emiter_particle_speed(adata, emiter_id, 180.0f);
+    set_emiter_particle_speed(adata, emiter_id, 230.0f);
     set_emiter_cone(adata, emiter_id, (sfVector2f) { 0.0f, 360.0f });
     set_emiter_spawn_offset(adata, emiter_id, (sfVector2f) { -20.0f, 20.0f });
     set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.4f, 0.4f }, (sfVector2f) { -0.7f, -0.7f });
+    set_emiter_vortex_dir(adata, emiter_id, particle_anticlockwise);
+    set_emiter_vortex_speed(adata, emiter_id, (sfVector2f) { 60.0f, 120.0f });
 
     // -- particles -- end
 }
