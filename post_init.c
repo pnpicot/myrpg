@@ -60,10 +60,11 @@ void init_tests(s_appdata *adata)
     sfSprite_setTexture(particle_model, get_texture(adata, "particle"), sfTrue);
 
     set_emiter_model(adata, emiter_id, particle_model);
-    set_emiter_rotation_dir(adata, emiter_id, particle_clockwise);
-    set_emiter_rotation_speed(adata, emiter_id, 0);
+    set_emiter_rotation_dir(adata, emiter_id, particle_random_dir);
+    set_emiter_rotation_speed(adata, emiter_id, 150.0f);
     set_emiter_spawnrate(adata, emiter_id, 1.0f);
     set_emiter_particle_speed(adata, emiter_id, 120.0f);
+    set_emiter_cone(adata, emiter_id, (sfVector2f) { 0.0f, 360.0f });
     set_emiter_spawn_offset(adata, emiter_id, (sfVector2f) { -13.0f, 13.0f });
     set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.6f, 0.6f }, (sfVector2f) { -0.3f, -0.3f });
 

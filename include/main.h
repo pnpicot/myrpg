@@ -406,6 +406,7 @@ typedef struct {
     int emiter_life;
     sfVector2f sprite_origin;
     sfVector2f spawn_offset;
+    sfVector2f cone_range;
     sfClock *delta_clock;
 } s_particle_src;
 

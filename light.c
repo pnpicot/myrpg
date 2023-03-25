@@ -426,7 +426,7 @@ void init_light_recommended(s_appdata *adata, int depth_start)
 
     add_rtex(adata, "light_blend", depth_start + 6);
     set_rtex_blendmode(adata, "light_blend", sfBlendAlpha);
-    set_rtex_clear(adata, "light_blend", get_color(10, 10, 10, 255));
+    set_rtex_clear(adata, "light_blend", sfBlack);
     set_lightblend_rtex(adata, "light_blend");
 
     add_rtex(adata, "walls", depth_start + 7);

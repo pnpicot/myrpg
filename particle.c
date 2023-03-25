@@ -234,9 +234,22 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->start_size = (sfVector2f) { 1.0f, 1.0f };
     new_emiter->sprite_origin = (sfVector2f) { 0, 0 };
     new_emiter->spawn_offset = (sfVector2f) { 0, 0 };
+    new_emiter->cone_range = (sfVector2f) { 275.0f, 275.0f };
     new_emiter->delta_clock = sfClock_create();
 
     linked_add(adata->lists->emiters, new_emiter);
+}
+
+void set_emiter_cone(s_appdata *adata, char *id, sfVector2f angle_range)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->cone_range = angle_range;
 }
 
 void try_new_particle(s_appdata *adata, s_particle_src *emiter)
@@ -262,7 +275,7 @@ void try_new_particle(s_appdata *adata, s_particle_src *emiter)
         }
 
         new_particle->model = sfSprite_copy(emiter->particle_model);
-        new_particle->angle = 275;
+        new_particle->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
         new_particle->life = emiter->life_time;
 
         emiter->particle_count++;
@@ -304,6 +317,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         s_particle *cur = (s_particle *) particles->data;
         sfVector2f pos = sfSprite_getPosition(cur->model);
         sfVector2f scale = sfSprite_getScale(cur->model);
+        float cur_angle = sfSprite_getRotation(cur->model);
         float dir = cur->angle * (3.14159f / 180);
 
         pos.x += (float) (emiter->speed * delta * cos(dir));
@@ -320,12 +334,19 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         scale.x += ((scale_speed * delta) / scale_dist) * scale_vec.x;
         scale.y += ((scale_speed * delta) / scale_dist) * scale_vec.y;
 
-        sfVector2f origin;
-        origin.x = emiter->sprite_origin.x * scale.x;
-        origin.y = emiter->sprite_origin.y * scale.y;
-
         sfSprite_setScale(cur->model, scale);
-        sfSprite_setOrigin(cur->model, origin);
+
+        if (cur->rotation_dir == particle_clockwise) {
+            cur_angle += emiter->rotation_speed * delta;
+
+            if (cur_angle > 360.0f) cur_angle -= 360.0f;
+        } else if (cur->rotation_dir == particle_anticlockwise) {
+            cur_angle -= emiter->rotation_speed * delta;
+
+            if (cur_angle < 0) cur_angle *= -1;
+        }
+        
+        sfSprite_setRotation(cur->model, cur_angle);
 
         cur->life--;
 
@@ -339,6 +360,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
             sfSprite_setPosition(cur->model, new_pos);
             sfSprite_setScale(cur->model, emiter->start_size);
             sfSprite_setOrigin(cur->model, emiter->sprite_origin);
+            cur->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
             cur->life = emiter->life_time;
         }
 
