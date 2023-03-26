@@ -30,3 +30,4 @@ float get_clock_seconds(sfClock *clock);
 char *get_random_id(int len);
 sfVector2f get_projected(sfVector2f origin, sfVector2f point, float dist);
 sfColor rand_light_color(sfUint8 alpha);
+sfColor lerp_color(sfColor from, sfColor to, float factor);

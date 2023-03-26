@@ -387,6 +387,7 @@ typedef struct {
     float angle;
     int life;
     float vortex_speed;
+    sfColor color;
 } s_particle;
 
 typedef struct {
@@ -411,6 +412,9 @@ typedef struct {
     sfClock *delta_clock;
     int vortex_dir;
     sfVector2f vortex_speed;
+    sfColor start_color;
+    sfColor end_color;
+    float lerp_div;
 } s_particle_src;
 
 #include "pre_init.h"

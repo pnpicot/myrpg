@@ -98,7 +98,7 @@ void set_emiter_particle_max(s_appdata *adata, char *id, int max)
     emiter->particle_max = max;
 }
 
-void set_emiter_model(s_appdata *adata, char *id, sfSprite *model)
+void set_emiter_model(s_appdata *adata, char *id, char *texture_id)
 {
     s_particle_src *emiter = get_emiter(adata, id);
 
@@ -107,9 +107,12 @@ void set_emiter_model(s_appdata *adata, char *id, sfSprite *model)
         return;
     }
 
-    emiter->particle_model = model;
+    sfSprite *particle_model = sfSprite_create();
+    sfSprite_setTexture(particle_model, get_texture(adata, texture_id), sfTrue);
 
-    const sfTexture *tex = sfSprite_getTexture(model);
+    emiter->particle_model = particle_model;
+
+    const sfTexture *tex = sfSprite_getTexture(particle_model);
     sfVector2u size = sfTexture_getSize(tex);
 
     emiter->sprite_origin = (sfVector2f) { size.x / 2, size.y / 2 };
@@ -258,10 +261,13 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->start_size = (sfVector2f) { 1.0f, 1.0f };
     new_emiter->sprite_origin = (sfVector2f) { 0, 0 };
     new_emiter->spawn_offset = (sfVector2f) { 0, 0 };
-    new_emiter->cone_range = (sfVector2f) { 275.0f, 275.0f };
+    new_emiter->cone_range = (sfVector2f) { 270.0f, 270.0f };
     new_emiter->delta_clock = sfClock_create();
     new_emiter->vortex_dir = particle_clockwise;
     new_emiter->vortex_speed = (sfVector2f) { 0, 0 };
+    new_emiter->start_color = sfWhite;
+    new_emiter->end_color = sfWhite;
+    new_emiter->lerp_div = 1.0f;
 
     linked_add(adata->lists->emiters, new_emiter);
 }
@@ -276,6 +282,31 @@ void set_emiter_cone(s_appdata *adata, char *id, sfVector2f angle_range)
     }
 
     emiter->cone_range = angle_range;
+}
+
+void set_emiter_colors(s_appdata *adata, char *id, sfColor start, sfColor end)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->start_color = start;
+    emiter->end_color = end;
+}
+
+void set_emiter_lerp_factor(s_appdata *adata, char *id, float lerp_factor)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->lerp_div = lerp_factor;
 }
 
 void try_new_particle(s_appdata *adata, s_particle_src *emiter)
@@ -304,6 +335,7 @@ void try_new_particle(s_appdata *adata, s_particle_src *emiter)
         new_particle->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
         new_particle->life = emiter->life_time;
         new_particle->vortex_speed = rand_float(emiter->vortex_speed.x, emiter->vortex_speed.y);
+        new_particle->color = emiter->start_color;
 
         emiter->particle_count++;
 
@@ -316,6 +348,7 @@ void try_new_particle(s_appdata *adata, s_particle_src *emiter)
         sfSprite_setOrigin(new_particle->model, emiter->sprite_origin);
         sfSprite_setPosition(new_particle->model, pos);
         sfSprite_setScale(new_particle->model, emiter->start_size);
+        sfSprite_setColor(new_particle->model, emiter->start_color);
         linked_add(emiter->particle_pool, new_particle);
     }
 }
@@ -326,14 +359,8 @@ void display_particles(s_appdata *adata, s_particle_src *emiter)
 
     while (particles != NULL && particles->data != NULL) {
         s_particle *cur = (s_particle *) particles->data;
-        sfRenderStates *state = malloc(sizeof(sfRenderStates));
 
-        state->blendMode = sfBlendAlpha;
-        state->shader = NULL;
-        state->texture = NULL;
-        state->transform = sfTransform_Identity;
-
-        sfRenderTexture_drawSprite(emiter->render_tex->texture, cur->model, state);
+        sfRenderTexture_drawSprite(emiter->render_tex->texture, cur->model, NULL);
 
         particles = particles->next;
     }
@@ -358,16 +385,18 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
 
         sfSprite_setPosition(cur->model, pos);
 
-        sfVector2f scale_vec;
-        scale_vec.x = emiter->end_size.x - scale.x;
-        scale_vec.y = emiter->end_size.y - scale.y;
+        if (emiter->start_size.x != emiter->end_size.x || emiter->start_size.y != emiter->end_size.y) {
+            sfVector2f scale_vec;
+            scale_vec.x = emiter->end_size.x - scale.x;
+            scale_vec.y = emiter->end_size.y - scale.y;
 
-        float scale_dist = sqrt(pow(scale_vec.x, 2) + pow(scale_vec.y, 2));
+            float scale_dist = sqrt(pow(scale_vec.x, 2) + pow(scale_vec.y, 2));
 
-        scale.x += ((scale_speed * delta) / scale_dist) * scale_vec.x;
-        scale.y += ((scale_speed * delta) / scale_dist) * scale_vec.y;
+            scale.x += ((scale_speed * delta) / scale_dist) * scale_vec.x;
+            scale.y += ((scale_speed * delta) / scale_dist) * scale_vec.y;
 
-        sfSprite_setScale(cur->model, scale);
+            sfSprite_setScale(cur->model, scale);
+        }
 
         if (cur->rotation_dir == particle_clockwise) {
             cur_angle += emiter->rotation_speed * delta;
@@ -384,8 +413,15 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         } else {
             cur->angle -= cur->vortex_speed * delta;
         }
-        
+
         sfSprite_setRotation(cur->model, cur_angle);
+
+        float color_factor = ((float) cur->life / emiter->lerp_div) / (float) emiter->life_time;
+        color_factor = 1 - color_factor;
+
+        cur->color = lerp_color(emiter->start_color, emiter->end_color, color_factor);
+
+        sfSprite_setColor(cur->model, cur->color);
 
         cur->life--;
 
@@ -400,9 +436,11 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
             sfSprite_setPosition(cur->model, new_pos);
             sfSprite_setScale(cur->model, emiter->start_size);
             sfSprite_setOrigin(cur->model, emiter->sprite_origin);
+            sfSprite_setColor(cur->model, emiter->start_color);
 
             cur->vortex_speed = rand_float(emiter->vortex_speed.x, emiter->vortex_speed.y);
             cur->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
+            cur->color = emiter->start_color;
             cur->life = emiter->life_time;
         }
 

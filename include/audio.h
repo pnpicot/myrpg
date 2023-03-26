@@ -27,3 +27,4 @@ void add_music(s_appdata *adata, char *id, char *filename);
 void add_sound(s_appdata *adata, char *id, char *filename);
 void load_sounds(s_appdata *adata);
 void load_musics(s_appdata *adata);
+void free_sound(s_appdata *adata);

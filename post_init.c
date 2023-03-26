@@ -53,22 +53,54 @@ void init_tests(s_appdata *adata)
     set_emiter_rtex(adata, emiter_id, "game");
     move_emiter(adata, emiter_id, (sfVector2f) { win_w / 2, win_h / 2 });
     set_emiter_lifetime(adata, emiter_id, 150000);
-    set_emiter_particle_lifetime(adata, emiter_id, 9000);
+    set_emiter_particle_lifetime(adata, emiter_id, 6000);
     set_emiter_particle_max(adata, emiter_id, 350);
-
-    sfSprite *particle_model = sfSprite_create();
-    sfSprite_setTexture(particle_model, get_texture(adata, "star"), sfTrue);
-
-    set_emiter_model(adata, emiter_id, particle_model);
+    set_emiter_model(adata, emiter_id, "star");
     set_emiter_rotation_dir(adata, emiter_id, particle_random_dir);
     set_emiter_rotation_speed(adata, emiter_id, 150.0f);
-    set_emiter_spawnrate(adata, emiter_id, 1.0f);
-    set_emiter_particle_speed(adata, emiter_id, 230.0f);
+    set_emiter_spawnrate(adata, emiter_id, 30.0f);
+    set_emiter_particle_speed(adata, emiter_id, 370.0f);
     set_emiter_cone(adata, emiter_id, (sfVector2f) { 0.0f, 360.0f });
     set_emiter_spawn_offset(adata, emiter_id, (sfVector2f) { -20.0f, 20.0f });
     set_emiter_size_range(adata, emiter_id, (sfVector2f) { 0.4f, 0.4f }, (sfVector2f) { -0.7f, -0.7f });
     set_emiter_vortex_dir(adata, emiter_id, particle_anticlockwise);
     set_emiter_vortex_speed(adata, emiter_id, (sfVector2f) { 60.0f, 120.0f });
+    set_emiter_colors(adata, emiter_id, get_color(70, 224, 157, 255), sfMagenta);
+    set_emiter_lerp_factor(adata, emiter_id, 1.3f);
+
+    char *flame = "emiter_1";
+    char *smoke = "emiter_2";
+
+    add_emiter(adata, smoke);
+    add_emiter(adata, flame);
+
+    set_emiter_rtex(adata, flame, "game");
+    move_emiter(adata, flame, (sfVector2f) { 200, win_h / 2 });
+    set_emiter_lifetime(adata, flame, 150000);
+    set_emiter_particle_lifetime(adata, flame, 2200);
+    set_emiter_particle_max(adata, flame, 240);
+    set_emiter_model(adata, flame, "particle");
+    set_emiter_spawnrate(adata, flame, 0.1f);
+    set_emiter_particle_speed(adata, flame, 250.0f);
+    set_emiter_colors(adata, flame, sfYellow, sfRed);
+    set_emiter_cone(adata, flame, (sfVector2f) { 270.0f, 270.0f });
+    set_emiter_size_range(adata, flame, (sfVector2f) { 0.8f, 0.8f }, (sfVector2f) { -0.7f, -0.7f });
+    set_emiter_spawn_offset(adata, flame, (sfVector2f) { -32.0f, 32.0f });
+
+    set_emiter_rtex(adata, smoke, "game");
+    move_emiter(adata, smoke, (sfVector2f) { 200, win_h / 2 });
+    set_emiter_lifetime(adata, smoke, 150000);
+    set_emiter_particle_lifetime(adata, smoke, 4300);
+    set_emiter_particle_max(adata, smoke, 70);
+    set_emiter_model(adata, smoke, "particle");
+    set_emiter_spawnrate(adata, smoke, 0.1f);
+    set_emiter_particle_speed(adata, smoke, 200.0f);
+    set_emiter_colors(adata, smoke, get_color(170, 170, 170, 255), sfBlack);
+    set_emiter_cone(adata, smoke, (sfVector2f) { 240.0f, 310.0f });
+    set_emiter_size_range(adata, smoke, (sfVector2f) { 0.5f, 0.5f }, (sfVector2f) { -0.7f, -0.7f });
+    set_emiter_spawn_offset(adata, smoke, (sfVector2f) { -40.0f, 40.0f });
+    set_emiter_vortex_dir(adata, smoke, particle_anticlockwise);
+    set_emiter_vortex_speed(adata, smoke, (sfVector2f) { -40.0f, 40.0f });
 
     // -- particles -- end
 }

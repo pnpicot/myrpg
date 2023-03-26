@@ -9,6 +9,7 @@
 
 void close_window(s_appdata *adata)
 {
+    free_sound(adata);
     sfRenderWindow_close(adata->win);
 }
 
