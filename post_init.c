@@ -70,8 +70,10 @@ void init_tests(s_appdata *adata)
 
     char *flame = "emiter_1";
     char *smoke = "emiter_2";
+    char *sparks = "emiter_3";
 
     add_emiter(adata, smoke);
+    add_emiter(adata, sparks);
     add_emiter(adata, flame);
 
     set_emiter_rtex(adata, flame, "game");
@@ -101,6 +103,21 @@ void init_tests(s_appdata *adata)
     set_emiter_spawn_offset(adata, smoke, (sfVector2f) { -40.0f, 40.0f });
     set_emiter_vortex_dir(adata, smoke, particle_anticlockwise);
     set_emiter_vortex_speed(adata, smoke, (sfVector2f) { -40.0f, 40.0f });
+
+    set_emiter_rtex(adata, sparks, "game");
+    move_emiter(adata, sparks, (sfVector2f) { 200, win_h / 2 });
+    set_emiter_lifetime(adata, sparks, 150000);
+    set_emiter_particle_lifetime(adata, sparks, 1400);
+    set_emiter_particle_max(adata, sparks, 50);
+    set_emiter_model(adata, sparks, "particle");
+    set_emiter_spawnrate(adata, sparks, 0.1f);
+    set_emiter_particle_speed(adata, sparks, 400.0f);
+    set_emiter_colors(adata, sparks, get_color(247, 245, 188, 255), sfYellow);
+    set_emiter_cone(adata, sparks, (sfVector2f) { 180.0f, 360.0f });
+    set_emiter_size_range(adata, sparks, (sfVector2f) { 0.5f, 0.5f }, (sfVector2f) { -0.7f, -0.7f });
+    set_emiter_spawn_offset(adata, sparks, (sfVector2f) { -40.0f, 40.0f });
+    set_emiter_vortex_dir(adata, sparks, particle_anticlockwise);
+    set_emiter_vortex_speed(adata, sparks, (sfVector2f) { -150.0f, 150.0f });
 
     // -- particles -- end
 }
