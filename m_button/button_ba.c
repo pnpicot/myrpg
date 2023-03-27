@@ -27,13 +27,17 @@ void add_button_switch(s_appdata *adata, s_btn_next args, s_button *new_button)
     char *id = str_add(args.id, "@[:elem]");
     switch (args.type) {
         case TYPE_TEXT:
+            {
             add_text(adata, id, args.layer);
             new_button->elem = get_ref(adata, get_text(adata, id), TYPE_TEXT);
             break;
+            }
         case TYPE_VERTEX:
+            {
             add_vertex(adata, id, args.layer);
             s_vertex *vertex = get_vertex(adata, id);
             new_button->elem = get_ref(adata, vertex, TYPE_VERTEX);
+            }
     }
 }
 
@@ -42,21 +46,29 @@ void add_button_next(s_appdata *adata, s_btn_next args, s_button *new_button)
     char *id = str_add(args.id, "@[:elem]");
     switch (args.type) {
         case TYPE_RECT:
+            {
             add_rect(adata, id, args.layer);
             new_button->elem = get_ref(adata, get_rect(adata, id), TYPE_RECT);
             break;
+            }
         case TYPE_CIRCLE:
+            {
             add_circle(adata, id, args.layer);
             s_circle *circle = get_circle(adata, id);
             new_button->elem = get_ref(adata, circle, TYPE_CIRCLE);
             break;
+            }
         case TYPE_SPRITE:
+            {
             add_sprite(adata, id, args.layer);
             s_sprite *sprite = get_sprite(adata, id);
             new_button->elem = get_ref(adata, sprite, TYPE_SPRITE);
             break;
+            }
         default:
+            {
             add_button_switch(adata, args, new_button);
+            }
     }
 }
 
