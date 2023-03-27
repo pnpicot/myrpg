@@ -36,6 +36,11 @@
 #define particle_anticlockwise 2
 #define particle_random_dir 3
 
+#define sfPink get_color(224, 40, 215, 255)
+#define sfBrown get_color(133, 97, 60, 255)
+#define sfDarkGray get_color(110, 110, 110, 255)
+#define sfLightGray get_color(200, 200, 200, 255)
+
 typedef struct {
     int exit_status;
     int min_layer;

@@ -26,7 +26,6 @@ void rotate_text(s_appdata *adata, char *id, float angle);
 const char *get_text_str(s_appdata *adata, char *id);
 sfVector2f get_text_scale(s_appdata *adata, char *id);
 float get_text_rotation(s_appdata *adata, char *id);
-float get_text_rotation(s_appdata *adata, char *id);
 void set_text_origin(s_appdata *adata, char *id, sfVector2f origin);
 sfVector2f get_text_origin(s_appdata *adata, char *id);
 sfFloatRect get_text_bounds(s_appdata *adata, char *id);

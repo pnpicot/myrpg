@@ -34,3 +34,4 @@ void cycle_emiter(s_appdata *adata, s_particle_src *emiter);
 void update_emiters(s_appdata *adata);
 void set_emiter_colors(s_appdata *adata, char *id, sfColor start, sfColor end);
 void set_emiter_lerp_factor(s_appdata *adata, char *id, float lerp_factor);
+void accelerate_emiter(s_appdata *adata, char *id, int cycles);

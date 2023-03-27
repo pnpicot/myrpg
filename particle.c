@@ -366,6 +366,20 @@ void display_particles(s_appdata *adata, s_particle_src *emiter)
     }
 }
 
+void accelerate_emiter(s_appdata *adata, char *id, int cycles)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    for (int i = 0; i < cycles; i++) {
+        cycle_emiter(adata, emiter);
+    }
+}
+
 void update_particles(s_appdata *adata, s_particle_src *emiter)
 {
     linked_node *particles = emiter->particle_pool;
