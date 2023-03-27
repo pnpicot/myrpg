@@ -14,7 +14,7 @@ LIBS        := ./lib
 LIBS_TARGET := csfml-window csfml-graphics csfml-audio csfml-system m my
 
 CC          := gcc
-CFLAGS      := -W -Wall -Wextra -O3
+CFLAGS      := -W -O3
 CPPFLAGS    := $(addprefix -I,$(INCLUDES))
 LDFLAGS     := $(addprefix -L,$(LIBS))
 LDLIBS      := $(addprefix -l,$(LIBS_TARGET))

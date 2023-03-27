@@ -17,7 +17,7 @@ SRCS		:=	$(shell find my_printf -name '*.c')			\
 OBJS        := $(SRCS:%.c=%.o)
 
 CC          := gcc
-CFLAGS      := -W -Wall -Wextra
+CFLAGS      := -W -O3
 CPPFLAGS    := -I./
 
 MAKEFLAGS   += --silent --no-print-directory

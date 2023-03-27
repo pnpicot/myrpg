@@ -5,7 +5,7 @@
 ** Shader module
 */
 
-#include "include/main.h"
+#include "main.h"
 
 sfShader *get_shader(s_appdata *adata, char *id)
 {
