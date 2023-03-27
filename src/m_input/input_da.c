@@ -43,7 +43,6 @@ void input_type(s_appdata *adata, int keycode)
         return;
     }
     char new_char = get_keycode_char(adata, keycode);
-    if (new_char == 255) return;
     input_type_next(adata, input, new_char, text);
 }
 

@@ -18,7 +18,7 @@ char *convert_base(int nb, int base)
         temp /= base;
         i++;
     }
-    result = malloc(i + 1);
+    result = malloc(i + 2);
     result[i + 1] = '\0';
     i--;
     while (nb > 0) {

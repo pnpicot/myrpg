@@ -134,7 +134,7 @@ void set_shader_float(s_appdata *adata, char *id, char *param, float value)
         return;
     }
 
-    sfShader_setFloatParameter(shader, param, value);
+    sfShader_setFloatUniform(shader, param, value);
 }
 
 void set_shader_vec2(s_appdata *adata, char *id, char *param, sfVector2f value)
@@ -146,7 +146,7 @@ void set_shader_vec2(s_appdata *adata, char *id, char *param, sfVector2f value)
         return;
     }
 
-    sfShader_setVector2Parameter(shader, param, value);
+    sfShader_setVec2Uniform(shader, param, (sfGlslVec2) { value.x, value.y });
 }
 
 void set_shader_color(s_appdata *adata, char *id, char *param, sfColor color)
@@ -158,7 +158,7 @@ void set_shader_color(s_appdata *adata, char *id, char *param, sfColor color)
         return;
     }
 
-    sfShader_setColorParameter(shader, param, color);
+    sfShader_setColorUniform(shader, param, color);
 }
 
 void set_shader_texture(s_appdata *adata, char *id, char *param, const sfTexture *tex)
@@ -170,5 +170,5 @@ void set_shader_texture(s_appdata *adata, char *id, char *param, const sfTexture
         return;
     }
 
-    sfShader_setTextureParameter(shader, param, tex);
+    sfShader_setTextureUniform(shader, param, tex);
 }

@@ -21,7 +21,7 @@ char *file_extract(char *filename)
     while (stream > 0) {
         stream = read(fd, &buff, count);
     }
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < (int) count; i++) {
         res[i] = buff[i];
     }
     res[count] = '\0';

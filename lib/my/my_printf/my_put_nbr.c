@@ -11,7 +11,7 @@
 void my_putchar3(char c, int *counter)
 {
     (*counter)++;
-    write(1, &c, 1);
+    ssize_t wr = write(1, &c, 1);
 }
 
 void my_put_str2(const char *str, int *counter)

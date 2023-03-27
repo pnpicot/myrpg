@@ -9,7 +9,7 @@
 
 char *put_oct(char c)
 {
-    char *res = malloc(5 * sizeof(char));
+    char *res = malloc(6 * sizeof(char));
     res[5] = '\0';
     res[0] = '\\';
     char *oct = convert_base((unsigned char) c, 8);

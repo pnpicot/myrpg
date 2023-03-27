@@ -24,7 +24,7 @@ s_input *get_input(s_appdata *adata, char *id)
 
 void trigger_input(s_appdata *adata, s_ref *ref)
 {
-    s_input *input;
+    s_input *input = NULL;
     s_rect *rect = (s_rect *) ref->ref;
     linked_node *inputs = adata->lists->inputs;
     while (inputs != NULL && inputs->data != NULL) {
