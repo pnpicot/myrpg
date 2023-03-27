@@ -1,53 +1,57 @@
 ##
-## EPITECH PROJECT, 2022
-## MyRPG
+## EPITECH PROJECT, 2023
+## myrpg
 ## File description:
 ## Makefile
 ##
 
-SRC =	$(shell find m_rect -name '*.c')			\
-		$(shell find m_rtex -name '*.c')			\
-		$(shell find m_sprite -name '*.c')			\
-		$(shell find m_circle -name '*.c')			\
-		$(shell find m_text -name '*.c')			\
-		$(shell find m_vertex -name '*.c')			\
-		$(shell find m_bar -name '*.c')				\
-		$(shell find m_button -name '*.c')			\
-		$(shell find m_config -name '*.c')			\
-		$(shell find m_container -name '*.c')		\
-		$(shell find m_element_utils -name '*.c')	\
-		$(shell find m_input -name '*.c')			\
-		$(shell find m_object -name '*.c')			\
-		$(shell find m_pre_init -name '*.c')		\
-		$(shell find m_render -name '*.c')			\
-		$(shell find m_slider -name '*.c')			\
-		$(shell find m_switch -name '*.c')			\
-		$(shell find m_transform -name '*.c')		\
-		$(shell find m_utils -name '*.c')			\
-		$(wildcard *.c)
+TARGET      := my_rpg
 
-OBJ	=	$(SRC:.c=.o)
+DIRS		:= src
+SRCS        := main.c
 
-NAME	=	app
+OBJS		:= $(SRCS:.c=.o)
 
-CSFML = -lcsfml-window -lcsfml-graphics -lcsfml-audio -lcsfml-system -lm
+ALL_OBJS	:= $(OBJS)
 
-all:	$(NAME)
+MAKE_LIB	:= lib/my
 
-library:
-	make -C lib/my
+rwildcard	=  $(foreach d,$(wildcard $(addsuffix *,$(1))),$(call rwildcard,$(d)/,$(2))$(filter $(subst *,%,$(2)),$(d)))
 
-$(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) $(CSFML) -O3 lib/libmy.a
+default: all
 
-clean:
-	rm -f $(OBJ)
-	make -C lib/my clean
+$(TARGET) : build-subdirs $(OBJS) find-all-objs
+	$(MAKE) -C $(MAKE_LIB)
+	$(CC) -o $(TARGET) $(ALL_OBJS) $(LDFLAGS) $(LDLIBS)
+	echo "\033[36mLINKED \033[32m$(ALL_OBJS)\033[0m"
+	echo "\033[36mCREATED \033[32m$(TARGET)\033[0m"
 
+.PHONY: all
+all: $(TARGET)
+
+.PHONY: clean
+clean: clean-subdirs
+	$(MAKE) -C $(MAKE_LIB) clean
+	$(RM) $(OBJS) $(SRC_PATH)*~
+	echo "\033[36mDELETED \033[32m$(OBJS)\033[0m"
+
+.PHONY: fclean
 fclean: clean
-	rm -f $(NAME)
-	make -C lib/my fclean
+	$(MAKE) -C $(MAKE_LIB) fclean
+	$(RM) $(TARGET)
+	echo "\033[36mDELETED \033[32m$(TARGET)\033[0m"
 
-re:	fclean all
+.PHONY: re
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: build-subdirs
+find-all-objs:
+	$(eval ALL_OBJS += $(call rwildcard,$(DIRS),*.o))
+
+.SILENT:
+
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+export PROJECT_PATH := $(patsubst %/,%,$(dir $(mkfile_path)))
+export MAKE_INCLUDE=$(PROJECT_PATH)/config/make.global
+export SUB_MAKE_INCLUDE=$(PROJECT_PATH)/config/submake.global
+include $(MAKE_INCLUDE)

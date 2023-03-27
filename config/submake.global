@@ -1,0 +1,16 @@
+##
+## EPITECH PROJECT, 2023
+## Config for submake
+## File description:
+## submake
+##
+
+.PHONY: all
+all: $(OBJS) build-subdirs
+
+.PHONY: clean
+clean: clean-subdirs
+	rm -f $(OBJS)
+	echo "\033[36mDELETED \033[32m$(OBJS)\033[0m"
+
+include $(MAKE_INCLUDE)

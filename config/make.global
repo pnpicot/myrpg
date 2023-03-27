@@ -1,0 +1,38 @@
+##
+## EPITECH PROJECT, 2023
+## Config for make
+## File description:
+## make
+##
+
+MAKEFLAGS += --no-print-directory
+MAKEFLAGS += -s
+
+INCLUDES    := $(PROJECT_PATH)/include
+
+LIBS        := ./lib
+LIBS_TARGET := csfml-window csfml-graphics csfml-audio csfml-system m my
+
+CC          := gcc
+CFLAGS      := -W -Wall -Wextra -O3
+CPPFLAGS    := $(addprefix -I,$(INCLUDES))
+LDFLAGS     := $(addprefix -L,$(LIBS))
+LDLIBS      := $(addprefix -l,$(LIBS_TARGET))
+
+
+.PHONY: build-subdirs
+build-subdirs: $(DIRS)
+
+.PHONY: $(DIRS)
+$(DIRS):
+	$(MAKE) -C $@ all
+
+.PHONY: clean-subdirs
+clean-subdirs:
+	for dir in $(DIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	echo "\033[36mCOMPILED \033[32m$<\033[0m"
