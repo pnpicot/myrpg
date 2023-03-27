@@ -61,8 +61,9 @@ int linked_count(linked_node *node)
 {
     int count = 0;
 
-    while (node != NULL) {
-        if (node->data != NULL) count++;
+    while (node != NULL && node->data != NULL) {
+        count++;
+
         node = node->next;
     }
 
@@ -73,7 +74,7 @@ linked_node *linked_get(linked_node *node, int id)
 {
     int ite = 0;
 
-    while (node != NULL) {
+    while (node != NULL && node->data != NULL) {
         if (ite == id) return (node);
 
         ite++;

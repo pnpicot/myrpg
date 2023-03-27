@@ -222,6 +222,10 @@ typedef struct {
 } s_animation;
 
 typedef struct {
+    sfVector2f view_pos;
+} s_game;
+
+typedef struct {
     sfRenderWindow *win;
     s_ints *integers;
     s_floats *floats;
@@ -237,6 +241,7 @@ typedef struct {
     s_rtex *light_res_rtex;
     char *current_wall;
     int *keys;
+    s_game *game_data;
 } s_appdata;
 
 typedef struct {
@@ -465,3 +470,4 @@ typedef struct {
 #include "animation.h"
 #include "key.h"
 #include "particle.h"
+#include "camera.h"

@@ -27,27 +27,41 @@ int dist_cmp(linked_node *first_node, linked_node *second_node)
     return (dist_a->dist > dist_b->dist);
 }
 
+void vec2_sort(sfVector2f *list, int count, sfVector2f pos)
+{
+    for (int i = 0; i < count - 1; i++) {
+        float d_a = get_vec_dist(pos, list[i]);
+        float d_b = get_vec_dist(pos, list[i + 1]);
+
+        if (d_a > d_b) {
+            sfVector2f tmp = list[i];
+            list[i] = list[i + 1];
+            list[i + 1] = tmp;
+
+            vec2_sort(list, count, pos);
+            break;
+        }
+    }
+}
+
 sfVector2f nearest_point(sfVector2f pos, linked_node *points, int index)
 {
-    linked_node *dists = linked_new();
+    int count = linked_count(points);
+    sfVector2f *dists = malloc(sizeof(sfVector2f) * count);
+    int ite = 0;
 
     while (points != NULL && points->data != NULL) {
         sfVector2f *cur = (sfVector2f *) points->data;
-        float dist = get_vec_dist(pos, (sfVector2f) { cur->x, cur->y });
-        s_dist *new_dist = malloc(sizeof(s_dist));
 
-        new_dist->dist = dist;
-        new_dist->pos = (sfVector2f) { cur->x, cur->y };
+        dists[ite] = (sfVector2f) { cur->x, cur->y };
 
-        linked_add(dists, new_dist);
-
+        ite++;
         points = points->next;
     }
 
-    linked_sort(&dists, &dist_cmp);
-    s_dist *res = (s_dist *) linked_get(dists, index)->data;
+    vec2_sort(dists, count, pos);
 
-    return (res->pos);
+    return (dists[index]);
 }
 
 int get_is_diag(sfVector2f pos, sfVector2f nst, sfVector2f nst_s)
