@@ -167,7 +167,7 @@ void set_emiter_spawnrate(s_appdata *adata, char *id, float spawn_chance)
     emiter->spawn_chance = spawn_chance;
 }
 
-void set_emiter_particle_speed(s_appdata *adata, char *id, float particle_speed)
+void set_emiter_particle_speed(s_appdata *adata, char *id, sfVector2f particle_speed)
 {
     s_particle_src *emiter = get_emiter(adata, id);
 
@@ -179,7 +179,7 @@ void set_emiter_particle_speed(s_appdata *adata, char *id, float particle_speed)
     emiter->speed = particle_speed;
 }
 
-void set_emiter_spawn_offset(s_appdata *adata, char *id, sfVector2f offset)
+void set_emiter_spawn_xoffset(s_appdata *adata, char *id, sfVector2f offset)
 {
     s_particle_src *emiter = get_emiter(adata, id);
 
@@ -188,7 +188,19 @@ void set_emiter_spawn_offset(s_appdata *adata, char *id, sfVector2f offset)
         return;
     }
 
-    emiter->spawn_offset = offset;
+    emiter->spawn_offset_x = offset;
+}
+
+void set_emiter_spawn_yoffset(s_appdata *adata, char *id, sfVector2f offset)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->spawn_offset_y = offset;
 }
 
 void set_emiter_size_range(s_appdata *adata, char *id, sfVector2f start_size, sfVector2f end_size)
@@ -255,12 +267,13 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->rotation_dir = 0;
     new_emiter->rotation_speed = 0;
     new_emiter->spawn_chance = 0;
-    new_emiter->speed = 0;
+    new_emiter->speed = (sfVector2f) { 0, 0 };
     new_emiter->particle_count = 0;
     new_emiter->end_size = (sfVector2f) { 1.0f, 1.0f };
     new_emiter->start_size = (sfVector2f) { 1.0f, 1.0f };
     new_emiter->sprite_origin = (sfVector2f) { 0, 0 };
-    new_emiter->spawn_offset = (sfVector2f) { 0, 0 };
+    new_emiter->spawn_offset_x = (sfVector2f) { 0, 0 };
+    new_emiter->spawn_offset_y = (sfVector2f) { 0, 0 };
     new_emiter->cone_range = (sfVector2f) { 270.0f, 270.0f };
     new_emiter->delta_clock = sfClock_create();
     new_emiter->vortex_dir = particle_clockwise;
@@ -336,11 +349,12 @@ void try_new_particle(s_appdata *adata, s_particle_src *emiter)
         new_particle->life = emiter->life_time;
         new_particle->vortex_speed = rand_float(emiter->vortex_speed.x, emiter->vortex_speed.y);
         new_particle->color = emiter->start_color;
+        new_particle->speed = rand_float(emiter->speed.x, emiter->speed.y);
 
         emiter->particle_count++;
 
-        float rand_x = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
-        float rand_y = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
+        float rand_x = rand_float(emiter->spawn_offset_x.x, emiter->spawn_offset_x.y);
+        float rand_y = rand_float(emiter->spawn_offset_y.x, emiter->spawn_offset_y.y);
         sfVector2f pos = emiter->emiter_pos;
         pos.x += rand_x;
         pos.y += rand_y;
@@ -394,8 +408,8 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         float cur_angle = sfSprite_getRotation(cur->model);
         float dir = cur->angle * (3.14159f / 180);
 
-        pos.x += (float) (emiter->speed * delta * cos(dir));
-        pos.y += (float) (emiter->speed * delta * sin(dir));
+        pos.x += (float) (cur->speed * delta * cos(dir));
+        pos.y += (float) (cur->speed * delta * sin(dir));
 
         sfSprite_setPosition(cur->model, pos);
 
@@ -440,8 +454,8 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         cur->life--;
 
         if ((scale.x <= 0.05f && scale.y <= 0.05f) || cur->life <= 0) {
-            float rand_x = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
-            float rand_y = rand_float(emiter->spawn_offset.x, emiter->spawn_offset.y);
+            float rand_x = rand_float(emiter->spawn_offset_x.x, emiter->spawn_offset_x.y);
+            float rand_y = rand_float(emiter->spawn_offset_y.x, emiter->spawn_offset_y.y);
             sfVector2f new_pos = emiter->emiter_pos;
 
             new_pos.x += rand_x;
@@ -455,6 +469,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
             cur->vortex_speed = rand_float(emiter->vortex_speed.x, emiter->vortex_speed.y);
             cur->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);
             cur->color = emiter->start_color;
+            cur->speed = rand_float(emiter->speed.x, emiter->speed.y);
             cur->life = emiter->life_time;
         }
 

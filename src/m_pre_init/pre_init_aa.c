@@ -7,6 +7,20 @@
 
 #include "../include/main.h"
 
+void init_gamedata(s_appdata *adata)
+{
+    adata->game_data = malloc(sizeof(s_game));
+
+    if (adata->game_data == NULL) {
+        my_printf(get_error(adata, "mem_alloc"));
+        return;
+    }
+
+    s_game *game_data = adata->game_data;
+
+    game_data->view_pos = (sfVector2f) { 0, 0 };
+}
+
 void init_appdata_misc(s_appdata *adata)
 {
     adata->win = NULL;
@@ -20,6 +34,7 @@ void init_appdata_misc(s_appdata *adata)
     adata->light_blend_rtex = NULL;
     adata->current_wall = NULL;
 
+    init_gamedata(adata);
     init_keys(adata);
 }
 

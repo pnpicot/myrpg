@@ -398,6 +398,7 @@ typedef struct {
     int life;
     float vortex_speed;
     sfColor color;
+    float speed;
 } s_particle;
 
 typedef struct {
@@ -411,13 +412,14 @@ typedef struct {
     linked_node *particle_pool;
     int rotation_dir;
     float rotation_speed;
-    float speed;
+    sfVector2f speed;
     sfVector2f start_size;
     sfVector2f end_size;
     int life_time;
     int emiter_life;
     sfVector2f sprite_origin;
-    sfVector2f spawn_offset;
+    sfVector2f spawn_offset_x;
+    sfVector2f spawn_offset_y;
     sfVector2f cone_range;
     sfClock *delta_clock;
     int vortex_dir;
@@ -470,4 +472,3 @@ typedef struct {
 #include "animation.h"
 #include "key.h"
 #include "particle.h"
-#include "camera.h"
