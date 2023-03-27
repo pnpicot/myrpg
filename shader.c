@@ -98,7 +98,7 @@ void add_shader(s_appdata *adata, char *id, char *paths)
     }
 
     new_shader->id = id;
-    new_shader->shader = sfShader_createFromFile(vert_path, frag_path);
+    new_shader->shader = sfShader_createFromFile(vert_path, NULL, frag_path);
 
     linked_add(adata->lists->shaders, new_shader);
 }
