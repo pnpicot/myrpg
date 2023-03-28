@@ -232,6 +232,10 @@ typedef struct {
 typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
+    sfVector2f speed;
+    float velocity;
+    float speed_max;
+    float friction;
 } s_game;
 
 typedef struct {

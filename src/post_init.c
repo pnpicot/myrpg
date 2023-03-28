@@ -63,6 +63,10 @@ void init_tests(s_appdata *adata)
     set_emiter_particle_max(adata, main, 200);
     set_emiter_gameobject(adata, main, sfTrue);
 
+    set_friction(adata, 0.06f);
+    set_max_speed(adata, 9.0f);
+    set_velocity(adata, 0.7f);
+
     /* play_music(adata, "theme");
     set_music_loop(adata, "theme", sfTrue);
     set_music_volume(adata, "theme", 5.0f); */

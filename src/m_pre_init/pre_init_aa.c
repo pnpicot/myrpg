@@ -19,7 +19,11 @@ void init_gamedata(s_appdata *adata)
     s_game *game_data = adata->game_data;
 
     game_data->view_pos = (sfVector2f) { 0, 0 };
-    game_data->map_size = (sfVector2f) { 3000, 3000 };
+    game_data->map_size = (sfVector2f) { 0, 0 };
+    game_data->friction = 0;
+    game_data->speed = (sfVector2f) { 0, 0 };
+    game_data->speed_max = 0;
+    game_data->velocity = 0;
 }
 
 void init_appdata_misc(s_appdata *adata)
