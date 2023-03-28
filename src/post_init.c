@@ -82,7 +82,7 @@ void init_tests(s_appdata *adata)
     set_emiter_particle_lifetime(adata, early_flames, 1500);
     move_emiter(adata, early_flames, (sfVector2f) { win_w / 2, win_h - 20});
     set_emiter_size_range(adata, early_flames, (sfVector2f) { 0.9f, 0.9f }, (sfVector2f) { -0.7f, -0.7f });
-    set_emiter_particle_speed(adata, early_flames, (sfVector2f) { 120.0f, 220.0f });
+    set_emiter_particle_speed(adata, early_flames, (sfVector2f) { 120.0f, 360.0f });
     set_emiter_spawn_xoffset(adata, early_flames, (sfVector2f) { -(win_w / 2), win_w / 2 });
     set_emiter_spawn_yoffset(adata, early_flames, (sfVector2f) { -5.0f, 10.0f });
     set_emiter_colors(adata, early_flames, sfWhite, sfYellow);
@@ -91,6 +91,24 @@ void init_tests(s_appdata *adata)
     set_emiter_rotation_speed(adata, early_flames, 45.0f);
     set_emiter_vortex_dir(adata, early_flames, particle_clockwise);
     set_emiter_vortex_speed(adata, early_flames, (sfVector2f) { -10.0f, 10.0f });
+
+    char *rain = "emiter_3";
+
+    add_emiter(adata, rain);
+    set_emiter_rtex(adata, rain, "game");
+    set_emiter_spawnrate(adata, rain, 1.0f);
+    set_emiter_lifetime(adata, rain, 150000);
+    set_emiter_model(adata, rain, "square");
+    set_emiter_particle_max(adata, rain, 1300);
+    set_emiter_particle_lifetime(adata, rain, 3500);
+    move_emiter(adata, rain, (sfVector2f) { win_w / 2, 0 });
+    set_emiter_size_range(adata, rain, (sfVector2f) { 0.02f, 0.3f }, (sfVector2f) { 0.02f, 0.5f });
+    set_emiter_particle_speed(adata, rain, (sfVector2f) { 1600.0f, 1900.0f });
+    set_emiter_cone(adata, rain, (sfVector2f) { 95.0f, 95.0f });
+    set_emiter_spawn_xoffset(adata, rain, (sfVector2f) { -(win_w / 2) - 50, (win_w / 2) + 50 });
+    set_emiter_colors(adata, rain, sfWhite, sfBlack);
+    set_emiter_vortex_dir(adata, rain, particle_anticlockwise);
+    set_emiter_vortex_speed(adata, rain, (sfVector2f) { 5.0f, 7.0f });
 }
 
 void add_light_to_cursor(s_appdata *adata)

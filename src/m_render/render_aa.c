@@ -30,7 +30,7 @@ void render_textures(s_appdata *adata, int depth)
             rtexs = rtexs->next;
             continue;
         }
-        if (cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth) {
+        if (adata->mask_rtex != NULL && cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth) {
             rtexs = rtexs->next;
             continue;
         }
