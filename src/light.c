@@ -379,7 +379,8 @@ void init_light_recommended(s_appdata *adata, int depth_start)
 {
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    sfVector2f res = { win_w, win_h };
+    s_game *game_data = adata->game_data;
+    sfVector2f res = { game_data->map_size.x, game_data->map_size.y };
 
     add_rtex(adata, "light_mask", depth_start);
     set_lightmask_rtex(adata, "light_mask");

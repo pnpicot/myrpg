@@ -223,6 +223,7 @@ typedef struct {
 
 typedef struct {
     sfVector2f view_pos;
+    sfVector2f map_size;
 } s_game;
 
 typedef struct {
@@ -472,3 +473,4 @@ typedef struct {
 #include "animation.h"
 #include "key.h"
 #include "particle.h"
+#include "view.h"

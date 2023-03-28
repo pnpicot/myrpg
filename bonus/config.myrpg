@@ -2,6 +2,7 @@
 
 # -- misc -- begin
 string default_font = mono
+int enable_shader = 1 
 # -- misc -- end
 
 # -- window -- begin

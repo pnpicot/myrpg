@@ -11,9 +11,11 @@ void init_tests(s_appdata *adata)
 {
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    sfVector2f res = { win_w, win_h };
+    resize_map(adata, (sfVector2f) { 3000.0f, 3000.0f });
+    s_game *game_data = adata->game_data;
+    sfVector2f res = { game_data->map_size.x, game_data->map_size.y };
 
-    if (sfShader_isAvailable()) {
+    if (get_int(adata, "enable_shader")) {
         init_light_recommended(adata, 1);
 
         char *light_id = "mouse_light";
@@ -105,7 +107,7 @@ void init_tests(s_appdata *adata)
     set_emiter_size_range(adata, rain, (sfVector2f) { 0.02f, 0.3f }, (sfVector2f) { 0.02f, 0.5f });
     set_emiter_particle_speed(adata, rain, (sfVector2f) { 1600.0f, 1900.0f });
     set_emiter_cone(adata, rain, (sfVector2f) { 95.0f, 95.0f });
-    set_emiter_spawn_xoffset(adata, rain, (sfVector2f) { -(win_w / 2) - 50, (win_w / 2) + 50 });
+    set_emiter_spawn_xoffset(adata, rain, (sfVector2f) { -(win_w / 2) - 250, (win_w / 2) + 250 });
     set_emiter_colors(adata, rain, sfWhite, sfBlack);
     set_emiter_vortex_dir(adata, rain, particle_anticlockwise);
     set_emiter_vortex_speed(adata, rain, (sfVector2f) { 5.0f, 7.0f });
@@ -113,7 +115,7 @@ void init_tests(s_appdata *adata)
 
 void add_light_to_cursor(s_appdata *adata)
 {
-    if (!sfShader_isAvailable()) return;
+    if (!get_int(adata, "enable_shader")) return;
 
     char *light_id = get_random_id(10);
 
