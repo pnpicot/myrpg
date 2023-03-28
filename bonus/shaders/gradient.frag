@@ -18,5 +18,6 @@ void main()
     if (factor < 0) factor = 0;
 
     color[3] = factor;
+
     gl_FragColor = color;
 }

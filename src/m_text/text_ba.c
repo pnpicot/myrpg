@@ -62,6 +62,7 @@ void add_text(s_appdata *adata, char *id, int layer)
     new_text->id = id;
     new_text->rtex_id = NULL;
     new_text->layer = layer;
+    new_text->pos = (sfVector2f) { 0, 0 };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->texts, new_text);

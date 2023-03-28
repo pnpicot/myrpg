@@ -17,6 +17,8 @@
 #define TYPE_VERTEX 4
 #define TYPE_SPRITE 5
 #define TYPE_BUTTON 6
+#define TYPE_LIGHT 7
+#define TYPE_EMITER 8
 
 #define obj_hover 0x01
 #define obj_pressed 0x02
@@ -146,6 +148,7 @@ typedef struct {
     linked_node *sound_queue;
     linked_node *animations;
     linked_node *emiters;
+    linked_node *gameobjects;
 } s_linkeds;
 
 typedef struct {
@@ -154,6 +157,7 @@ typedef struct {
     char *rtex_id;
     sfUint8 active;
     sfUint8 hidden;
+    sfVector2f pos;
     int layer;
 } s_rect;
 
@@ -173,6 +177,7 @@ typedef struct {
     char *rtex_id;
     sfUint8 active;
     sfUint8 hidden;
+    sfVector2f pos;
     int layer;
 } s_circle;
 
@@ -182,6 +187,7 @@ typedef struct {
     char *rtex_id;
     sfUint8 active;
     sfUint8 hidden;
+    sfVector2f pos;
     int layer;
 } s_vertex;
 
@@ -191,6 +197,7 @@ typedef struct {
     char *rtex_id;
     sfUint8 active;
     sfUint8 hidden;
+    sfVector2f pos;
     int layer;
 } s_text;
 
@@ -206,6 +213,7 @@ typedef struct {
     char *rtex_id;
     sfUint8 active;
     sfUint8 hidden;
+    sfVector2f pos;
     int layer;
 } s_sprite;
 
@@ -377,11 +385,13 @@ typedef struct {
 typedef struct {
     char *id;
     sfVector2f pos;
+    sfVector2f rel_pos;
     float inner_radius;
     float outer_radius;
     sfColor color;
     float intensity;
     sfBool active;
+    sfBool game_obj;
     sfCircleShape *inner_light;
     sfCircleShape *outer_light;
 } s_light;
@@ -428,7 +438,15 @@ typedef struct {
     sfColor start_color;
     sfColor end_color;
     float lerp_div;
+    sfBool game_obj;
 } s_particle_src;
+
+typedef struct {
+    char *id;
+    void *ref;
+    int type;
+    s_wall *hitbox;
+} s_gameobj;
 
 #include "pre_init.h"
 #include "error.h"
@@ -474,3 +492,5 @@ typedef struct {
 #include "key.h"
 #include "particle.h"
 #include "view.h"
+#include "control.h"
+#include "gameobject.h"

@@ -62,6 +62,7 @@ void add_rect(s_appdata *adata, char *id, int layer)
     new_rect->id = id;
     new_rect->rtex_id = NULL;
     new_rect->layer = layer;
+    new_rect->pos = (sfVector2f) { 0, 0 };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->rects, new_rect);
@@ -87,6 +88,8 @@ void move_rect(s_appdata *adata, char *id, sfVector2f pos)
         my_printf(get_error(adata, "unknown_id"));
         return;
     }
+
+    rect->pos = pos;
 
     sfRectangleShape_setPosition(rect->elem, pos);
 }

@@ -74,6 +74,19 @@ void move_emiter(s_appdata *adata, char *id, sfVector2f pos)
     emiter->emiter_pos = pos;
 }
 
+void translate_emiter(s_appdata *adata, char *id, sfVector2f pos_ch)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->emiter_pos.x += pos_ch.x;
+    emiter->emiter_pos.y += pos_ch.y;
+}
+
 void set_emiter_particle_lifetime(s_appdata *adata, char *id, int life_time)
 {
     s_particle_src *emiter = get_emiter(adata, id);
@@ -96,6 +109,18 @@ void set_emiter_particle_max(s_appdata *adata, char *id, int max)
     }
 
     emiter->particle_max = max;
+}
+
+void set_emiter_gameobject(s_appdata *adata, char *id, sfBool game_obj)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->game_obj = game_obj;
 }
 
 void set_emiter_model(s_appdata *adata, char *id, char *texture_id)
@@ -281,6 +306,7 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->start_color = sfWhite;
     new_emiter->end_color = sfWhite;
     new_emiter->lerp_div = 1.0f;
+    new_emiter->game_obj = sfFalse;
 
     linked_add(adata->lists->emiters, new_emiter);
 }
@@ -399,6 +425,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
     linked_node *particles = emiter->particle_pool;
     float delta = get_clock_seconds(emiter->delta_clock);
     float render_rate = get_float(adata, "render_rate");
+    s_game *game_data = adata->game_data;
     float scale_speed = get_vec_dist(emiter->start_size, emiter->end_size) / ((float) emiter->life_time * render_rate);
 
     while (particles != NULL && particles->data != NULL) {

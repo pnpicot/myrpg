@@ -184,8 +184,21 @@ void add_light(s_appdata *adata, char *id)
     new_light->pos = (sfVector2f) { 0, 0 };
     new_light->inner_light = get_inner_light(adata, new_light);
     new_light->outer_light = get_outer_light(adata, new_light);
+    new_light->game_obj = sfFalse;
 
     linked_add(adata->lists->lights, new_light);
+}
+
+void set_light_gameobject(s_appdata *adata, char *id, sfBool game_obj)
+{
+    s_light *light = get_light(adata, id);
+
+    if (light == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    light->game_obj = game_obj;
 }
 
 void move_light(s_appdata *adata, char *id, sfVector2f pos)
@@ -198,6 +211,21 @@ void move_light(s_appdata *adata, char *id, sfVector2f pos)
     }
 
     light->pos = pos;
+    update_light(adata, light);
+}
+
+void translate_light(s_appdata *adata, char *id, sfVector2f pos_ch)
+{
+    s_light *light = get_light(adata, id);
+
+    if (light == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    light->pos.x += pos_ch.x;
+    light->pos.y += pos_ch.y;
+
     update_light(adata, light);
 }
 
@@ -377,10 +405,10 @@ void toggle_light(s_appdata *adata, char *id)
 
 void init_light_recommended(s_appdata *adata, int depth_start)
 {
+    s_game *game_data = adata->game_data;
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    s_game *game_data = adata->game_data;
-    sfVector2f res = { game_data->map_size.x, game_data->map_size.y };
+    sfVector2f res = { win_w, win_h };
 
     add_rtex(adata, "light_mask", depth_start);
     set_lightmask_rtex(adata, "light_mask");

@@ -12,10 +12,6 @@ sfVector2f get_mouse(s_appdata *adata)
     sfVector2i m_abs = sfMouse_getPositionRenderWindow(adata->win);
     const sfView *view = sfRenderWindow_getView(adata->win);
     sfVector2f m_rel = sfRenderWindow_mapPixelToCoords(adata->win, m_abs, view);
-    s_game *game_data = adata->game_data;
-
-    m_rel.x -= game_data->view_pos.x;
-    m_rel.y -= game_data->view_pos.y;
 
     return (m_rel);
 }

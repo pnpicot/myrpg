@@ -11,9 +11,7 @@ void init_tests(s_appdata *adata)
 {
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    resize_map(adata, (sfVector2f) { 3000.0f, 3000.0f });
-    s_game *game_data = adata->game_data;
-    sfVector2f res = { game_data->map_size.x, game_data->map_size.y };
+    sfVector2f res = { win_w, win_h };
 
     if (get_int(adata, "enable_shader")) {
         init_light_recommended(adata, 1);
@@ -27,13 +25,51 @@ void init_tests(s_appdata *adata)
         set_light_intensity(adata, light_id, rand_float(30.0f, 50.0f));
     }
 
+    add_rtex(adata, "game", 9);
+    set_rtex_clear(adata, "game", sfTransparent);
+    set_rtex_blendmode(adata, "game", get_int(adata, "enable_shader") ? sfBlendMultiply : sfBlendNone);
+
+    char *sprite = "sprite_0";
+
+    add_sprite(adata, sprite, 1);
+    set_sprite_rtex(adata, sprite, "game");
+    set_sprite_texture(adata, sprite, get_texture(adata, "sheet"));
+    animate_sprite(adata, sprite);
+    set_animation_cols(adata, sprite, 4);
+    set_animation_rows(adata, sprite, 4);
+    set_animation_speed(adata, sprite, 0.15f);
+
+    char *sprite_obj = str_add(sprite, "_obj");
+
+    add_gameobject(adata, sprite_obj);
+    set_gameobject_ref(adata, sprite_obj, get_sprite(adata, sprite), TYPE_SPRITE);
+
+    char *main = "emiter_0";
+
+    add_emiter(adata, main);
+    set_emiter_rtex(adata, main, "game");
+    move_emiter(adata, main, (sfVector2f) { win_w / 2, win_h / 2 });
+    set_emiter_lifetime(adata, main, 150000);
+    set_emiter_particle_lifetime(adata, main, 7000);
+    set_emiter_model(adata, main, "star");
+    set_emiter_spawnrate(adata, main, 3.0f);
+    set_emiter_size_range(adata, main, (sfVector2f) { 0.6f, 0.6f }, (sfVector2f) { -0.7f, -0.7f });
+    set_emiter_cone(adata, main, (sfVector2f) { 0, 360.0f });
+    set_emiter_colors(adata, main, sfRed, sfYellow);
+    set_emiter_lerp_factor(adata, main, 1.2f);
+    set_emiter_vortex_dir(adata, main, particle_anticlockwise);
+    set_emiter_vortex_speed(adata, main, (sfVector2f) { -70.0f, 260.0f });
+    set_emiter_particle_speed(adata, main, (sfVector2f) { 250.0f, 350.0f });
+    set_emiter_particle_max(adata, main, 200);
+    set_emiter_gameobject(adata, main, sfTrue);
+
     /* play_music(adata, "theme");
     set_music_loop(adata, "theme", sfTrue);
     set_music_volume(adata, "theme", 5.0f); */
 
-    add_rtex(adata, "game", 9);
+    /* add_rtex(adata, "game", 9);
     set_rtex_clear(adata, "game", sfTransparent);
-    set_rtex_blendmode(adata, "game", sfBlendMultiply);
+    set_rtex_blendmode(adata, "game", get_int(adata, "enable_shader") ? sfBlendMultiply : sfBlendNone);
 
     char *flame = "emiter_0";
 
@@ -110,7 +146,7 @@ void init_tests(s_appdata *adata)
     set_emiter_spawn_xoffset(adata, rain, (sfVector2f) { -(win_w / 2) - 250, (win_w / 2) + 250 });
     set_emiter_colors(adata, rain, sfWhite, sfBlack);
     set_emiter_vortex_dir(adata, rain, particle_anticlockwise);
-    set_emiter_vortex_speed(adata, rain, (sfVector2f) { 5.0f, 7.0f });
+    set_emiter_vortex_speed(adata, rain, (sfVector2f) { 5.0f, 7.0f }); */
 }
 
 void add_light_to_cursor(s_appdata *adata)
@@ -124,6 +160,7 @@ void add_light_to_cursor(s_appdata *adata)
     set_light_inner(adata, light_id, rand_float(60.0f, 130.0f));
     set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
     set_light_intensity(adata, light_id, rand_float(30.0f, 50.0f));
+    set_light_gameobject(adata, light_id, sfTrue);
     move_light(adata, light_id, get_mouse(adata));
     play_sound(adata, "bonus", 15.0f, get_mouse(adata));
 }

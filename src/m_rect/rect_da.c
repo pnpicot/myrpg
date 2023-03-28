@@ -32,6 +32,8 @@ void translate_rect(s_appdata *adata, char *id, sfVector2f pos_ch)
     pos.x += pos_ch.x;
     pos.y += pos_ch.y;
 
+    rect->pos = pos;
+
     sfRectangleShape_setPosition(rect->elem, pos);
 }
 

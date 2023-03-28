@@ -40,6 +40,8 @@ void move_text(s_appdata *adata, char *id, sfVector2f pos)
         return;
     }
 
+    text->pos = pos;
+
     sfText_setPosition(text->elem, pos);
 }
 
@@ -67,6 +69,8 @@ void translate_text(s_appdata *adata, char *id, sfVector2f pos_ch)
     sfVector2f pos = sfText_getPosition(text->elem);
     pos.x += pos_ch.x;
     pos.y += pos_ch.y;
+
+    text->pos = pos;
 
     sfText_setPosition(text->elem, pos);
 }

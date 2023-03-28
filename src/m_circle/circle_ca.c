@@ -16,6 +16,8 @@ void move_circle(s_appdata *adata, char *id, sfVector2f pos)
         return;
     }
 
+    circle->pos = pos;
+
     sfCircleShape_setPosition(circle->elem, pos);
 }
 
@@ -67,6 +69,8 @@ void translate_circle(s_appdata *adata, char *id, sfVector2f pos_ch)
     sfVector2f pos = sfCircleShape_getPosition(circle->elem);
     pos.x += pos_ch.x;
     pos.y += pos_ch.y;
+
+    circle->pos = pos;
 
     sfCircleShape_setPosition(circle->elem, pos);
 }

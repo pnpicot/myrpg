@@ -62,6 +62,7 @@ void add_vertex(s_appdata *adata, char *id, int layer)
     new_vertex->id = id;
     new_vertex->rtex_id = NULL;
     new_vertex->layer = layer;
+    new_vertex->pos = (sfVector2f) { 0, 0 };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->vertexes, new_vertex);

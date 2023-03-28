@@ -16,6 +16,8 @@ void move_sprite(s_appdata *adata, char *id, sfVector2f pos)
         return;
     }
 
+    sprite->pos = pos;
+
     sfSprite_setPosition(sprite->elem, pos);
 }
 
@@ -67,6 +69,8 @@ void translate_sprite(s_appdata *adata, char *id, sfVector2f pos_ch)
     sfVector2f pos = sfSprite_getPosition(sprite->elem);
     pos.x += pos_ch.x;
     pos.y += pos_ch.y;
+
+    sprite->pos = pos;
 
     sfSprite_setPosition(sprite->elem, pos);
 }

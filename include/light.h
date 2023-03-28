@@ -34,3 +34,5 @@ void toggle_light(s_appdata *adata, char *id);
 void set_lightres_rtex(s_appdata *adata, char *rtex_id);
 void set_lightblend_rtex(s_appdata *adata, char *rtex_id);
 void init_light_recommended(s_appdata *adata, int depth_start);
+void set_light_gameobject(s_appdata *adata, char *id, sfBool game_obj);
+void translate_light(s_appdata *adata, char *id, sfVector2f pos_ch);

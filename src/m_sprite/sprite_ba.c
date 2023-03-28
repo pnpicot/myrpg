@@ -54,6 +54,7 @@ int layer, s_sprite *new_sprite)
     new_sprite->rtex_id = NULL;
     new_sprite->id = id;
     new_sprite->layer = layer;
+    new_sprite->pos = (sfVector2f) { 0, 0 };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->sprites, new_sprite);

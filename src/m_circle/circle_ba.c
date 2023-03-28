@@ -62,6 +62,7 @@ void add_circle(s_appdata *adata, char *id, int layer)
     new_circle->id = id;
     new_circle->rtex_id = NULL;
     new_circle->layer = layer;
+    new_circle->pos = (sfVector2f) { 0, 0 };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->circles, new_circle);

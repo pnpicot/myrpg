@@ -53,3 +53,4 @@ sfColor get_element_bg(s_appdata *adata, void *ref, int type);
 sfVector2f get_element_pos(s_appdata *adata, void *ref, int type);
 sfFloatRect get_element_bounds_next(s_appdata *adata, void *ref, int type);
 sfFloatRect get_element_bounds(s_appdata *adata, void *ref, int type);
+sfVector2f get_element_rel_pos(s_appdata *adata, void *ref, int type);
