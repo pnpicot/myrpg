@@ -34,7 +34,7 @@ void render_textures(s_appdata *adata, int depth)
             rtexs = rtexs->next;
             continue;
         }
-        if (!my_strcmp(cur->id, adata->wall_rtex->id)) render_lights(adata);
+        if (get_int(adata, "enable_shader")) render_lights(adata);
         render_elements(adata, cur);
         s_rtex *next = get_rtex_d(adata, depth + 1);
         const sfTexture *cur_tex = sfRenderTexture_getTexture(cur->texture);
