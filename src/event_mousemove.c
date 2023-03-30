@@ -10,7 +10,10 @@
 void register_mousemove(s_appdata *adata, sfMouseMoveEvent mouse)
 {
     sfVector2f mouse_pos = get_mouse(adata);
+    s_ints *integers = adata->integers;
 
     object_check_hover(adata);
-    move_light(adata, "mouse_light", mouse_pos);
+
+    if (integers->in_game && get_int(adata, "dev_mode"))
+        move_light(adata, "mouse_light", mouse_pos);
 }

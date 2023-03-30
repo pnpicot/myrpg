@@ -62,14 +62,9 @@ void set_rtex_clear(s_appdata *adata, char *id, sfColor color)
 void force_rtex(s_appdata *adata, char *id)
 {
     s_rtex *rtex = get_rtex(adata, id);
-
-    if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
-        return;
-    }
-
     s_rtex *next = get_rtex_d(adata, rtex->depth + 1);
     const sfTexture *cur_tex = sfRenderTexture_getTexture(rtex->texture);
+
     sfSprite_setTexture(rtex->sprite, cur_tex, sfFalse);
 
     if (next == NULL || !next->inherit) {

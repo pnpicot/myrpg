@@ -27,7 +27,7 @@ void render_textures(s_appdata *adata, int depth)
     s_ints *integers = adata->integers;
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;
-        if (cur->depth != depth) {
+        if (cur->depth != depth || !cur->active) {
             rtexs = rtexs->next;
             continue;
         }
@@ -36,7 +36,7 @@ void render_textures(s_appdata *adata, int depth)
             rtexs = rtexs->next;
             continue;
         }
-        if (get_int(adata, "enable_shader") && integers->in_game) render_lights(adata);
+        if (get_int(adata, "enable_shader") && integers->in_game && cur->depth == adata->light_blend_rtex->depth + 1) render_lights(adata);
         render_elements(adata, cur);
         s_rtex *next = get_rtex_d(adata, depth + 1);
         const sfTexture *cur_tex = sfRenderTexture_getTexture(cur->texture);

@@ -38,6 +38,7 @@ void init_appdata_misc(s_appdata *adata)
     adata->light_res_rtex = NULL;
     adata->light_blend_rtex = NULL;
     adata->current_wall = NULL;
+    adata->current_state = NULL;
 
     init_gamedata(adata);
     init_keys(adata);

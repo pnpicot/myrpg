@@ -54,3 +54,15 @@ sfShader *get_rtex_shader(s_appdata *adata, char *id)
 
     return (rtex->shader);
 }
+
+void set_rtex_active(s_appdata *adata, char *id, sfBool active)
+{
+    s_rtex *rtex = get_rtex(adata, id);
+
+    if (rtex == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    rtex->active = active;
+}

@@ -2,7 +2,8 @@
 
 # -- misc -- begin
 string default_font = mono
-int enable_shader = 0 
+int enable_shader = 1 
+int dev_mode = 0 
 # -- misc -- end
 
 # -- window -- begin
@@ -11,7 +12,7 @@ int win_h = 1080
 float app_rate = 0.0001f
 float update_rate = 0.001f
 float render_rate = 0.001f
-int max_frame_rate = 144
+int max_frame_rate = 360
 # -- window -- end
 
 # -- switch -- begin

@@ -79,6 +79,8 @@ void delete_light(s_appdata *adata, char *id)
         lights = lights->next;
     }
 
+    adata->integers->light_count--;
+
     linked_delete(&adata->lists->lights, ite);
 }
 
@@ -185,6 +187,8 @@ void add_light(s_appdata *adata, char *id)
     new_light->inner_light = get_inner_light(adata, new_light);
     new_light->outer_light = get_outer_light(adata, new_light);
     new_light->game_obj = sfFalse;
+
+    adata->integers->light_count++;
 
     linked_add(adata->lists->lights, new_light);
 }
@@ -446,7 +450,7 @@ void init_light_recommended(s_appdata *adata, int depth_start)
 
     add_rtex(adata, "light_overlay", depth_start + 5);
     set_rtex_inherit(adata, "light_overlay", 1);
-    set_rtex_blendmode(adata, "light_overlay", sfBlendAdd);
+    set_rtex_blendmode(adata, "light_overlay", sfBlendAlpha);
     set_rtex_clear(adata, "light_overlay", sfTransparent);
     set_lightres_rtex(adata, "light_overlay");
     set_rtex_shader(adata, "light_overlay", get_shader(adata, "mask"));
@@ -462,4 +466,7 @@ void init_light_recommended(s_appdata *adata, int depth_start)
     set_rtex_blendmode(adata, "walls", sfBlendAlpha);
     set_rtex_clear(adata, "walls", sfTransparent);
     set_wall_rtex(adata, "walls", 1);
+
+    const sfTexture *tex = sfRenderTexture_getTexture(adata->light_res_rtex->texture);
+    sfSprite_setTexture(adata->light_res_rtex->sprite, tex, sfTrue);
 }

@@ -26,7 +26,8 @@ void init_appdata_ints(s_appdata *adata)
     integers->capital = 0;
     integers->last_keycode = -1;
     integers->wall_layer = 0;
-    integers->in_game = 1;
+    integers->in_game = 0;
+    integers->light_count = 0;
 }
 
 void init_appdata_floats(s_appdata *adata)
@@ -54,6 +55,9 @@ void init_appdata_clocks(s_appdata *adata)
     clocks->update_clock = sfClock_create();
     clocks->render_clock = sfClock_create();
     clocks->input_clock = sfClock_create();
+    clocks->fps_clock = sfClock_create();
+    clocks->fps_display_clock = sfClock_create();
+    clocks->movement_clock = sfClock_create();
 }
 
 void init_appdata_linkeds_next(s_linkeds *lists)

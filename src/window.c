@@ -9,6 +9,11 @@
 
 void close_window(s_appdata *adata)
 {
+    if (adata->integers->in_game && get_int(adata, "dev_mode")) {
+        switch_state(adata, "main_menu_0");
+        return;
+    }
+
     free_sound(adata);
     sfRenderWindow_close(adata->win);
 }

@@ -22,3 +22,4 @@ s_rtex *get_rtex_d(s_appdata *adata, int depth);
 const sfTexture *get_rtex_tex(s_appdata *adata, char *id);
 void set_rtex_clear(s_appdata *adata, char *id, sfColor color);
 void force_rtex(s_appdata *adata, char *id);
+void set_rtex_active(s_appdata *adata, char *id, sfBool active);

@@ -60,6 +60,8 @@ void update_speed(s_appdata *adata)
 void update_controls(s_appdata *adata)
 {
     s_game *game_data = adata->game_data;
+    s_clocks *clocks = adata->clocks;
+    float delta = get_clock_seconds(clocks->movement_clock);
 
     if (get_key(adata, sfKeyQ)) {
         game_data->speed.x -= game_data->velocity;
@@ -78,12 +80,17 @@ void update_controls(s_appdata *adata)
     }
 
     update_speed(adata);
-    move_gameobject_lights(adata, (sfVector2f) { -game_data->speed.x, -game_data->speed.y });
-    move_gameobject_emiters(adata, (sfVector2f) { -game_data->speed.x, -game_data->speed.y });
-    move_gameobject_walls(adata, (sfVector2f) { -game_data->speed.x, -game_data->speed.y });
 
-    game_data->view_pos.x += game_data->speed.x;
-    game_data->view_pos.y += game_data->speed.y;
+    sfVector2f shift;
+    shift.x = -(game_data->speed.x * delta);
+    shift.y = -(game_data->speed.y * delta);
+
+    move_gameobject_lights(adata, shift);
+    move_gameobject_emiters(adata, shift);
+    move_gameobject_walls(adata, shift);
+
+    game_data->view_pos.x += game_data->speed.x * delta;
+    game_data->view_pos.y += game_data->speed.y * delta;
 
     sfMouseMoveEvent ms;
     ms.type = sfEvtMouseMoved;
@@ -91,4 +98,5 @@ void update_controls(s_appdata *adata)
     ms.y = 0;
 
     register_mousemove(adata, ms);
+    sfClock_restart(clocks->movement_clock);
 }

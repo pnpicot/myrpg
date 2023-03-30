@@ -7,6 +7,15 @@
 
 #include "main.h"
 
+void test_switch(s_appdata *adata, s_ref *ref)
+{
+    switch_state(adata, "main_game_state");
+}
+
+// TODO: update les lights que quand il y a une modification, sinon : juste render la texture de blend:
+// TODO: - enregistrer chaques textures additives des lights dans un sprite contenu dans la struct des lights
+// TODO: - render les sprites en sfBlendAlpha
+
 void init_tests(s_appdata *adata)
 {
     int win_w = get_int(adata, "win_w");
@@ -29,6 +38,10 @@ void init_tests(s_appdata *adata)
     set_rtex_clear(adata, "game", sfTransparent);
     set_rtex_blendmode(adata, "game", get_int(adata, "enable_shader") ? sfBlendMultiply : sfBlendNone);
 
+    add_rtex(adata, "game_ui", 10);
+    set_rtex_clear(adata, "game_ui", sfTransparent);
+    set_rtex_blendmode(adata, "game_ui", sfBlendAlpha);
+
     char *sprite = "sprite_0";
 
     add_sprite(adata, sprite, 1);
@@ -44,7 +57,7 @@ void init_tests(s_appdata *adata)
     add_gameobject(adata, sprite_obj);
     set_gameobject_ref(adata, sprite_obj, get_sprite(adata, sprite), TYPE_SPRITE);
 
-    char *main = "emiter_0";
+    /* char *main = "emiter_0";
 
     add_emiter(adata, main);
     set_emiter_rtex(adata, main, "game");
@@ -61,11 +74,72 @@ void init_tests(s_appdata *adata)
     set_emiter_vortex_speed(adata, main, (sfVector2f) { 50.0f, 210.0f });
     set_emiter_particle_speed(adata, main, (sfVector2f) { 250.0f, 350.0f });
     set_emiter_particle_max(adata, main, rand_int(150, 450));
-    set_emiter_gameobject(adata, main, sfTrue);
+    set_emiter_gameobject(adata, main, sfTrue); */
 
-    set_friction(adata, 0.06f);
-    set_max_speed(adata, 9.0f);
-    set_velocity(adata, 0.7f);
+    set_friction(adata, 6.0f);
+    set_max_speed(adata, 1400.0f);
+    set_velocity(adata, 90.0f);
+
+    char *main_state = "main_menu_0";
+
+    add_state(adata, main_state);
+
+    char *main_container = "container_0";
+
+    add_container(adata, main_container);
+    set_state_container(adata, main_state, get_container(adata, main_container));
+
+    char *menu_rtex = "rtex_menu_0";
+
+    add_rtex(adata, menu_rtex, 10);
+    set_rtex_blendmode(adata, menu_rtex, sfBlendNone);
+    set_rtex_clear(adata, menu_rtex, sfTransparent);
+    add_state_rtex(adata, main_state, get_rtex(adata, menu_rtex));
+
+    char *play_btn = "button_0";
+
+    add_button(adata, play_btn, TYPE_RECT, 1);
+    edit_button(adata, play_btn, "Play");
+    set_button_font(adata, play_btn, get_font(adata, "lobster"));
+    color_button_fg(adata, play_btn, sfWhite);
+    color_button_bg(adata, play_btn, get_color(60, 60, 60, 255));
+    set_button_rtex(adata, play_btn, menu_rtex);
+    add_to_container(adata, main_container, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
+    resize_button(adata, play_btn, (sfVector2f) { 250, 60 });
+    set_button_origin(adata, play_btn, (sfVector2f) { 125, 30 });
+    move_button(adata, play_btn, (sfVector2f) { win_w / 2, win_h / 2 });
+
+    char *obj = str_add(play_btn, "@[:object]");
+
+    add_object(adata, obj, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
+    set_object_hover_bg(adata, obj, get_color(90, 90, 90, 255));
+    set_object_pressed_bg(adata, obj, get_color(120, 120, 120, 255));
+    set_object_onclick(adata, obj, &test_switch);
+
+    switch_state(adata, main_state);
+
+    char *game_state = "main_game_state";
+
+    add_state(adata, game_state);
+    set_state_ingame(adata, game_state, sfTrue);
+    add_state_rtex(adata, game_state, get_rtex(adata, "game"));
+    add_state_rtex(adata, game_state, get_rtex(adata, "game_ui"));
+
+    char *game_container = "container_1";
+
+    add_container(adata, game_container);
+    set_state_container(adata, game_state, get_container(adata, game_container));
+
+    char *fps = "text_1";
+
+    add_text(adata, fps, 3);
+    set_text_rtex(adata, fps, "game_ui");
+    set_text_font(adata, fps, get_font(adata, "courier"));
+    color_text(adata, fps, sfYellow);
+    edit_text(adata, fps, "8000 fps");
+    move_text(adata, fps, (sfVector2f) { 20, 20 });
+    resize_text(adata, fps, 20);
+    add_to_container(adata, game_container, (s_ref) { get_text(adata, fps), TYPE_TEXT });
 }
 
 void add_light_to_cursor(s_appdata *adata)
@@ -86,5 +160,6 @@ void add_light_to_cursor(s_appdata *adata)
 
 void post_init(s_appdata *adata)
 {
-    init_tests(adata);
+    // init_tests(adata);
+    init_live(adata);
 }

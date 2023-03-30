@@ -53,6 +53,7 @@ typedef struct {
     int capital;
     int wall_layer;
     int in_game;
+    int light_count;
 } s_ints;
 
 typedef struct {
@@ -85,6 +86,7 @@ typedef struct {
     sfUint8 inherit;
     int depth;
     sfColor clear_color;
+    sfBool active;
 } s_rtex;
 
 typedef struct {
@@ -92,6 +94,9 @@ typedef struct {
     sfClock *update_clock;
     sfClock *render_clock;
     sfClock *input_clock;
+    sfClock *fps_clock;
+    sfClock *fps_display_clock;
+    sfClock *movement_clock;
 } s_clocks;
 
 typedef struct {
@@ -270,6 +275,7 @@ typedef struct {
     char *current_wall;
     int *keys;
     s_game *game_data;
+    s_state *current_state;
 } s_appdata;
 
 typedef struct {
@@ -513,3 +519,5 @@ typedef struct {
 #include "view.h"
 #include "control.h"
 #include "gameobject.h"
+#include "state.h"
+#include "setup.h"

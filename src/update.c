@@ -7,6 +7,24 @@
 
 #include "main.h"
 
+void update_fps(s_appdata *adata)
+{
+    s_clocks *clocks = adata->clocks;
+    sfTime elapsed = sfClock_getElapsedTime(clocks->fps_clock);
+    int fps = 1 / (elapsed.microseconds * 0.000001);
+    sfTime disp_elapsed = sfClock_getElapsedTime(clocks->fps_display_clock);
+
+    sfClock_restart(clocks->fps_clock);
+
+    if (get_clock_seconds(clocks->fps_display_clock) >= 1.0f) {
+        char *fps_c = nbr_to_str(fps);
+        char *light_c = nbr_to_str(adata->integers->light_count);
+        char *new_text = str_m_add(4, fps_c, " fps, ", light_c, " lights");
+        edit_text(adata, "text_1", new_text);
+        sfClock_restart(clocks->fps_display_clock);
+    }
+}
+
 void update(s_appdata *adata, float update_rate)
 {
     s_clocks *clocks = adata->clocks;
@@ -35,7 +53,13 @@ void update(s_appdata *adata, float update_rate)
             sfClock_restart(clocks->input_clock);
         }
 
-        update_current_wall(adata);
+        update_live(adata);
+
+        if (get_int(adata, "dev_mode")) {
+            update_current_wall(adata);
+            update_fps(adata);
+        }
+
         sfClock_restart(clocks->update_clock);
     }
 }

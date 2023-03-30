@@ -7,6 +7,17 @@
 
 #include "main.h"
 
+sfBool in_light_range(s_appdata *adata, int depth)
+{
+    if (adata->mask_rtex == NULL || adata->light_blend_rtex == NULL)
+        return (sfFalse);
+
+    int mask_depth = adata->mask_rtex->depth;
+    int blend_depth = adata->light_blend_rtex->depth;
+
+    return (depth >= mask_depth && depth <= blend_depth);
+}
+
 void set_lightmask_rtex(s_appdata *adata, char *rtex_id)
 {
     s_rtex *rtex = get_rtex(adata, rtex_id);
@@ -176,15 +187,8 @@ void draw_light(s_appdata *adata, s_light *light)
 
     s_rtex *blend = get_rtex(adata, adata->light_blend_rtex->id);
     s_rtex *light_rtex = get_rtex(adata, adata->light_res_rtex->id);
-    const sfTexture *cur_tex = sfRenderTexture_getTexture(adata->light_res_rtex->texture);
 
-    sfSprite *tmp = sfSprite_create();
-    sfSprite_setTexture(tmp, cur_tex, sfTrue);
-
-    sfRenderStates *state = light_rtex->state;
-    state->blendMode = sfBlendAlpha;
-
-    sfRenderTexture_drawSprite(blend->texture, tmp, light_rtex->state);
+    sfRenderTexture_drawSprite(blend->texture, light_rtex->sprite, light_rtex->state);
 }
 
 void shadow_cast(s_appdata *adata, s_light *light)
