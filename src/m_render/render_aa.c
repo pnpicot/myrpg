@@ -24,17 +24,19 @@ void render_textures(s_appdata *adata, int depth)
 {
     update_emiters(adata);
     linked_node *rtexs = adata->lists->rtexs;
+    s_ints *integers = adata->integers;
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;
         if (cur->depth != depth) {
             rtexs = rtexs->next;
             continue;
         }
-        if (adata->mask_rtex != NULL && cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth) {
+        int in_light_range = adata->mask_rtex != NULL && cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth;
+        if (in_light_range && integers->in_game) {
             rtexs = rtexs->next;
             continue;
         }
-        if (get_int(adata, "enable_shader")) render_lights(adata);
+        if (get_int(adata, "enable_shader") && integers->in_game) render_lights(adata);
         render_elements(adata, cur);
         s_rtex *next = get_rtex_d(adata, depth + 1);
         const sfTexture *cur_tex = sfRenderTexture_getTexture(cur->texture);

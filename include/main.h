@@ -52,6 +52,7 @@ typedef struct {
     int last_keycode;
     int capital;
     int wall_layer;
+    int in_game;
 } s_ints;
 
 typedef struct {
@@ -149,7 +150,9 @@ typedef struct {
     linked_node *animations;
     linked_node *emiters;
     linked_node *gameobjects;
+    linked_node *states;
 } s_linkeds;
+
 
 typedef struct {
     sfRectangleShape *elem;
@@ -170,6 +173,13 @@ typedef struct {
     char *id;
     linked_node *nodes;
 } s_container;
+
+typedef struct {
+    s_container *container;
+    char *id;
+    sfBool in_game;
+    linked_node *rtexs;
+} s_state;
 
 typedef struct {
     sfCircleShape *elem;
@@ -230,12 +240,17 @@ typedef struct {
 } s_animation;
 
 typedef struct {
+    int negro;
+} s_entity;
+
+typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
     sfVector2f speed;
     float velocity;
     float speed_max;
     float friction;
+    linked_node *entities;
 } s_game;
 
 typedef struct {
