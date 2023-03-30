@@ -85,3 +85,15 @@ float shadow_median = -3200.0f
 color shadow_mask = 0,0,0,255
 color shadow_cast = 0,0,0,120
 # -- lights -- end
+
+# -- setup -- begin
+string rtex_game = rtex_game
+string rtex_ui = rtex_ui
+string rtex_menu = rtex_menu
+string state_main = st_main
+string state_game = st_game
+string ctn_main = ctn_main
+string ctn_game = ctn_game
+
+string play_btn = main_play_btn
+# -- setup -- end
