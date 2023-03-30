@@ -26,6 +26,7 @@ void init_appdata_ints(s_appdata *adata)
     integers->capital = 0;
     integers->last_keycode = -1;
     integers->wall_layer = 0;
+    integers->in_game = 1;
 }
 
 void init_appdata_floats(s_appdata *adata)
@@ -78,6 +79,7 @@ void init_appdata_linkeds_next(s_linkeds *lists)
     lists->animations = linked_new();
     lists->emiters = linked_new();
     lists->gameobjects = linked_new();
+    lists->states = linked_new();
 }
 
 void init_appdata_linkeds(s_appdata *adata)

@@ -41,6 +41,10 @@ fclean: clean
 	$(RM) $(TARGET)
 	echo "\033[36mDELETED \033[32m$(TARGET)\033[0m"
 
+.PHONY: debug
+debug:
+	$(MAKE) CFLAGS="-g3 -ggdb" re
+
 .PHONY: re
 re: fclean all
 
