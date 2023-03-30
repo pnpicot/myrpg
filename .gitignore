@@ -8,5 +8,5 @@
 *.d
 temp/
 *~
-app
+my_rpg
 .vscode/
