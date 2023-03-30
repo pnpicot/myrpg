@@ -240,12 +240,17 @@ typedef struct {
 } s_animation;
 
 typedef struct {
+    int negro;
+} s_entity;
+
+typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
     sfVector2f speed;
     float velocity;
     float speed_max;
     float friction;
+    linked_node *entities;
 } s_game;
 
 typedef struct {

@@ -31,8 +31,8 @@ void render_textures(s_appdata *adata, int depth)
             rtexs = rtexs->next;
             continue;
         }
-        int in_light_range = cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth;
-        if (adata->mask_rtex != NULL && in_light_range && integers->in_game) {
+        int in_light_range = adata->mask_rtex != NULL && cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth;
+        if (in_light_range && integers->in_game) {
             rtexs = rtexs->next;
             continue;
         }
