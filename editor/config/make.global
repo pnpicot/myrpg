@@ -10,8 +10,8 @@ MAKEFLAGS += -s
 
 INCLUDES    := $(PROJECT_PATH)/include
 
-LIBS        := ./lib/
-LIBS_TARGET := csfml-window csfml-graphics csfml-audio csfml-system m my
+LIBS        :=
+LIBS_TARGET := csfml-window csfml-graphics csfml-audio csfml-system m
 
 CC          := gcc
 CFLAGS      := -W -Wall -Wextra -O3
