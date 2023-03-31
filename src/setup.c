@@ -29,9 +29,9 @@ void init_live_light(s_appdata *adata)
 
         add_light(adata, light_id);
         color_light(adata, light_id, sfWhite);
-        set_light_inner(adata, light_id, 60.0f);
-        set_light_outer(adata, light_id, 580.0f);
-        set_light_intensity(adata, light_id, 38.0f);
+        set_light_inner(adata, light_id, rand_float(60.0f, 130.0f));
+        set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
+        set_light_intensity(adata, light_id, rand_float(30.0f, 60.0f));
     }
 }
 
@@ -42,6 +42,10 @@ void init_live_textures(s_appdata *adata)
     char *rtex_ui = get_str(adata, "rtex_ui");
     char *rtex_menu = get_str(adata, "rtex_menu");
     char *rtex_wall = get_str(adata, "rtex_wall");
+    char *rtex_wall_light = get_str(adata, "rtex_wall_light");
+    char *rtex_settings = get_str(adata, "rtex_settings");
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
 
     add_rtex(adata, rtex_game, 9);
     set_rtex_clear(adata, rtex_game, sfTransparent);
@@ -52,30 +56,50 @@ void init_live_textures(s_appdata *adata)
     add_rtex(adata, rtex_wall, 10);
     set_rtex_clear(adata, rtex_wall, sfTransparent);
     set_rtex_blendmode(adata, rtex_wall, sfBlendAlpha);
+    set_rtex_shader(adata, rtex_wall, get_shader(adata, "rgb_multiply"));
 
-    add_rtex(adata, rtex_ui, 11);
+    add_rtex(adata, rtex_wall_light, 0);
+    set_rtex_clear(adata, rtex_wall_light, sfBlack);
+    set_rtex_blendmode(adata, rtex_wall_light, sfBlendNone);
+
+    set_shader_texture(adata, "rgb_multiply", "tex", get_rtex_tex(adata, rtex_wall));
+    set_shader_texture(adata, "rgb_multiply", "add", get_rtex_tex(adata, rtex_wall_light));
+    set_shader_vec2(adata, "rgb_multiply", "resolution", (sfVector2f) { win_w, win_h });
+
+    add_rtex(adata, rtex_ui, 12);
     set_rtex_clear(adata, rtex_ui, sfTransparent);
     set_rtex_blendmode(adata, rtex_ui, sfBlendAlpha);
 
-    add_rtex(adata, rtex_menu, 12);
+    add_rtex(adata, rtex_menu, 13);
     set_rtex_blendmode(adata, rtex_menu, sfBlendNone);
     set_rtex_clear(adata, rtex_menu, sfTransparent);
+
+    add_rtex(adata, rtex_settings, 14);
+    set_rtex_blendmode(adata, rtex_settings, sfBlendNone);
+    set_rtex_clear(adata, rtex_settings, sfTransparent);
+    set_rtex_active(adata, rtex_settings, sfFalse);
 }
 
 void init_live_states(s_appdata *adata)
 {
     char *main_state = get_str(adata, "state_main");
     char *game_state = get_str(adata, "state_game");
+    char *settings_state = get_str(adata, "state_settings");
+
     char *main_ctn = get_str(adata, "ctn_main");
     char *game_ctn = get_str(adata, "ctn_game");
+    char *settings_ctn = get_str(adata, "ctn_settings");
 
     char *rtex_game = get_str(adata, "rtex_game");
     char *rtex_ui = get_str(adata, "rtex_ui");
     char *rtex_menu = get_str(adata, "rtex_menu");
     char *rtex_wall = get_str(adata, "rtex_wall");
+    char *rtex_wall_light = get_str(adata, "rtex_wall_light");
+    char *rtex_settings = get_str(adata, "rtex_settings");
 
     add_state(adata, main_state);
     add_state(adata, game_state);
+    add_state(adata, settings_state);
 
     set_state_ingame(adata, game_state, sfTrue);
 
@@ -85,10 +109,15 @@ void init_live_states(s_appdata *adata)
     add_container(adata, game_ctn);
     set_state_container(adata, game_state, get_container(adata, game_ctn));
 
+    add_container(adata, settings_ctn);
+    set_state_container(adata, settings_state, get_container(adata, settings_ctn));
+
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_game));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_ui));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_wall));
+    add_state_rtex(adata, game_state, get_rtex(adata, rtex_wall_light));
+    add_state_rtex(adata, settings_state, get_rtex(adata, rtex_settings));
 }
 
 void init_live(s_appdata *adata)
@@ -97,6 +126,7 @@ void init_live(s_appdata *adata)
     init_live_textures(adata);
     init_live_states(adata);
     init_live_main_menu(adata);
+    init_live_settings_menu(adata);
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
 

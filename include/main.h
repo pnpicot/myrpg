@@ -19,6 +19,7 @@
 #define TYPE_BUTTON 6
 #define TYPE_LIGHT 7
 #define TYPE_EMITER 8
+#define TYPE_SLIDER 9
 
 #define obj_hover 0x01
 #define obj_pressed 0x02
@@ -42,6 +43,7 @@
 #define sfBrown get_color(133, 97, 60, 255)
 #define sfDarkGray get_color(110, 110, 110, 255)
 #define sfLightGray get_color(200, 200, 200, 255)
+#define sfOrange get_color(252, 144, 3, 255)
 
 typedef struct {
     int exit_status;
@@ -530,4 +532,5 @@ typedef struct {
 #include "setup.h"
 #include "ui_main.h"
 #include "ui_ingame.h"
+#include "ui_settings.h"
 #include "map.h"

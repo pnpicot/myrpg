@@ -133,8 +133,9 @@ void create_shadow_mask(s_appdata *adata, s_light *light, s_wall *wall_el)
     sfVector2f b_projected = get_projected(pos, anchor_b, shadow_dist);
     sfVector2f median;
 
-    median.x = (anchor_a.x + anchor_b.x) / 2;
-    median.y = (anchor_a.y + anchor_b.y) / 2;
+    median.x = (a_projected.x + b_projected.x) / 2;
+    median.y = (a_projected.y + b_projected.y) / 2;
+
     median = get_projected(pos, median, get_float(adata, "shadow_median"));
 
     sfVertexArray *cast = sfVertexArray_create();
@@ -177,7 +178,6 @@ void draw_light(s_appdata *adata, s_light *light)
 {
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->outer_light, NULL);
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->inner_light, NULL);
-    force_rtex(adata, adata->light_rtex->id);
 
     for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
         s_rtex *rtex = get_rtex_d(adata, i);
@@ -189,6 +189,17 @@ void draw_light(s_appdata *adata, s_light *light)
     s_rtex *light_rtex = get_rtex(adata, adata->light_res_rtex->id);
 
     sfRenderTexture_drawSprite(blend->texture, light_rtex->sprite, light_rtex->state);
+    clear_rtex(adata, adata->mask_rtex->id, sfWhite);
+
+    for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
+        s_rtex *rtex = get_rtex_d(adata, i);
+
+        force_rtex(adata, rtex->id);
+    }
+
+    s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
+
+    sfRenderTexture_drawSprite(wall->texture, light_rtex->sprite, light_rtex->state);
 }
 
 void shadow_cast(s_appdata *adata, s_light *light)

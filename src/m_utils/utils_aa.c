@@ -54,9 +54,32 @@ sfVector2f get_projected(sfVector2f origin, sfVector2f point, float dist)
 sfColor rand_light_color(sfUint8 alpha)
 {
     sfColor new_color;
-    new_color.r = rand_int(170, 255);
-    new_color.g = rand_int(170, 255);
-    new_color.b = rand_int(170, 255);
+    int rand = rand_int(0, 6);
+
+    switch (rand) {
+        case 0:
+            new_color = sfRed;
+            break;
+        case 1:
+            new_color = sfBlue;
+            break;
+        case 2:
+            new_color = sfGreen;
+            break;
+        case 3:
+            new_color = sfCyan;
+            break;
+        case 4:
+            new_color = sfYellow;
+            break;
+        case 5:
+            new_color = sfMagenta;
+            break;
+        case 6:
+            new_color = sfOrange;
+            break;
+    }
+
     new_color.a = alpha ? rand_int(0, 255) : 255;
 
     return (new_color);

@@ -105,6 +105,12 @@ int type, sfUint8 active)
             set_button_active(adata, button->id, active);
             break;
             }
+        case TYPE_SLIDER:
+            {
+            s_slider *slider = (s_slider *) ref;
+            set_slider_active(adata, slider->id, active);
+            break;
+            }
     }
 }
 

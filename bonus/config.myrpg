@@ -91,15 +91,28 @@ string rtex_game = rtex_game
 string rtex_ui = rtex_ui
 string rtex_menu = rtex_menu
 string rtex_wall = rtex_wall
+string rtex_wall_light = rtex_wall_l
+string rtex_settings = rtex_settings
+
 string state_main = st_main
 string state_game = st_game
+string state_settings = st_settings
+
 string ctn_main = ctn_main
 string ctn_game = ctn_game
+string ctn_settings = ctn_settings
 # -- setup -- end
 
 # -- main menu ui -- begin
 string play_btn = main_play_btn
+string quit_btn = main_quit_btn
+string settings_btn = main_settings_btn
 # -- main menu ui -- end
+
+# -- settings menu ui -- begin
+string back_btn = settings_back_btn
+string volume_slider = settings_volume
+# -- settings menu ui -- end
 
 # -- ingame ui -- begin
 string fps_text = ig_fps_text
