@@ -47,18 +47,21 @@ sfColor rand_color(sfUint8 alpha)
 sfBool rect_intersects_circle(sfFloatRect rect, \
 sfVector2f circle_pos, float radius)
 {
+    float half_x = rect.width / 2;
+    float half_y = rect.height / 2;
+
     sfVector2f dist_vec;
-    dist_vec.x = f_abs(circle_pos.x - rect.left);
-    dist_vec.y = f_abs(circle_pos.y - rect.top);
+    dist_vec.x = f_abs(circle_pos.x - (rect.left + half_x));
+    dist_vec.y = f_abs(circle_pos.y - (rect.top + half_y));
 
-    if (dist_vec.x > ((rect.width / 2) + radius)) return (sfFalse);
-    if (dist_vec.y > ((rect.height / 2) + radius)) return (sfFalse);
+    if (dist_vec.x > (half_x + radius)) return (sfFalse);
+    if (dist_vec.y > (half_y + radius)) return (sfFalse);
 
-    if (dist_vec.x <= (rect.width / 2)) return (sfTrue);
-    if (dist_vec.y <= (rect.height / 2)) return (sfTrue);
+    if (dist_vec.x <= half_x) return (sfTrue);
+    if (dist_vec.y <= half_y) return (sfTrue);
 
-    float corner_dist = pow(dist_vec.x - rect.width / 2, 2)
-                      + pow(dist_vec.y - rect.height / 2, 2);
+    float corner_dist = pow(dist_vec.x - half_x, 2)
+                      + pow(dist_vec.y - half_y, 2);
 
     return (corner_dist <= pow(radius, 2));
 }

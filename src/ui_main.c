@@ -117,7 +117,7 @@ void init_main_particles(s_appdata *adata, char *container, char *rtex)
     set_emiter_cone(adata, particles, (sfVector2f) { 0, 360.0f });
     set_emiter_particle_speed(adata, particles, (sfVector2f) { 530.0f, 950.0f });
     set_emiter_size_range(adata, particles, (sfVector2f) { 1.0f, 1.0f }, (sfVector2f) { -0.6f, -0.6f });
-    set_emiter_colors(adata, particles, sfWhite, sfBlack);
+    set_emiter_colors(adata, particles, sfBlack, sfWhite);
     set_emiter_lerp_factor(adata, particles, 1.2f);
     set_emiter_vortex_dir(adata, particles, particle_clockwise);
     set_emiter_vortex_speed(adata, particles, (sfVector2f) { -30.0f, 150.0f });

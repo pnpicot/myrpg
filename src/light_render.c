@@ -182,6 +182,12 @@ void draw_cached_lights(s_appdata *adata)
     s_rtex *blend = get_rtex(adata, adata->light_blend_rtex->id);
     s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
     sfRenderStates *state = malloc(sizeof(sfRenderStates));
+    sfFloatRect screen;
+
+    screen.left = 0;
+    screen.top = 0;
+    screen.width = get_int(adata, "win_w");
+    screen.height = get_int(adata, "win_h");
 
     state->blendMode = sfBlendAdd;
     state->shader = NULL;
@@ -191,7 +197,7 @@ void draw_cached_lights(s_appdata *adata)
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
 
-        if (!cur->game_obj) {
+        if (!cur->game_obj || !rect_intersects_circle(screen, cur->pos, cur->outer_radius)) {
             lights = lights->next;
             continue;
         }
@@ -219,6 +225,7 @@ void draw_light(s_appdata *adata, s_light *light)
         set_shader_vec2(adata, "gradient", "pos", light->pos);
         sfCircleShape_setPosition(light->outer_light, light->pos);
         sfCircleShape_setPosition(light->inner_light, light->pos);
+        adata->integers->light_count++;
     }
 
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->outer_light, NULL);
@@ -287,12 +294,6 @@ void shadow_cast(s_appdata *adata, s_light *light)
 void render_lights_next(s_appdata *adata, sfBool obj)
 {
     linked_node *lights = adata->lists->lights;
-    sfFloatRect screen;
-
-    screen.left = 0;
-    screen.top = 0;
-    screen.width = get_int(adata, "win_w");
-    screen.height = get_int(adata, "win_h");
 
     if (obj) clear_rtex(adata, adata->light_blend_rtex->id, sfTransparent);
 
