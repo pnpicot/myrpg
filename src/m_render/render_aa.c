@@ -57,6 +57,11 @@ void clear_rtexs(s_appdata *adata)
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;
 
+        if (!cur->active) {
+            rtexs = rtexs->next;
+            continue;
+        }
+
         sfRenderTexture_clear(cur->texture, cur->clear_color);
 
         rtexs = rtexs->next;
@@ -69,6 +74,11 @@ void display_rtexs(s_appdata *adata)
 
     while (rtexs != NULL && rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) rtexs->data;
+
+        if (!cur->active) {
+            rtexs = rtexs->next;
+            continue;
+        }
 
         sfRenderTexture_display(cur->texture);
 

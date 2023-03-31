@@ -213,9 +213,29 @@ void render_lights(s_appdata *adata)
     if (adata->mask_rtex == NULL || adata->light_rtex == NULL) return;
 
     linked_node *lights = adata->lists->lights;
+    sfFloatRect screen;
+
+    screen.left = 0;
+    screen.top = 0;
+    screen.width = get_int(adata, "win_w");
+    screen.height = get_int(adata, "win_h");
+    adata->integers->light_count = 0;
 
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
+        sfFloatRect bounds;
+
+        bounds.left = cur->pos.x - cur->outer_radius;
+        bounds.top = cur->pos.y - cur->outer_radius;
+        bounds.width = cur->outer_radius * 2;
+        bounds.height = cur->outer_radius * 2;
+
+        if (!sfFloatRect_intersects(&screen, &bounds, NULL)) {
+            lights = lights->next;
+            continue;
+        }
+
+        adata->integers->light_count++;
 
         shadow_cast(adata, cur);
         clear_rtex(adata, adata->mask_rtex->id, adata->mask_rtex->clear_color);

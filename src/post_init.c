@@ -149,7 +149,7 @@ void add_light_to_cursor(s_appdata *adata)
     char *light_id = get_random_id(10);
 
     add_light(adata, light_id);
-    color_light(adata, light_id, rand_int(0, 1) ? sfWhite : get_color(240, 227, 180, 255));
+    color_light(adata, light_id, sfWhite);
     set_light_inner(adata, light_id, rand_float(60.0f, 130.0f));
     set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
     set_light_intensity(adata, light_id, rand_float(30.0f, 50.0f));

@@ -65,4 +65,5 @@ void set_rtex_active(s_appdata *adata, char *id, sfBool active)
     }
 
     rtex->active = active;
+    sfRenderTexture_setActive(rtex->texture, active);
 }

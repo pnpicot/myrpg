@@ -107,5 +107,5 @@ string fps_text = ig_fps_text
 
 # -- map -- begin
 string default_map = dev.map
-float zoom = 3.0f
+float zoom = 3.5f
 # -- map -- end

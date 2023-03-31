@@ -79,8 +79,6 @@ void delete_light(s_appdata *adata, char *id)
         lights = lights->next;
     }
 
-    adata->integers->light_count--;
-
     linked_delete(&adata->lists->lights, ite);
 }
 
@@ -187,8 +185,6 @@ void add_light(s_appdata *adata, char *id)
     new_light->inner_light = get_inner_light(adata, new_light);
     new_light->outer_light = get_outer_light(adata, new_light);
     new_light->game_obj = sfFalse;
-
-    adata->integers->light_count++;
 
     linked_add(adata->lists->lights, new_light);
 }
