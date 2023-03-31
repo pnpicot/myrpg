@@ -124,6 +124,11 @@ typedef struct {
 } s_sound;
 
 typedef struct {
+    char id;
+    sfTexture *tex;
+} s_tile;
+
+typedef struct {
     linked_node *config_ints;
     linked_node *config_floats;
     linked_node *config_strings;
@@ -156,6 +161,7 @@ typedef struct {
     linked_node *emiters;
     linked_node *gameobjects;
     linked_node *states;
+    linked_node *tiles;
 } s_linkeds;
 
 
@@ -521,3 +527,6 @@ typedef struct {
 #include "gameobject.h"
 #include "state.h"
 #include "setup.h"
+#include "ui_main.h"
+#include "ui_ingame.h"
+#include "map.h"

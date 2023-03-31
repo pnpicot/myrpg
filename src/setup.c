@@ -17,6 +17,7 @@ void move_mouse_light(s_appdata *adata)
 void update_live(s_appdata *adata)
 {
     move_mouse_light(adata);
+    update_ingame_ui(adata);
 }
 
 void init_live_light(s_appdata *adata)
@@ -83,38 +84,18 @@ void init_live_states(s_appdata *adata)
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_ui));
 }
 
-void init_live_main_menu(s_appdata *adata)
-{
-    int win_w = get_int(adata, "win_w");
-    int win_h = get_int(adata, "win_h");
-    char *container = get_str(adata, "ctn_main");
-    char *rtex = get_str(adata, "rtex_menu");
-    char *play_btn = get_str(adata, "play_btn");
-
-    add_button(adata, play_btn, TYPE_RECT, 1);
-    edit_button(adata, play_btn, "Play");
-    set_button_font(adata, play_btn, get_font(adata, "lobster"));
-    color_button_fg(adata, play_btn, sfWhite);
-    color_button_bg(adata, play_btn, get_color(60, 60, 60, 255));
-    set_button_rtex(adata, play_btn, rtex);
-    add_to_container(adata, container, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
-    resize_button(adata, play_btn, (sfVector2f) { 250, 60 });
-    set_button_origin(adata, play_btn, (sfVector2f) { 125, 30 });
-    move_button(adata, play_btn, (sfVector2f) { win_w / 2, win_h / 2 });
-
-    char *obj = str_add(play_btn, "@[:object]");
-
-    add_object(adata, obj, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
-    set_object_hover_bg(adata, obj, get_color(90, 90, 90, 255));
-    set_object_pressed_bg(adata, obj, get_color(120, 120, 120, 255));
-}
-
 void init_live(s_appdata *adata)
 {
     init_live_light(adata);
     init_live_textures(adata);
     init_live_states(adata);
     init_live_main_menu(adata);
+    init_live_ingame_ui(adata);
+    init_map(adata, get_str(adata, "default_map"));
 
     switch_state(adata, get_str(adata, "state_main"));
+
+    set_friction(adata, 6.0f);
+    set_max_speed(adata, 1400.0f);
+    set_velocity(adata, 90.0f);
 }

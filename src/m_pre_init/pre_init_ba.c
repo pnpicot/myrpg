@@ -84,6 +84,7 @@ void init_appdata_linkeds_next(s_linkeds *lists)
     lists->emiters = linked_new();
     lists->gameobjects = linked_new();
     lists->states = linked_new();
+    lists->tiles = linked_new();
 }
 
 void init_appdata_linkeds(s_appdata *adata)

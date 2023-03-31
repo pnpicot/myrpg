@@ -12,6 +12,9 @@ void close_window(s_appdata *adata)
     if (adata->integers->in_game && get_int(adata, "dev_mode")) {
         switch_state(adata, "main_menu_0");
         return;
+    } else if (adata->integers->in_game) {
+        switch_state(adata, get_str(adata, "state_main"));
+        return;
     }
 
     free_sound(adata);
