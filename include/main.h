@@ -126,6 +126,7 @@ typedef struct {
 typedef struct {
     char id;
     sfTexture *tex;
+    sfBool wall;
 } s_tile;
 
 typedef struct {

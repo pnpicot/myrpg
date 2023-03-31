@@ -90,6 +90,7 @@ color shadow_cast = 0,0,0,120
 string rtex_game = rtex_game
 string rtex_ui = rtex_ui
 string rtex_menu = rtex_menu
+string rtex_wall = rtex_wall
 string state_main = st_main
 string state_game = st_game
 string ctn_main = ctn_main

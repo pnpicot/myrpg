@@ -22,7 +22,7 @@ s_tile *get_tile(s_appdata *adata, char id)
     return (NULL);
 }
 
-void add_tile(s_appdata *adata, char ch, char *tex_id)
+void add_tile(s_appdata *adata, char ch, char *tex_id, sfBool solid)
 {
     s_tile *tile = get_tile(adata, ch);
 
@@ -47,6 +47,7 @@ void add_tile(s_appdata *adata, char ch, char *tex_id)
 
     new_tile->id = ch;
     new_tile->tex = tex;
+    new_tile->wall = solid;
 
     linked_add(adata->lists->tiles, new_tile);
 }
@@ -66,8 +67,9 @@ void load_tiles(s_appdata *adata)
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
         char ch = entry_data[0][0];
         char *tex_id = entry_data[1];
+        sfBool solid = entry_data[2][0] != '0' ? sfTrue : sfFalse;
 
-        add_tile(adata, ch, tex_id);
+        add_tile(adata, ch, tex_id, solid);
 
         ite++;
     }
@@ -80,7 +82,7 @@ void add_tile_to_map(s_appdata *adata, char ch, int id, sfVector2f pos)
     if (tile == NULL) return;
 
     char *tile_id = str_add("@[:tile]-", nbr_to_str(id));
-    char *rtex = get_str(adata, "rtex_game");
+    char *rtex = get_str(adata, tile->wall ? "rtex_wall" : "rtex_game");
     char *container = get_str(adata, "ctn_game");
     float zoom = get_float(adata, "zoom");
 
@@ -95,6 +97,9 @@ void add_tile_to_map(s_appdata *adata, char ch, int id, sfVector2f pos)
 
     add_gameobject(adata, gobj);
     set_gameobject_ref(adata, gobj, get_sprite(adata, tile_id), TYPE_SPRITE );
+
+    if (tile->wall)
+        add_gameobject_hitbox(adata, gobj);
 }
 
 void load_map(s_appdata *adata, char *map)

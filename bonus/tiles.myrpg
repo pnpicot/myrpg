@@ -1,3 +1,8 @@
-# <char> = <texture-id>
+# <char> = <texture-id> <solid (bool)>
 
-0 = soil
+0 = soil 0 
+1 = wall 1 
+2 = wall_tl 1 
+3 = wall_tr 1 
+4 = wall_br 1 
+5 = wall_bl 1 

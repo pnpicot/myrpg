@@ -149,8 +149,14 @@ void add_gameobject_hitbox(s_appdata *adata, char *id)
     }
 
     char *hitbox_id = str_add(id, "@[:hitbox]");
+    sfFloatRect bounds = get_element_bounds(adata, gameobject->ref, gameobject->type);
 
-    add_wall(adata, hitbox_id, get_element_bounds(adata, gameobject->ref, gameobject->type));
+    bounds.left++;
+    bounds.top++;
+    bounds.width -= 2;
+    bounds.height -= 2;
+
+    add_wall(adata, hitbox_id, bounds);
 }
 
 void move_gameobject_walls(s_appdata *adata, sfVector2f pos_ch)
