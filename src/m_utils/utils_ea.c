@@ -17,3 +17,10 @@ sfColor lerp_color(sfColor from, sfColor to, float factor)
 
     return (res);
 }
+
+float f_abs(float value)
+{
+    if (value < 0) value *= -1;
+
+    return (value);
+}

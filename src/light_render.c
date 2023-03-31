@@ -91,13 +91,15 @@ int get_is_diagt(sfVector2f pos, sfVector2f nst_t, sfVector2f nst)
         || (pos.x <= nst.x && pos.x >= nst_t.x));
 }
 
-void create_shadow_mask(s_appdata *adata, s_light *light, s_wall *wall_el)
+void create_shadow_mask(s_appdata *adata, sfVector2f pos, s_wall *wall_el, sfVector2f shift)
 {
     sfFloatRect wall = sfRectangleShape_getGlobalBounds(wall_el->hitbox->elem);
+    wall.left += shift.x;
+    wall.top += shift.y;
+
     float shadow_dist = get_float(adata, "shadow_dist");
     sfColor mask_color = get_config_color(adata, "shadow_mask");
     sfColor cast_color = get_config_color(adata, "shadow_cast");
-    sfVector2f pos = light->pos;
     sfVector2f top_l = { wall.left, wall.top };
     sfVector2f top_r = { wall.left + wall.width, wall.top };
     sfVector2f bot_l = { wall.left, wall.top + wall.height};
@@ -174,8 +176,51 @@ void create_shadow_mask(s_appdata *adata, s_light *light, s_wall *wall_el)
     }
 }
 
+void draw_cached_lights(s_appdata *adata)
+{
+    linked_node *lights = adata->lists->lights;
+    s_rtex *blend = get_rtex(adata, adata->light_blend_rtex->id);
+    s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
+    sfRenderStates *state = malloc(sizeof(sfRenderStates));
+
+    state->blendMode = sfBlendAdd;
+    state->shader = NULL;
+    state->texture = NULL;
+    state->transform = sfTransform_Identity;
+
+    while (lights != NULL && lights->data != NULL) {
+        s_light *cur = (s_light *) lights->data;
+
+        if (!cur->game_obj) {
+            lights = lights->next;
+            continue;
+        }
+
+        sfRenderTexture_drawSprite(blend->texture, cur->cache, state);
+        sfRenderTexture_drawSprite(wall->texture, cur->wall_cache, state);
+
+        adata->integers->light_count++;
+        lights = lights->next;
+    }
+}
+
 void draw_light(s_appdata *adata, s_light *light)
 {
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfVector2f mid = { win_w / 2, win_h / 2 };
+    sfBool is_obj = light->game_obj;
+
+    if (is_obj) {
+        set_shader_vec2(adata, "gradient", "pos", mid);
+        sfCircleShape_setPosition(light->outer_light, mid);
+        sfCircleShape_setPosition(light->inner_light, mid);
+    } else {
+        set_shader_vec2(adata, "gradient", "pos", light->pos);
+        sfCircleShape_setPosition(light->outer_light, light->pos);
+        sfCircleShape_setPosition(light->inner_light, light->pos);
+    }
+
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->outer_light, NULL);
     sfRenderTexture_drawCircleShape(adata->light_rtex->texture, light->inner_light, NULL);
 
@@ -187,9 +232,16 @@ void draw_light(s_appdata *adata, s_light *light)
 
     s_rtex *blend = get_rtex(adata, adata->light_blend_rtex->id);
     s_rtex *light_rtex = get_rtex(adata, adata->light_res_rtex->id);
+    s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
 
     sfRenderTexture_drawSprite(blend->texture, light_rtex->sprite, light_rtex->state);
     clear_rtex(adata, adata->mask_rtex->id, sfWhite);
+
+    if (is_obj) {
+        const sfTexture *tex = sfRenderTexture_getTexture(blend->texture);
+        sfSprite_setTexture(light->cache, sfTexture_copy(tex), sfTrue);
+        clear_rtex(adata, wall->id, sfTransparent);
+    }
 
     for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
         s_rtex *rtex = get_rtex_d(adata, i);
@@ -197,38 +249,43 @@ void draw_light(s_appdata *adata, s_light *light)
         force_rtex(adata, rtex->id);
     }
 
-    s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
-
     sfRenderTexture_drawSprite(wall->texture, light_rtex->sprite, light_rtex->state);
+
+    if (is_obj) {
+        const sfTexture *tex = sfRenderTexture_getTexture(wall->texture);
+        sfSprite_setTexture(light->wall_cache, sfTexture_copy(tex), sfTrue);
+        light->changed = sfFalse;
+    }
 }
 
-void shadow_cast(s_appdata *adata, s_light *light, sfFloatRect bounds)
+void shadow_cast(s_appdata *adata, s_light *light)
 {
     linked_node *walls = adata->lists->walls;
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfVector2f mid = { win_w / 2, win_h / 2 };
+    sfVector2f shift = { 0, 0 };
+
+    if (light->game_obj) {
+        shift.x = mid.x - light->pos.x;
+        shift.y = mid.y - light->pos.y;
+    }
 
     while (walls != NULL && walls->data != NULL) {
         s_wall *cur = (s_wall *) walls->data;
         sfFloatRect wall_bounds = get_rect_bounds(adata, cur->hitbox->id);
 
-        if (!sfFloatRect_intersects(&bounds, &wall_bounds, NULL)) {
-            walls = walls->next;
-            continue;
-        }
-
-        create_shadow_mask(adata, light, cur);
+        create_shadow_mask(adata, light->game_obj ? mid : light->pos, cur, shift);
 
         walls = walls->next;
     }
 
-    set_shader_vec2(adata, "gradient", "pos", light->pos);
     set_shader_float(adata, "gradient", "max_dist", light->outer_radius);
     draw_light(adata, light);
 }
 
-void render_lights(s_appdata *adata)
+void render_lights_next(s_appdata *adata, sfBool obj)
 {
-    if (adata->mask_rtex == NULL || adata->light_rtex == NULL) return;
-
     linked_node *lights = adata->lists->lights;
     sfFloatRect screen;
 
@@ -236,27 +293,23 @@ void render_lights(s_appdata *adata)
     screen.top = 0;
     screen.width = get_int(adata, "win_w");
     screen.height = get_int(adata, "win_h");
-    adata->integers->light_count = 0;
+
+    if (obj) clear_rtex(adata, adata->light_blend_rtex->id, sfTransparent);
 
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
-        sfFloatRect bounds;
+        int priority = cur->game_obj == obj;
 
-        bounds.left = cur->pos.x - cur->outer_radius;
-        bounds.top = cur->pos.y - cur->outer_radius;
-        bounds.width = cur->outer_radius * 2;
-        bounds.height = cur->outer_radius * 2;
-
-        if (!sfFloatRect_intersects(&screen, &bounds, NULL)) {
+        if (!cur->changed || !priority) {
             lights = lights->next;
             continue;
         }
 
-        adata->integers->light_count++;
-
-        shadow_cast(adata, cur, bounds);
+        shadow_cast(adata, cur);
         clear_rtex(adata, adata->mask_rtex->id, adata->mask_rtex->clear_color);
         clear_rtex(adata, adata->light_rtex->id, adata->light_rtex->clear_color);
+
+        if (obj) clear_rtex(adata, adata->light_blend_rtex->id, sfTransparent);
 
         for (int i = adata->light_rtex->depth; i <= adata->light_res_rtex->depth; i++) {
             s_rtex *rtex = get_rtex_d(adata, i);
@@ -266,6 +319,21 @@ void render_lights(s_appdata *adata)
 
         lights = lights->next;
     }
+}
 
+void render_lights(s_appdata *adata)
+{
+    if (adata->mask_rtex == NULL) return;
+
+    s_ints *integers = adata->integers;
+
+    integers->light_count = 0;
+
+    clear_rtex(adata, adata->light_blend_rtex->id, sfTransparent);
+    render_lights_next(adata, sfTrue);
+    clear_rtex(adata, adata->light_blend_rtex->id, sfBlack);
+    clear_rtex(adata, get_str(adata, "rtex_wall_light"), sfBlack);
+    render_lights_next(adata, sfFalse);
+    draw_cached_lights(adata);
     force_rtex(adata, adata->light_blend_rtex->id);
 }

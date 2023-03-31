@@ -139,8 +139,6 @@ void update_light(s_appdata *adata, s_light *light)
 
     sfCircleShape_setOrigin(light->inner_light, inner_origin);
     sfCircleShape_setOrigin(light->outer_light, outer_origin);
-    sfCircleShape_setPosition(light->inner_light, light->pos);
-    sfCircleShape_setPosition(light->outer_light, light->pos);
 
     sfColor light_color = light->color;
     float outer_alpha = 255.0f - (255.0f * (light->intensity / 100.0f));
@@ -185,8 +183,18 @@ void add_light(s_appdata *adata, char *id)
     new_light->inner_light = get_inner_light(adata, new_light);
     new_light->outer_light = get_outer_light(adata, new_light);
     new_light->game_obj = sfFalse;
+    new_light->cache = sfSprite_create();
+    new_light->wall_cache = sfSprite_create();
+    new_light->changed = sfTrue;
 
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+
+    sfSprite_setOrigin(new_light->cache, (sfVector2f) { win_w / 2, win_h / 2 });
+    sfSprite_setOrigin(new_light->wall_cache, (sfVector2f) { win_w / 2, win_h / 2 });
     linked_add(adata->lists->lights, new_light);
+
+    adata->integers->light_change = 1;
 }
 
 void set_light_gameobject(s_appdata *adata, char *id, sfBool game_obj)
@@ -211,7 +219,8 @@ void move_light(s_appdata *adata, char *id, sfVector2f pos)
     }
 
     light->pos = pos;
-    update_light(adata, light);
+    sfSprite_setPosition(light->cache, pos);
+    sfSprite_setPosition(light->wall_cache, pos);
 }
 
 void translate_light(s_appdata *adata, char *id, sfVector2f pos_ch)
@@ -226,7 +235,8 @@ void translate_light(s_appdata *adata, char *id, sfVector2f pos_ch)
     light->pos.x += pos_ch.x;
     light->pos.y += pos_ch.y;
 
-    update_light(adata, light);
+    sfSprite_setPosition(light->cache, light->pos);
+    sfSprite_setPosition(light->wall_cache, light->pos);
 }
 
 void set_light_inner(s_appdata *adata, char *id, float inner_radius)

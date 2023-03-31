@@ -47,21 +47,18 @@ sfColor rand_color(sfUint8 alpha)
 sfBool rect_intersects_circle(sfFloatRect rect, \
 sfVector2f circle_pos, float radius)
 {
-    sfVector2f top_left_pos;
-    top_left_pos.x = rect.left;
-    top_left_pos.y = rect.top;
-    sfVector2f top_right_pos;
-    top_right_pos.x = rect.left + rect.width;
-    top_right_pos.y = rect.top;
-    sfVector2f bottom_left_pos;
-    bottom_left_pos.x = rect.left;
-    bottom_left_pos.y = rect.top + rect.height;
-    sfVector2f bottom_right_pos;
-    bottom_right_pos.x = rect.left + rect.width;
-    bottom_right_pos.y = rect.top + rect.height;
-    sfBool top_left = circle_contains(circle_pos, radius, top_left_pos);
-    sfBool top_right = circle_contains(circle_pos, radius, top_right_pos);
-    sfBool bottom_left = circle_contains(circle_pos, radius, bottom_left_pos);
-    sfBool bottom_right = circle_contains(circle_pos, radius, bottom_right_pos);
-    return (top_left || top_right || bottom_left || bottom_right);
+    sfVector2f dist_vec;
+    dist_vec.x = f_abs(circle_pos.x - rect.left);
+    dist_vec.y = f_abs(circle_pos.y - rect.top);
+
+    if (dist_vec.x > ((rect.width / 2) + radius)) return (sfFalse);
+    if (dist_vec.y > ((rect.height / 2) + radius)) return (sfFalse);
+
+    if (dist_vec.x <= (rect.width / 2)) return (sfTrue);
+    if (dist_vec.y <= (rect.height / 2)) return (sfTrue);
+
+    float corner_dist = pow(dist_vec.x - rect.width / 2, 2)
+                      + pow(dist_vec.y - rect.height / 2, 2);
+
+    return (corner_dist <= pow(radius, 2));
 }

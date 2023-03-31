@@ -56,6 +56,7 @@ typedef struct {
     int wall_layer;
     int in_game;
     int light_count;
+    int light_change;
 } s_ints;
 
 typedef struct {
@@ -428,6 +429,9 @@ typedef struct {
     sfBool game_obj;
     sfCircleShape *inner_light;
     sfCircleShape *outer_light;
+    sfSprite *cache;
+    sfSprite *wall_cache;
+    sfBool changed;
 } s_light;
 
 typedef struct {

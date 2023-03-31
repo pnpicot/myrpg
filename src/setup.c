@@ -32,6 +32,7 @@ void init_live_light(s_appdata *adata)
         set_light_inner(adata, light_id, rand_float(60.0f, 130.0f));
         set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
         set_light_intensity(adata, light_id, rand_float(30.0f, 60.0f));
+        set_light_gameobject(adata, light_id, sfFalse);
     }
 }
 

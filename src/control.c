@@ -57,6 +57,28 @@ void update_speed(s_appdata *adata)
     game_data->speed.y = force_range(game_data->speed.y, -game_data->speed_max, game_data->speed_max);
 }
 
+void move_camera(s_appdata *adata, sfVector2f pos)
+{
+    s_game *game_data = adata->game_data;
+    sfVector2f shift;
+
+    shift.x = pos.x - game_data->view_pos.x;
+    shift.y = pos.y - game_data->view_pos.y;
+
+    move_gameobject_lights(adata, shift);
+    move_gameobject_emiters(adata, shift);
+    move_gameobject_walls(adata, shift);
+
+    game_data->view_pos = pos;
+
+    sfMouseMoveEvent ms;
+    ms.type = sfEvtMouseMoved;
+    ms.x = 0;
+    ms.y = 0;
+
+    register_mousemove(adata, ms);
+}
+
 void update_controls(s_appdata *adata)
 {
     s_game *game_data = adata->game_data;

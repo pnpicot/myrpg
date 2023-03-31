@@ -28,6 +28,7 @@ void init_appdata_ints(s_appdata *adata)
     integers->wall_layer = 0;
     integers->in_game = 0;
     integers->light_count = 0;
+    integers->light_change = 1;
 }
 
 void init_appdata_floats(s_appdata *adata)
