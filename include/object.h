@@ -29,10 +29,10 @@ void (*on_hover)(s_appdata *adata, s_ref *ref));
 void object_check_hover_color(s_appdata *adata, int contains, \
 s_ref *ref, s_object *cur);
 void object_check_hover(s_appdata *adata);
-void object_check_pressed_next(s_appdata *adata, int contains, \
+int object_check_pressed_next(s_appdata *adata, int contains, \
 s_ref *ref, s_object *cur);
 void object_check_pressed(s_appdata *adata);
-void object_check_released(s_appdata *adata);
+int object_check_released(s_appdata *adata);
 void disable_object_hover_color(s_appdata *adata, char *id);
 void disable_object_pressed_color(s_appdata *adata, char *id);
 void disable_object_onpressed(s_appdata *adata, char *id);

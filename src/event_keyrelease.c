@@ -24,6 +24,4 @@ void register_keyrelease(s_appdata *adata, int keycode)
     }
 
     adata->keys[keycode] = 0;
-
-    if (keycode == sfKeySpace) add_light_to_cursor(adata);
 }

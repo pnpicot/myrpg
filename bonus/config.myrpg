@@ -12,7 +12,7 @@ int win_h = 1080
 float app_rate = 0.0001f
 float update_rate = 0.001f
 float render_rate = 0.001f
-int max_frame_rate = 560
+int max_frame_rate = 600
 # -- window -- end
 
 # -- switch -- begin

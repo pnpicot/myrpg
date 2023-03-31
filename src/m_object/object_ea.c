@@ -7,7 +7,7 @@
 
 #include "../include/main.h"
 
-void object_check_pressed_next(s_appdata *adata, int contains, \
+int object_check_pressed_next(s_appdata *adata, int contains, \
 s_ref *ref, s_object *cur)
 {
     if (contains && (cur->flags & obj_pressed)) {
@@ -15,9 +15,16 @@ s_ref *ref, s_object *cur)
         color_element_fg(adata, ref->ref, ref->type, cur->pressed_fg);
         color_element_out(adata, ref->ref, ref->type, cur->pressed_out);
     }
+
     if (contains && (cur->flags & obj_onpressed))
         (*cur->on_pressed)(adata, cur->ref);
-    if (contains) adata->last_pressed = cur;
+
+    if (contains){
+        adata->last_pressed = cur;
+        return (1);
+    }
+
+    return (0);
 }
 
 void object_check_pressed(s_appdata *adata)
@@ -34,16 +41,19 @@ void object_check_pressed(s_appdata *adata)
         sfFloatRect obj_bounds = get_element_bounds(adata, ref->ref, ref->type);
         sfVector2f mouse = get_mouse(adata);
         int contains = sfFloatRect_contains(&obj_bounds, mouse.x, mouse.y);
-        object_check_pressed_next(adata, contains, ref, cur);
+        int event = object_check_pressed_next(adata, contains, ref, cur);
+
+        if (event) break;
+
         objects = objects->next;
     }
 }
 
-void object_check_released(s_appdata *adata)
+int object_check_released(s_appdata *adata)
 {
     s_object *last = (s_object *) adata->last_pressed;
 
-    if (last == NULL) return;
+    if (last == NULL) return (0);
 
     color_element(adata, last->ref->ref, last->ref->type, last->off_bg);
     color_element_fg(adata, last->ref->ref, last->ref->type, last->off_fg);
@@ -54,6 +64,8 @@ void object_check_released(s_appdata *adata)
 
     adata->last_pressed = NULL;
     object_check_hover(adata);
+
+    return (1);
 }
 
 void disable_object_hover_color(s_appdata *adata, char *id)

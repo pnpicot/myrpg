@@ -32,7 +32,7 @@ void init_main_quitbtn(s_appdata *adata, char *container, char *rtex)
     edit_button(adata, quit_btn, "Quit");
     set_button_font(adata, quit_btn, get_font(adata, "lobster"));
     color_button_fg(adata, quit_btn, sfWhite);
-    color_button_bg(adata, quit_btn, get_color(255, 255, 255, 10));
+    color_button_bg(adata, quit_btn, sfBlack);
     set_button_rtex(adata, quit_btn, rtex);
     add_to_container(adata, container, (s_ref) { get_button(adata, quit_btn), TYPE_BUTTON });
     resize_button(adata, quit_btn, (sfVector2f) { 450, 60 });
@@ -43,8 +43,8 @@ void init_main_quitbtn(s_appdata *adata, char *container, char *rtex)
     char *obj = str_add(quit_btn, "@[:object]");
 
     add_object(adata, obj, (s_ref) { get_button(adata, quit_btn), TYPE_BUTTON });
-    set_object_hover_bg(adata, obj, get_color(255, 255, 255, 30));
-    set_object_pressed_bg(adata, obj, get_color(255, 255, 255, 50));
+    set_object_hover_bg(adata, obj, get_color(30, 30, 30, 255));
+    set_object_pressed_bg(adata, obj, get_color(50, 50, 50, 255));
     set_object_onclick(adata, obj, &trigger_quitbtn);
 }
 
@@ -58,7 +58,7 @@ void init_main_settingsbtn(s_appdata *adata, char *container, char *rtex)
     edit_button(adata, settings_btn, "Settings");
     set_button_font(adata, settings_btn, get_font(adata, "lobster"));
     color_button_fg(adata, settings_btn, sfWhite);
-    color_button_bg(adata, settings_btn, get_color(255, 255, 255, 10));
+    color_button_bg(adata, settings_btn, sfBlack);
     set_button_rtex(adata, settings_btn, rtex);
     add_to_container(adata, container, (s_ref) { get_button(adata, settings_btn), TYPE_BUTTON });
     resize_button(adata, settings_btn, (sfVector2f) { 450, 60 });
@@ -69,8 +69,8 @@ void init_main_settingsbtn(s_appdata *adata, char *container, char *rtex)
     char *obj = str_add(settings_btn, "@[:object]");
 
     add_object(adata, obj, (s_ref) { get_button(adata, settings_btn), TYPE_BUTTON });
-    set_object_hover_bg(adata, obj, get_color(255, 255, 255, 30));
-    set_object_pressed_bg(adata, obj, get_color(255, 255, 255, 50));
+    set_object_hover_bg(adata, obj, get_color(30, 30, 30, 255));
+    set_object_pressed_bg(adata, obj, get_color(50, 50, 50, 255));
     set_object_onclick(adata, obj, &trigger_settingsbtn);
 }
 
@@ -84,7 +84,7 @@ void init_main_playbtn(s_appdata *adata, char *container, char *rtex)
     edit_button(adata, play_btn, "Play");
     set_button_font(adata, play_btn, get_font(adata, "lobster"));
     color_button_fg(adata, play_btn, sfWhite);
-    color_button_bg(adata, play_btn, get_color(255, 255, 255, 10));
+    color_button_bg(adata, play_btn, sfBlack);
     set_button_rtex(adata, play_btn, rtex);
     add_to_container(adata, container, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
     resize_button(adata, play_btn, (sfVector2f) { 450, 60 });
@@ -95,8 +95,8 @@ void init_main_playbtn(s_appdata *adata, char *container, char *rtex)
     char *obj = str_add(play_btn, "@[:object]");
 
     add_object(adata, obj, (s_ref) { get_button(adata, play_btn), TYPE_BUTTON });
-    set_object_hover_bg(adata, obj, get_color(255, 255, 255, 30));
-    set_object_pressed_bg(adata, obj, get_color(255, 255, 255, 50));
+    set_object_hover_bg(adata, obj, get_color(30, 30, 30, 255));
+    set_object_pressed_bg(adata, obj, get_color(50, 50, 50, 255));
     set_object_onclick(adata, obj, &trigger_playbtn);
 }
 
@@ -111,7 +111,7 @@ void init_main_particles(s_appdata *adata, char *container, char *rtex)
     set_emiter_rtex(adata, particles, rtex);
     set_emiter_lifetime(adata, particles, 150000);
     set_emiter_particle_lifetime(adata, particles, 10500);
-    set_emiter_spawnrate(adata, particles, 60.0f);
+    set_emiter_spawnrate(adata, particles, 1.0f);
     set_emiter_particle_max(adata, particles, 1300);
     set_emiter_model(adata, particles, "gen");
     set_emiter_cone(adata, particles, (sfVector2f) { 0, 360.0f });
