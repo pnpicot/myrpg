@@ -473,6 +473,7 @@ typedef struct {
     sfColor end_color;
     float lerp_div;
     sfBool game_obj;
+    sfBool active;
 } s_particle_src;
 
 typedef struct {

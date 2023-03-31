@@ -12,7 +12,7 @@ int win_h = 1080
 float app_rate = 0.0001f
 float update_rate = 0.001f
 float render_rate = 0.001f
-int max_frame_rate = 360
+int max_frame_rate = 560
 # -- window -- end
 
 # -- switch -- begin
@@ -107,6 +107,7 @@ string ctn_settings = ctn_settings
 string play_btn = main_play_btn
 string quit_btn = main_quit_btn
 string settings_btn = main_settings_btn
+string main_part = main_part
 # -- main menu ui -- end
 
 # -- settings menu ui -- begin

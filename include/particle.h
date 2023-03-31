@@ -38,3 +38,4 @@ void set_emiter_lerp_factor(s_appdata *adata, char *id, float lerp_factor);
 void accelerate_emiter(s_appdata *adata, char *id, int cycles);
 void translate_emiter(s_appdata *adata, char *id, sfVector2f pos_ch);
 void set_emiter_gameobject(s_appdata *adata, char *id, sfBool game_obj);
+void set_emiter_active(s_appdata *adata, char *id, sfBool active);

@@ -265,6 +265,18 @@ void set_emiter_vortex_speed(s_appdata *adata, char *id, sfVector2f vortex_speed
     emiter->vortex_speed = vortex_speed;
 }
 
+void set_emiter_active(s_appdata *adata, char *id, sfBool active)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->active = active;
+}
+
 void add_emiter(s_appdata *adata, char *id)
 {
     s_particle_src *emiter = get_emiter(adata, id);
@@ -307,6 +319,7 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->end_color = sfWhite;
     new_emiter->lerp_div = 1.0f;
     new_emiter->game_obj = sfFalse;
+    new_emiter->active = sfTrue;
 
     linked_add(adata->lists->emiters, new_emiter);
 }
@@ -528,6 +541,11 @@ void update_emiters(s_appdata *adata)
 
     while (emiters != NULL && emiters->data != NULL) {
         s_particle_src *cur = (s_particle_src *) emiters->data;
+
+        if (!cur->active) {
+            emiters = emiters->next;
+            continue;
+        }
 
         cycle_emiter(adata, cur);
 

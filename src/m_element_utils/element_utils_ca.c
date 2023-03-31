@@ -111,6 +111,12 @@ int type, sfUint8 active)
             set_slider_active(adata, slider->id, active);
             break;
             }
+        case TYPE_EMITER:
+            {
+            s_particle_src *emiter = (s_particle_src *) ref;
+            emiter->active = active;
+            break;
+            }
     }
 }
 

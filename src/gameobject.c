@@ -132,6 +132,11 @@ void move_gameobject_emiters(s_appdata *adata, sfVector2f pos_ch)
     while (emiters != NULL && emiters->data != NULL) {
         s_particle_src *cur = (s_particle_src *) emiters->data;
 
+        if (!cur->game_obj) {
+            emiters = emiters->next;
+            continue;
+        }
+
         translate_emiter(adata, cur->id, pos_ch);
         translate_emiter_particles(adata, cur->particle_pool, pos_ch);
 

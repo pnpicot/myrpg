@@ -202,12 +202,18 @@ void draw_light(s_appdata *adata, s_light *light)
     sfRenderTexture_drawSprite(wall->texture, light_rtex->sprite, light_rtex->state);
 }
 
-void shadow_cast(s_appdata *adata, s_light *light)
+void shadow_cast(s_appdata *adata, s_light *light, sfFloatRect bounds)
 {
     linked_node *walls = adata->lists->walls;
 
     while (walls != NULL && walls->data != NULL) {
         s_wall *cur = (s_wall *) walls->data;
+        sfFloatRect wall_bounds = get_rect_bounds(adata, cur->hitbox->id);
+
+        if (!sfFloatRect_intersects(&bounds, &wall_bounds, NULL)) {
+            walls = walls->next;
+            continue;
+        }
 
         create_shadow_mask(adata, light, cur);
 
@@ -248,7 +254,7 @@ void render_lights(s_appdata *adata)
 
         adata->integers->light_count++;
 
-        shadow_cast(adata, cur);
+        shadow_cast(adata, cur, bounds);
         clear_rtex(adata, adata->mask_rtex->id, adata->mask_rtex->clear_color);
         clear_rtex(adata, adata->light_rtex->id, adata->light_rtex->clear_color);
 
