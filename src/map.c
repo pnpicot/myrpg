@@ -75,22 +75,31 @@ void load_tiles(s_appdata *adata)
     }
 }
 
-void add_tile_to_map(s_appdata *adata, char ch, int id, sfVector2f pos)
+void add_tile_to_map(s_appdata *adata, char ch, sfVector2f pos, \
+sfVector2f size)
 {
     s_tile *tile = get_tile(adata, ch);
 
     if (tile == NULL) return;
 
-    char *tile_id = str_add("@[:tile]-", nbr_to_str(id));
+    char *tile_id = str_add("@[:tile]-", get_random_id(6));
     char *rtex = get_str(adata, tile->wall ? "rtex_wall" : "rtex_game");
     char *container = get_str(adata, "ctn_game");
     float zoom = get_float(adata, "zoom");
+    sfIntRect rect;
+
+    rect.left = 0;
+    rect.top = 0;
+    rect.width = 32 * size.x;
+    rect.height = 32 * size.y;
 
     add_sprite(adata, tile_id, 1);
     set_sprite_rtex(adata, tile_id, rtex);
     add_to_container(adata, container, (s_ref) { get_sprite(adata, tile_id ), TYPE_SPRITE });
     set_sprite_texture(adata, tile_id, tile->tex);
     scale_sprite(adata, tile_id, (sfVector2f) { zoom, zoom });
+    set_sprite_rect(adata, tile_id, rect);
+    set_sprite_repeat(adata, tile_id, sfTrue);
     move_sprite(adata, tile_id, (sfVector2f) { pos.x * 32 * zoom, pos.y * 32 * zoom });
 
     char *gobj = str_add(tile_id, "@[:gobj]");
@@ -104,15 +113,24 @@ void add_tile_to_map(s_appdata *adata, char ch, int id, sfVector2f pos)
 
 void load_map(s_appdata *adata, char *map)
 {
-    char **rows = str_split(map, '\n');
+    char **entries = str_split(map, '\n');
     int ite = 0;
-    int id = 0;
 
-    while (rows[ite] != NULL) {
-        for (int i = 0; i < my_strlen(rows[ite]); i++) {
-            id++;
-            add_tile_to_map(adata, rows[ite][i], id, (sfVector2f) { i, ite });
+    while (entries[ite] != NULL) {
+        char **entry_data = str_split(entries[ite], ' ');
+
+        if (count_nil_str(entry_data) < 5) {
+            ite++;
+            continue;
         }
+
+        char type = entry_data[0][0];
+        int x = my_getnbr(entry_data[1]);
+        int y = my_getnbr(entry_data[2]);
+        int width = my_getnbr(entry_data[3]);
+        int height = my_getnbr(entry_data[4]);
+
+        add_tile_to_map(adata, type, (sfVector2f) { x, y }, (sfVector2f) { width, height });
 
         ite++;
     }

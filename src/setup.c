@@ -134,6 +134,6 @@ void init_live(s_appdata *adata)
     switch_state(adata, get_str(adata, "state_main"));
 
     set_friction(adata, 6.0f);
-    set_max_speed(adata, 1400.0f);
+    set_max_speed(adata, 1650.0f);
     set_velocity(adata, 90.0f);
 }
