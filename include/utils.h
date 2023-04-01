@@ -32,3 +32,4 @@ sfVector2f get_projected(sfVector2f origin, sfVector2f point, float dist);
 sfColor rand_light_color(sfUint8 alpha);
 sfColor lerp_color(sfColor from, sfColor to, float factor);
 float f_abs(float value);
+sfVector2f lerp_vec2(sfVector2f from, sfVector2f to, float factor);

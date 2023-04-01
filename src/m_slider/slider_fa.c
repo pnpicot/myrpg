@@ -82,10 +82,6 @@ void set_slider_active(s_appdata *adata, char *id, sfUint8 active)
     slider->left_hover->active = active;
     slider->right_hover->active = active;
     slider->middle_hover->active = active;
-    slider->node->active = active;
-    slider->indicator_text->active = active;
-    slider->indicator_rect->active = active;
-    slider->indicator_triangle->active = active;
 }
 
 void move_slider(s_appdata *adata, char *id, sfVector2f pos)

@@ -13,13 +13,11 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
     float delta = get_clock_seconds(emiter->delta_clock);
     float render_rate = get_float(adata, "render_rate");
     s_game *game_data = adata->game_data;
-    float scl_dist = get_vec_dist(emiter->start_size, emiter->end_size);
-    float scale_speed = scl_dist / ((float) emiter->life_time * render_rate);
     while (particles != NULL && particles->data != NULL) {
         s_particle *cur = (s_particle *) particles->data;
         sfVector2f scale = sfSprite_getScale(cur->model);
         update_particle_pos(cur, delta);
-        update_particle_scale(emiter, cur, scale_speed, delta);
+        update_particle_scale(emiter, cur, 0, delta);
         update_particle_rotation(cur, delta, emiter);
         update_particle_color(cur, emiter);
         cur->life--;

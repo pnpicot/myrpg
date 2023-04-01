@@ -107,20 +107,20 @@ void init_main_particles(s_appdata *adata, char *container, char *rtex)
     int win_h = get_int(adata, "win_h");
 
     add_emiter(adata, particles);
-    move_emiter(adata, particles, (sfVector2f) { win_w / 2, win_h / 2 });
+    move_emiter(adata, particles, (sfVector2f) { win_w / 2, win_h + 30.0f });
     set_emiter_rtex(adata, particles, rtex);
     set_emiter_lifetime(adata, particles, 150000);
-    set_emiter_particle_lifetime(adata, particles, 10500);
+    set_emiter_particle_lifetime(adata, particles, 11500);
     set_emiter_spawnrate(adata, particles, 1.0f);
     set_emiter_particle_max(adata, particles, 1300);
     set_emiter_model(adata, particles, "gen");
-    set_emiter_cone(adata, particles, (sfVector2f) { 0, 360.0f });
-    set_emiter_particle_speed(adata, particles, (sfVector2f) { 530.0f, 950.0f });
-    set_emiter_size_range(adata, particles, (sfVector2f) { 1.0f, 1.0f }, (sfVector2f) { -0.6f, -0.6f });
-    set_emiter_colors(adata, particles, sfBlack, sfWhite);
-    set_emiter_lerp_factor(adata, particles, 1.2f);
+    set_emiter_spawn_xoffset(adata, particles, (sfVector2f) { -(win_w / 2), win_w / 2 });
+    set_emiter_particle_speed(adata, particles, (sfVector2f) { 150.0f, 350.0f });
+    set_emiter_size_range(adata, particles, (sfVector2f) { 2.0f, 2.0f }, (sfVector2f) { 0, 0 });
+    set_emiter_colors(adata, particles, sfRed, sfBlack);
+    set_emiter_lerp_factor(adata, particles, 1.0f);
     set_emiter_vortex_dir(adata, particles, clockwise);
-    set_emiter_vortex_speed(adata, particles, (sfVector2f) { -30.0f, 150.0f });
+    set_emiter_vortex_speed(adata, particles, (sfVector2f) { -30.0f, 30.0f });
     add_to_container(adata, get_str(adata, "ctn_main"), (s_ref) { get_emiter(adata, particles), TYPE_EMITER });
 }
 

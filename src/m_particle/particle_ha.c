@@ -10,19 +10,12 @@
 void update_particle_scale(s_particle_src *emiter, s_particle *cur, \
 float scale_speed, float delta)
 {
-    sfVector2f scale = sfSprite_getScale(cur->model);
     int in_x = emiter->start_size.x != emiter->end_size.x;
     int in_y = emiter->start_size.y != emiter->end_size.y;
 
     if (in_x || in_y) {
-        sfVector2f scale_vec;
-        scale_vec.x = emiter->end_size.x - scale.x;
-        scale_vec.y = emiter->end_size.y - scale.y;
-
-        float scale_dist = sqrt(pow(scale_vec.x, 2) + pow(scale_vec.y, 2));
-
-        scale.x += ((scale_speed * delta) / scale_dist) * scale_vec.x;
-        scale.y += ((scale_speed * delta) / scale_dist) * scale_vec.y;
+        float fa = (float) cur->life / (float) emiter->particle_max;
+        sfVector2f scale = lerp_vec2(emiter->start_size, emiter->end_size, fa);
 
         sfSprite_setScale(cur->model, scale);
     }

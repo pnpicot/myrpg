@@ -18,6 +18,19 @@ sfColor lerp_color(sfColor from, sfColor to, float factor)
     return (res);
 }
 
+sfVector2f lerp_vec2(sfVector2f from, sfVector2f to, float factor)
+{
+    sfVector2f dot_from;
+    dot_from.x = from.x * factor;
+    dot_from.y = from.y * factor;
+
+    sfVector2f dot_to;
+    dot_to.x = to.x * (1.0f - factor);
+    dot_to.y = to.y * (1.0f - factor);
+
+    return (sfVector2f) { dot_from.x + dot_to.x, dot_from.y + dot_to.y };
+}
+
 float f_abs(float value)
 {
     if (value < 0) value *= -1;
