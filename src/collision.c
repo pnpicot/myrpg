@@ -34,7 +34,8 @@ sfVector2f collide_adjust(s_wall *from, s_wall *to, sfVector2f pos_ch)
     return (pos_ch);
 }
 
-sfVector2f get_bounce_force(sfVector2f velocity, float mass, float deflection_force)
+sfVector2f get_bounce_force(sfVector2f velocity, float mass, \
+float deflection_force)
 {
     velocity.x *= mass * deflection_force;
     velocity.y *= mass * deflection_force;

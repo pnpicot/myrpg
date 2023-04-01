@@ -18,6 +18,9 @@ void set_animation_mode(s_appdata *adata, char *sprite_id, int mode);
 void animate_restart(s_appdata *adata, s_animation *animation);
 void animate_reverse(s_appdata *adata, s_animation *animation);
 void set_animation_rect(s_appdata *adata, s_animation *animation);
-void update_sprite_animation(s_appdata *adata, s_animation *animation, sfBool force);
+void update_sprite_animation(s_appdata *adata, s_animation *animation, \
+sfBool force);
 void update_animations(s_appdata *adata);
+void animate_sprite_next(s_appdata *adata, s_animation *new_animation, \
+s_sprite *sprite);
 void animate_sprite(s_appdata *adata, char *sprite_id);

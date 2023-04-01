@@ -35,9 +35,9 @@
 #define animation_restart 0
 #define animation_reverse 1
 
-#define particle_clockwise 1
-#define particle_anticlockwise 2
-#define particle_random_dir 3
+#define clockwise 1
+#define anticlockwise 2
+#define random_dir 3
 
 #define sfPink get_color(224, 40, 215, 255)
 #define sfBrown get_color(133, 97, 60, 255)
@@ -522,15 +522,14 @@ typedef struct {
 #include "bar.h"
 #include "transform.h"
 #include "shader.h"
+#include "light_render.h"
 #include "light.h"
 #include "wall.h"
-#include "light_render.h"
 #include "collision.h"
 #include "audio.h"
 #include "animation.h"
 #include "key.h"
 #include "particle.h"
-#include "view.h"
 #include "control.h"
 #include "gameobject.h"
 #include "state.h"

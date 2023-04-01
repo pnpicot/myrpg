@@ -83,7 +83,6 @@ float light_intensity = 100.0f
 float shadow_dist = -2000.0f
 float shadow_median = -3200.0f
 color shadow_mask = 0,0,0,255
-color shadow_cast = 0,0,0,120
 # -- lights -- end
 
 # -- setup -- begin

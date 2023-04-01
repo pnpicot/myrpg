@@ -7,5 +7,5 @@
 
 void add_entity()
 {
-    
+    // ...
 }

@@ -119,7 +119,7 @@ void init_main_particles(s_appdata *adata, char *container, char *rtex)
     set_emiter_size_range(adata, particles, (sfVector2f) { 1.0f, 1.0f }, (sfVector2f) { -0.6f, -0.6f });
     set_emiter_colors(adata, particles, sfBlack, sfWhite);
     set_emiter_lerp_factor(adata, particles, 1.2f);
-    set_emiter_vortex_dir(adata, particles, particle_clockwise);
+    set_emiter_vortex_dir(adata, particles, clockwise);
     set_emiter_vortex_speed(adata, particles, (sfVector2f) { -30.0f, 150.0f });
     add_to_container(adata, get_str(adata, "ctn_main"), (s_ref) { get_emiter(adata, particles), TYPE_EMITER });
 }
