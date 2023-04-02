@@ -23,16 +23,7 @@ void update_player(s_appdata *adata)
         start_animation(adata, sprite_id);
     }
 
-    if (speed.x > 0 && in_range(speed.y, -epsilon, epsilon)) angle = 90.0f;
-    else if (speed.x > 0 && speed.y < 0) angle = 45.0f;
-    else if (speed.x > 0 && speed.y > 0) angle = 135.0f;
-
-    if (speed.x < 0 && in_range(speed.y, -epsilon, epsilon)) angle = 270.0f;
-    else if (speed.x < 0 && speed.y < 0) angle = 315.0f;
-    else if (speed.x < 0 && speed.y > 0) angle = 225.0f;
-
-    if (speed.y < 0 && in_range(speed.x, -epsilon, epsilon)) angle = 0;
-    else if (speed.y > 0 && in_range(speed.x, -epsilon, epsilon)) angle = 180.0f;
+    angle = (atan2f(speed.y, speed.x) * (180 / M_PI)) + 90.0f;
 
     rotate_sprite(adata, sprite_id, angle);
 }

@@ -45,6 +45,8 @@
 #define sfLightGray get_color(200, 200, 200, 255)
 #define sfOrange get_color(252, 144, 3, 255)
 
+#define M_PI 3.14159265358979323846
+
 typedef struct {
     int exit_status;
     int min_layer;
