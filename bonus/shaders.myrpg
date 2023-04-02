@@ -11,3 +11,7 @@ post_blur_y = NULL,bloom_blur.frag
 mask = NULL,mask.frag
 gradient = NULL,gradient.frag
 rgb_multiply = NULL,rgb_multiply.frag
+rr_bloom = NULL,rr_bloom.frag
+rr_bloom_x = NULL,bloom_blur.frag
+rr_bloom_y = NULL,bloom_blur.frag
+hidden_multiply = NULL,rgb_multiply.frag

@@ -6,6 +6,14 @@ int enable_shader = 1
 int dev_mode = 0 
 # -- misc -- end
 
+# -- post effects -- begin
+float bloom_intensity = 0.0015f
+float bloom_threshold = 0.78f
+string rtex_bloom = rtex_bloom
+string rtex_bloom_x = rtex_bloom_x
+string rtex_bloom_y = rtex_bloom_y
+# -- post effects -- end
+
 # -- window -- begin
 int win_w = 1920
 int win_h = 1080
