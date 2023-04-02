@@ -115,6 +115,8 @@ void load_map(s_appdata *adata, char *map)
 {
     char **entries = str_split(map, '\n');
     int ite = 0;
+    int max_x = 0;
+    int max_y = 0;
 
     while (entries[ite] != NULL) {
         char **entry_data = str_split(entries[ite], ' ');
@@ -130,10 +132,16 @@ void load_map(s_appdata *adata, char *map)
         int width = my_getnbr(entry_data[3]);
         int height = my_getnbr(entry_data[4]);
 
+        if (x + width > max_x) max_x = x + width;
+        if (y + height > max_y) max_y = y + height;
+
         add_tile_to_map(adata, type, (sfVector2f) { x, y }, (sfVector2f) { width, height });
 
         ite++;
     }
+
+    adata->game_data->map_width = max_x;
+    adata->game_data->map_height = max_y;
 }
 
 void init_map(s_appdata *adata, char *filename)

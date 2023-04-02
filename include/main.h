@@ -266,6 +266,8 @@ typedef struct {
     float speed_max;
     float friction;
     linked_node *entities;
+    int map_width;
+    int map_height;
 } s_game;
 
 typedef struct {

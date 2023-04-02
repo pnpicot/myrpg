@@ -11,14 +11,31 @@ void update_controls_next(s_appdata *adata, s_game *game_data, \
 float delta, s_clocks *clocks)
 {
     update_speed(adata);
+    float add_x = game_data->speed.x * delta;
+    float add_y = game_data->speed.y * delta;
+    sfVector2f next_pos = game_data->view_pos;
+
+    next_pos.x += add_x;
+    next_pos.y += add_y;
+
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    float zoom = get_float(adata, "zoom");
+
+    if (next_pos.x < 0) add_x = 0;
+    if (next_pos.y < 0) add_y = 0;
+    if (next_pos.x > (game_data->map_width * 32 * zoom) - win_w) add_x = 0;
+    if (next_pos.y > (game_data->map_height * 32 * zoom) - win_h) add_y = 0;
+
     sfVector2f shift;
-    shift.x = -(game_data->speed.x * delta);
-    shift.y = -(game_data->speed.y * delta);
+    shift.x = -add_x;
+    shift.y = -add_y;
+
     move_gameobject_lights(adata, shift);
     move_gameobject_emiters(adata, shift);
     move_gameobject_walls(adata, shift);
-    game_data->view_pos.x += game_data->speed.x * delta;
-    game_data->view_pos.y += game_data->speed.y * delta;
+    game_data->view_pos.x += add_x;
+    game_data->view_pos.y += add_y;
     sfMouseMoveEvent ms;
     ms.type = sfEvtMouseMoved;
     ms.x = 0;

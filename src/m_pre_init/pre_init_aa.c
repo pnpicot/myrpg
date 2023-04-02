@@ -24,6 +24,8 @@ void init_gamedata(s_appdata *adata)
     game_data->speed = (sfVector2f) { 0, 0 };
     game_data->speed_max = 0;
     game_data->velocity = 0;
+    game_data->map_width = 0;
+    game_data->map_height = 0;
 }
 
 void init_appdata_misc(s_appdata *adata)
