@@ -270,6 +270,7 @@ typedef struct {
     linked_node *entities;
     int map_width;
     int map_height;
+    float time;
 } s_game;
 
 typedef struct {
@@ -550,3 +551,4 @@ typedef struct {
 #include "ui_settings.h"
 #include "map.h"
 #include "parasite.h"
+#include "world_event.h"

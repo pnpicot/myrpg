@@ -135,3 +135,9 @@ float zoom = 3.5f
 string player_body = @[:player]-body
 string player_particles = @[:player]-parts
 # -- parasite -- end
+
+# -- world -- begin
+float time_speed = 0.000003f
+color day_color = 255,235,179,255
+color night_color = 0,0,50,255
+# -- world -- end

@@ -65,14 +65,16 @@ void render_lights(s_appdata *adata)
     if (adata->mask_rtex == NULL) return;
 
     s_ints *integers = adata->integers;
+    s_rtex *blend = adata->light_blend_rtex;
+    s_rtex *wall = get_rtex(adata, get_str(adata, "rtex_wall_light"));
 
     integers->light_count = 0;
 
-    clear_rtex(adata, adata->light_blend_rtex->id, sfTransparent);
+    clear_rtex(adata, blend->id, sfTransparent);
     render_lights_next(adata, sfTrue);
-    clear_rtex(adata, adata->light_blend_rtex->id, sfBlack);
-    clear_rtex(adata, get_str(adata, "rtex_wall_light"), sfBlack);
+    clear_rtex(adata, blend->id, blend->clear_color);
+    clear_rtex(adata, wall->id, wall->clear_color);
     render_lights_next(adata, sfFalse);
     draw_cached_lights(adata);
-    force_rtex(adata, adata->light_blend_rtex->id);
+    force_rtex(adata, blend->id);
 }
