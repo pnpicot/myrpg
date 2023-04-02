@@ -58,7 +58,8 @@ void init_player(s_appdata *adata)
     animate_sprite(adata, sprite_id);
     set_animation_rows(adata, sprite_id, 1);
     set_animation_cols(adata, sprite_id, 7);
-    set_animation_speed(adata, sprite_id, 0.04f);
+    set_animation_speed(adata, sprite_id, 0.05f);
+    set_animation_mode(adata, sprite_id, animation_reverse);
     set_sprite_origin(adata, sprite_id, (sfVector2f) { 24, 24 });
     move_sprite(adata, sprite_id, (sfVector2f) { win_w / 2, win_h / 2 });
     pause_animation(adata, sprite_id);

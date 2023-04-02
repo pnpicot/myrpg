@@ -24,9 +24,9 @@ void init_live_light(s_appdata *adata)
 
         add_light(adata, light_id);
         color_light(adata, light_id, sfWhite);
-        set_light_inner(adata, light_id, rand_float(60.0f, 130.0f));
-        set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
-        set_light_intensity(adata, light_id, rand_float(30.0f, 60.0f));
+        set_light_inner(adata, light_id, 0);
+        set_light_outer(adata, light_id, 450.0f);
+        set_light_intensity(adata, light_id, 20.0f);
         set_light_gameobject(adata, light_id, sfFalse);
         move_light(adata, light_id, (sfVector2f) { win_w / 2, win_h / 2 });
     }
@@ -71,7 +71,6 @@ void init_live_textures(s_appdata *adata)
     set_rtex_blendmode(adata, rtex_bloom, sfBlendAdd);
     set_shader_vec2(adata, "rr_bloom", "resolution", (sfVector2f) { win_w, win_h });
     set_shader_texture(adata, "rr_bloom", "tex", get_rtex_tex(adata, rtex_game));
-    set_shader_texture(adata, "rr_bloom", "tex2", get_rtex_tex(adata, adata->light_blend_rtex->id));
     set_shader_float(adata, "rr_bloom", "threshold", get_float(adata, "bloom_threshold"));
     set_rtex_shader(adata, rtex_bloom, get_shader(adata, "rr_bloom"));
 
@@ -166,6 +165,6 @@ void init_live(s_appdata *adata)
     switch_state(adata, get_str(adata, "state_main"));
 
     set_friction(adata, 6.0f);
-    set_max_speed(adata, 1650.0f);
-    set_velocity(adata, 90.0f);
+    set_max_speed(adata, 850.0f);
+    set_velocity(adata, 60.0f);
 }

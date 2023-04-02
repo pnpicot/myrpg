@@ -7,8 +7,8 @@ int dev_mode = 0
 # -- misc -- end
 
 # -- post effects -- begin
-float bloom_intensity = 0.0015f
-float bloom_threshold = 0.78f
+float bloom_intensity = 0.0012f
+float bloom_threshold = 0.92f
 string rtex_bloom = rtex_bloom
 string rtex_bloom_x = rtex_bloom_x
 string rtex_bloom_y = rtex_bloom_y
