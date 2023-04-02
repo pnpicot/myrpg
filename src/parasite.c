@@ -43,6 +43,15 @@ void init_player_particles(s_appdata *adata)
     char *container = get_str(adata, "ctn_game");
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
+    float angle = (atan2f(-1, 0) * (180 / M_PI)) + 90.0f;
+    float rv_angle = angle - 270.0f;
+
+    if (rv_angle < 0) rv_angle += 360.0f;
+    else if (rv_angle > 0) rv_angle -= 360.0f;
+
+    sfVector2f part_angle;
+    part_angle.x = rv_angle - 35.0f;
+    part_angle.y = rv_angle + 35.0f;
 
     add_emiter(adata, particles);
     set_emiter_rtex(adata, particles, rtex);
@@ -55,7 +64,7 @@ void init_player_particles(s_appdata *adata)
     set_emiter_colors(adata, particles, sfBlack, sfDarkGray);
     set_emiter_gameobject(adata, particles, sfFalse);
     set_emiter_size_range(adata, particles, (sfVector2f) { 1.3f, 1.3f }, (sfVector2f) { 0, 0 });
-    set_emiter_cone(adata, particles, (sfVector2f) { 0, 360.0f });
+    set_emiter_cone(adata, particles, part_angle);
     set_emiter_particle_speed(adata, particles, (sfVector2f) { 250.0f, 380.0f });
     set_emiter_vortex_dir(adata, particles, clockwise);
     set_emiter_vortex_speed(adata, particles, (sfVector2f) { -5.0f, 5.0f });

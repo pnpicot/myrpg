@@ -67,6 +67,7 @@ void switch_state_activate(s_appdata *adata, s_state *state)
     }
 
     adata->current_state = state;
+    if (state->in_game) adata->integers->in_game = 1;
 }
 
 void switch_state_rtex(s_appdata *adata, s_state *state)
@@ -76,7 +77,6 @@ void switch_state_rtex(s_appdata *adata, s_state *state)
     linked_node *l_rtexs = adata->lists->rtexs;
     s_rtex *mask_rtex = adata->mask_rtex;
     s_rtex *light_blend = adata->light_blend_rtex;
-    integers->in_game = 1;
     while (l_rtexs != NULL && l_rtexs->data != NULL) {
         s_rtex *cur = (s_rtex *) l_rtexs->data;
         int light_defined = mask_rtex != NULL && light_blend != NULL;
