@@ -42,14 +42,30 @@ void cycle_emiter(s_appdata *adata, s_particle_src *emiter)
     display_particles(adata, emiter);
 }
 
-void update_emiters(s_appdata *adata)
+void set_emiter_layer(s_appdata *adata, char *id, int layer)
+{
+    s_particle_src *emiter = get_emiter(adata, id);
+    s_ints *integers = adata->integers;
+
+    if (emiter == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    emiter->layer = layer;
+
+    if (layer > integers->max_layer) integers->max_layer = layer;
+    if (layer < integers->min_layer) integers->min_layer = layer;
+}
+
+void update_emiters(s_appdata *adata, int layer)
 {
     linked_node *emiters = adata->lists->emiters;
 
     while (emiters != NULL && emiters->data != NULL) {
         s_particle_src *cur = (s_particle_src *) emiters->data;
 
-        if (!cur->active) {
+        if (!cur->active || cur->layer != layer) {
             emiters = emiters->next;
             continue;
         }

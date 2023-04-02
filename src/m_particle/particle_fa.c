@@ -51,6 +51,7 @@ void add_emiter(s_appdata *adata, char *id)
     new_emiter->lerp_div = 1.0f;
     new_emiter->game_obj = sfFalse;
     new_emiter->active = sfTrue;
+    new_emiter->layer = 1;
     linked_add(adata->lists->emiters, new_emiter);
 }
 

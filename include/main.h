@@ -488,6 +488,7 @@ typedef struct {
     float lerp_div;
     sfBool game_obj;
     sfBool active;
+    int layer;
 } s_particle_src;
 
 typedef struct {

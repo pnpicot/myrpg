@@ -15,6 +15,7 @@ void render_elements(s_appdata *adata, s_rtex *rtex)
         render_rects(adata, i, rtex);
         render_circles(adata, i, rtex);
         render_sprites(adata, i, rtex);
+        update_emiters(adata, i);
         render_texts(adata, i, rtex);
         render_vertexes(adata, i, rtex);
     }
@@ -22,7 +23,6 @@ void render_elements(s_appdata *adata, s_rtex *rtex)
 
 void render_textures(s_appdata *adata, int depth)
 {
-    update_emiters(adata);
     linked_node *rtexs = adata->lists->rtexs;
     s_ints *integers = adata->integers;
     while (rtexs != NULL && rtexs->data != NULL) {
