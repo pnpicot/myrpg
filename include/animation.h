@@ -24,3 +24,5 @@ void update_animations(s_appdata *adata);
 void animate_sprite_next(s_appdata *adata, s_animation *new_animation, \
 s_sprite *sprite);
 void animate_sprite(s_appdata *adata, char *sprite_id);
+void start_animation(s_appdata *adata, char *sprite_id);
+void pause_animation(s_appdata *adata, char *sprite_id);

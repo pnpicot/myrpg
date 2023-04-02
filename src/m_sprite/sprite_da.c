@@ -28,7 +28,7 @@ void rotate_sprite(s_appdata *adata, char *id, float angle)
         return;
     }
 
-    sfSprite_rotate(sprite->elem, angle);
+    sfSprite_setRotation(sprite->elem, angle);
 }
 
 sfFloatRect get_sprite_bounds(s_appdata *adata, char *id)

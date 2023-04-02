@@ -13,7 +13,4 @@ void register_mousemove(s_appdata *adata, sfMouseMoveEvent mouse)
     s_ints *integers = adata->integers;
 
     object_check_hover(adata);
-
-    if (integers->in_game && get_int(adata, "dev_mode"))
-        move_light(adata, "mouse_light", mouse_pos);
 }

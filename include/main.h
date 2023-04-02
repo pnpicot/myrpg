@@ -252,10 +252,10 @@ typedef struct {
     sfVector2f pos;
     int mode;
     int reverse_state;
+    sfBool active;
 } s_animation;
 
 typedef struct {
-    int negro;
 } s_entity;
 
 typedef struct {
@@ -267,6 +267,11 @@ typedef struct {
     float friction;
     linked_node *entities;
 } s_game;
+
+typedef struct {
+    int health;
+    s_sprite *body;
+} s_player;
 
 typedef struct {
     sfRenderWindow *win;
@@ -286,6 +291,7 @@ typedef struct {
     int *keys;
     s_game *game_data;
     s_state *current_state;
+    s_player *player;
 } s_appdata;
 
 typedef struct {
@@ -538,3 +544,4 @@ typedef struct {
 #include "ui_ingame.h"
 #include "ui_settings.h"
 #include "map.h"
+#include "parasite.h"

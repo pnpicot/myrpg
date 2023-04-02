@@ -14,6 +14,11 @@ void move_gameobject_lights(s_appdata *adata, sfVector2f pos_ch)
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
 
+        if (!cur->game_obj) {
+            lights = lights->next;
+            continue;
+        }
+
         translate_light(adata, cur->id, pos_ch);
 
         lights = lights->next;

@@ -14,6 +14,11 @@ void update_animations(s_appdata *adata)
     while (animations != NULL && animations->data != NULL) {
         s_animation *cur = (s_animation *) animations->data;
 
+        if (!cur->active) {
+            animations = animations->next;
+            continue;
+        }
+
         update_sprite_animation(adata, cur, sfFalse);
 
         animations = animations->next;
@@ -35,6 +40,7 @@ s_sprite *sprite)
     new_animation->sprite = sprite;
     new_animation->reverse_state = 0;
     new_animation->mode = animation_restart;
+    new_animation->active = sfTrue;
 
     linked_add(adata->lists->animations, new_animation);
     update_sprite_animation(adata, new_animation, sfTrue);
@@ -61,4 +67,28 @@ void animate_sprite(s_appdata *adata, char *sprite_id)
     }
 
     animate_sprite_next(adata, new_animation, sprite);
+}
+
+void pause_animation(s_appdata *adata, char *sprite_id)
+{
+    s_animation *animation = get_animation(adata, sprite_id);
+
+    if (animation == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    animation->active = sfFalse;
+}
+
+void start_animation(s_appdata *adata, char *sprite_id)
+{
+    s_animation *animation = get_animation(adata, sprite_id);
+
+    if (animation == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    animation->active = sfTrue;
 }

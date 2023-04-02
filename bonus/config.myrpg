@@ -122,3 +122,7 @@ string fps_text = ig_fps_text
 string default_map = dev.map
 float zoom = 3.5f
 # -- map -- end
+
+# -- parasite -- begin
+string player_body = @[:player]-body
+# -- parasite -- end

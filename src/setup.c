@@ -7,17 +7,10 @@
 
 #include "main.h"
 
-void move_mouse_light(s_appdata *adata)
-{
-    sfVector2f mouse = get_mouse(adata);
-
-    move_light(adata, "mouse_light", mouse);
-}
-
 void update_live(s_appdata *adata)
 {
-    move_mouse_light(adata);
     update_ingame_ui(adata);
+    update_player(adata);
 }
 
 void init_live_light(s_appdata *adata)
@@ -26,6 +19,8 @@ void init_live_light(s_appdata *adata)
         init_light_recommended(adata, 1);
 
         char *light_id = "mouse_light";
+        int win_w = get_int(adata, "win_w");
+        int win_h = get_int(adata, "win_h");
 
         add_light(adata, light_id);
         color_light(adata, light_id, sfWhite);
@@ -33,6 +28,7 @@ void init_live_light(s_appdata *adata)
         set_light_outer(adata, light_id, rand_float(350.0f, 820.0f));
         set_light_intensity(adata, light_id, rand_float(30.0f, 60.0f));
         set_light_gameobject(adata, light_id, sfFalse);
+        move_light(adata, light_id, (sfVector2f) { win_w / 2, win_h / 2 });
     }
 }
 
@@ -130,6 +126,7 @@ void init_live(s_appdata *adata)
     init_live_settings_menu(adata);
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
+    init_player(adata);
 
     switch_state(adata, get_str(adata, "state_main"));
 
