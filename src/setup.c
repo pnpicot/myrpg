@@ -93,7 +93,7 @@ void init_live_textures(s_appdata *adata)
     set_rtex_blendmode(adata, rtex_bloom_y, sfBlendAdd);
     set_shader_texture(adata, "rr_bloom_y", "texture", get_rtex_tex(adata, rtex_bloom_y));
 
-    sfVector2f bloomy_rad = { 0, bloom_intensity };
+    sfVector2f bloomy_rad = { 0, bloom_intensity * 2 };
 
     set_shader_vec2(adata, "rr_bloom_y", "blur_radius", bloomy_rad);
     set_rtex_shader(adata, rtex_bloom_y, get_shader(adata, "rr_bloom_y"));
