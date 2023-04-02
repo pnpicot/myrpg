@@ -28,7 +28,7 @@ void init_main_quitbtn(s_appdata *adata, char *container, char *rtex)
     int win_h = get_int(adata, "win_h");
     char *quit_btn = get_str(adata, "quit_btn");
 
-    add_button(adata, quit_btn, TYPE_RECT, 1);
+    add_button(adata, quit_btn, TYPE_RECT, 2);
     edit_button(adata, quit_btn, "Quit");
     set_button_font(adata, quit_btn, get_font(adata, "lobster"));
     color_button_fg(adata, quit_btn, sfWhite);
@@ -54,7 +54,7 @@ void init_main_settingsbtn(s_appdata *adata, char *container, char *rtex)
     int win_h = get_int(adata, "win_h");
     char *settings_btn = get_str(adata, "settings_btn");
 
-    add_button(adata, settings_btn, TYPE_RECT, 1);
+    add_button(adata, settings_btn, TYPE_RECT, 2);
     edit_button(adata, settings_btn, "Settings");
     set_button_font(adata, settings_btn, get_font(adata, "lobster"));
     color_button_fg(adata, settings_btn, sfWhite);
@@ -80,7 +80,7 @@ void init_main_playbtn(s_appdata *adata, char *container, char *rtex)
     int win_h = get_int(adata, "win_h");
     char *play_btn = get_str(adata, "play_btn");
 
-    add_button(adata, play_btn, TYPE_RECT, 1);
+    add_button(adata, play_btn, TYPE_RECT, 2);
     edit_button(adata, play_btn, "Play");
     set_button_font(adata, play_btn, get_font(adata, "lobster"));
     color_button_fg(adata, play_btn, sfWhite);
