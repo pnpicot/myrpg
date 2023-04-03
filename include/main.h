@@ -286,7 +286,7 @@ typedef struct {
 } s_game;
 
 typedef struct {
-    int health;
+    sfVector2i health;
     s_sprite *body;
 } s_player;
 
@@ -564,3 +564,4 @@ typedef struct {
 #include "map.h"
 #include "parasite.h"
 #include "world_event.h"
+#include "entity.h"

@@ -91,7 +91,7 @@ void init_player(s_appdata *adata)
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
 
-    player->health = 5;
+    player->health = (sfVector2i) { 5, 5 };
 
     add_sprite(adata, sprite_id, 3);
     set_sprite_rtex(adata, sprite_id, rtex);

@@ -58,11 +58,19 @@ void init_settings_volumebtn(s_appdata *adata, char *container, char *rtex)
     add_to_container(adata, container, (s_ref) { get_slider(adata, volume_slider), TYPE_SLIDER });
 }
 
+void init_settings_volumetxt(s_appdata *adata, char *container, char *rtex)
+{
+    char *volume_txt = get_str(adata, "volume_txt");
+
+    add_text(adata, volume_txt, 1);
+}
+
 void init_live_settings_menu(s_appdata *adata)
 {
     char *container = get_str(adata, "ctn_settings");
     char *rtex = get_str(adata, "rtex_settings");
 
     init_settings_backbtn(adata, container, rtex);
+    init_settings_volumetxt(adata, container, rtex);
     init_settings_volumebtn(adata, container, rtex);
 }
