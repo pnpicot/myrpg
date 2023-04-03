@@ -9,6 +9,8 @@
 
 void cycle_world_time(s_appdata *adata)
 {
+    if (!get_int(adata, "enable_shader")) return;
+
     s_game *game_data = adata->game_data;
 
     game_data->time += get_float(adata, "time_speed");
