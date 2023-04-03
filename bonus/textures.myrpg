@@ -14,3 +14,4 @@ wall_tl = wall_tl.png
 gen = gen_part.png
 parasite = parasite.png
 bloom_block = bloom_block.png
+ghost = ghost.png

@@ -30,3 +30,4 @@ void translate_entity(s_appdata *adata, char *id, sfVector2f add);
 void rotate_entity(s_appdata *adata, char *id, float angle);
 void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin);
 void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id);
+void init_entities(s_appdata *adata);

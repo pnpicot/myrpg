@@ -273,6 +273,12 @@ typedef struct {
 } s_entity;
 
 typedef struct {
+    char *id;
+    sfVector2f pos;
+    float radius;
+} s_faction;
+
+typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
     sfVector2f speed;
@@ -280,6 +286,7 @@ typedef struct {
     float speed_max;
     float friction;
     linked_node *entities;
+    linked_node *factions;
     int map_width;
     int map_height;
     float time;
@@ -565,4 +572,5 @@ typedef struct {
 #include "parasite.h"
 #include "world_event.h"
 #include "entity.h"
+#include "faction.h"
 #include "public_path_finding.h"

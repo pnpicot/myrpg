@@ -1,0 +1,14 @@
+# <faction_spawn> <faction> <x> <y> <radius> <path_sprite>
+# <faction> <name> <hp> <dammage> <speed> <transference_level> <path_sprite>
+
+# -- faction -- spawn
+faction_spawn orc 500 500 7 base
+faction_spawn dick 1000 1000 7 base
+faction_spawn warrior 2000 2000 7 base
+faction_spawn professional_street_nigga 1000 2000 7 base
+
+# -- faction -- orc
+orc basic 200 80 3 2 ghost
+orc basic 200 80 3 2 ghost
+orc basic 200 80 3 2 ghost
+orc basic 200 80 3 2 ghost
