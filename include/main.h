@@ -565,3 +565,4 @@ typedef struct {
 #include "parasite.h"
 #include "world_event.h"
 #include "entity.h"
+#include "public_path_finding.h"

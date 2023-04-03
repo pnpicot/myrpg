@@ -48,9 +48,9 @@ debug:
 .PHONY: re
 re: fclean all
 
-.PHONY: build-subdirs
+.PHONY: find-all-objs
 find-all-objs:
-	$(eval ALL_OBJS += $(call rwildcard,$(DIRS),*.o))
+	# $(eval ALL_OBJS += $(call rwildcard,$(DIRS),*.o))
 
 .SILENT:
 

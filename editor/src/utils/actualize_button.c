@@ -30,7 +30,6 @@ char *my_strcopy(char const *str)
 static void button_touched(internal_data_t *const data, button_t *button)
 {
     sfFloatRect rect = sfRectangleShape_getGlobalBounds(button->rect);
-
     button->state = BASE;
     if (data->enter == RELEASED)
         button->is_selected = sfFalse;

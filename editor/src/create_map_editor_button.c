@@ -59,7 +59,6 @@ static int create_map_editor_button_part3(internal_data_t *const data)
     return (0);
 }
 
-
 static int create_map_editor_button_part2(internal_data_t *const data)
 {
     button_t *button = create_button(data, 1, (sfFloatRect){20, 400, 200, 50});
