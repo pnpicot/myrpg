@@ -258,6 +258,18 @@ typedef struct {
 } s_animation;
 
 typedef struct {
+    int hp;
+    int dammage;
+    int speed;
+    int transference_level;
+    char *faction;
+} s_entity_stats;
+
+typedef struct {
+    int active;
+    char *id;
+    s_sprite *sprite;
+    s_entity_stats *stats;
 } s_entity;
 
 typedef struct {
