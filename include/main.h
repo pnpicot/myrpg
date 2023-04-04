@@ -262,6 +262,7 @@ typedef struct {
     int dammage;
     int speed;
     int transference_level;
+    char *type;
     char *faction;
 } s_entity_stats;
 

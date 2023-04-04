@@ -15,9 +15,11 @@ void set_entity_sprite(s_appdata *adata, char *id, char *texture_id);
 void set_entity_layer(s_appdata *adata, char *id, int layer);
 void set_entity_stats(s_appdata *adata, char *id);
 void set_entity_stats_dammage(s_appdata *adata, char *id, int dammage);
-void set_entity_stats_dammage(s_appdata *adata, char *id, int hp);
-void set_entity_stats_dammage(s_appdata *adata, char *id, int faction);
-void set_entity_stats_dammage(s_appdata *adata, char *id,
+void set_entity_stats_hp(s_appdata *adata, char *id, int hp);
+void set_entity_stats_faction(s_appdata *adata, char *id, char *faction);
+void set_entity_stats_speed(s_appdata *adata, char *id, int speed);
+void set_entity_stats_type(s_appdata *adata, char *id, char *type);
+void set_entity_stats_transference_level(s_appdata *adata, char *id,
 int transference_level);
 void set_entity_active(s_appdata *adata, char *id, sfUint8 active);
 void set_entity_animation_cols(s_appdata *adata, char *id, int cols);
@@ -31,3 +33,5 @@ void rotate_entity(s_appdata *adata, char *id, float angle);
 void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin);
 void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id);
 void init_entities(s_appdata *adata);
+void load_entity_faction(s_appdata *adata);
+void set_entity_spawn(s_appdata *adata, char *id);

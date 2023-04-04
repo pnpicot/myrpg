@@ -39,3 +39,27 @@ void rotate_entity(s_appdata *adata, char *id, float angle)
 
     rotate_sprite(adata, entity->sprite->id, angle);
 }
+
+void set_entity_spawn(s_appdata *adata, char *id)
+{
+    s_entity *entity = get_entity(adata, id);
+    if (entity == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+    linked_node *factions = adata->game_data->factions;
+    while (factions != NULL && factions->data != NULL) {
+        s_faction *faction = (s_faction *) factions->data;
+        if (in_str(id, faction->id)) {
+            int radius = (int) faction->radius;
+            int x = (rand() % (radius * 2)) +
+            (faction->pos.x - radius);
+            int y = (rand() % (radius * 2)) +
+            (faction->pos.y - radius);
+            sfVector2f pos = {x, y};
+            move_entity(adata, entity->id, pos);
+            return;
+        }
+        factions = factions->next;
+    }
+}

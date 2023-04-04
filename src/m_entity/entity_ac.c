@@ -52,3 +52,14 @@ void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id)
 
     set_sprite_rtex(adata, entity->sprite->id, rtex->id);
 }
+
+void set_entity_stats_type(s_appdata *adata, char *id, char *type)
+{
+    s_entity *entity = get_entity(adata, id);
+    if (entity == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    entity->stats->type = type;
+}

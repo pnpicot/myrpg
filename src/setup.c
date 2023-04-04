@@ -162,6 +162,7 @@ void init_live(s_appdata *adata)
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
     init_player(adata);
+    load_entity_faction(adata);
 
     switch_state(adata, get_str(adata, "state_main"));
 

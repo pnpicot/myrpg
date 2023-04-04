@@ -42,8 +42,8 @@ void add_faction(s_appdata *adata, char *id)
 void set_faction_pos(s_appdata *adata, char *id, sfVector2f pos)
 {
     s_faction *faction = get_faction(adata, id);
-    if (faction != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+    if (faction == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
         return;
     }
 
@@ -53,8 +53,8 @@ void set_faction_pos(s_appdata *adata, char *id, sfVector2f pos)
 void set_faction_radius(s_appdata *adata, char *id, float radius)
 {
     s_faction *faction = get_faction(adata, id);
-    if (faction != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+    if (faction == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
         return;
     }
 

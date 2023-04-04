@@ -29,7 +29,7 @@ void set_entity_stats_hp(s_appdata *adata, char *id, int hp)
     entity->stats->dammage = hp;
 }
 
-void set_entity_stats_faction(s_appdata *adata, char *id, int faction)
+void set_entity_stats_faction(s_appdata *adata, char *id, char *faction)
 {
     s_entity *entity = get_entity(adata, id);
     if (entity == NULL) {
@@ -37,7 +37,18 @@ void set_entity_stats_faction(s_appdata *adata, char *id, int faction)
         return;
     }
 
-    entity->stats->dammage = faction;
+    entity->stats->faction = faction;
+}
+
+void set_entity_stats_speed(s_appdata *adata, char *id, int speed)
+{
+    s_entity *entity = get_entity(adata, id);
+    if (entity == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    entity->stats->speed = speed;
 }
 
 void set_entity_stats_transference_level(s_appdata *adata, char *id,

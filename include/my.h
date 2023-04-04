@@ -203,3 +203,4 @@ char **int_map_str(int *list, int count);
 char *my_strupcase(const char *str);
 char **str_map(char **arr, char *fn(const char *str));
 char **str_filter(char **arr, int fn(const char *str));
+int in_str(const char *parent, const char *child);
