@@ -13,3 +13,5 @@ void add_faction(s_appdata *adata, char *id);
 s_faction *get_faction(s_appdata *adata, char *id);
 void set_faction_pos(s_appdata *adata, char *id, sfVector2f pos);
 void set_faction_radius(s_appdata *adata, char *id, float radius);
+void set_faction_spawn_rate(s_appdata *adata, char *id, float spawn_rate);
+void spawn_entities(s_appdata *adata);

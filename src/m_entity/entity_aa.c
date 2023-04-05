@@ -7,9 +7,13 @@
 
 #include "../include/main.h"
 
-s_entity *get_entity(s_appdata *adata, char *id)
+s_entity *get_entity(s_appdata *adata, char *id, int mode)
 {
-    linked_node *entities = adata->game_data->entities;
+    linked_node *entities;
+    if (!mode)
+        entities = adata->game_data->entities_models;
+    if (mode)
+        entities = adata->game_data->entities;
 
     while (entities != NULL && entities->data != NULL) {
         s_entity *cur = (s_entity *) entities->data;
@@ -22,9 +26,9 @@ s_entity *get_entity(s_appdata *adata, char *id)
     return (NULL);
 }
 
-void add_entity(s_appdata *adata, char *id)
+void add_entity(s_appdata *adata, char *id, int mode)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, mode);
     if (entity != NULL) {
         my_printf(get_error(adata, "already_exists"));
         return;
@@ -34,14 +38,18 @@ void add_entity(s_appdata *adata, char *id)
 
     new_entity->active = sfTrue;
     new_entity->id = id;
-    new_entity->sprite = NULL;
+    new_entity->sprite = malloc(sizeof(s_sprite));
+    new_entity->stats = malloc(sizeof(s_entity_stats));
 
-    linked_add(adata->game_data->entities, new_entity);
+    if (!mode)
+        linked_add(adata->game_data->entities_models, new_entity);
+    if (mode)
+        linked_add(adata->game_data->entities, new_entity);
 }
 
 void set_entity_sprite(s_appdata *adata, char *id, char *texture_id)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -57,7 +65,7 @@ void set_entity_sprite(s_appdata *adata, char *id, char *texture_id)
 
 void set_entity_layer(s_appdata *adata, char *id, int layer)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -68,7 +76,7 @@ void set_entity_layer(s_appdata *adata, char *id, int layer)
 
 void set_entity_stats(s_appdata *adata, char *id)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;

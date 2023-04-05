@@ -264,6 +264,7 @@ typedef struct {
     int transference_level;
     char *type;
     char *faction;
+    int spawn_rate;
 } s_entity_stats;
 
 typedef struct {
@@ -277,6 +278,8 @@ typedef struct {
     char *id;
     sfVector2f pos;
     float radius;
+    float spawn_rate;
+    sfClock *clock_spawn;
 } s_faction;
 
 typedef struct {
@@ -286,6 +289,7 @@ typedef struct {
     float velocity;
     float speed_max;
     float friction;
+    linked_node *entities_models;
     linked_node *entities;
     linked_node *factions;
     int map_width;

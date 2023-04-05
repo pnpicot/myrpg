@@ -12,6 +12,7 @@ void update_live(s_appdata *adata)
     update_ingame_ui(adata);
     update_player(adata);
     cycle_world_time(adata);
+    spawn_entities(adata);
 }
 
 void init_live_light(s_appdata *adata)

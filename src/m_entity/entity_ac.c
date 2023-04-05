@@ -9,7 +9,7 @@
 
 void set_entity_active(s_appdata *adata, char *id, sfUint8 active)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -20,7 +20,7 @@ void set_entity_active(s_appdata *adata, char *id, sfUint8 active)
 
 void set_entity_scale(s_appdata *adata, char *id, sfVector2f scale)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -31,7 +31,7 @@ void set_entity_scale(s_appdata *adata, char *id, sfVector2f scale)
 
 void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -42,7 +42,7 @@ void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin)
 
 void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (entity == NULL || rtex == NULL) {
@@ -55,7 +55,7 @@ void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id)
 
 void set_entity_stats_type(s_appdata *adata, char *id, char *type)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;

@@ -35,6 +35,7 @@ void add_faction(s_appdata *adata, char *id)
     new_faction->id = id;
     new_faction->pos = (sfVector2f) {0, 0};
     new_faction->radius = 1;
+    new_faction->clock_spawn = sfClock_create();
 
     linked_add(adata->game_data->factions, new_faction);
 }
@@ -59,4 +60,15 @@ void set_faction_radius(s_appdata *adata, char *id, float radius)
     }
 
     faction->radius = radius;
+}
+
+void set_faction_spawn_rate(s_appdata *adata, char *id, float spawn_rate)
+{
+    s_faction *faction = get_faction(adata, id);
+    if (faction == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    faction->spawn_rate = spawn_rate;
 }

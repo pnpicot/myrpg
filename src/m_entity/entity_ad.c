@@ -9,7 +9,7 @@
 
 void set_entity_animation_cols(s_appdata *adata, char *id, int cols)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -20,7 +20,7 @@ void set_entity_animation_cols(s_appdata *adata, char *id, int cols)
 
 void set_entity_animation_rows(s_appdata *adata, char *id, int rows)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -31,7 +31,7 @@ void set_entity_animation_rows(s_appdata *adata, char *id, int rows)
 
 void set_entity_animation_speed(s_appdata *adata, char *id, int speed)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
@@ -42,7 +42,7 @@ void set_entity_animation_speed(s_appdata *adata, char *id, int speed)
 
 void set_entity_animation_mode(s_appdata *adata, char *id, int mode)
 {
-    s_entity *entity = get_entity(adata, id);
+    s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
