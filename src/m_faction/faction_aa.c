@@ -32,6 +32,7 @@ void add_faction(s_appdata *adata, char *id)
 
     s_faction *new_faction = malloc(sizeof(s_faction));
 
+    new_faction->active = 1;
     new_faction->id = id;
     new_faction->pos = (sfVector2f) {0, 0};
     new_faction->radius = 1;

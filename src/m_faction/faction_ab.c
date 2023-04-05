@@ -57,24 +57,25 @@ void spawn_entities(s_appdata *adata)
     while (factions != NULL && factions->data != NULL) {
         s_faction *faction = (s_faction *) factions->data;
 
-        sfTime time_spawn_faction = sfClock_getElapsedTime(faction->clock_spawn);
-        float seconds = time_spawn_faction.microseconds / 1000000.0f;
+        if (faction->active) {
+            float seconds = get_clock_seconds(faction->clock_spawn);
 
-        if (seconds >= faction->spawn_rate) {
-            linked_node *entities_models = adata->game_data->entities_models;
+            if (seconds >= faction->spawn_rate) {
+                linked_node *entities_models = adata->game_data->entities_models;
 
-            while(entities_models != NULL && entities_models->data != NULL) {
-                s_entity *entity_model = (s_entity *) entities_models->data;
+                while(entities_models != NULL && entities_models->data != NULL) {
+                    s_entity *entity_model = (s_entity *) entities_models->data;
 
-                if (in_str(entity_model->id, faction->id)) {
-                    int rate = rand() % 100;
-                    if (rate <= entity_model->stats->spawn_rate) {
-                        add_game_entity(adata, entity_model, faction);
+                    if (in_str(entity_model->id, faction->id)) {
+                        int rate = rand() % 100;
+                        if (rate <= entity_model->stats->spawn_rate) {
+                            add_game_entity(adata, entity_model, faction);
+                        }
                     }
+                    entities_models = entities_models->next;
                 }
-                entities_models = entities_models->next;
+                sfClock_restart(faction->clock_spawn);
             }
-            sfClock_restart(faction->clock_spawn);
         }
         factions = factions->next;
     }

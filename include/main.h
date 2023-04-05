@@ -275,6 +275,7 @@ typedef struct {
 } s_entity;
 
 typedef struct {
+    int active;
     char *id;
     sfVector2f pos;
     float radius;
