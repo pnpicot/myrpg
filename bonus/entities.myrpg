@@ -12,10 +12,10 @@ faction_spawn hagra 3500 2000 300.0 2.2
 
 
 # -- faction -- orc
-orc basic 200 80 3 2 20 ghost-head ghost-dick
+orc basic 200 80 3 2 20 tete-head bas-bottom
 
 # -- faction -- bite
-bite basic 200 80 3 2 20 ghost-head ghost-dick
+bite basic 200 80 3 2 20 ghost-head
 
 # -- faction -- hagra
-hagra basic 200 80 3 2 20 ghost-head ghost-dick
+hagra basic 200 80 3 2 20 ghost-head

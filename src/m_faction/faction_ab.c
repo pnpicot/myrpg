@@ -17,8 +17,6 @@ linked_node *body_part_cpy(s_appdata *adata, linked_node *body_part, char *rand_
 
         char *entity_sprite_id = replace_id(sprite->id, 0, rand_id);
 
-        printf("sprite id = %s\n", entity_sprite_id);
-
         add_sprite(adata, entity_sprite_id, sprite->layer);
         s_sprite *new_sprite = get_sprite(adata, entity_sprite_id);
         new_sprite->active = sfTrue;
@@ -46,8 +44,6 @@ s_faction *faction)
 {
     char *rand_id = get_random_id(8);
     char *new_entity_id = replace_id(entity_model->id, 0, rand_id);
-
-    printf("entity id = %s\n", new_entity_id);
 
     add_entity(adata, new_entity_id, 1);
     s_entity *entity = get_entity(adata, new_entity_id, 1);
