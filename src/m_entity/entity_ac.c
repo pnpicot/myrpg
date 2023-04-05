@@ -15,7 +15,14 @@ void set_entity_active(s_appdata *adata, char *id, sfUint8 active)
         return;
     }
 
-    entity->sprite->active = active;
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        sprite->active = active;
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_scale(s_appdata *adata, char *id, sfVector2f scale)
@@ -26,7 +33,15 @@ void set_entity_scale(s_appdata *adata, char *id, sfVector2f scale)
         return;
     }
 
-    scale_sprite(adata, entity->sprite->id, scale);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        scale_sprite(adata, sprite->id, scale);
+
+        body_part = body_part->next;
+    }
+
 }
 
 void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin)
@@ -37,7 +52,14 @@ void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin)
         return;
     }
 
-    set_sprite_origin(adata, entity->sprite->id, origin);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_sprite_origin(adata, sprite->id, origin);
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id)
@@ -50,7 +72,14 @@ void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id)
         return;
     }
 
-    set_sprite_rtex(adata, entity->sprite->id, rtex->id);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_sprite_rtex(adata, sprite->id, rtex->id);
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_stats_type(s_appdata *adata, char *id, char *type)

@@ -1,5 +1,9 @@
 # <faction_spawn> <faction> <x> <y> <radius> <path_sprite>
-# <faction> <name> <hp> <dammage> <speed> <transference_level> <path_sprite>
+# <faction> <name> <hp> <dammage> <speed> <transference_level> <path_sprite> <id_sprite> ...
+
+# id_entity = orc@[:hdk47Djd]
+# id_entity_sprite = orc@[:hdk47Djd]@[:sprite]@[:body_part_id]
+# game_obj = orc@[:hdk47Djd]@[:sprite]@[:body_part_id]@[:gobj]
 
 # -- faction -- spawn
 faction_spawn orc 3400 3000 300.0 2.0
@@ -8,10 +12,10 @@ faction_spawn hagra 3500 2000 300.0 2.2
 
 
 # -- faction -- orc
-orc basic 200 80 3 2 20 ghost
+orc basic 200 80 3 2 20 ghost-head ghost-dick
 
 # -- faction -- bite
-bite basic 200 80 3 2 20 ghost
+bite basic 200 80 3 2 20 ghost-head ghost-dick
 
 # -- faction -- hagra
-hagra basic 200 80 3 2 20 ghost
+hagra basic 200 80 3 2 20 ghost-head ghost-dick

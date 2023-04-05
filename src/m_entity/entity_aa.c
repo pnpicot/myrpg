@@ -38,7 +38,7 @@ void add_entity(s_appdata *adata, char *id, int mode)
 
     new_entity->active = sfTrue;
     new_entity->id = id;
-    new_entity->sprite = malloc(sizeof(s_sprite));
+    new_entity->body_part = linked_new();
     new_entity->stats = malloc(sizeof(s_entity_stats));
 
     if (!mode)
@@ -47,31 +47,41 @@ void add_entity(s_appdata *adata, char *id, int mode)
         linked_add(adata->game_data->entities, new_entity);
 }
 
-void set_entity_sprite(s_appdata *adata, char *id, char *texture_id)
+void set_entity_sprite(s_appdata *adata, char *id, char *texture_id, char *entity_sprite_id)
 {
     s_entity *entity = get_entity(adata, id, 0);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
     }
-
-    char *id_sprite = str_add(id, "@[:sprite]");
-    add_sprite(adata, id_sprite, 1);
+    add_sprite(adata, entity_sprite_id, 1);
     sfTexture *texture = get_texture(adata, texture_id);
-    set_sprite_texture(adata, id_sprite, texture);
+    set_sprite_texture(adata, entity_sprite_id, texture);
 
-    entity->sprite = get_sprite(adata, id_sprite);
+    linked_add(entity->body_part, get_sprite(adata, entity_sprite_id));
 }
 
-void set_entity_layer(s_appdata *adata, char *id, int layer)
+void set_entity_layer(s_appdata *adata, char *id, int index, int layer)
 {
     s_entity *entity = get_entity(adata, id, 0);
+
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
     }
 
-    entity->sprite->layer = layer;
+    int i = 0;
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        if (i == index) {
+            sprite->layer = layer;
+        }
+
+        i++;
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_stats(s_appdata *adata, char *id)

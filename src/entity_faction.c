@@ -33,27 +33,42 @@ void load_entity_faction(s_appdata *adata)
             continue;
         }
 
-        char *id_entity = str_add(entry_data[0], nbr_to_str(ite));
+        char *entity_id = str_m_add(4, entry_data[0], "@[:", get_random_id(8), "]");
 
-        add_entity(adata, id_entity, 0);
-        set_entity_sprite(adata, id_entity, entry_data[7]);
-        set_entity_active(adata, id_entity, sfFalse);
-        set_entity_layer(adata, id_entity, 4);
-        set_entity_rtex(adata, id_entity, get_str(adata, "rtex_game"));
+        add_entity(adata, entity_id, 0);
 
-        set_entity_stats(adata, id_entity);
-        set_entity_stats_faction(adata, id_entity, entry_data[0]);
-        set_entity_stats_type(adata, id_entity, entry_data[1]);
-        set_entity_stats_hp(adata, id_entity, my_getnbr(entry_data[2]));
-        set_entity_stats_dammage(adata, id_entity, my_getnbr(entry_data[3]));
-        set_entity_stats_speed(adata, id_entity, my_getnbr(entry_data[4]));
-        set_entity_stats_transference_level(adata, id_entity, my_getnbr(entry_data[5]));
-        set_entity_spawn_rate(adata, id_entity, my_getnbr(entry_data[6]));
+        int path_rank = 7;
+        while (entry_data[path_rank] != NULL) {
 
-        char *gobj_id = str_add(id_entity, "@[:gobj]");
-        add_gameobject(adata, gobj_id);
-        s_entity *entity = get_entity(adata, id_entity, 0);
-        set_gameobject_ref(adata, gobj_id, get_sprite(adata, entity->sprite->id), TYPE_SPRITE);
+            char **body_part = str_split(entry_data[path_rank], '-');
+
+            char *entity_sprite_id = str_add(entity_id,"@[:sprite]");
+            entity_sprite_id = str_m_add(4, entity_sprite_id, "@[:", body_part[1], "]");
+
+            set_entity_sprite(adata, entity_id, body_part[0], entity_sprite_id);
+            set_entity_layer(adata, entity_id, path_rank - 7, path_rank - 3);
+
+            char *gobj_id = str_add(entity_sprite_id, "@[:gobj]");
+            add_gameobject(adata, gobj_id);
+            s_entity *entity = get_entity(adata, entity_id, 0);
+
+            set_gameobject_ref(adata, gobj_id, get_sprite(adata, entity_sprite_id), TYPE_SPRITE);
+
+            path_rank++;
+        }
+
+        set_entity_active(adata, entity_id, sfFalse);
+        set_entity_rtex(adata, entity_id, get_str(adata, "rtex_game"));
+
+        set_entity_stats(adata, entity_id);
+        set_entity_stats_faction(adata, entity_id, entry_data[0]);
+        set_entity_stats_type(adata, entity_id, entry_data[1]);
+        set_entity_stats_hp(adata, entity_id, my_getnbr(entry_data[2]));
+        set_entity_stats_dammage(adata, entity_id, my_getnbr(entry_data[3]));
+        set_entity_stats_speed(adata, entity_id, my_getnbr(entry_data[4]));
+        set_entity_stats_transference_level(adata, entity_id, my_getnbr(entry_data[5]));
+        set_entity_spawn_rate(adata, entity_id, my_getnbr(entry_data[6]));
+
         ite++;
     }
 }

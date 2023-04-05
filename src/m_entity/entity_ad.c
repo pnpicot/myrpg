@@ -15,7 +15,14 @@ void set_entity_animation_cols(s_appdata *adata, char *id, int cols)
         return;
     }
 
-    set_animation_cols(adata, entity->sprite->id, cols);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_animation_cols(adata, sprite->id, cols);
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_animation_rows(s_appdata *adata, char *id, int rows)
@@ -26,7 +33,14 @@ void set_entity_animation_rows(s_appdata *adata, char *id, int rows)
         return;
     }
 
-    set_animation_rows(adata, entity->sprite->id, rows);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_animation_rows(adata, sprite->id, rows);
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_animation_speed(s_appdata *adata, char *id, int speed)
@@ -37,7 +51,14 @@ void set_entity_animation_speed(s_appdata *adata, char *id, int speed)
         return;
     }
 
-    set_animation_speed(adata, entity->sprite->id, speed);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_animation_speed(adata, sprite->id, speed);
+
+        body_part = body_part->next;
+    }
 }
 
 void set_entity_animation_mode(s_appdata *adata, char *id, int mode)
@@ -48,5 +69,12 @@ void set_entity_animation_mode(s_appdata *adata, char *id, int mode)
         return;
     }
 
-    set_animation_mode(adata, entity->sprite->id, mode);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        set_animation_mode(adata, sprite->id, mode);
+
+        body_part = body_part->next;
+    }
 }

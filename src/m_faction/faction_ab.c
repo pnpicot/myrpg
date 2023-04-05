@@ -7,37 +7,53 @@
 
 #include "../include/main.h"
 
-s_sprite *sprite_cpy(s_appdata *adata, s_sprite *sprite)
+linked_node *body_part_cpy(s_appdata *adata, linked_node *body_part, char *rand_id)
 {
-    char *id_sprite = str_add(sprite->id, get_random_id(8));
-    add_sprite(adata, id_sprite, sprite->layer);
+    linked_node *body_part_model = body_part;
+    linked_node *new_body_part = linked_new();
 
-    s_sprite *new_sprite = get_sprite(adata, id_sprite);
-    new_sprite->active = sfTrue;
-    new_sprite->elem = sfSprite_copy(sprite->elem);
-    new_sprite->hidden = sprite->hidden;
-    new_sprite->id = id_sprite;
-    new_sprite->layer = sprite->layer;
-    new_sprite->pos = sprite->pos;
-    new_sprite->rtex_id = sprite->rtex_id;
-    new_sprite->texture = sprite->texture;
+    while (body_part_model != NULL && body_part_model->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part_model->data;
 
-    char *g_obj = str_add(id_sprite, "@[:gobj]");
+        char *entity_sprite_id = replace_id(sprite->id, 0, rand_id);
 
-    add_gameobject(adata, g_obj);
-    set_gameobject_ref(adata, g_obj, new_sprite, TYPE_SPRITE);
+        printf("sprite id = %s\n", entity_sprite_id);
 
-    return (new_sprite);
+        add_sprite(adata, entity_sprite_id, sprite->layer);
+        s_sprite *new_sprite = get_sprite(adata, entity_sprite_id);
+        new_sprite->active = sfTrue;
+        new_sprite->elem = sfSprite_copy(sprite->elem);
+        new_sprite->hidden = sprite->hidden;
+        new_sprite->id = entity_sprite_id;
+        new_sprite->layer = sprite->layer;
+        new_sprite->pos = sprite->pos;
+        new_sprite->rtex_id = sprite->rtex_id;
+        new_sprite->texture = sprite->texture;
+
+        char *g_obj = str_add(entity_sprite_id, "@[:gobj]");
+        add_gameobject(adata, g_obj);
+        set_gameobject_ref(adata, g_obj, new_sprite, TYPE_SPRITE);
+
+        linked_add(new_body_part, new_sprite);
+        body_part_model = body_part_model->next;
+    }
+
+    return (new_body_part);
 }
 
 void add_game_entity(s_appdata *adata, s_entity *entity_model,
 s_faction *faction)
 {
-    char *id_game = str_add(entity_model->id, get_random_id(8));
+    char *rand_id = get_random_id(8);
+    char *new_entity_id = replace_id(entity_model->id, 0, rand_id);
 
-    add_entity(adata, id_game, 1);
-    s_entity *entity = get_entity(adata, id_game, 1);
-    entity->sprite = sprite_cpy(adata, entity_model->sprite);
+    printf("entity id = %s\n", new_entity_id);
+
+    add_entity(adata, new_entity_id, 1);
+    s_entity *entity = get_entity(adata, new_entity_id, 1);
+
+    entity->body_part = body_part_cpy(adata, entity_model->body_part, rand_id);
+
     entity->stats = entity_model->stats;
     entity->active = 1;
     int radius = (int) faction->radius;

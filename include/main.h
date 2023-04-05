@@ -270,7 +270,7 @@ typedef struct {
 typedef struct {
     int active;
     char *id;
-    s_sprite *sprite;
+    linked_node *body_part;
     s_entity_stats *stats;
 } s_entity;
 
@@ -579,4 +579,5 @@ typedef struct {
 #include "world_event.h"
 #include "entity.h"
 #include "faction.h"
+#include "id.h"
 #include "public_path_finding.h"

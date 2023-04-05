@@ -15,7 +15,14 @@ void move_entity(s_appdata *adata, char *id, sfVector2f pos, int mode)
         return;
     }
 
-    move_sprite(adata, entity->sprite->id, pos);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        move_sprite(adata, sprite->id, pos);
+
+        body_part = body_part->next;
+    }
 }
 
 void translate_entity(s_appdata *adata, char *id, sfVector2f add)
@@ -26,7 +33,14 @@ void translate_entity(s_appdata *adata, char *id, sfVector2f add)
         return;
     }
 
-    translate_sprite(adata, entity->sprite->id, add);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        translate_sprite(adata, sprite->id, add);
+
+        body_part = body_part->next;
+    }
 }
 
 void rotate_entity(s_appdata *adata, char *id, float angle)
@@ -37,5 +51,12 @@ void rotate_entity(s_appdata *adata, char *id, float angle)
         return;
     }
 
-    rotate_sprite(adata, entity->sprite->id, angle);
+    linked_node *body_part = entity->body_part;
+    while (body_part != NULL && body_part->data != NULL) {
+        s_sprite *sprite = (s_sprite *) body_part->data;
+
+        rotate_sprite(adata, sprite->id, angle);
+
+        body_part = body_part->next;
+    }
 }
