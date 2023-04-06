@@ -10,3 +10,4 @@
 #include "main.h"
 
 char *replace_id(char *complete_id, int index, char *new_id);
+char *get_id_sub(char *id, int index);

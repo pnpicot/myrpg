@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** entity
+** Entity module
 */
 
 #include "../include/main.h"
@@ -40,4 +40,12 @@ void set_entity_spawn_rate(s_appdata *adata, char *id, int spawn_rate)
 void set_entity_behavior(s_appdata *adata, char *entity_type,
 void (*behavior)(s_appdata *adata, s_entity *entity))
 {
+    s_entity *model = get_entity_by_model(adata, entity_type, 0);
+
+    if (model == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    model->behavior = behavior;
 }

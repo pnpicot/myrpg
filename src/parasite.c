@@ -7,6 +7,28 @@
 
 #include "main.h"
 
+void update_player_ui(s_appdata *adata)
+{
+    char *id = get_str(adata, "stats_widget");
+    char *transference_id = str_add(id, "@[:transference]");
+    char *health_id = str_add(id, "@[:health]");
+    s_player *player = adata->player;
+
+    player->transference.x += player->transference_rate;
+
+    if (player->transference.x > player->transference.y)
+        player->transference.x = player->transference.y;
+
+    set_bar_current(adata, transference_id, player->transference.x);
+
+    player->health.x += player->health_rate;
+
+    if (player->health.x > player->health.y)
+        player->health.x = player->health.y;
+
+    set_bar_current(adata, health_id, player->health.x);
+}
+
 void update_player(s_appdata *adata)
 {
     char *sprite_id = get_str(adata, "player_body");
@@ -39,7 +61,7 @@ void update_player(s_appdata *adata)
 void init_player_particles(s_appdata *adata)
 {
     char *particles = get_str(adata, "player_particles");
-    char *rtex = get_str(adata, "rtex_game");
+    char *rtex = get_str(adata, "rtex_wall");
     char *container = get_str(adata, "ctn_game");
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
@@ -92,8 +114,12 @@ void init_player(s_appdata *adata)
     int win_h = get_int(adata, "win_h");
 
     player->health = (sfVector2i) { 5, 5 };
+    player->transference = (sfVector2f) { 0, 5000.0f };
+    player->transference_clock = sfClock_create();
+    player->health_rate = 1;
+    player->transference_rate = 0.7f;
 
-    add_sprite(adata, sprite_id, 3);
+    add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
 
     s_sprite *body = get_sprite(adata, sprite_id);

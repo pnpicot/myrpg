@@ -38,6 +38,9 @@ void update(s_appdata *adata, float update_rate)
         input_update(adata);
         transform_update(adata);
         update_animations(adata);
+        update_entities(adata);
+        update_player(adata);
+        update_player_ui(adata);
 
         if (integers->in_game) {
             update_controls(adata);

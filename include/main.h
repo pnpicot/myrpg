@@ -258,34 +258,6 @@ typedef struct {
 } s_animation;
 
 typedef struct {
-    int hp;
-    int dammage;
-    int speed;
-    int transference_level;
-    char *type;
-    char *faction;
-    int spawn_rate;
-} s_entity_stats;
-
-typedef struct {
-    int active;
-    char *id;
-    linked_node *body_part;
-    s_entity_stats *stats;
-    sfClock *clock_move;
-    void (*behavior)(s_appdata *adata, s_entity *entity);
-} s_entity;
-
-typedef struct {
-    int active;
-    char *id;
-    sfVector2f pos;
-    float radius;
-    float spawn_rate;
-    sfClock *clock_spawn;
-} s_faction;
-
-typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
     sfVector2f speed;
@@ -302,6 +274,10 @@ typedef struct {
 
 typedef struct {
     sfVector2i health;
+    sfVector2f transference;
+    float health_rate;
+    float transference_rate;
+    sfClock *transference_clock;
     s_sprite *body;
 } s_player;
 
@@ -525,6 +501,34 @@ typedef struct {
     int type;
     s_wall *hitbox;
 } s_gameobj;
+
+typedef struct {
+    int hp;
+    int dammage;
+    int speed;
+    int transference_level;
+    char *type;
+    char *faction;
+    int spawn_rate;
+} s_entity_stats;
+
+typedef struct s_entity_s {
+    int active;
+    char *id;
+    linked_node *body_part;
+    s_entity_stats *stats;
+    sfClock *clock;
+    void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
+} s_entity;
+
+typedef struct {
+    int active;
+    char *id;
+    sfVector2f pos;
+    float radius;
+    float spawn_rate;
+    sfClock *clock_spawn;
+} s_faction;
 
 #include "pre_init.h"
 #include "error.h"

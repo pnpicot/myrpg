@@ -46,12 +46,14 @@ s_faction *faction)
     char *new_entity_id = replace_id(entity_model->id, 0, rand_id);
 
     add_entity(adata, new_entity_id, 1);
+
     s_entity *entity = get_entity(adata, new_entity_id, 1);
 
     entity->body_part = body_part_cpy(adata, entity_model->body_part, rand_id);
-
     entity->stats = entity_model->stats;
     entity->active = 1;
+    entity->behavior = entity_model->behavior;
+
     int radius = (int) faction->radius;
     int x = (rand() % (radius * 2)) +
     (faction->pos.x - radius);
@@ -61,6 +63,7 @@ s_faction *faction)
     set_entity_scale(adata, entity->id, (sfVector2f) {3, 3});
 
     sfVector2f pos = {x, y};
+
     move_entity(adata, entity->id, pos, 1);
 }
 

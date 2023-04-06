@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** entity
+** Entity module
 */
 
 #include "../include/main.h"

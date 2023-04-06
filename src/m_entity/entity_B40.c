@@ -2,19 +2,20 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** entity
+** Entity module
 */
 
 #include "../include/main.h"
 
-void B40_bevahior(s_appdata *adata, s_entity *B40)
+void B40_bevahior(s_appdata *adata, s_entity *entity)
 {
-    float second = get_clock_seconds(B40->clock_move);
+    float second = get_clock_seconds(entity->clock);
 
-    if (second >= 1 && B40->active) {
-        sfVector2f add = {B40->stats->speed, B40->stats->speed};
-        translate_entity(adata, B40->id, add);
+    if (second >= 1.0f) {
+        sfVector2f add = { entity->stats->speed, entity->stats->speed }; // ??
 
-        sfClock_restart(B40->clock_move);
+        translate_entity(adata, entity->id, add);
+
+        sfClock_restart(entity->clock);
     }
 }

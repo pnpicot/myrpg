@@ -18,3 +18,16 @@ int get_bar_rest(s_appdata *adata, char *id)
 
     return (bar->max - bar->current);
 }
+
+void resize_bar(s_appdata *adata, char *id, sfVector2f size)
+{
+    s_bar *bar = get_bar(adata, id);
+
+    if (bar == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    resize_rect(adata, bar->back_rect->id, size);
+    update_bar(adata, bar);
+}

@@ -43,3 +43,7 @@ float get_entity_rotation(s_appdata *adata, char *id, int rank);
 void set_entity_behavior(s_appdata *adata, char *entity_type,
 void (*behavior)(s_appdata *adata, s_entity *entity));
 void B40_bevahior(s_appdata *adata, s_entity *B40);
+void set_entities_behaviors(s_appdata *adata);
+void set_entity_model_origin(s_appdata *adata, char *id, \
+char *part_id, sfVector2f origin);
+void update_entities(s_appdata *adata);

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** entity
+** Entity module
 */
 
 #include "../include/main.h"
@@ -40,7 +40,8 @@ void add_entity(s_appdata *adata, char *id, int mode)
     new_entity->id = id;
     new_entity->body_part = linked_new();
     new_entity->stats = malloc(sizeof(s_entity_stats));
-    new_entity->clock_move = sfClock_create();
+    new_entity->clock = sfClock_create();
+    new_entity->behavior = NULL;
 
     if (!mode)
         linked_add(adata->game_data->entities_models, new_entity);
@@ -95,6 +96,7 @@ void set_entity_stats(s_appdata *adata, char *id)
     s_entity_stats *stats = malloc(sizeof(s_entity_stats));
     if (stats == NULL) {
         my_printf(get_error(adata, "mem_alloc"));
+        return;
     }
     stats->dammage = 0;
     stats->hp = 0;

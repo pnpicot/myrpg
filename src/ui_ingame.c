@@ -41,9 +41,117 @@ void init_ingame_fps(s_appdata *adata, char *container, char *rtex)
     set_text_font(adata, fps, get_font(adata, "courier"));
     color_text(adata, fps, sfYellow);
     edit_text(adata, fps, "? fps");
-    move_text(adata, fps, (sfVector2f) { 20, win_h - 42 });
+    move_text(adata, fps, (sfVector2f) { 20, 20 });
     resize_text(adata, fps, 22);
     add_to_container(adata, container, (s_ref) { get_text(adata, fps), TYPE_TEXT });
+}
+
+void init_stats_title(s_appdata *adata, char *container, char *rtex, char *rect_id)
+{
+    char *id = str_add(rect_id, "@[:title]");
+    sfFloatRect rect = get_sprite_bounds(adata, rect_id);
+
+    add_text(adata, id, 2);
+    edit_text(adata, id, "STATS");
+    set_text_font(adata, id, get_font(adata, "courier"));
+    set_text_rtex(adata, id, rtex);
+    add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    color_text(adata, id, sfWhite);
+    resize_text(adata, id, 22);
+
+    sfFloatRect bounds = get_text_bounds(adata, id);
+
+    set_text_origin(adata, id, (sfVector2f) { bounds.width / 2, bounds.height / 2 });
+
+    sfVector2f pos;
+    pos.x = rect.left + (rect.width / 2);
+    pos.y = rect.top + 18;
+
+    move_text(adata, id, pos);
+}
+
+void init_stats_health(s_appdata *adata, char *container, char *rtex, char *rect_id)
+{
+    char *id = str_add(rect_id, "@[:health]");
+    sfFloatRect rect = get_sprite_bounds(adata, rect_id);
+    s_player *player = adata->player;
+
+    add_bar(adata, id, 2);
+    set_bar_rtex(adata, id, rtex);
+    set_bar_min(adata, id, 0);
+    set_bar_max(adata, id, player->health.y);
+    set_bar_current(adata, id, player->health.x);
+
+    sfVector2f pos;
+    pos.x = rect.left + 30.0f;
+    pos.y = rect.top + 55.0f;
+
+    move_bar(adata, id, pos);
+    color_bar(adata, id, get_color(130, 21, 9, 255), get_color(230, 37, 16, 255));
+    resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
+}
+
+void init_stats_transference(s_appdata *adata, char *container, char *rtex, char *rect_id)
+{
+    char *id = str_add(rect_id, "@[:transference]");
+    sfFloatRect rect = get_sprite_bounds(adata, rect_id);
+    s_player *player = adata->player;
+
+    add_bar(adata, id, 2);
+    set_bar_rtex(adata, id, rtex);
+    set_bar_min(adata, id, 0);
+    set_bar_max(adata, id, player->transference.y);
+    set_bar_current(adata, id, player->transference.x);
+
+    sfVector2f pos;
+    pos.x = rect.left + 30.0f;
+    pos.y = rect.top + 75.0f;
+
+    move_bar(adata, id, pos);
+    color_bar(adata, id, sfDarkGray, sfWhite);
+    resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
+}
+
+void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
+{
+    char *id = get_str(adata, "stats_widget");
+    float zoom = 4.0f;
+
+    add_sprite(adata, id, 1);
+    set_sprite_texture(adata, id, get_texture(adata, "stats_w"));
+    set_sprite_rtex(adata, id, rtex);
+    add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    scale_sprite(adata, id, (sfVector2f) { zoom, zoom });
+
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfFloatRect bounds = get_sprite_bounds(adata, id);
+
+    move_sprite(adata, id, (sfVector2f) { 20.0f, win_h - 20.0f - bounds.height });
+    init_stats_title(adata, container, rtex, id);
+    init_stats_health(adata, container, rtex, id);
+    init_stats_transference(adata, container, rtex, id);
+
+    char *test = "aaaaddzqdzdzq";
+
+    add_sprite(adata, test, 2);
+    set_sprite_rtex(adata, test, "rtex_game");
+    add_to_container(adata, test, (s_ref) { get_sprite(adata, test), TYPE_SPRITE });
+    move_sprite(adata, test, (sfVector2f) { 900, 600 });
+    set_sprite_texture(adata, test, get_texture(adata, "lmx2"));
+    animate_sprite(adata, test);
+    set_animation_rows(adata, test, 1);
+    set_animation_cols(adata, test, 4);
+    set_animation_mode(adata, test, animation_reverse);
+    set_animation_speed(adata, test, 0.07f);
+    scale_sprite(adata, test, (sfVector2f) { 3.0f, 3.0f });
+    set_sprite_origin(adata, test, (sfVector2f) { 30, 30 });
+    rotate_sprite(adata, test, 25.0f);
+
+    char *tobj = "dzqdkzqiodjozqi";
+
+    add_gameobject(adata, tobj);
+    set_gameobject_ref(adata, tobj, get_sprite(adata, test), TYPE_SPRITE);
 }
 
 void init_live_ingame_ui(s_appdata *adata)
@@ -52,4 +160,5 @@ void init_live_ingame_ui(s_appdata *adata)
     char *rtex = get_str(adata, "rtex_ui");
 
     init_ingame_fps(adata, container, rtex);
+    init_ingame_stats(adata, container ,rtex);
 }

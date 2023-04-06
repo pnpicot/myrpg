@@ -30,3 +30,4 @@ int get_bar_min(s_appdata *adata, char *id);
 int get_bar_max(s_appdata *adata, char *id);
 int get_bar_rest(s_appdata *adata, char *id);
 void update_bar_text(s_appdata *adata, s_bar *bar, sfFloatRect back_bounds);
+void resize_bar(s_appdata *adata, char *id, sfVector2f size);
