@@ -58,6 +58,8 @@ s_faction *faction)
     int y = (rand() % (radius * 2)) +
     (faction->pos.y - radius);
 
+    set_entity_scale(adata, entity->id, (sfVector2f) {3, 3});
+
     sfVector2f pos = {x, y};
     move_entity(adata, entity->id, pos, 1);
 }

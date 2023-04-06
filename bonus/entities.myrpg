@@ -6,16 +6,8 @@
 # game_obj = orc@[:hdk47Djd]@[:sprite]@[:body_part_id]@[:gobj]
 
 # -- faction -- spawn
-faction_spawn orc 3400 3000 300.0 2.0
-faction_spawn bite 3000 1000 200.0 2.5
-faction_spawn hagra 3500 2000 300.0 2.2
+faction_spawn droide 3000 1000 300.0 2.0
 
 
-# -- faction -- orc
-orc basic 200 80 3 2 20 tete-head bas-bottom
-
-# -- faction -- bite
-bite basic 200 80 3 2 20 ghost-head
-
-# -- faction -- hagra
-hagra basic 200 80 3 2 20 ghost-head
+# -- faction -- droide
+droide basic 200 80 3 2 50 B40_avant_bras_gauche-avant_bras_gauche B40_avant_bras_droit-avant_bras_droit B40_arriere_bras_gauche-arriere_bras_gauche B40_arriere_bras_droit-arriere_bras_droit B40_chassis-chassis
