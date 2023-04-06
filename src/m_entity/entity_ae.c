@@ -27,7 +27,7 @@ void move_entity(s_appdata *adata, char *id, sfVector2f pos, int mode)
 
 void translate_entity(s_appdata *adata, char *id, sfVector2f add)
 {
-    s_entity *entity = get_entity(adata, id, 0);
+    s_entity *entity = get_entity(adata, id, 1);
     if (entity == NULL) {
         my_printf(get_error(adata, "unknown_id"));
         return;
