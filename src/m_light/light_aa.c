@@ -38,6 +38,7 @@ void init_light_overlay(s_appdata *adata, int depth_start)
 
     set_shader_texture(adata, "mask", "texture", mask_tex);
     set_shader_texture(adata, "mask", "add_texture", overlay_tex);
+    set_shader_float(adata, "mask", "threshold", get_float(adata, "bloom_threshold"));
 }
 
 void init_light_recommended(s_appdata *adata, int depth_start)

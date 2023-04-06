@@ -26,3 +26,4 @@ float get_sprite_rotation(s_appdata *adata, char *id);
 sfVector2f get_sprite_scale(s_appdata *adata, char *id);
 void set_sprite_rtex(s_appdata *adata, char *id, char *rtex_id);
 void set_sprite_active(s_appdata *adata, char *id, sfUint8 active);
+void rotate_sprite_add(s_appdata *adata, char *id, float angle_ch);

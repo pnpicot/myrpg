@@ -99,23 +99,15 @@ void init_live_textures(s_appdata *adata)
     set_shader_vec2(adata, "rr_bloom_y", "blur_radius", bloomy_rad);
     set_rtex_shader(adata, rtex_bloom_y, get_shader(adata, "rr_bloom_y"));
 
-    add_rtex(adata, rtex_bloom_int, 14);
-    set_rtex_inherit(adata, rtex_bloom_int, 1);
-    set_rtex_clear(adata, rtex_bloom_int, sfBlack);
-    set_rtex_blendmode(adata, rtex_bloom_int, sfBlendAdd);
-    set_rtex_shader(adata, rtex_bloom_int, get_shader(adata, "bloom_intensify"));
-    set_shader_vec2(adata, "bloom_intensify", "resolution", (sfVector2f) { win_w, win_h });
-    set_shader_texture(adata, "bloom_intensify", "texture", get_rtex_tex(adata, rtex_bloom_int));
-
-    add_rtex(adata, rtex_ui, 15);
+    add_rtex(adata, rtex_ui, 14);
     set_rtex_clear(adata, rtex_ui, sfTransparent);
     set_rtex_blendmode(adata, rtex_ui, sfBlendAlpha);
 
-    add_rtex(adata, rtex_menu, 16);
+    add_rtex(adata, rtex_menu, 15);
     set_rtex_blendmode(adata, rtex_menu, sfBlendNone);
     set_rtex_clear(adata, rtex_menu, sfTransparent);
 
-    add_rtex(adata, rtex_settings, 17);
+    add_rtex(adata, rtex_settings, 16);
     set_rtex_blendmode(adata, rtex_settings, sfBlendNone);
     set_rtex_clear(adata, rtex_settings, sfTransparent);
     set_rtex_active(adata, rtex_settings, sfFalse);

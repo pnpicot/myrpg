@@ -44,3 +44,15 @@ void set_sprite_repeat(s_appdata *adata, char *id, sfBool repeat)
     sfTexture_setRepeated(sprite->texture, repeat);
     sfSprite_setTexture(sprite->elem, sprite->texture, sfFalse);
 }
+
+void rotate_sprite_add(s_appdata *adata, char *id, float angle_ch)
+{
+    s_sprite *sprite = get_sprite(adata, id);
+
+    if (sprite == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    sfSprite_rotate(sprite->elem, angle_ch);
+}
