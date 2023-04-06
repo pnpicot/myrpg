@@ -2,7 +2,7 @@
 
 # -- misc -- begin
 string default_font = mono
-int enable_shader = 0 
+int enable_shader = 1 
 int dev_mode = 0 
 # -- misc -- end
 
@@ -12,6 +12,7 @@ float bloom_threshold = 0.85f
 string rtex_bloom = rtex_bloom
 string rtex_bloom_x = rtex_bloom_x
 string rtex_bloom_y = rtex_bloom_y
+string rtex_bloom_int = rtex_bloom_i
 # -- post effects -- end
 
 # -- window -- begin

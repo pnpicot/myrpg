@@ -12,7 +12,7 @@ void B40_bevahior(s_appdata *adata, s_entity *entity)
     float second = get_clock_seconds(entity->clock);
 
     if (second >= 0.1f) {
-        sfVector2f add = { 0.01f, 0.0f }; // ??
+        sfVector2f add = { 2.0f, 1.5f };
 
         translate_entity(adata, entity->id, add);
 

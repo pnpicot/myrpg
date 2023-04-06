@@ -38,19 +38,19 @@ void load_entity_faction(s_appdata *adata)
         add_entity(adata, entity_id, 0);
 
         int path_rank = 7;
+
         while (entry_data[path_rank] != NULL) {
-
             char **body_part = str_split(entry_data[path_rank], '-');
-
             char *entity_sprite_id = str_add(entity_id,"@[:sprite]");
+
             entity_sprite_id = str_m_add(4, entity_sprite_id, "@[:", body_part[1], "]");
 
             set_entity_sprite(adata, entity_id, body_part[0], entity_sprite_id);
             set_entity_layer(adata, entity_id, path_rank - 7, path_rank - 3);
 
             char *gobj_id = str_add(entity_sprite_id, "@[:gobj]");
-            add_gameobject(adata, gobj_id);
 
+            add_gameobject(adata, gobj_id);
             set_gameobject_ref(adata, gobj_id, get_sprite(adata, entity_sprite_id), TYPE_SPRITE);
 
             path_rank++;

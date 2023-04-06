@@ -14,11 +14,12 @@ linked_node *body_part_cpy(s_appdata *adata, linked_node *body_part, char *rand_
 
     while (body_part_model != NULL && body_part_model->data != NULL) {
         s_sprite *sprite = (s_sprite *) body_part_model->data;
-
         char *entity_sprite_id = replace_id(sprite->id, 0, rand_id);
 
         add_sprite(adata, entity_sprite_id, sprite->layer);
+
         s_sprite *new_sprite = get_sprite(adata, entity_sprite_id);
+
         new_sprite->active = sfTrue;
         new_sprite->elem = sfSprite_copy(sprite->elem);
         new_sprite->hidden = sprite->hidden;
@@ -29,10 +30,11 @@ linked_node *body_part_cpy(s_appdata *adata, linked_node *body_part, char *rand_
         new_sprite->texture = sprite->texture;
 
         char *g_obj = str_add(entity_sprite_id, "@[:gobj]");
+
         add_gameobject(adata, g_obj);
         set_gameobject_ref(adata, g_obj, new_sprite, TYPE_SPRITE);
-
         linked_add(new_body_part, new_sprite);
+
         body_part_model = body_part_model->next;
     }
 
