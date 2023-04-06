@@ -28,4 +28,6 @@ void update_entities(s_appdata *adata)
 void set_entities_behaviors(s_appdata *adata)
 {
     set_entity_behavior(adata, "b40", &B40_bevahior);
+    set_entity_behavior(adata, "z200", &Z200_bevahior);
+    init_Z200(adata, get_entity_by_model(adata, "z200", 0));
 }
