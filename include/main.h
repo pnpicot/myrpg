@@ -272,6 +272,8 @@ typedef struct {
     char *id;
     linked_node *body_part;
     s_entity_stats *stats;
+    sfClock *clock_move;
+    void (*behavior)(s_appdata *adata, s_entity *entity);
 } s_entity;
 
 typedef struct {

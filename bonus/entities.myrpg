@@ -8,6 +8,5 @@
 # -- faction -- spawn
 faction_spawn droide 3000 1000 300.0 2.0
 
-
 # -- faction -- droide
-droide basic 200 80 3 2 50 B40_avant_bras_gauche-avant_bras_gauche B40_avant_bras_droit-avant_bras_droit B40_arriere_bras_gauche-arriere_bras_gauche B40_arriere_bras_droit-arriere_bras_droit B40_chassis-chassis
+droide droide_basic 200 80 3 2 50 B40_avant_bras_gauche-avant_bras_gauche B40_avant_bras_droit-avant_bras_droit B40_arriere_bras_gauche-arriere_bras_gauche B40_arriere_bras_droit-arriere_bras_droit B40_chassis-chassis

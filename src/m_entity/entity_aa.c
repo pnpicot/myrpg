@@ -40,6 +40,7 @@ void add_entity(s_appdata *adata, char *id, int mode)
     new_entity->id = id;
     new_entity->body_part = linked_new();
     new_entity->stats = malloc(sizeof(s_entity_stats));
+    new_entity->clock_move = sfClock_create();
 
     if (!mode)
         linked_add(adata->game_data->entities_models, new_entity);

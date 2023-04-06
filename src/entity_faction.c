@@ -50,7 +50,6 @@ void load_entity_faction(s_appdata *adata)
 
             char *gobj_id = str_add(entity_sprite_id, "@[:gobj]");
             add_gameobject(adata, gobj_id);
-            s_entity *entity = get_entity(adata, entity_id, 0);
 
             set_gameobject_ref(adata, gobj_id, get_sprite(adata, entity_sprite_id), TYPE_SPRITE);
 

@@ -10,6 +10,7 @@
 #include "main.h"
 
 s_entity *get_entity(s_appdata *adata, char *id, int mode);
+s_entity *get_entity_by_model(s_appdata *adata, char *model_id, int mode);
 void add_entity(s_appdata *adata, char *id, int mode);
 void set_entity_sprite(s_appdata *adata, char *id, char *texture_id, char *entity_sprite_id);
 void set_entity_layer(s_appdata *adata, char *id, int rank, int layer);
@@ -39,3 +40,6 @@ void set_entity_spawn_rate(s_appdata *adata, char *id, int spawn_rate);
 sfFloatRect get_entity_bounds(s_appdata *adata, char *id, int rank);
 sfVector2f get_entity_scale(s_appdata *adata, char *id, int rank);
 float get_entity_rotation(s_appdata *adata, char *id, int rank);
+void set_entity_behavior(s_appdata *adata, char *entity_type,
+void (*behavior)(s_appdata *adata, s_entity *entity));
+void B40_bevahior(s_appdata *adata, s_entity *B40);
