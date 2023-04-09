@@ -9,8 +9,6 @@
 
 void add_wall(s_appdata *adata, char *id, sfFloatRect hitbox)
 {
-    if (adata->wall_rtex == NULL) return;
-
     s_wall *wall = get_wall(adata, id);
 
     if (wall != NULL) {

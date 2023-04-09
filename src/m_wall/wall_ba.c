@@ -69,7 +69,8 @@ s_rect *get_wall_hitbox(s_appdata *adata, char *wall_id, sfFloatRect hitbox)
     char *id = str_add(wall_id, "@[:hitbox]");
 
     add_rect(adata, id, adata->integers->wall_layer);
-    set_rect_rtex(adata, id, adata->wall_rtex->id);
+    if (adata->wall_rtex != NULL)
+        set_rect_rtex(adata, id, adata->wall_rtex->id);
     resize_rect(adata, id, (sfVector2f) { hitbox.width, hitbox.height });
     move_rect(adata, id, (sfVector2f) { hitbox.left, hitbox.top });
     color_rect(adata, id, get_color(20, 20, 20, 255));

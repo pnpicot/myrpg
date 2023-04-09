@@ -587,3 +587,4 @@ typedef struct {
 #include "faction.h"
 #include "id.h"
 #include "public_path_finding.h"
+#include "map_collision.h"
