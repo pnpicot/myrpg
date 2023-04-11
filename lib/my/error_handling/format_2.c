@@ -17,7 +17,8 @@ int is_format(char **arr, const char *format)
 
         if (type == 'd' && !is_num(arr[ite], 1)) return (0);
         if (type == 'n' && !is_num(arr[ite], 0)) return (0);
-        if (type == 'f' && !is_dec(arr[ite])) return (0);
+        if (type == 'f' && !is_num(arr[ite], 1) && !is_dec(arr[ite]))
+            return (0);
 
         ite++;
     }

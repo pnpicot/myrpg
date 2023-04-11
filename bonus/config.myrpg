@@ -126,6 +126,7 @@ string volume_slider = settings_volume
 # -- ingame ui -- begin
 string fps_text = ig_fps_text
 string stats_widget = stats_widget
+string inventory = inv
 # -- ingame ui -- end
 
 # -- map -- begin
@@ -143,3 +144,8 @@ float time_speed = 0.000003f
 color day_color = 255,235,179,255
 color night_color = 0,0,50,255
 # -- world -- end
+
+# -- inventory -- begin
+string health_syr = health_syr
+float inv_width = 450.0f
+# -- inventory -- end

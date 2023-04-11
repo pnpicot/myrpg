@@ -284,7 +284,12 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
 {
     rotate_entity_part(adata, entity, "blades", -1.0f);
     rotate_entity_part(adata, entity, "rotors", 2.0f);
-    translate_entity(adata, entity, (sfVector2f) { 0.3f, 0.1f });
+
+    sfVector2f add = { 0.3f, 0.1f };
+
+    // add = is_map_colliding(adata, sfSprite_getGlobalBounds(((s_sprite *) entity->parts->data)->elem), add);
+
+    translate_entity(adata, entity, add);
 }
 
 void init_entity_behaviors(s_appdata *adata)
