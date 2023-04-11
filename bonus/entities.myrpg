@@ -1,14 +1,15 @@
-# <faction_spawn> <faction> <x> <y> <radius> <path_sprite>
-# <faction> <name> <hp> <dammage> <speed> <transference_level> <path_sprite> <id_sprite> ...
+# <type: faction> <faction_id> <spawnpoint: x> <spawnpoint: y> <spawnpoint: radius> <max_entity>
+# <type: entity> <faction_id> <entity_id> <scale> <stat: spawn-rate> <stat: base-hp>
+# <type: part> <entity_id> <layer> <part_id> <texture_id> <origin: x> <origin: y> <offset: x> <offset: y>
 
-# id_entity = orc@[:hdk47Djd]
-# id_entity_sprite = orc@[:hdk47Djd]@[:sprite]@[:body_part_id]
-# game_obj = orc@[:hdk47Djd]@[:sprite]@[:body_part_id]@[:gobj]
+# -- factions -- begin
+faction droids 800 800 500 50
+# -- factions -- end
 
-# -- faction -- spawn
-faction_spawn droide 3000 1000 300.0 2.0
-
-# -- faction -- droide
-droide b40 200 80 3 2 50 B40_avant_bras_gauche-avant_bras_gauche B40_avant_bras_droit-avant_bras_droit B40_arriere_bras_gauche-arriere_bras_gauche B40_arriere_bras_droit-arriere_bras_droit B40_chassis-chassis
-
-droide z200 200 80 3 2 50 Z200_chassis-chassis Z200_blades-blades Z200_rotors-rotors
+# -- entities -- begin
+entity droids z200 4.0f 0.15f 500
+part z200 1 back_chassis Z200_chassis 32 32 0 0 
+part z200 2 blades Z200_blades 32 32 0 0 
+part z200 3 front_chassis Z200_chassis 32 32 0 0 
+part z200 4 rotors Z200_rotors 32 32 0 0 
+# -- entities -- end
