@@ -271,6 +271,22 @@ char *part_id, float angle)
     }
 }
 
+void rotate_entity_part_abs(s_appdata *adata, s_entity *entity, \
+char *part_id, float angle)
+{
+    linked_node *parts = entity->parts;
+
+    while (parts != NULL && parts->data != NULL) {
+        s_entity_part *cur = (s_entity_part *) parts->data;
+
+        if (!my_strcmp(cur->id, part_id)) {
+            sfSprite_setRotation(cur->sprite->elem, angle);
+        }
+
+        parts = parts->next;
+    }
+}
+
 void set_entity_behavior(s_appdata *adata, char *id, \
 void (*behavior)(s_appdata *adata, s_entity *s_entity))
 {
@@ -312,18 +328,39 @@ sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
 // TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
-    rotate_entity_part(adata, entity, "blades", -1.0f);
-    rotate_entity_part(adata, entity, "rotors", 2.0f);
+    float seconds = get_clock_seconds(entity->clock);
 
-    sfVector2f add = { 0.3f, 0.1f };
+    rotate_entity_part(adata, entity, "blades_1", -5.0f * seconds * 100);
+    rotate_entity_part(adata, entity, "blades_2", 5.0f * seconds * 100);
+    rotate_entity_part(adata, entity, "rotors", 10.0f * seconds * 100);
 
+    sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
 
     add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
 
     translate_entity(adata, entity, add);
+
+    sfClock_restart(entity->clock);
+}
+
+void behavior_mf26(s_appdata *adata, s_entity *entity)
+{
+    float seconds = get_clock_seconds(entity->clock);
+
+    sfVector2f add = { 0.3f * seconds * 2000, 0.1f * seconds * 2000};
+
+    float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
+    rotate_entity_part_abs(adata, entity, "body", angle);
+
+    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+
+    translate_entity(adata, entity, add);
+
+    sfClock_restart(entity->clock);
 }
 
 void init_entity_behaviors(s_appdata *adata)
 {
     set_entity_behavior(adata, "z200", &behavior_z200);
+    set_entity_behavior(adata, "mf26", &behavior_mf26);
 }

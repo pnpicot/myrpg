@@ -7,9 +7,7 @@ faction droids 800 800 500 50
 # -- factions -- end
 
 # -- entities -- begin
-entity droids z200 4.0f 0.15f 500
-part z200 1 back_chassis Z200_chassis 32 32 0 0 
-part z200 2 blades Z200_blades 32 32 0 0 
-part z200 3 front_chassis Z200_chassis 32 32 0 0 
-part z200 4 rotors Z200_rotors 32 32 0 0 
+
+entity droids mf26 4.0f 0.75f 500
+part mf26 1 body mf26_body 37 44 0 0 
 # -- entities -- end
