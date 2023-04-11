@@ -71,9 +71,9 @@ sfVector2f *movement)
         if (entity->data == NULL)
             continue;
 
-        s_entity *cur = (s_entity *)entity->data;
+        s_entity *cur = (s_entity *) entity->data;
         sfFloatRect rect = sfSprite_getGlobalBounds(
-        ((s_sprite *)cur->body_part->data)->elem);
+        ((s_sprite *)cur->parts->data)->elem);
 
         if (hitbox.left == rect.left && hitbox.top == rect.top && hitbox.width
         == rect.width && hitbox.height == rect.height)
@@ -98,6 +98,5 @@ sfVector2f movement)
     is_map_colliding_entity(adata, hitbox, &movement);
     if (hitbox.left == 910 && hitbox.top == 490
     && hitbox.width == 100 && hitbox.height == 100)
-    printf("x: %f, y: %f\n", movement.x, movement.y);
     return (movement);
 }

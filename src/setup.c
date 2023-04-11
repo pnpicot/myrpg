@@ -11,7 +11,8 @@ void update_live(s_appdata *adata)
 {
     update_ingame_ui(adata);
     cycle_world_time(adata);
-    spawn_entities(adata);
+    trigger_spawn_cycle(adata);
+    update_entities(adata);
 }
 
 void init_live_light(s_appdata *adata)
@@ -163,8 +164,8 @@ void init_live(s_appdata *adata)
     init_player(adata);
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
-    load_entity_faction(adata);
-    set_entities_behaviors(adata);
+    load_entity_config(adata);
+    init_entity_behaviors(adata);
 
     switch_state(adata, get_str(adata, "state_main"));
 

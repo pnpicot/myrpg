@@ -2,52 +2,27 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** Elements utilities module
+** Entity module
 */
 
 #pragma once
 
 #include "main.h"
 
-s_entity *get_entity(s_appdata *adata, char *id, int mode);
-s_entity *get_entity_by_model(s_appdata *adata, char *model_id, int mode);
-void add_entity(s_appdata *adata, char *id, int mode);
-void set_entity_sprite(s_appdata *adata, char *id, char *texture_id, char *entity_sprite_id);
-void set_entity_layer(s_appdata *adata, char *id, int rank, int layer);
-void set_entity_stats(s_appdata *adata, char *id);
-void set_entity_stats_dammage(s_appdata *adata, char *id, int dammage);
-void set_entity_stats_hp(s_appdata *adata, char *id, int hp);
-void set_entity_stats_faction(s_appdata *adata, char *id, char *faction);
-void set_entity_stats_speed(s_appdata *adata, char *id, int speed);
-void set_entity_stats_type(s_appdata *adata, char *id, char *type);
-void set_entity_stats_transference_level(s_appdata *adata, char *id,
-int transference_level);
-void set_entity_active(s_appdata *adata, char *id, sfUint8 active);
-void set_entity_animation_cols(s_appdata *adata, char *id, int cols);
-void set_entity_animation_rows(s_appdata *adata, char *id, int rows);
-void set_entity_animation_speed(s_appdata *adata, char *id, int speed);
-void set_entity_animation_mode(s_appdata *adata, char *id, int mode);
-void set_entity_scale(s_appdata *adata, char *id, sfVector2f scale);
-void move_entity(s_appdata *adata, char *id, sfVector2f pos, int mode);
-void translate_entity(s_appdata *adata, char *id, sfVector2f add);
-void rotate_entity(s_appdata *adata, char *id, float angle);
-void set_entity_origin(s_appdata *adata, char *id, sfVector2f origin);
-void set_entity_rtex(s_appdata *adata, char *id, char *rtex_id);
-void init_entities(s_appdata *adata);
-void load_entity_faction(s_appdata *adata);
-void set_entity_spawn(s_appdata *adata, char *id);
-void set_entity_spawn_rate(s_appdata *adata, char *id, int spawn_rate);
-sfFloatRect get_entity_bounds(s_appdata *adata, char *id, int rank);
-sfVector2f get_entity_scale(s_appdata *adata, char *id, int rank);
-float get_entity_rotation(s_appdata *adata, char *id, int rank);
-void set_entity_behavior(s_appdata *adata, char *entity_type,
-void (*behavior)(s_appdata *adata, s_entity *entity));
-void B40_bevahior(s_appdata *adata, s_entity *B40);
-void Z200_bevahior(s_appdata *adata, s_entity *entity);
-void set_entities_behaviors(s_appdata *adata);
-void set_entity_model_origin(s_appdata *adata, char *id, \
-char *part_id, sfVector2f origin);
+s_entity *get_entity_model(s_appdata *adata, char *id);
+void delete_entity_model(s_appdata *adata, char *id);
+s_entity_part *get_entity_model_part(s_appdata *adata, char *model_id, \
+char *part_id);
+s_sprite *get_entity_part_model(s_appdata *adata, \
+s_entity_part *model, sfTexture *tex, float scale);
+void add_entity_part(s_appdata *adata, char **entry);
+void add_entity_model(s_appdata *adata, char **entry);
+void move_entity(s_appdata *adata, s_entity *entity, sfVector2f pos);
+void translate_entity(s_appdata *adata, s_entity *entity, sfVector2f pos_ch);
+void rotate_entity(s_appdata *adata, s_entity *entity, float angle);
+void rotate_entity_part(s_appdata *adata, s_entity *entity, \
+char *part_id, float angle);
+void set_entity_behavior(s_appdata *adata, char *id, \
+void (*behavior)(s_appdata *adata, s_entity *s_entity));
+void init_entity_behaviors(s_appdata *adata);
 void update_entities(s_appdata *adata);
-s_sprite *get_body_part_sprite(s_entity *entity, char *body_part_id);
-void init_Z200(s_appdata *adata, s_entity *entity);
-s_sprite *get_sprite_by_body_part(s_appdata *adata, s_entity *entity, char *body_part_id);

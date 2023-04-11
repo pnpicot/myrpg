@@ -28,8 +28,9 @@ void init_gamedata(s_appdata *adata)
     game_data->map_height = 0;
     game_data->time = 0;
     game_data->entities = linked_new();
-    game_data->entities_models = linked_new();
+    game_data->entity_models = linked_new();
     game_data->factions = linked_new();
+    game_data->syringes = linked_new();
 }
 
 void init_appdata_misc(s_appdata *adata)

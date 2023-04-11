@@ -264,9 +264,10 @@ typedef struct {
     float velocity;
     float speed_max;
     float friction;
-    linked_node *entities_models;
+    linked_node *entity_models;
     linked_node *entities;
     linked_node *factions;
+    linked_node *syringes;
     int map_width;
     int map_height;
     float time;
@@ -502,33 +503,40 @@ typedef struct {
     s_wall *hitbox;
 } s_gameobj;
 
+typedef struct s_syringe_s {
+    char *id;
+    int count;
+    sfTexture *tex;
+    void (*on_use)(s_appdata *adata, struct s_syringe_s *syringe);
+} s_syringe;
+
 typedef struct {
-    int hp;
-    int dammage;
-    int speed;
-    int transference_level;
-    char *type;
-    char *faction;
-    int spawn_rate;
-} s_entity_stats;
+    s_sprite *sprite;
+    char *id;
+    sfVector2f offset;
+    sfVector2f origin;
+    int layer;
+} s_entity_part;
+
+typedef struct {
+    char *id;
+    sfVector2f spawn_point;
+    float spawn_radius;
+    int entity_count;
+    int entity_max;
+} s_faction;
 
 typedef struct s_entity_s {
-    int active;
     char *id;
-    linked_node *body_part;
-    s_entity_stats *stats;
+    linked_node *parts;
+    sfVector2f pos;
+    float st_hp;
+    float scale;
+    float spawn_rate;
+    s_faction *faction;
     sfClock *clock;
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
 } s_entity;
-
-typedef struct {
-    int active;
-    char *id;
-    sfVector2f pos;
-    float radius;
-    float spawn_rate;
-    sfClock *clock_spawn;
-} s_faction;
 
 #include "pre_init.h"
 #include "error.h"
@@ -583,8 +591,12 @@ typedef struct {
 #include "map.h"
 #include "parasite.h"
 #include "world_event.h"
-#include "entity.h"
-#include "faction.h"
 #include "id.h"
 #include "public_path_finding.h"
+#include "syringe.h"
+#include "inventory.h"
+#include "entity.h"
+#include "faction.h"
 #include "map_collision.h"
+#include "spawn.h"
+
