@@ -26,7 +26,7 @@ float delta, s_clocks *clocks)
     if (next_pos.x > (game_data->map_width * 32 * zoom) - win_w) add.x = 0;
     if (next_pos.y > (game_data->map_height * 32 * zoom) - win_h) add.y = 0;
 
-    // add = is_map_colliding(adata, (sfFloatRect){910, 490, 100, 100}, add);
+    add = is_map_colliding(adata, adata->player->hitbox, add);
 
     sfVector2f shift;
     shift.x = -add.x;

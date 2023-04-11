@@ -18,8 +18,14 @@ sfVector2f *movement)
         hitbox.top : other.top + other.height - hitbox.top ;
         return;
     }
-    movement->x = 0;
-    movement->y = 0;
+    movement->y = (movement->y > 0) ? other.top - hitbox.height -
+    hitbox.top : other.top + other.height - hitbox.top;
+    if (movement->y < -0.25 || movement->y > 0.25)
+        movement->y = 0;
+    movement->x = (movement->x > 0) ? other.left - hitbox.width -
+    hitbox.left : other.left + other.width - hitbox.left;
+    if (movement->x < -0.25 || movement->x > 0.25)
+        movement->x = 0;
 }
 
 static void _is_colliding(sfFloatRect hitbox, sfFloatRect other,
@@ -72,8 +78,8 @@ sfVector2f *movement)
             continue;
 
         s_entity *cur = (s_entity *) entity->data;
-        sfFloatRect rect = sfSprite_getGlobalBounds(
-        ((s_sprite *)cur->parts->data)->elem);
+
+        sfFloatRect rect = get_entity_hitbox(adata, cur);
 
         if (hitbox.left == rect.left && hitbox.top == rect.top && hitbox.width
         == rect.width && hitbox.height == rect.height)
@@ -87,16 +93,22 @@ sfVector2f *movement)
 sfVector2f is_map_colliding(s_appdata *adata, sfFloatRect hitbox,
 sfVector2f movement)
 {
-    if (hitbox.left != 910 || hitbox.top != 490
-    || hitbox.width != 100 || hitbox.height != 100)
-        _is_colliding(hitbox, (sfFloatRect){910, 490, 100, 100}, &movement);
+    sfVector2f save = movement;
+
+    if (hitbox.left != adata->player->hitbox.left ||
+    hitbox.top != adata->player->hitbox.top ||
+    hitbox.width != adata->player->hitbox.width ||
+    hitbox.height != adata->player->hitbox.height)
+        _is_colliding(hitbox, adata->player->hitbox, &movement);
     if (movement.x == 0 && movement.y == 0)
         return (movement);
     is_map_colliding_wall(adata, hitbox, &movement);
     if (movement.x == 0 && movement.y == 0)
         return (movement);
     is_map_colliding_entity(adata, hitbox, &movement);
-    if (hitbox.left == 910 && hitbox.top == 490
-    && hitbox.width == 100 && hitbox.height == 100)
+    if (movement.x < save.x || movement.x > save.x)
+        movement.x = 0;
+    if (movement.y < save.y || movement.y > save.y)
+        movement.y = 0;
     return (movement);
 }

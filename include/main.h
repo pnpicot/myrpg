@@ -276,6 +276,7 @@ typedef struct {
 typedef struct {
     sfVector2i health;
     sfVector2f transference;
+    sfFloatRect hitbox;
     float health_rate;
     float transference_rate;
     sfClock *transference_clock;
@@ -530,6 +531,7 @@ typedef struct s_entity_s {
     char *id;
     linked_node *parts;
     sfVector2f pos;
+    sfFloatRect hitbox;
     float st_hp;
     float scale;
     float spawn_rate;

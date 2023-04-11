@@ -117,6 +117,8 @@ void add_entity_part(s_appdata *adata, char **entry)
         return;
     }
 
+    *new_part = (s_entity_part) { 0 };
+
     int layer = my_getnbr(entry[2]);
     float origin_x = str_to_float(entry[5]);
     float origin_y = str_to_float(entry[6]);
@@ -128,6 +130,19 @@ void add_entity_part(s_appdata *adata, char **entry)
     new_part->offset = (sfVector2f) { off_x, off_y };
     new_part->origin = (sfVector2f) { origin_x, origin_y };
     new_part->sprite = get_entity_part_model(adata, new_part, tex, model->scale);
+
+    if (new_part->origin.x + new_part->offset.x > model->hitbox.width)
+        model->hitbox.width = new_part->origin.x + new_part->offset.x;
+    if (new_part->origin.y + new_part->offset.y > model->hitbox.height)
+        model->hitbox.height = new_part->origin.y + new_part->offset.y;
+    if (new_part->origin.x + new_part->offset.x < model->hitbox.left) {
+        model->hitbox.left = new_part->origin.x + new_part->offset.x;
+        model->hitbox.width -= model->hitbox.left;
+    }
+    if (new_part->origin.y + new_part->offset.y < model->hitbox.top) {
+        model->hitbox.top = new_part->origin.y + new_part->offset.y;
+        model->hitbox.height -= model->hitbox.top;
+    }
 
     linked_add(model->parts, new_part);
 }
@@ -160,6 +175,8 @@ void add_entity_model(s_appdata *adata, char **entry)
         return;
     }
 
+    *new_model = (s_entity) { 0 };
+
     float model_scale = str_to_float(entry[3]);
     float model_spawnrate = str_to_float(entry[4]);
     int model_hp = my_getnbr(entry[5]);
@@ -167,6 +184,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->id = model_id;
     new_model->parts = linked_new();
     new_model->pos = (sfVector2f) { 0, 0 };
+    new_model->hitbox = (sfFloatRect) {0, 0, 0, 0};
     new_model->st_hp = model_hp;
     new_model->spawn_rate = model_spawnrate;
     new_model->scale = model_scale;
@@ -279,6 +297,18 @@ void update_entities(s_appdata *adata)
     }
 }
 
+sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
+{
+    sfFloatRect hitbox =
+    {.left = entity->pos.x + entity->hitbox.left - adata->game_data->view_pos.x
+    - entity->hitbox.width * entity->scale / 2,
+    .top = entity->pos.y + entity->hitbox.top - adata->game_data->view_pos.y
+    - entity->hitbox.height * entity->scale / 2 ,
+    .width = entity->hitbox.width * entity->scale,
+    .height = entity->hitbox.height * entity->scale};
+    return (hitbox);
+}
+
 // TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
@@ -287,7 +317,8 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
 
     sfVector2f add = { 0.3f, 0.1f };
 
-    // add = is_map_colliding(adata, sfSprite_getGlobalBounds(((s_sprite *) entity->parts->data)->elem), add);
+
+    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
 
     translate_entity(adata, entity, add);
 }

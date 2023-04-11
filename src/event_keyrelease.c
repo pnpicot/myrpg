@@ -23,5 +23,5 @@ void register_keyrelease(s_appdata *adata, int keycode)
         return;
     }
 
-    adata->keys[keycode] = 0;
+    set_key(adata, keycode, 0);
 }

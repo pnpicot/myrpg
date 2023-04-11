@@ -72,6 +72,7 @@ void add_sprite(s_appdata *adata, char *id, int layer)
         my_printf(get_error(adata, "mem_alloc"));
         return;
     }
+    *new_sprite = (s_sprite){0};
     add_sprite_next(adata, id, layer, new_sprite);
 }
 

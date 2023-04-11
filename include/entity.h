@@ -26,3 +26,4 @@ void set_entity_behavior(s_appdata *adata, char *id, \
 void (*behavior)(s_appdata *adata, s_entity *s_entity));
 void init_entity_behaviors(s_appdata *adata);
 void update_entities(s_appdata *adata);
+sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity);

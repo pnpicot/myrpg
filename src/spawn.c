@@ -82,6 +82,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->id = model->id;
     new_entity->parts = copy_entity_model_parts(adata, model->parts);
     new_entity->pos = model->pos;
+    new_entity->hitbox = model->hitbox;
     new_entity->scale = model->scale;
     new_entity->spawn_rate = model->spawn_rate;
     new_entity->st_hp = model->st_hp;

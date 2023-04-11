@@ -117,6 +117,7 @@ void init_player(s_appdata *adata)
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
     player->health_rate = 1;
+    player->hitbox = (sfFloatRect){910, 490, 100, 100};
     player->transference_rate = 0.7f;
 
     add_sprite(adata, sprite_id, 5);

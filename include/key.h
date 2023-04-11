@@ -10,4 +10,5 @@
 #include "main.h"
 
 int get_key(s_appdata *adata, int keycode);
+void set_key(s_appdata *adata, int keycode, int value);
 void init_keys(s_appdata *adata);

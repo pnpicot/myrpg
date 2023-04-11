@@ -21,5 +21,8 @@ void register_keypress(s_appdata *adata, int keycode)
         sfClock_restart(clocks->input_clock);
     }
 
-    adata->keys[keycode] = 1;
+    if (keycode < sfKeyA || keycode > sfKeyZ)
+        return;
+
+    set_key(adata, keycode, 1);
 }
