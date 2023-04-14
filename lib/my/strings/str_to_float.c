@@ -26,6 +26,9 @@ float str_to_float(char *str)
         }
         nb += (parts[0][0] == '-') ? -dec : dec;
     }
+    for(int i = 0; parts[i] != NULL; i++)
+        free(parts[i]);
+    free(parts);
     return (nb);
 }
 

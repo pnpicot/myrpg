@@ -601,4 +601,4 @@ typedef struct s_entity_s {
 #include "faction.h"
 #include "map_collision.h"
 #include "spawn.h"
-
+#include "destroy.h"

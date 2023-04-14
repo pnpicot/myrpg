@@ -52,6 +52,7 @@ s_texture *new_texture, char *path)
         my_printf(get_error(adata, "tex_load_fail"));
         return;
     }
+    free(path);
     linked_add(adata->lists->textures, new_texture);
 }
 
@@ -82,6 +83,7 @@ void load_textures(s_appdata *adata)
     char **entries = str_split(file_content, '\n');
     int ite = 0;
 
+    free(file_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -94,6 +96,13 @@ void load_textures(s_appdata *adata)
 
         add_texture(adata, id, filename);
 
+        for (int i = 1; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
+
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }

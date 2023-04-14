@@ -20,8 +20,11 @@ void update_ingame_fps(s_appdata *adata)
         char *fps_c = nbr_to_str(fps);
         char *light_c = nbr_to_str(adata->integers->light_count);
         char *new_text = str_m_add(4, fps_c, " fps, ", light_c, " lights");
+        free(light_c);
+        free(fps_c);
 
         edit_text(adata, get_str(adata, "fps_text"), new_text);
+        free(new_text);
         sfClock_restart(clocks->fps_display_clock);
     }
 }
@@ -132,7 +135,7 @@ void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
     init_stats_health(adata, container, rtex, id);
     init_stats_transference(adata, container, rtex, id);
 
-    char *test = "aaaaddzqdzdzq";
+    char *test =  str_add("aaaaddzqdzdzq", "");
 
     add_sprite(adata, test, 2);
     set_sprite_rtex(adata, test, "rtex_game");
@@ -148,7 +151,7 @@ void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
     set_sprite_origin(adata, test, (sfVector2f) { 30, 30 });
     rotate_sprite(adata, test, 25.0f);
 
-    char *tobj = "dzqdkzqiodjozqi";
+    char *tobj = str_add("dzqdkzqiodjozqi", "");
 
     add_gameobject(adata, tobj);
     set_gameobject_ref(adata, tobj, get_sprite(adata, test), TYPE_SPRITE);

@@ -14,9 +14,13 @@ char *str_m_add(int count, ...)
     va_start(args, count);
 
     char *res = va_arg(args, char *);
+    char *save = NULL;
 
     for (int i = 0; i < count - 1; i++) {
         res = str_add(res, va_arg(args, char *));
+        if (save != NULL)
+            free(save);
+        save = res;
     }
 
     va_end(args);

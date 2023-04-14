@@ -21,6 +21,7 @@ void add_config_float(s_appdata *adata, char *type, char *id, char *value)
     new_float->id = id;
     new_float->value = converted_value;
 
+    free(value);
     linked_add(lists->config_floats, new_float);
 }
 
@@ -60,6 +61,9 @@ void add_config_color(s_appdata *adata, char *type, char *id, char *value)
     converted_value.a = my_getnbr(channels[3]);
     new_color->id = id;
     new_color->value = converted_value;
+    for (int i = 0; channels[i] != NULL; i++) free(channels[i]);
+    free(channels);
+    free(value);
     linked_add(lists->config_colors, new_color);
 }
 
@@ -92,6 +96,7 @@ void init_config(s_appdata *adata)
     char **entries = str_split(config_content, '\n');
     int ite = 0;
 
+    free(config_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -105,6 +110,12 @@ void init_config(s_appdata *adata)
 
         add_config(adata, type, id, value);
 
+        free(entry_data[0]);
+        for (int i = 3; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++) free(entries[i]);
+    free(entries);
 }

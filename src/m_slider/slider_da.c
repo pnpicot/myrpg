@@ -88,5 +88,9 @@ void (*on_change)(s_appdata *adata, s_ref *ref))
     set_object_onpressed(adata, left_obj, on_change);
     set_object_onpressed(adata, middle_obj, on_change);
     set_object_onpressed(adata, right_obj, on_change);
+    free(node_obj);
+    free(left_obj);
+    free(middle_obj);
+    free(right_obj);
     slider->on_change = on_change;
 }

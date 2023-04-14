@@ -61,7 +61,6 @@ void parser(char *format, va_list *ptr_list)
     init_container(&container, format);
     int lei = -1;
     int count = 0;
-
     for (int i = 0; i < my_strlen(format); i++) {
         if (i > lei && format[i] == '%' && format[i + 1] != '\0') {
             int lei_before = lei;
@@ -74,6 +73,7 @@ void parser(char *format, va_list *ptr_list)
             my_putchar(format[i], &container.counter);
         }
     }
+    free(container.flags);
     container.current = 0;
     container.max = count;
 }

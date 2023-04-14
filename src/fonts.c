@@ -41,6 +41,7 @@ void add_font(s_appdata *adata, char *id, char *filename)
         return;
     }
     new_font->font = sfFont_createFromFile(path);
+    free(path);
     new_font->id = id;
     linked_add(adata->lists->fonts, new_font);
 }
@@ -51,6 +52,7 @@ void load_fonts(s_appdata *adata)
     char **entries = str_split(file_content, '\n');
     int ite = 0;
 
+    free(file_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -63,6 +65,13 @@ void load_fonts(s_appdata *adata)
 
         add_font(adata, id, filename);
 
+        for (int i = 1; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
+
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }

@@ -20,7 +20,12 @@ void find_all(char *res, long long nb, int a)
 
 char *nbr_to_str(long long nb)
 {
-    if (!nb) return "0";
+    if (!nb) {
+        char *res_int = malloc(2);
+        res_int[0] = '0';
+        res_int[1] = '\0';
+        return res_int;
+    }
     long abs = nb < 0 ? -nb : nb;
     char *res_int = malloc(sizeof(char) * (get_nbr_len(abs) + 1));
     res_int[get_nbr_len(abs)] = '\0';
@@ -33,8 +38,9 @@ char *nbr_to_str(long long nb)
         for (int j = 1; j < get_nbr_len(abs) + 1; j++) {
             res_final[j] = res_int[j - 1];
         }
+        free(res_int);
         return (res_final);
     }
-
+    free(res_final);
     return (res_int);
 }

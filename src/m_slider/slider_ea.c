@@ -51,6 +51,7 @@ sfVector2f node_pos)
 {
     char *val = nbr_to_str(slider->current + slider->min);
     edit_text(adata, slider->indicator_text->id, val);
+    free(val);
     sfFloatRect tx_bounds = get_text_bounds(adata, slider->indicator_text->id);
     sfVector2f text_origin;
     text_origin.x = tx_bounds.width / 2;

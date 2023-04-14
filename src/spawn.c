@@ -9,14 +9,18 @@
 
 s_sprite *copy_entity_part_sprite(s_appdata *adata, s_sprite *sprite)
 {
-    char *id = str_m_add(3, sprite->id, "-", get_random_id(10));
+    char *rid = get_random_id(10);
+    char *id = str_m_add(3, sprite->id, "-", rid);
+    free(rid);
     char *container = get_str(adata, "ctn_game");
 
     add_sprite(adata, id, sprite->layer);
 
     s_sprite *new_sprite = get_sprite(adata, id);
 
+
     new_sprite->active = sfTrue;
+    sfSprite_destroy(new_sprite->elem);
     new_sprite->elem = sfSprite_copy(sprite->elem);
     new_sprite->hidden = 0;
     new_sprite->layer = sprite->layer;
@@ -70,7 +74,6 @@ linked_node *copy_entity_model_parts(s_appdata *adata, linked_node *parts)
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
 {
     int index = model->faction->entity_count;
-    char *id = str_m_add(4, model->id, "@[:entity-", nbr_to_str(index), "]");
     s_entity *new_entity = malloc(sizeof(s_entity));
 
     if (new_entity == NULL) {

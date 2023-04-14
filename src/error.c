@@ -50,6 +50,7 @@ void init_errors(s_appdata *adata)
     char **entries = str_split(errors_content, '\n');
     int ite = 0;
 
+    free(errors_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -62,6 +63,13 @@ void init_errors(s_appdata *adata)
 
         add_error(adata, id, str_add(format, "\n"));
 
+        free(format);
+        for (int i = 0; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }

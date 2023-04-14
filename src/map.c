@@ -58,6 +58,7 @@ void load_tiles(s_appdata *adata)
     char **entries = str_split(file_content, '\n');
     int ite = 0;
 
+    free(file_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -71,8 +72,15 @@ void load_tiles(s_appdata *adata)
 
         add_tile(adata, ch, tex_id, solid);
 
+        for (int i = 0; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
+
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }
 
 void add_tile_to_map(s_appdata *adata, char ch, sfVector2f pos, \
@@ -82,12 +90,14 @@ sfVector2f size)
 
     if (tile == NULL) return;
 
-    char *tile_id = str_add("@[:tile]-", get_random_id(6));
+    char *rid = get_random_id(6);
+    char *tile_id = str_add("@[:tile]-", rid);
     char *rtex = get_str(adata, tile->wall ? "rtex_wall" : "rtex_game");
     char *container = get_str(adata, "ctn_game");
     float zoom = get_float(adata, "zoom");
     sfIntRect rect;
 
+    free(rid);
     rect.left = 0;
     rect.top = 0;
     rect.width = 32 * size.x;
@@ -137,9 +147,15 @@ void load_map(s_appdata *adata, char *map)
 
         add_tile_to_map(adata, type, (sfVector2f) { x, y }, (sfVector2f) { width, height });
 
+        for (int i = 0; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
         ite++;
     }
 
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
     adata->game_data->map_width = max_x;
     adata->game_data->map_height = max_y;
 }
@@ -150,6 +166,7 @@ void init_map(s_appdata *adata, char *filename)
 
     char *path = str_add("bonus/maps/", filename);
     char *map = file_extract(path);
+    free(path);
 
     if (map == NULL) {
         my_printf(get_error(adata, "no_file"));
@@ -157,4 +174,5 @@ void init_map(s_appdata *adata, char *filename)
     }
 
     load_map(adata, map);
+    free(map);
 }

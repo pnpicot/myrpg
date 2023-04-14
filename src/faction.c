@@ -77,6 +77,11 @@ void add_faction(s_appdata *adata, char **entry)
     new_faction->entity_count = 0;
     new_faction->entity_max = faction_max;
 
+    free(entry[0]);
+    for (int i = 2; entry[i] != NULL; i++)
+        free(entry[i]);
+    free(entry);
+
     linked_add(adata->game_data->factions, new_faction);
 }
 
@@ -86,23 +91,29 @@ void load_entity_config(s_appdata *adata)
     char **entries = str_split(file_content, '\n');
     int ite = 0;
 
-    while (entries[ite] != NULL) {
-        if (entries[ite][0] == '#') {
-            ite++;
+    free(file_content);
+    for (;entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#')
             continue;
-        }
 
         char **entry_data = str_split(entries[ite], ' ');
         char *entry_type = entry_data[0];
 
         if (!my_strcmp(entry_type, "faction")) {
             add_faction(adata, entry_data);
+            continue;
         } else if (!my_strcmp(entry_type, "entity")) {
             add_entity_model(adata, entry_data);
+            continue;
         } else if (!my_strcmp(entry_type, "part")) {
             add_entity_part(adata, entry_data);
+            continue;
         }
-
-        ite++;
+        for (int i = 0; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }

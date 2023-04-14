@@ -19,5 +19,9 @@ int main(int argc, char **argv)
     pre_init(adata);
     create_window(adata);
 
-    return (adata->integers->exit_status);
+    int exit_status = adata->integers->exit_status;
+
+    destroy(adata);
+
+    return (exit_status);
 }

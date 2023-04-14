@@ -84,7 +84,8 @@ s_entity_part *model, sfTexture *tex, float scale)
     scale_sprite(adata, id, (sfVector2f) { scale, scale });
     set_sprite_rtex(adata, id, rtex);
 
-    return (get_sprite(adata, id));
+    s_sprite *sprite = get_sprite(adata, id);
+    return (sprite);
 }
 
 void add_entity_part(s_appdata *adata, char **entry)
@@ -130,6 +131,13 @@ void add_entity_part(s_appdata *adata, char **entry)
     new_part->offset = (sfVector2f) { off_x, off_y };
     new_part->origin = (sfVector2f) { origin_x, origin_y };
     new_part->sprite = get_entity_part_model(adata, new_part, tex, model->scale);
+
+    free(entry[0]);
+    free(entry[1]);
+    free(entry[2]);
+    for (int i = 4; entry[i] != NULL; i++)
+        free(entry[i]);
+    free(entry);
 
     if (new_part->origin.x + new_part->offset.x > model->hitbox.width)
         model->hitbox.width = new_part->origin.x + new_part->offset.x;
@@ -190,6 +198,12 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->scale = model_scale;
     new_model->faction = faction;
     new_model->behavior = NULL;
+
+    free(entry[0]);
+    free(entry[1]);
+    for (int i = 3; entry[i] != NULL; i++)
+        free(entry[i]);
+    free(entry);
 
     linked_add(adata->game_data->entity_models, new_model);
 }

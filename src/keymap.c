@@ -50,6 +50,7 @@ void load_keymaps(s_appdata *adata)
     char **entries = str_split(file_content, '\n');
     int ite = 0;
 
+    free(file_content);
     while (entries[ite] != NULL) {
         if (entries[ite][0] == '#') {
             ite++;
@@ -62,6 +63,13 @@ void load_keymaps(s_appdata *adata)
 
         add_keymap(adata, my_getnbr(keycode), ch);
 
+        for (int i = 0; entry_data[i] != NULL; i++)
+            free(entry_data[i]);
+        free(entry_data);
+
         ite++;
     }
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
+    free(entries);
 }

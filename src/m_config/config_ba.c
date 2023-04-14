@@ -81,5 +81,6 @@ void add_config_int(s_appdata *adata, char *type, char *id, char *value)
     new_int->id = id;
     new_int->value = converted_value;
 
+    free(value);
     linked_add(lists->config_ints, new_int);
 }
