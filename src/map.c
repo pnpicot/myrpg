@@ -52,6 +52,44 @@ void add_tile(s_appdata *adata, char ch, char *tex_id, sfBool solid)
     linked_add(adata->lists->tiles, new_tile);
 }
 
+char **init_map_path_finding(int size_x, int size_y)
+{
+    char **map = malloc(sizeof(char *) * (size_y + 1));
+    map[size_y] = NULL;
+    for (int i = 0; i < size_y; i++) {
+        char *ligne = malloc(sizeof(char) * (size_x + 1));
+        ligne[size_x] = '\0';
+        map[i] = ligne;
+    }
+
+    return (map);
+}
+
+void fill_map_path_finding(s_appdata *adata)
+{
+    char *content = file_extract("bonus/maps/dev.map");
+    char **lignes = str_split(content, '\n');
+    int i = 0;
+
+    while (lignes[i] != NULL) {
+        char **ligne = str_split(lignes[i], ' ');
+        char c = get_tile(adata, ligne[0][0])->wall ? 'X' : '*';
+        int origin_y = my_getnbr(ligne[2]);
+        int origin_x = my_getnbr(ligne[1]);
+        int len_tile_x = my_getnbr(ligne[3]);
+        int len_tile_y = my_getnbr(ligne[4]);
+
+        int y = my_getnbr(ligne[2]);
+        for (y; y < len_tile_y + origin_y; y++) {
+            int x = my_getnbr(ligne[1]);
+            for (x; x < len_tile_x + origin_x; x++) {
+                adata->game_data->map[y][x] = c;
+            }
+        }
+        i++;
+    }
+}
+
 void load_tiles(s_appdata *adata)
 {
     char *file_content = file_extract("bonus/tiles.myrpg");
@@ -158,6 +196,9 @@ void load_map(s_appdata *adata, char *map)
     free(entries);
     adata->game_data->map_width = max_x;
     adata->game_data->map_height = max_y;
+
+    adata->game_data->map = init_map_path_finding(max_x, max_y);
+    fill_map_path_finding(adata);
 }
 
 void init_map(s_appdata *adata, char *filename)
