@@ -108,5 +108,9 @@ sfVector2f movement)
     if (movement.x == 0 && movement.y == 0)
         return (movement);
     is_map_colliding_entity(adata, hitbox, &movement);
+    movement.x = (movement.x < 0 && movement.x < save.x) ? save.x : movement.x;
+    movement.x = (movement.x > 0 && movement.x > save.x) ? save.x : movement.x;
+    movement.y = (movement.y < 0 && movement.y < save.y) ? save.y : movement.y;
+    movement.y = (movement.y > 0 && movement.y > save.y) ? save.y : movement.y;
     return (movement);
 }
