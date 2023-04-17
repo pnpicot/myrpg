@@ -270,6 +270,7 @@ typedef struct {
     linked_node *syringes;
     int map_width;
     int map_height;
+    char **map;
     float time;
 } s_game;
 
@@ -537,6 +538,7 @@ typedef struct s_entity_s {
     float spawn_rate;
     s_faction *faction;
     sfClock *clock;
+    void (*emiter)(s_appdata *adata, struct s_entity_s *entity);
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
 } s_entity;
 

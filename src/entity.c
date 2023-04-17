@@ -314,6 +314,19 @@ void (*behavior)(s_appdata *adata, s_entity *s_entity))
     model->behavior = behavior;
 }
 
+void set_entity_emiter(s_appdata *adata, char *id, \
+void (*emiter)(s_appdata *adata, s_entity *s_entity))
+{
+    s_entity *model = get_entity_model(adata, id);
+
+    if (model == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    model->emiter = emiter;
+}
+
 void update_entities(s_appdata *adata)
 {
     linked_node *entities = adata->game_data->entities;
@@ -339,6 +352,31 @@ sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
     return (hitbox);
 }
 
+void init_mf26_emiter(s_appdata *adata, s_entity *entity)
+{
+    char *emiter_id = str_add(entity->id, "@[:emiter]");
+    add_emiter(adata, emiter_id);
+    set_emiter_model(adata, emiter_id, "bullet");
+    set_emiter_active(adata, emiter_id, sfTrue);
+    set_emiter_colors(adata, emiter_id, sfCyan, sfWhite);
+    set_emiter_lerp_factor(adata, emiter_id, 1.5f);
+    s_sprite *body = (s_sprite *) entity->parts->data;
+    float angle = get_sprite_rotation(adata, body->id);
+    set_emiter_cone(adata, emiter_id, (sfVector2f) {angle, angle});
+    set_emiter_gameobject(adata, emiter_id, sfTrue);
+    set_emiter_layer(adata, emiter_id, 5);
+    set_emiter_lifetime(adata, emiter_id, 150000);
+    set_emiter_particle_lifetime(adata, emiter_id, 1500);
+    set_emiter_particle_max(adata, emiter_id, 50);
+    set_emiter_particle_speed(adata, emiter_id, (sfVector2f) {3000, 3000});
+    set_emiter_rtex(adata, emiter_id, get_str(adata, "rtex_game"));
+    add_to_container(adata, get_str(adata, "ctn_game"), (s_ref) { get_emiter(adata, emiter_id), TYPE_EMITER });
+    sfVector2f scale = { 3.0f, 3.0f };
+    move_emiter(adata, emiter_id, (sfVector2f) {140, 60});
+    set_emiter_size_range(adata, emiter_id, scale, (sfVector2f) { 3.0f, 3.0f });
+    set_emiter_spawnrate(adata, emiter_id, 100.0f);
+}
+
 // TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
@@ -361,14 +399,60 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 {
     float seconds = get_clock_seconds(entity->clock);
 
-    sfVector2f add = { 0.3f * seconds * 2000, 0.1f * seconds * 2000};
+    float zoom = get_float(adata, "zoom");
+
+    sfVector2i start;
+    start.x = entity->pos.x / (32 * zoom);
+    start.y = entity->pos.y / (32 * zoom);
+    //printf("%d %d\n", start.x, start.y);
+    sfVector2i end;
+    end.x = 1;
+    end.y = 20;
+    sfVector2i *size = malloc(sizeof(sfVector2i));
+    size->x = adata->game_data->map_width;
+    size->y = adata->game_data->map_height;
+    //sfVector2f path = path_finding(adata->game_data->map, size, start, end);
+    //printf("%f %f\n", path.x, path.y);
+
+    sfVector2f add = { 0.0f * seconds * 1000, 0.1f * seconds * 1000 };
 
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
+    float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+    char *emiter_id = str_add(entity->id, "@[:emiter]");
+
+    if (angle != last_angle) {
+        sfVector2f origin = { 140, 60 };
+
+        float ang_rad = (angle - 90.0f) * (M_PI / 180.0f);
+
+        sfVector2f o_pos = ((s_entity_part *) entity->parts->data)->sprite->pos;
+
+        o_pos.x -= adata->game_data->view_pos.x;
+        o_pos.y -= adata->game_data->view_pos.y;
+
+        sfVector2f rotated;
+        rotated.x = (origin.x * cos(ang_rad)) - (origin.y * sin(ang_rad));
+        rotated.y = (origin.x * sin(ang_rad)) + (origin.y * cos(ang_rad));
+
+        move_emiter(adata, emiter_id, o_pos);
+        translate_emiter(adata, emiter_id, rotated);
+    }
+
     rotate_entity_part_abs(adata, entity, "body", angle);
 
     add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
 
     translate_entity(adata, entity, add);
+
+    if (entity->emiter != NULL) {
+        sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle), entity->pos.y * entity->pos.y * sin(angle) };
+
+        translate_emiter(adata, emiter_id, add);
+
+        angle -= 90.0f;
+
+        set_emiter_cone(adata, emiter_id, (sfVector2f) { angle, angle });
+    }
 
     sfClock_restart(entity->clock);
 }
@@ -377,4 +461,9 @@ void init_entity_behaviors(s_appdata *adata)
 {
     set_entity_behavior(adata, "z200", &behavior_z200);
     set_entity_behavior(adata, "mf26", &behavior_mf26);
+}
+
+void init_entity_emiters(s_appdata *adata)
+{
+    set_entity_emiter(adata, "mf26", &init_mf26_emiter);
 }

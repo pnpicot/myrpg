@@ -165,6 +165,7 @@ void init_live(s_appdata *adata)
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
     load_entity_config(adata);
+    init_entity_emiters(adata);
     init_entity_behaviors(adata);
 
     switch_state(adata, get_str(adata, "state_main"));

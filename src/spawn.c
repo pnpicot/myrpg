@@ -74,6 +74,7 @@ linked_node *copy_entity_model_parts(s_appdata *adata, linked_node *parts)
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
 {
     int index = model->faction->entity_count;
+    char *id = str_m_add(4, model->id, "@[:entity-", nbr_to_str(index), "]");
     s_entity *new_entity = malloc(sizeof(s_entity));
 
     if (new_entity == NULL) {
@@ -82,7 +83,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     }
 
     new_entity->faction = model->faction;
-    new_entity->id = model->id;
+    new_entity->id = id;
     new_entity->parts = copy_entity_model_parts(adata, model->parts);
     new_entity->pos = model->pos;
     new_entity->hitbox = model->hitbox;
@@ -90,6 +91,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->spawn_rate = model->spawn_rate;
     new_entity->st_hp = model->st_hp;
     new_entity->behavior = model->behavior;
+    new_entity->emiter = model->emiter;
     new_entity->clock = sfClock_create();
 
     return (new_entity);
@@ -112,6 +114,20 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
     pos.y = faction->spawn_point.y + rand_rad * sin(theta);
 
     move_entity(adata, new_entity, pos);
+
+    if (new_entity->emiter != NULL) {
+        int win_w = get_int(adata, "win_w");
+        int win_h = get_int(adata, "win_h");
+
+        (*new_entity->emiter)(adata, new_entity);
+
+        char *emiter_id = str_add(new_entity->id, "@[:emiter]");
+
+        pos.x -= adata->game_data->view_pos.x;
+        pos.y -= adata->game_data->view_pos.y;
+
+        translate_emiter(adata, emiter_id, pos);
+    }
 
     faction->entity_count++;
 
