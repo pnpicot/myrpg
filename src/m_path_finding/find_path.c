@@ -85,6 +85,7 @@ sfVector2i *end)
         if (rvalue == 1)
             return (print_path_and_free(&pq, map, map_size));
     }
+    write(2, "Path Finding: No path found\n", 28);
     while (pq.open != ((void *)0))
         free(pop_node(&pq.open, pq.open, map, map_size));
     while (pq.closed != ((void *)0))

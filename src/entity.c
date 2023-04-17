@@ -405,7 +405,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     start.width = 3;
     start.height = 3;
     sfVector2i end;
-    end.x = 1;
+    end.x = 2;
     end.y = 20;
     sfVector2i *size = malloc(sizeof(sfVector2i));
     size->x = adata->game_data->map_width;
