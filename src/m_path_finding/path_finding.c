@@ -49,6 +49,15 @@ static void expand_wall_to_hitbox(char **map, sfVector2i *map_size, int xy)
             map[i + 1][j + 1] == MY_WALL))) ? MY_WALL : map[i][j];
         }
     }
+    for (int i = 0; i < map_size->y; i++) {
+        for (int j = 0; j < map_size->x; j++) {
+            map[i][j] = (((xy == 0 || xy == 2) && (j - 1 <= 0 ||
+            map[i][j - 1] == MY_WALL)) || ((xy == 1 || xy == 2) &&
+            (i - 1 <= 0 || map[i - 1][j] == MY_WALL)) || ((xy == 2) &&
+            (j - 1 <= 0 || i - 1 <= 0 ||
+            map[i - 1][j - 1] == MY_WALL))) ? MY_WALL : map[i][j];
+        }
+    }
 }
 
 static char **change_wall_and_path(char **map, sfVector2i *map_size,

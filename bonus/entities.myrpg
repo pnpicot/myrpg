@@ -8,6 +8,6 @@ faction droids 800 800 500 50
 
 # -- entities -- begin
 
-entity droids mf26 4.0f 0.75f 500
+entity droids mf26 4.0f 0.1f 500
 part mf26 1 body mf26_body 37 44 0 0 
 # -- entities -- end

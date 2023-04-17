@@ -400,10 +400,10 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     float zoom = get_float(adata, "zoom");
 
     sfIntRect start;
-    start.left = entity->pos.x / (32 * zoom);
-    start.top = entity->pos.y / (32 * zoom);
-    start.width = 2;
-    start.height = 2;
+    start.left = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
+    start.top = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
+    start.width = 1;
+    start.height = 1;
     sfVector2i end;
     end.x = 1;
     end.y = 20;
@@ -411,9 +411,8 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     size->x = adata->game_data->map_width;
     size->y = adata->game_data->map_height;
     sfVector2f path = path_finding(adata->game_data->map, size, start, end);
-    printf("%f %f\n", path.x, path.y);
 
-    sfVector2f add = { 0.0f * seconds * 1000, 0.1f * seconds * 1000 };
+    sfVector2f add = { path.x * seconds * 1000, path.y * seconds * 1000 };
 
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
     float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
