@@ -410,7 +410,24 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfVector2i *size = malloc(sizeof(sfVector2i));
     size->x = adata->game_data->map_width;
     size->y = adata->game_data->map_height;
-    sfVector2f path = path_finding(adata->game_data->map, size, start, end);
+
+    if (entity->path == NULL)
+        entity->path = path_finding(adata->game_data->map, size, start, end);
+
+    sfVector2f path = { 0, 0 };
+    if (entity->path != NULL && entity->path->data != NULL) {
+        path.x = ((sfIntRect *)entity->path->data)->left;
+        path.y = ((sfIntRect *)entity->path->data)->top;
+        if ((path.x >= 0 || start.left <= ((sfIntRect *)entity->path->data)->width) &&
+        (path.x <= 0 || start.left >= ((sfIntRect *)entity->path->data)->width) &&
+        (path.y >= 0 || start.top <= ((sfIntRect *)entity->path->data)->height) &&
+        (path.y <= 0 || start.top >= ((sfIntRect *)entity->path->data)->height)) {
+            free(entity->path->data);
+            linked_node *save = entity->path;
+            entity->path = entity->path->next;
+            free(save);
+        }
+    }
 
     sfVector2f add = { path.x * seconds * 1000, path.y * seconds * 1000 };
 

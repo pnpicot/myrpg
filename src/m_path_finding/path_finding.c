@@ -85,19 +85,19 @@ sfIntRect hitbox)
     return (new_map);
 }
 
-sfVector2f path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
+linked_node *path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
 sfVector2i end)
 {
-    sfVector2f rvalue = {0, 0};
+    linked_node *rvalue = NULL;
 
     if (verify_map(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
     &end) < 0)
-        return ((sfVector2f){0, 0});
+        return (NULL);
     map = change_wall_and_path(map, map_size, hitbox);
     if (map == NULL || map[hitbox.top][hitbox.left] == MY_WALL ||
     map[end.y][end.x] == MY_WALL) {
         write(2, "Error: path_finding: invalid start or end\n", 42);
-        return ((sfVector2f){0, 0});
+        return (NULL);
     }
     rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
     &end);

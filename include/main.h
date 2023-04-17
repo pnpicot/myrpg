@@ -539,6 +539,7 @@ typedef struct s_entity_s {
     float spawn_rate;
     s_faction *faction;
     sfClock *clock;
+    linked_node *path;
     void (*emiter)(s_appdata *adata, struct s_entity_s *entity);
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
 } s_entity;

@@ -8,30 +8,48 @@
 #include "path_finding.h"
 #include <stdlib.h>
 
-static sfVector2f print_path_and_free(pq_t *pq, char **map,
-sfVector2i *map_size)
+static linked_node *create_ll(pq_t *pq, char **map)
 {
     pqnode_t *node = pq->open;
-    sfVector2f path = {0, 0};
+    linked_node *path = linked_new();
 
     if (node == ((void *)0))
-        return (path);
+        return (NULL);
     while (node->parent != ((void *)0)) {
         map[node->co.y][node->co.x] = 'o';
-        path.x = node->co.x - node->parent->co.x;
-        path.y = node->co.y - node->parent->co.y;
+        sfIntRect *co = malloc(sizeof(sfIntRect));
+        if (co == NULL)
+            return (NULL);
+        co->left = node->co.x - node->parent->co.x;
+        co->top = node->co.y - node->parent->co.y;
+        co->width = node->co.x;
+        co->height = node->co.y;
+        linked_node *new = linked_new();
+        new->data = co;
+        new->next = path;
+        path = new;
         node = node->parent;
     }
     map[node->co.y][node->co.x] = 'o';
+    return (path);
+}
+
+static linked_node *print_path_and_free(pq_t *pq, char **map,
+sfVector2i *map_size)
+{
+    linked_node *path = create_ll(pq, map);
+
+    if (path == NULL)
+        return (NULL);
     while (pq->open != ((void *)0))
         free(pop_node(&pq->open, pq->open, map, map_size));
     while (pq->closed != ((void *)0))
         free(pop_node(&pq->closed, pq->closed, map, map_size));
     for (int i = 0; i < map_size->y; ++i) {
         if (write(1, map[i], map_size->x) < 0)
-            return ((sfVector2f){0, 0});
+            return (NULL);
         if (write(1, "\n", 1) < 0)
-            return ((sfVector2f){0, 0});
+            return (NULL);
     }
     return (path);
 }
@@ -70,7 +88,7 @@ sfVector2i *end)
     return (rvalue);
 }
 
-sfVector2f find_path(char **map, sfVector2i *map_size, sfVector2i *start,
+linked_node *find_path(char **map, sfVector2i *map_size, sfVector2i *start,
 sfVector2i *end)
 {
     pq_t pq = {((void *)0), ((void *)0), ((void *)0)};
@@ -78,10 +96,10 @@ sfVector2i *end)
 
     if (push_node(&pq.open, create_node(start, ((void *)0), map_size, 1), map,
     map_size) < 0)
-        return ((sfVector2f){0, 0});
+        return (NULL);
     while (pq.open != ((void *)0)) {
         if (rvalue = solve_maze_loop(map, map_size, &pq, end), rvalue < 0)
-            return ((sfVector2f){0, 0});
+            return (NULL);
         if (rvalue == 1)
             return (print_path_and_free(&pq, map, map_size));
     }
@@ -90,5 +108,5 @@ sfVector2i *end)
         free(pop_node(&pq.open, pq.open, map, map_size));
     while (pq.closed != ((void *)0))
         free(pop_node(&pq.closed, pq.closed, map, map_size));
-    return ((sfVector2f){0, 0});
+    return (NULL);
 }

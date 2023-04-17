@@ -78,6 +78,8 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
         return (NULL);
     }
 
+    *new_entity = (s_entity) { 0 };
+
     new_entity->faction = model->faction;
     new_entity->id = id;
     new_entity->parts = copy_entity_model_parts(adata, model->parts);

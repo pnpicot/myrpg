@@ -20,12 +20,13 @@ sfVector2f *movement)
     }
     movement->y = (movement->y > 0) ? other.top - hitbox.height -
     hitbox.top : other.top + other.height - hitbox.top;
-    if (movement->y < -0.25 || movement->y > 0.25)
-        movement->y = 0;
     movement->x = (movement->x > 0) ? other.left - hitbox.width -
     hitbox.left : other.left + other.width - hitbox.left;
-    if (movement->x < -0.25 || movement->x > 0.25)
-        movement->x = 0;
+
+    movement->y = (movement->y < -0.25) ? -0.25 : movement->y;
+    movement->y = (movement->y > 0.25) ? 0.25 : movement->y;
+    movement->x = (movement->x < -0.25) ? -0.25 : movement->x;
+    movement->x = (movement->x > 0.25) ? 0.25 : movement->x;
 }
 
 static void _is_colliding(sfFloatRect hitbox, sfFloatRect other,
@@ -106,9 +107,6 @@ sfVector2f movement)
     if (movement.x == 0 && movement.y == 0)
         return (movement);
     is_map_colliding_entity(adata, hitbox, &movement);
-    if (movement.x < save.x || movement.x > save.x)
-        movement.x = 0;
-    if (movement.y < save.y || movement.y > save.y)
-        movement.y = 0;
+
     return (movement);
 }
