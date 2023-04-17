@@ -35,6 +35,8 @@ void cycle_emiter(s_appdata *adata, s_particle_src *emiter)
         return;
     }
 
+    if (!emiter->active) return;
+
     if (emiter->particle_count < emiter->particle_max)
         try_new_particle(adata, emiter);
 

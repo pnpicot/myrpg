@@ -263,13 +263,30 @@ void try_transference(s_appdata *adata)
 
     if (player->host != NULL) {
         s_entity *host = (s_entity *) player->host;
+        char *host_emiter_id = str_add(host->id, "@[:emiter]");
+        s_game *game_data = adata->game_data;
 
         host->inhabited = sfFalse;
         player->host = NULL;
         player->body->active = 1;
+        game_data->speed = (sfVector2f) { 0, 0 };
 
+        linked_node *paths = host->path;
+
+        while (paths != NULL) {
+            linked_node *save = paths;
+            paths = paths->next;
+
+            free(save->data);
+            free(save);
+        }
+
+        host->path = NULL;
+
+        sfClock_restart(host->clock);
         sfClock_restart(player->transference_clock);
         set_emiter_active(adata, emiter_id, sfTrue);
+        set_emiter_active(adata, host_emiter_id, sfTrue);
 
         return;
     }
@@ -278,12 +295,14 @@ void try_transference(s_appdata *adata)
 
     if (player->host != NULL) {
         s_entity *host = (s_entity *) player->host;
+        char *host_emiter_id = str_add(host->id, "@[:emiter]");
 
         host->inhabited = sfTrue;
         player->body->active = 0;
         player->solid = sfFalse;
 
         set_emiter_active(adata, emiter_id, sfFalse);
+        set_emiter_active(adata, host_emiter_id, sfFalse);
     }
 }
 
