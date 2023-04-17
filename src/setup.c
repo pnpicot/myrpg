@@ -69,7 +69,7 @@ void init_live_textures(s_appdata *adata)
     set_shader_texture(adata, "rgb_multiply", "add", get_rtex_tex(adata, rtex_wall_light));
     set_shader_vec2(adata, "rgb_multiply", "resolution", (sfVector2f) { win_w, win_h });
 
-    add_rtex(adata, rtex_bloom, 11);
+    /* add_rtex(adata, rtex_bloom, 11);
     set_rtex_clear(adata, rtex_bloom, sfBlack);
     set_rtex_blendmode(adata, rtex_bloom, sfBlendAdd);
     set_shader_vec2(adata, "rr_bloom", "resolution", (sfVector2f) { win_w, win_h });
@@ -98,17 +98,17 @@ void init_live_textures(s_appdata *adata)
     sfVector2f bloomy_rad = { 0, bloom_intensity * 2 };
 
     set_shader_vec2(adata, "rr_bloom_y", "blur_radius", bloomy_rad);
-    set_rtex_shader(adata, rtex_bloom_y, get_shader(adata, "rr_bloom_y"));
+    set_rtex_shader(adata, rtex_bloom_y, get_shader(adata, "rr_bloom_y")); */
 
-    add_rtex(adata, rtex_ui, 14);
+    add_rtex(adata, rtex_ui, 11);
     set_rtex_clear(adata, rtex_ui, sfTransparent);
     set_rtex_blendmode(adata, rtex_ui, sfBlendAlpha);
 
-    add_rtex(adata, rtex_menu, 15);
+    add_rtex(adata, rtex_menu, 12);
     set_rtex_blendmode(adata, rtex_menu, sfBlendNone);
     set_rtex_clear(adata, rtex_menu, sfTransparent);
 
-    add_rtex(adata, rtex_settings, 16);
+    add_rtex(adata, rtex_settings, 13);
     set_rtex_blendmode(adata, rtex_settings, sfBlendNone);
     set_rtex_clear(adata, rtex_settings, sfTransparent);
     set_rtex_active(adata, rtex_settings, sfFalse);
