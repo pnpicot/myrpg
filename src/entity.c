@@ -402,8 +402,8 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfIntRect start;
     start.left = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
     start.top = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
-    start.width = 1;
-    start.height = 1;
+    start.width = 3;
+    start.height = 3;
     sfVector2i end;
     end.x = 1;
     end.y = 20;
