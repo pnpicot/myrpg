@@ -90,6 +90,8 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->st_hp = model->st_hp;
     new_entity->behavior = model->behavior;
     new_entity->emiter = model->emiter;
+    new_entity->speed = model->speed;
+    new_entity->inhabited = sfFalse;
     new_entity->clock = sfClock_create();
 
     return (new_entity);

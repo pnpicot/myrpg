@@ -28,3 +28,5 @@ void init_entity_behaviors(s_appdata *adata);
 void init_entity_emiters(s_appdata *adata);
 void update_entities(s_appdata *adata);
 sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity);
+void rotate_entity_part_abs(s_appdata *adata, s_entity *entity, \
+char *part_id, float angle);

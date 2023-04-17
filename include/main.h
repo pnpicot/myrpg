@@ -283,6 +283,9 @@ typedef struct {
     sfClock *transference_clock;
     s_sprite *body;
     s_text *info_text;
+    sfBool solid;
+    void *host;
+    void *potential_host;
 } s_player;
 
 typedef struct {
@@ -544,6 +547,8 @@ typedef struct s_entity_s {
     linked_node *path;
     void (*emiter)(s_appdata *adata, struct s_entity_s *entity);
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
+    float speed;
+    sfBool inhabited;
 } s_entity;
 
 #include "pre_init.h"

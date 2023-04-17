@@ -31,6 +31,32 @@ void update_player_ui(s_appdata *adata)
     free(health_id);
 }
 
+void player_host_behavior(s_appdata *adata)
+{
+    s_player *player = adata->player;
+    s_game *game_data = adata->game_data;
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    s_entity *host = (s_entity *) player->host;
+    sfVector2f player_pos;
+
+    player_pos.x = adata->game_data->view_pos.x + (win_w / 2);
+    player_pos.y = adata->game_data->view_pos.y + (win_h / 2);
+
+    sfVector2f offset;
+    offset.x = host->pos.x - player_pos.x;
+    offset.y = host->pos.y - player_pos.y;
+
+    sfVector2f rev_offset = { -offset.x, -offset.y };
+
+    move_gameobject_lights(adata, rev_offset);
+    move_gameobject_emiters(adata, rev_offset);
+    move_gameobject_walls(adata, rev_offset);
+
+    game_data->view_pos.x += offset.x;
+    game_data->view_pos.y += offset.y;
+}
+
 void update_player(s_appdata *adata)
 {
     char *sprite_id = get_str(adata, "player_body");
@@ -38,6 +64,12 @@ void update_player(s_appdata *adata)
     s_game *game_data = adata->game_data;
     sfVector2f speed = game_data->speed;
     float epsilon = 10e-4;
+
+    if (player->host != NULL)
+        player_host_behavior(adata);
+
+    if (get_clock_seconds(player->transference_clock) >= 5.0f && !player->solid)
+        player->solid = sfTrue;
 
     if (in_range(speed.x, -epsilon, epsilon) && in_range(speed.y, -epsilon, epsilon)) {
         pause_animation(adata, sprite_id);
@@ -98,12 +130,48 @@ void init_player_particles(s_appdata *adata)
     move_emiter(adata, particles, (sfVector2f) { win_w / 2, win_h / 2});
 }
 
+void player_search_host(s_appdata *adata, sfVector2f player_pos, sfBool *found)
+{
+    linked_node *entities = adata->game_data->entities;
+    s_player *player = adata->player;
+    s_text *info = adata->player->info_text;
+
+    while (entities != NULL && entities->data != NULL) {
+        s_entity *cur = (s_entity *) entities->data;
+        float dist = get_vec_dist(cur->pos, player_pos);
+
+        if (dist <= get_float(adata, "player_reach")) {
+            edit_text(adata, info->id, "[E] Take control");
+            player->potential_host = cur;
+            (*found) = sfTrue;
+            break;
+        }
+
+        entities = entities->next;
+    }
+}
+
 void update_player_info_text(s_appdata *adata)
 {
     s_text *info = adata->player->info_text;
-    sfFloatRect bounds = get_text_bounds(adata, info->id);
+    s_player *player = adata->player;
+    sfBool found = sfFalse;
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
+    sfVector2f player_pos;
+
+    player_pos.x = adata->game_data->view_pos.x + (win_w / 2);
+    player_pos.y = adata->game_data->view_pos.y + (win_h / 2);
+
+    if (player->host == NULL)
+        player_search_host(adata, player_pos, &found);
+
+    if (!found) {
+        edit_text(adata, info->id, "");
+        player->potential_host = NULL;
+    }
+
+    sfFloatRect bounds = get_text_bounds(adata, info->id);
     sfVector2f origin;
 
     origin.x = bounds.width / 2;
@@ -126,12 +194,12 @@ void init_player_info(s_appdata *adata, char *player_id)
 
     s_text *info_text = get_text(adata, id);
 
-    set_text_font(adata, id, get_font(adata, "courier"));
-    resize_text(adata, id, 20);
-    color_text(adata, id, sfCyan);
+    set_text_font(adata, id, get_font(adata, "courier_bold"));
+    resize_text(adata, id, 22);
+    color_text(adata, id, sfYellow);
     set_text_rtex(adata, id, get_str(adata, "rtex_ui"));
     add_to_container(adata, get_str(adata, "ctn_game"), (s_ref) { info_text, TYPE_TEXT });
-    edit_text(adata, id, "Information");
+    edit_text(adata, id, "");
 
     adata->player->info_text = info_text;
 
@@ -159,13 +227,19 @@ void init_player(s_appdata *adata)
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
     player->health_rate = 1;
-    player->hitbox = (sfFloatRect){910, 490 , 100, 100};
+    player->hitbox = (sfFloatRect){ 910, 490 , 100, 100 };
     player->transference_rate = 0.7f;
+    player->info_text = NULL;
+    player->host = NULL;
+    player->potential_host = NULL;
+    player->solid = sfTrue;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
 
     s_sprite *body = get_sprite(adata, sprite_id);
+
+    player->body = body;
 
     add_to_container(adata, container, (s_ref) { body, TYPE_SPRITE });
     set_sprite_texture(adata, sprite_id, get_texture(adata, "parasite"));
@@ -180,4 +254,75 @@ void init_player(s_appdata *adata)
     pause_animation(adata, sprite_id);
     init_player_particles(adata);
     init_player_info(adata, sprite_id);
+}
+
+void try_transference(s_appdata *adata)
+{
+    s_player *player = adata->player;
+    char *emiter_id = get_str(adata, "player_particles");
+
+    if (player->host != NULL) {
+        s_entity *host = (s_entity *) player->host;
+
+        host->inhabited = sfFalse;
+        player->host = NULL;
+        player->body->active = 1;
+
+        sfClock_restart(player->transference_clock);
+        set_emiter_active(adata, emiter_id, sfTrue);
+
+        return;
+    }
+
+    player->host = player->potential_host;
+
+    if (player->host != NULL) {
+        s_entity *host = (s_entity *) player->host;
+
+        host->inhabited = sfTrue;
+        player->body->active = 0;
+        player->solid = sfFalse;
+
+        set_emiter_active(adata, emiter_id, sfFalse);
+    }
+}
+
+void check_game_keys(s_appdata *adata, int keycode)
+{
+    if (keycode == sfKeyE) {
+        try_transference(adata);
+    }
+}
+
+void update_host_controls(s_appdata *adata)
+{
+    s_player *player = adata->player;
+    s_entity *host = (s_entity *) player->host;
+    sfVector2f add = { 0, 0 };
+
+    if (get_key(adata, sfKeyQ)) {
+        add.x -= host->speed;
+    }
+
+    if (get_key(adata, sfKeyZ)) {
+        add.y -= host->speed;
+    }
+
+    if (get_key(adata, sfKeyD)) {
+        add.x += host->speed;
+    }
+
+    if (get_key(adata, sfKeyS)) {
+        add.y += host->speed;
+    }
+
+    add = is_map_colliding(adata, get_entity_hitbox(adata, host), add);
+
+    translate_entity(adata, host, add);
+
+    if (add.x != 0 || add.y != 0) {
+        float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
+
+        rotate_entity_part_abs(adata, host, "body", angle);
+    }
 }
