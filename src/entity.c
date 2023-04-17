@@ -436,7 +436,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
         }
     }
 
-    sfVector2f add = { path.x * seconds * 1000, path.y * seconds * 1000 };
+    sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100 };
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
     float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
     char *emiter_id = str_add(entity->id, "@[:emiter]");
