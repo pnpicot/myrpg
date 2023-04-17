@@ -9,4 +9,10 @@ faction droids 800 800 500 50
 # -- entities -- begin
 entity droids mf26 4.0f 0.10f 500 0.50f
 part mf26 1 body mf26_body 37 44 0 0
+
+entity droids p800 4.0f 0.05f 500 0.4f
+part p800 3 p800_body p800_body 32 32 0 0 
+part p800 2 p800_right_blade p800_right_blade 32 32 0 0 
+part p800 1 p800_left_blade p800_left_blade 32 32 0 0
+
 # -- entities -- end

@@ -27,3 +27,6 @@ Z200_blades = Z200_blades.png
 health_syr = health_syr.png
 mf26_body = mf26.png
 bullet = bullet.png
+p800_body = p800_body.png
+p800_right_blade = p800_right_blade.png
+p800_left_blade = p800_left_blade.png

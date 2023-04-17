@@ -478,10 +478,46 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfClock_restart(entity->clock);
 }
 
+void behavior_p800(s_appdata *adata, s_entity *entity)
+{
+    float seconds = get_clock_seconds(entity->clock);
+
+    linked_node *parts = entity->parts;
+
+    char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
+
+    parts = parts->next;
+    char *blade_id = ((s_entity_part *) parts->data)->sprite->id;
+
+    animate_sprite(adata, body_id);
+    set_animation_cols(adata, body_id, 3);
+    set_animation_rows(adata, body_id, 1);
+    set_animation_mode(adata, body_id, animation_restart);
+    set_animation_speed(adata, body_id, 0.01f);
+    
+    if (seconds >= 0.00159f) {
+        rotate_entity_part(adata, entity, "p800_left_blade", 2.0f * seconds * 100);
+        rotate_entity_part(adata, entity, "p800_right_blade", -2.0f * seconds * 100);
+    } else {
+        rotate_entity_part(adata, entity, "p800_left_blade", -18.0f * seconds * 100);
+        rotate_entity_part(adata, entity, "p800_right_blade", 18.0f * seconds * 100);
+    }
+    
+
+    sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
+
+    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+
+    translate_entity(adata, entity, add);
+
+    sfClock_restart(entity->clock);
+}
+
 void init_entity_behaviors(s_appdata *adata)
 {
     set_entity_behavior(adata, "z200", &behavior_z200);
     set_entity_behavior(adata, "mf26", &behavior_mf26);
+    set_entity_behavior(adata, "p800", &behavior_p800);
 }
 
 void init_entity_emiters(s_appdata *adata)
