@@ -195,12 +195,16 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->pos = (sfVector2f) { 0, 0 };
     new_model->hitbox = (sfFloatRect) {0, 0, 0, 0};
     new_model->st_hp = model_hp;
+    new_model->hp = model_hp;
     new_model->speed = model_speed;
     new_model->spawn_rate = model_spawnrate;
     new_model->scale = model_scale;
     new_model->faction = faction;
     new_model->inhabited = sfFalse;
     new_model->behavior = NULL;
+    new_model->init = sfTrue;
+    new_model->hp_bar = NULL;
+    new_model->floats = NULL;
 
     free(entry[0]);
     free(entry[1]);
@@ -209,6 +213,71 @@ void add_entity_model(s_appdata *adata, char **entry)
     free(entry);
 
     linked_add(adata->game_data->entity_models, new_model);
+}
+
+s_float *get_entity_float(s_entity *entity, char *id)
+{
+    linked_node *floats = entity->floats;
+
+    while (floats != NULL && floats->data != NULL) {
+        s_float *cur = (s_float *) floats->data;
+
+        if (!my_strcmp(cur->id, id)) return (cur);
+
+        floats = floats->next;
+    }
+
+    return (NULL);
+}
+
+void add_to_entity_float(s_appdata *adata, s_entity *entity, char *id, \
+float value)
+{
+    s_float *tmp_float = get_entity_float(entity, id);
+
+    if (tmp_float == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    tmp_float->value += value;
+}
+
+void add_entity_float(s_appdata *adata, s_entity *entity, char *id, \
+float default_value)
+{
+    linked_node *floats = entity->floats;
+    s_float *tmp_float = get_entity_float(entity, id);
+
+    if (tmp_float != NULL) {
+        my_printf(get_error(adata, "already_exists"));
+        return;
+    }
+
+    s_float *new_float = malloc(sizeof(s_float));
+
+    if (new_float == NULL) {
+        my_printf(get_error(adata, "mem_alloc"));
+        return;
+    }
+
+    new_float->id = id;
+    new_float->value = default_value;
+
+    linked_add(entity->floats, new_float);
+}
+
+void set_entity_float(s_appdata *adata, s_entity *entity, char *id, \
+float value)
+{
+    s_float *tmp_float = get_entity_float(entity, id);
+
+    if (tmp_float == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    tmp_float->value = value;
 }
 
 void move_entity(s_appdata *adata, s_entity *entity, sfVector2f pos)
@@ -261,6 +330,19 @@ void rotate_entity(s_appdata *adata, s_entity *entity, float angle)
         if (cur_angle < 0) cur_angle += 360.0f;
 
         rotate_sprite(adata, cur->sprite->id, cur_angle);
+
+        parts = parts->next;
+    }
+}
+
+void rotate_entity_abs(s_appdata *adata, s_entity *entity, float angle)
+{
+    linked_node *parts = entity->parts;
+
+    while (parts != NULL && parts->data != NULL) {
+        s_entity_part *cur = (s_entity_part *) parts->data;
+
+        rotate_sprite(adata, cur->sprite->id, angle);
 
         parts = parts->next;
     }
@@ -381,6 +463,8 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
 // TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
+    update_entity_bar(adata, entity);
+
     float seconds = get_clock_seconds(entity->clock);
 
     rotate_entity_part(adata, entity, "blades_1", -5.0f * seconds * 100);
@@ -398,6 +482,8 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
 
 void behavior_mf26(s_appdata *adata, s_entity *entity)
 {
+    update_entity_bar(adata, entity);
+
     if (entity->inhabited) return;
 
     float seconds = get_clock_seconds(entity->clock);
@@ -480,36 +566,98 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 
 void behavior_p800(s_appdata *adata, s_entity *entity)
 {
-    float seconds = get_clock_seconds(entity->clock);
-
     linked_node *parts = entity->parts;
 
-    char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
+    update_entity_bar(adata, entity);
+
+    if (entity->init) {
+        char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
+
+        add_entity_float(adata, entity, "blade_cycle", 0);
+        add_entity_float(adata, entity, "blade_rot", 0);
+
+        animate_sprite(adata, body_id);
+        set_animation_cols(adata, body_id, 3);
+        set_animation_rows(adata, body_id, 1);
+        set_animation_mode(adata, body_id, animation_restart);
+        set_animation_speed(adata, body_id, 0.01f);
+
+        entity->init = sfFalse;
+    }
+
+    float seconds = get_clock_seconds(entity->clock);
 
     parts = parts->next;
+
     char *blade_id = ((s_entity_part *) parts->data)->sprite->id;
-
-    animate_sprite(adata, body_id);
-    set_animation_cols(adata, body_id, 3);
-    set_animation_rows(adata, body_id, 1);
-    set_animation_mode(adata, body_id, animation_restart);
-    set_animation_speed(adata, body_id, 0.01f);
-    
-    if (seconds >= 0.00159f) {
-        rotate_entity_part(adata, entity, "p800_left_blade", 2.0f * seconds * 100);
-        rotate_entity_part(adata, entity, "p800_right_blade", -2.0f * seconds * 100);
-    } else {
-        rotate_entity_part(adata, entity, "p800_left_blade", -18.0f * seconds * 100);
-        rotate_entity_part(adata, entity, "p800_right_blade", 18.0f * seconds * 100);
-    }
-    
-
+    float blade_cycle = get_entity_float(entity, "blade_cycle")->value;
+    float blade_rot = get_entity_float(entity,  "blade_rot")->value;
     sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
 
     add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
 
-    translate_entity(adata, entity, add);
+    float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
 
+    rotate_entity_abs(adata, entity, angle);
+
+    if (blade_cycle) {
+        add_to_entity_float(adata, entity, "blade_rot", 0.5f);
+        rotate_entity_part_abs(adata, entity, "p800_left_blade", angle - blade_rot);
+        rotate_entity_part_abs(adata, entity, "p800_right_blade", angle + blade_rot);
+    } else {
+        add_to_entity_float(adata, entity, "blade_rot", -0.5f);
+        rotate_entity_part_abs(adata, entity, "p800_left_blade", angle - blade_rot);
+        rotate_entity_part_abs(adata, entity, "p800_right_blade", angle + blade_rot);
+    }
+
+    if ((blade_rot > 50.0f && blade_cycle) || (blade_rot < 0 && !blade_cycle)) {
+        set_entity_float(adata, entity, "blade_cycle", blade_cycle > 0 ? 0 : 1.0f);
+    }
+
+    translate_entity(adata, entity, add);
+    sfClock_restart(entity->clock);
+}
+
+void update_entity_bar(s_appdata *adata, s_entity *entity)
+{
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfVector2f pos = sfSprite_getPosition(((s_entity_part *) entity->parts->data)->sprite->elem);
+
+    pos.y -= 120.0f;
+
+    move_bar(adata, entity->hp_bar->id, pos);
+    set_bar_current(adata, entity->hp_bar->id, entity->hp);
+}
+
+void behavior_lmx2(s_appdata *adata, s_entity *entity)
+{
+    update_entity_bar(adata, entity);
+
+    if (entity->init) {
+        char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
+
+        animate_sprite(adata, body_id);
+        set_animation_cols(adata, body_id, 4);
+        set_animation_rows(adata, body_id, 1);
+        set_animation_mode(adata, body_id, animation_restart);
+        set_animation_speed(adata, body_id, 0.1f);
+
+        entity->init = sfFalse;
+    }
+
+    if (entity->inhabited) return;
+
+    float seconds = get_clock_seconds(entity->clock);
+
+    sfVector2f add = { entity->speed * seconds * 100, entity->speed * seconds * 100};
+
+    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+
+    float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
+
+    translate_entity(adata, entity, add);
+    rotate_entity_part_abs(adata, entity, "lmx2_body", angle);
     sfClock_restart(entity->clock);
 }
 
@@ -518,6 +666,7 @@ void init_entity_behaviors(s_appdata *adata)
     set_entity_behavior(adata, "z200", &behavior_z200);
     set_entity_behavior(adata, "mf26", &behavior_mf26);
     set_entity_behavior(adata, "p800", &behavior_p800);
+    set_entity_behavior(adata, "lmx2", &behavior_lmx2);
 }
 
 void init_entity_emiters(s_appdata *adata)

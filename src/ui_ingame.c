@@ -134,27 +134,6 @@ void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
     init_stats_title(adata, container, rtex, id);
     init_stats_health(adata, container, rtex, id);
     init_stats_transference(adata, container, rtex, id);
-
-    char *test =  str_add("aaaaddzqdzdzq", "");
-
-    add_sprite(adata, test, 2);
-    set_sprite_rtex(adata, test, "rtex_game");
-    add_to_container(adata, test, (s_ref) { get_sprite(adata, test), TYPE_SPRITE });
-    move_sprite(adata, test, (sfVector2f) { 900, 600 });
-    set_sprite_texture(adata, test, get_texture(adata, "lmx2"));
-    animate_sprite(adata, test);
-    set_animation_rows(adata, test, 1);
-    set_animation_cols(adata, test, 4);
-    set_animation_mode(adata, test, animation_reverse);
-    set_animation_speed(adata, test, 0.07f);
-    scale_sprite(adata, test, (sfVector2f) { 3.0f, 3.0f });
-    set_sprite_origin(adata, test, (sfVector2f) { 30, 30 });
-    rotate_sprite(adata, test, 25.0f);
-
-    char *tobj = str_add("dzqdkzqiodjozqi", "");
-
-    add_gameobject(adata, tobj);
-    set_gameobject_ref(adata, tobj, get_sprite(adata, test), TYPE_SPRITE);
 }
 
 void init_live_ingame_ui(s_appdata *adata)

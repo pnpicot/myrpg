@@ -67,6 +67,32 @@ linked_node *copy_entity_model_parts(s_appdata *adata, linked_node *parts)
     return (new_parts);
 }
 
+s_bar *get_entity_hp_bar(s_appdata *adata, s_entity *entity)
+{
+    char *id = str_add(entity->id, "@[:hp_bar]");
+    char *rtex = get_str(adata, "rtex_game");
+
+    add_bar(adata, id, 5);
+
+    s_bar *bar = get_bar(adata, id);
+
+    set_bar_rtex(adata, id, rtex);
+    resize_bar(adata, id, (sfVector2f) { 300, 5.0f });
+    set_bar_origin(adata, id, (sfVector2f) { 150, 2.5f });
+
+    sfVector2f pos;
+    pos.x = 0;
+    pos.y = 0;
+
+    translate_bar(adata, id, pos);
+    color_bar(adata, id, get_color(150, 0, 0, 255), sfRed);
+    set_bar_min(adata, id, 0);
+    set_bar_max(adata, id, entity->st_hp);
+    set_bar_current(adata, id, entity->st_hp);
+
+    return (bar);
+}
+
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
 {
     int index = model->faction->entity_count;
@@ -88,11 +114,15 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->scale = model->scale;
     new_entity->spawn_rate = model->spawn_rate;
     new_entity->st_hp = model->st_hp;
+    new_entity->hp = model->hp;
     new_entity->behavior = model->behavior;
     new_entity->emiter = model->emiter;
     new_entity->speed = model->speed;
     new_entity->inhabited = sfFalse;
+    new_entity->hp_bar = get_entity_hp_bar(adata, new_entity);
+    new_entity->init = sfTrue;
     new_entity->clock = sfClock_create();
+    new_entity->floats = linked_new();
 
     return (new_entity);
 }

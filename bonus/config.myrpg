@@ -2,7 +2,7 @@
 
 # -- misc -- begin
 string default_font = mono
-int enable_shader = 0 
+int enable_shader = 1 
 int dev_mode = 0 
 # -- misc -- end
 
@@ -142,7 +142,7 @@ float player_reach = 350.0f
 # -- parasite -- end
 
 # -- world -- begin
-float time_speed = 0.000003f
+float time_speed = 0.0003f
 color day_color = 255,235,179,255
 color night_color = 0,0,50,255
 # -- world -- end

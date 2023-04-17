@@ -29,6 +29,12 @@ int type, sfVector2f pos_ch)
             translate_button(adata, button->id, pos_ch);
             break;
             }
+        case TYPE_BAR:
+            {
+            s_bar *bar = (s_bar *) ref;
+            translate_bar(adata, bar->id, pos_ch);
+            break;
+            }
     }
 }
 
@@ -74,6 +80,12 @@ void move_element_next(s_appdata *adata, void *ref, int type, sfVector2f pos)
             {
             s_button *button = (s_button *) ref;
             move_button(adata, button->id, pos);
+            break;
+            }
+        case TYPE_BAR:
+            {
+            s_bar *bar = (s_bar *) ref;
+            move_bar(adata, bar->id, pos);
             break;
             }
     }
