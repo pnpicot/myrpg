@@ -592,13 +592,19 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     char *blade_id = ((s_entity_part *) parts->data)->sprite->id;
     float blade_cycle = get_entity_float(entity, "blade_cycle")->value;
     float blade_rot = get_entity_float(entity,  "blade_rot")->value;
-    sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
+    float angle;
 
-    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+    if (!entity->inhabited) {
+        sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
 
-    float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
+        add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+        angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
 
-    rotate_entity_abs(adata, entity, angle);
+        rotate_entity_abs(adata, entity, angle);
+        translate_entity(adata, entity, add);
+    } else {
+        angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
 
     if (blade_cycle) {
         add_to_entity_float(adata, entity, "blade_rot", 0.5f);
@@ -614,7 +620,6 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
         set_entity_float(adata, entity, "blade_cycle", blade_cycle > 0 ? 0 : 1.0f);
     }
 
-    translate_entity(adata, entity, add);
     sfClock_restart(entity->clock);
 }
 

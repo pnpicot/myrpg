@@ -339,11 +339,9 @@ void update_host_controls(s_appdata *adata)
 
     translate_entity(adata, host, add);
 
-    s_entity_part *first = (s_entity_part *) host->parts->data;
-
     if (add.x != 0 || add.y != 0) {
         float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
 
-        rotate_entity_part_abs(adata, host, first->id, angle);
+        rotate_entity_abs(adata, host, angle);
     }
 }
