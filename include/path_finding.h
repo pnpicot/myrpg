@@ -37,7 +37,7 @@
         pqnode_t *node;
     } pq_t;
 
-    sfVector2f path_finding(char **map, sfVector2i *map_size, sfVector2i start,
+    sfVector2f path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
     sfVector2i end);
     sfVector2f find_path(char **map, sfVector2i *map_size, sfVector2i *start,
     sfVector2i *end);
@@ -45,7 +45,7 @@
     sfVector2i *end);
 
     pqnode_t *create_node(sfVector2i *coords, pqnode_t *parent,
-    sfVector2i *map_size);
+    sfVector2i *map_size, int g_offset);
     pqnode_t *pop_node(pqnode_t **queue, pqnode_t *node, char **map,
     sfVector2i *map_size);
     int push_node(pqnode_t **queue, pqnode_t *node, char **map,

@@ -35,7 +35,7 @@ void toggle_light(s_appdata *adata, char *id)
 
 void init_light_mask(s_appdata *adata, int depth_start)
 {
-    add_rtex(adata, "light_mask", depth_start);
+    add_rtex(adata, str_add("light_mask", ""), depth_start);
     set_lightmask_rtex(adata, "light_mask");
     set_rtex_blendmode(adata, "light_mask", sfBlendNone);
     set_rtex_clear(adata, "light_mask", sfWhite);
@@ -43,7 +43,7 @@ void init_light_mask(s_appdata *adata, int depth_start)
 
 void init_light_xblur(s_appdata *adata, int depth_start)
 {
-    add_rtex(adata, "light_blur_x", depth_start + 1);
+    add_rtex(adata, str_add("light_blur_x", ""), depth_start + 1);
     set_rtex_blendmode(adata, "light_blur_x", sfBlendAdd);
 
     const sfTexture *tex = get_rtex_tex(adata, "light_blur_x");
@@ -59,7 +59,7 @@ void init_light_xblur(s_appdata *adata, int depth_start)
 
 void init_light_yblur(s_appdata *adata, int depth_start)
 {
-    add_rtex(adata, "light_blur_y", depth_start + 2);
+    add_rtex(adata, str_add("light_blur_y", ""), depth_start + 2);
     set_rtex_inherit(adata, "light_blur_y", 1);
     set_rtex_blendmode(adata, "light_blur_y", sfBlendAlpha);
 

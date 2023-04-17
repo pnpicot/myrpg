@@ -10,7 +10,7 @@
 
 static int verify_map(char **map, sfVector2i *map_size, sfVector2i *start,
 sfVector2i *end)
-{
+{;
     if (map == NULL || map_size == NULL || start == NULL || end == NULL)
         return (-1);
     if (start->x < 0 || start->y < 0 || end->x < 0 || end->y < 0 ||
@@ -38,7 +38,21 @@ static char **malloc_new_map(char **map, sfVector2i *map_size)
     return (new_map);
 }
 
-static char **change_wall_and_path(char **map, sfVector2i *map_size)
+static void expand_wall_to_hitbox(char **map, sfVector2i *map_size, int xy)
+{
+    for (int i = 0; i < map_size->y; i++) {
+        for (int j = 0; j < map_size->x; j++) {
+            map[i][j] = (((xy == 0 || xy == 2) && (j + 1 >= map_size->x ||
+            map[i][j + 1] == MY_WALL)) || ((xy == 1 || xy == 2) &&
+            (i + 1 >= map_size->y || map[i + 1][j] == MY_WALL)) || ((xy == 2) &&
+            (j + 1 >= map_size->x || i + 1 >= map_size->y ||
+            map[i + 1][j + 1] == MY_WALL))) ? MY_WALL : map[i][j];
+        }
+    }
+}
+
+static char **change_wall_and_path(char **map, sfVector2i *map_size,
+sfIntRect hitbox)
 {
     char **new_map = malloc_new_map(map, map_size);
 
@@ -50,22 +64,31 @@ static char **change_wall_and_path(char **map, sfVector2i *map_size)
             new_map[i][j] = (IS_WALL(new_map[i][j])) ? MY_WALL : new_map[i][j];
         }
     }
+    for (int i = 1; i <
+    ((hitbox.width <= hitbox.height) ? hitbox.width : hitbox.height); i++)
+        expand_wall_to_hitbox(new_map, map_size, 2);
+    for (int i = 1; i <
+    ((hitbox.width <= hitbox.height) ? hitbox.height - hitbox.width :
+    hitbox.width - hitbox.height); i++)
+        expand_wall_to_hitbox(new_map, map_size, ((hitbox.width <=
+        hitbox.height) ? 1 : 0));
     return (new_map);
 }
 
-sfVector2f path_finding(char **map, sfVector2i *map_size, sfVector2i start,
+sfVector2f path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
 sfVector2i end)
 {
-    int fd = 0;
     sfVector2f rvalue = {0, 0};
 
-    if (verify_map(map, map_size, &start, &end) < 0)
+    if (verify_map(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
+    &end) < 0)
         return ((sfVector2f){0, 0});
-    map = change_wall_and_path(map, map_size);
-    if (map == NULL || map[start.y][start.x] == MY_WALL ||
+    map = change_wall_and_path(map, map_size, hitbox);
+    if (map == NULL || map[hitbox.top][hitbox.left] == MY_WALL ||
     map[end.y][end.x] == MY_WALL)
         return ((sfVector2f){0, 0});
-    rvalue = find_path(map, map_size, &start, &end);
+    rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
+    &end);
     for (int i = 0; i < map_size->y; i++)
         free(map[i]);
     free(map);

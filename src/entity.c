@@ -399,18 +399,19 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 
     float zoom = get_float(adata, "zoom");
 
-    sfVector2i start;
-    start.x = entity->pos.x / (32 * zoom);
-    start.y = entity->pos.y / (32 * zoom);
-    //printf("%d %d\n", start.x, start.y);
+    sfIntRect start;
+    start.left = entity->pos.x / (32 * zoom);
+    start.top = entity->pos.y / (32 * zoom);
+    start.width = 2;
+    start.height = 2;
     sfVector2i end;
     end.x = 1;
     end.y = 20;
     sfVector2i *size = malloc(sizeof(sfVector2i));
     size->x = adata->game_data->map_width;
     size->y = adata->game_data->map_height;
-    //sfVector2f path = path_finding(adata->game_data->map, size, start, end);
-    //printf("%f %f\n", path.x, path.y);
+    sfVector2f path = path_finding(adata->game_data->map, size, start, end);
+    printf("%f %f\n", path.x, path.y);
 
     sfVector2f add = { 0.0f * seconds * 1000, 0.1f * seconds * 1000 };
 

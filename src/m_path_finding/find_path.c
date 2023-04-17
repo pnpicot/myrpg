@@ -12,11 +12,14 @@ static sfVector2f print_path_and_free(pq_t *pq, char **map,
 sfVector2i *map_size)
 {
     pqnode_t *node = pq->open;
+    sfVector2f path = {0, 0};
 
     if (node == ((void *)0))
-        return ((sfVector2f){0, 0});
+        return (path);
     while (node->parent != ((void *)0)) {
         map[node->co.y][node->co.x] = 'o';
+        path.x = node->co.x - node->parent->co.x;
+        path.y = node->co.y - node->parent->co.y;
         node = node->parent;
     }
     map[node->co.y][node->co.x] = 'o';
@@ -30,7 +33,7 @@ sfVector2i *map_size)
         if (write(1, "\n", 1) < 0)
             return ((sfVector2f){0, 0});
     }
-    return ((sfVector2f){0, 0});
+    return (path);
 }
 
 static pqnode_t *least_f(pq_t *pq)
@@ -73,7 +76,7 @@ sfVector2i *end)
     pq_t pq = {((void *)0), ((void *)0), ((void *)0)};
     int rvalue = 0;
 
-    if (push_node(&pq.open, create_node(start, ((void *)0), map_size), map,
+    if (push_node(&pq.open, create_node(start, ((void *)0), map_size, 1), map,
     map_size) < 0)
         return ((sfVector2f){0, 0});
     while (pq.open != ((void *)0)) {

@@ -9,6 +9,6 @@
 
 #ifndef _PUBLIC_PATH_FINGING_H_
     #define _PUBLIC_PATH_FINDING_H_
-    sfVector2f path_finding(char **map, sfVector2i *map_size, sfVector2i start,
+    sfVector2f path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
     sfVector2i end);
 #endif

@@ -13,7 +13,7 @@ void init_light_gradient(s_appdata *adata, int depth_start)
     int win_h = get_int(adata, "win_h");
     sfVector2f res = { win_w, win_h };
 
-    add_rtex(adata, "light_gradient", depth_start + 3);
+    add_rtex(adata, str_add("light_gradient", ""), depth_start + 3);
     set_rtex_inherit(adata, "light_gradient", 1);
 
     const sfTexture *tex = get_rtex_tex(adata, "light_gradient");
@@ -26,7 +26,7 @@ void init_light_gradient(s_appdata *adata, int depth_start)
 
 void init_light_overlay(s_appdata *adata, int depth_start)
 {
-    add_rtex(adata, "light_overlay", depth_start + 4);
+    add_rtex(adata, str_add("light_overlay", ""), depth_start + 4);
     set_rtex_inherit(adata, "light_overlay", 1);
     set_rtex_blendmode(adata, "light_overlay", sfBlendAdd);
     set_rtex_clear(adata, "light_overlay", sfTransparent);
@@ -48,12 +48,12 @@ void init_light_recommended(s_appdata *adata, int depth_start)
     init_light_gradient(adata, depth_start);
     init_light_overlay(adata, depth_start);
 
-    add_rtex(adata, "light_blend", depth_start + 5);
+    add_rtex(adata, str_add("light_blend", ""), depth_start + 5);
     set_rtex_blendmode(adata, "light_blend", sfBlendAlpha);
     set_rtex_clear(adata, "light_blend", sfBlack);
     set_lightblend_rtex(adata, "light_blend");
 
-    add_rtex(adata, "walls", depth_start + 6);
+    add_rtex(adata, str_add("walls", ""), depth_start + 6);
     set_rtex_blendmode(adata, "walls", sfBlendAlpha);
     set_rtex_clear(adata, "walls", sfTransparent);
     set_wall_rtex(adata, "walls", 1);
