@@ -9,18 +9,14 @@
 
 s_sprite *copy_entity_part_sprite(s_appdata *adata, s_sprite *sprite)
 {
-    char *rid = get_random_id(10);
-    char *id = str_m_add(3, sprite->id, "-", rid);
-    free(rid);
+    char *id = str_m_add(3, sprite->id, "-", get_random_id(10));
     char *container = get_str(adata, "ctn_game");
 
     add_sprite(adata, id, sprite->layer);
 
     s_sprite *new_sprite = get_sprite(adata, id);
 
-
     new_sprite->active = sfTrue;
-    sfSprite_destroy(new_sprite->elem);
     new_sprite->elem = sfSprite_copy(sprite->elem);
     new_sprite->hidden = 0;
     new_sprite->layer = sprite->layer;

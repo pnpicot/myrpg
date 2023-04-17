@@ -98,6 +98,46 @@ void init_player_particles(s_appdata *adata)
     move_emiter(adata, particles, (sfVector2f) { win_w / 2, win_h / 2});
 }
 
+void update_player_info_text(s_appdata *adata)
+{
+    s_text *info = adata->player->info_text;
+    sfFloatRect bounds = get_text_bounds(adata, info->id);
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    sfVector2f origin;
+
+    origin.x = bounds.width / 2;
+    origin.y = bounds.height / 2;
+
+    set_text_origin(adata, info->id, origin);
+
+    sfVector2f pos;
+    pos.x = win_w / 2;
+    pos.y = (win_h / 2) - 85.0f;
+
+    move_text(adata, info->id, pos);
+}
+
+void init_player_info(s_appdata *adata, char *player_id)
+{
+    char *id = str_add(player_id, "@[:info]");
+
+    add_text(adata, id, 5);
+
+    s_text *info_text = get_text(adata, id);
+
+    set_text_font(adata, id, get_font(adata, "courier"));
+    resize_text(adata, id, 20);
+    color_text(adata, id, sfCyan);
+    set_text_rtex(adata, id, get_str(adata, "rtex_ui"));
+    add_to_container(adata, get_str(adata, "ctn_game"), (s_ref) { info_text, TYPE_TEXT });
+    edit_text(adata, id, "Information");
+
+    adata->player->info_text = info_text;
+
+    update_player_info_text(adata);
+}
+
 void init_player(s_appdata *adata)
 {
     adata->player = malloc(sizeof(s_player));
@@ -139,4 +179,5 @@ void init_player(s_appdata *adata)
     move_sprite(adata, sprite_id, (sfVector2f) { win_w / 2, win_h / 2 });
     pause_animation(adata, sprite_id);
     init_player_particles(adata);
+    init_player_info(adata, sprite_id);
 }

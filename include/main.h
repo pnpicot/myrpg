@@ -282,6 +282,7 @@ typedef struct {
     float transference_rate;
     sfClock *transference_clock;
     s_sprite *body;
+    s_text *info_text;
 } s_player;
 
 typedef struct {

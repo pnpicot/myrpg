@@ -361,8 +361,6 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
     set_emiter_colors(adata, emiter_id, sfCyan, sfWhite);
     set_emiter_lerp_factor(adata, emiter_id, 1.5f);
     s_sprite *body = (s_sprite *) entity->parts->data;
-    float angle = get_sprite_rotation(adata, body->id);
-    set_emiter_cone(adata, emiter_id, (sfVector2f) {angle, angle});
     set_emiter_gameobject(adata, emiter_id, sfTrue);
     set_emiter_layer(adata, emiter_id, 5);
     set_emiter_lifetime(adata, emiter_id, 150000);
