@@ -23,5 +23,6 @@ void register_keyrelease(s_appdata *adata, int keycode)
         return;
     }
 
+    check_game_keys(adata, keycode);
     set_key(adata, keycode, 0);
 }

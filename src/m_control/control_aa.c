@@ -11,8 +11,10 @@ void update_controls_next(s_appdata *adata, s_game *game_data, \
 float delta, s_clocks *clocks)
 {
     update_speed(adata);
+
     sfVector2f add = {game_data->speed.x * delta, game_data->speed.y * delta};
     sfVector2f next_pos = game_data->view_pos;
+    s_player *player = adata->player;
 
     next_pos.x += add.x;
     next_pos.y += add.y;
@@ -26,7 +28,8 @@ float delta, s_clocks *clocks)
     if (next_pos.x > (game_data->map_width * 32 * zoom) - win_w) add.x = 0;
     if (next_pos.y > (game_data->map_height * 32 * zoom) - win_h) add.y = 0;
 
-    add = is_map_colliding(adata, adata->player->hitbox, add);
+    if (player->solid)
+        add = is_map_colliding(adata, adata->player->hitbox, add);
 
     sfVector2f shift;
     shift.x = -add.x;
@@ -47,6 +50,13 @@ float delta, s_clocks *clocks)
 
 void update_controls(s_appdata *adata)
 {
+    s_player *player = adata->player;
+
+    if (player->host != NULL) {
+        update_host_controls(adata);
+        return;
+    }
+
     s_game *game_data = adata->game_data;
     s_clocks *clocks = adata->clocks;
     float delta = get_clock_seconds(clocks->movement_clock);

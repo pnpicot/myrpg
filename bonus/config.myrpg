@@ -137,6 +137,7 @@ float zoom = 3.5f
 # -- parasite -- begin
 string player_body = @[:player]-body
 string player_particles = @[:player]-parts
+float player_reach = 350.0f
 # -- parasite -- end
 
 # -- world -- begin

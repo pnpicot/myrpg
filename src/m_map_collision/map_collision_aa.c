@@ -96,10 +96,11 @@ sfVector2f movement)
 {
     sfVector2f save = movement;
 
-    if (hitbox.left != adata->player->hitbox.left ||
+    if (adata->player->host == NULL && (
+    hitbox.left != adata->player->hitbox.left ||
     hitbox.top != adata->player->hitbox.top ||
     hitbox.width != adata->player->hitbox.width ||
-    hitbox.height != adata->player->hitbox.height)
+    hitbox.height != adata->player->hitbox.height))
         _is_colliding(hitbox, adata->player->hitbox, &movement);
     if (movement.x == 0 && movement.y == 0)
         return (movement);

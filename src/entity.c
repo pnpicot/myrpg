@@ -157,7 +157,7 @@ void add_entity_part(s_appdata *adata, char **entry)
 
 void add_entity_model(s_appdata *adata, char **entry)
 {
-    if (count_nil_str(entry) < 5 || !is_format(entry, "sssffd"))
+    if (count_nil_str(entry) < 6 || !is_format(entry, "sssffdf"))
         return;
 
     char *model_id = entry[2];
@@ -188,15 +188,18 @@ void add_entity_model(s_appdata *adata, char **entry)
     float model_scale = str_to_float(entry[3]);
     float model_spawnrate = str_to_float(entry[4]);
     int model_hp = my_getnbr(entry[5]);
+    float model_speed = str_to_float(entry[6]);
 
     new_model->id = model_id;
     new_model->parts = linked_new();
     new_model->pos = (sfVector2f) { 0, 0 };
     new_model->hitbox = (sfFloatRect) {0, 0, 0, 0};
     new_model->st_hp = model_hp;
+    new_model->speed = model_speed;
     new_model->spawn_rate = model_spawnrate;
     new_model->scale = model_scale;
     new_model->faction = faction;
+    new_model->inhabited = sfFalse;
     new_model->behavior = NULL;
 
     free(entry[0]);
@@ -395,8 +398,9 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
 
 void behavior_mf26(s_appdata *adata, s_entity *entity)
 {
-    float seconds = get_clock_seconds(entity->clock);
+    if (entity->inhabited) return;
 
+    float seconds = get_clock_seconds(entity->clock);
     float zoom = get_float(adata, "zoom");
 
     sfIntRect start;
@@ -404,17 +408,20 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     start.top = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
     start.width = 3;
     start.height = 3;
+
     sfVector2i end;
     end.x = 2;
     end.y = 20;
+
     sfVector2i *size = malloc(sizeof(sfVector2i));
     size->x = adata->game_data->map_width;
     size->y = adata->game_data->map_height;
 
+    sfVector2f path = { 0, 0 };
+
     if (entity->path == NULL)
         entity->path = path_finding(adata->game_data->map, size, start, end);
 
-    sfVector2f path = { 0, 0 };
     if (entity->path != NULL && entity->path->data != NULL) {
         path.x = ((sfIntRect *)entity->path->data)->left;
         path.y = ((sfIntRect *)entity->path->data)->top;
@@ -430,7 +437,6 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     }
 
     sfVector2f add = { path.x * seconds * 1000, path.y * seconds * 1000 };
-
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
     float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
     char *emiter_id = str_add(entity->id, "@[:emiter]");

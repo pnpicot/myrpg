@@ -13,6 +13,7 @@ void update_live(s_appdata *adata)
     cycle_world_time(adata);
     trigger_spawn_cycle(adata);
     update_entities(adata);
+    update_player_info_text(adata);
 }
 
 void init_live_light(s_appdata *adata)

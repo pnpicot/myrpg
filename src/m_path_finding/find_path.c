@@ -45,12 +45,12 @@ sfVector2i *map_size)
         free(pop_node(&pq->open, pq->open, map, map_size));
     while (pq->closed != ((void *)0))
         free(pop_node(&pq->closed, pq->closed, map, map_size));
-    for (int i = 0; i < map_size->y; ++i) {
+    /* for (int i = 0; i < map_size->y; ++i) {
         if (write(1, map[i], map_size->x) < 0)
             return (NULL);
         if (write(1, "\n", 1) < 0)
             return (NULL);
-    }
+    } */
     return (path);
 }
 
