@@ -287,6 +287,8 @@ typedef struct {
 
 typedef struct {
     sfRenderWindow *win;
+    sfView *view;
+    sfBool fullscreen;
     s_ints *integers;
     s_floats *floats;
     s_clocks *clocks;

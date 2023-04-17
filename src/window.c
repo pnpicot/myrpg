@@ -18,6 +18,7 @@ void close_window(s_appdata *adata)
     }
 
     free_sound(adata);
+    sfView_destroy(adata->view);
     sfRenderWindow_close(adata->win);
 }
 
@@ -69,6 +70,9 @@ void create_window(s_appdata *adata)
         return;
     }
     adata->win = window;
+    adata->fullscreen = 0;
+    adata->view = sfView_createFromRect((sfFloatRect){0, 0, 1920, 1080});
+    sfRenderWindow_setView(adata->win, adata->view);
     int limit = get_int(adata, "max_frame_rate");
     sfRenderWindow_setFramerateLimit(adata->win, limit);
     run_window(adata);

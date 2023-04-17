@@ -121,6 +121,7 @@ string main_part = main_part
 # -- settings menu ui -- begin
 string back_btn = settings_back_btn
 string volume_slider = settings_volume
+string fullscreen_button = fullscreen_button
 # -- settings menu ui -- end
 
 # -- ingame ui -- begin

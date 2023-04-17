@@ -12,14 +12,12 @@ static linked_node *create_ll(pq_t *pq, char **map)
 {
     pqnode_t *node = pq->open;
     linked_node *path = linked_new();
-
     if (node == ((void *)0))
         return (NULL);
     while (node->parent != ((void *)0)) {
         map[node->co.y][node->co.x] = 'o';
         sfIntRect *co = malloc(sizeof(sfIntRect));
-        if (co == NULL)
-            return (NULL);
+        if (co == NULL) return (NULL);
         co->left = node->co.x - node->parent->co.x;
         co->top = node->co.y - node->parent->co.y;
         co->width = node->co.x;
