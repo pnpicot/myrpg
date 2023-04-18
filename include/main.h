@@ -270,6 +270,7 @@ typedef struct {
     linked_node *entities;
     linked_node *factions;
     linked_node *syringes;
+    linked_node *quests;
     int map_width;
     int map_height;
     char **map;
@@ -573,6 +574,15 @@ typedef struct {
     };
 } s_touch_t;
 
+typedef struct {
+    char *id;
+    char *text;
+    char *title;
+    sfTexture *icon;
+    s_rect *popup_rect;
+    s_text *popup_text;
+} s_quest;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -636,3 +646,4 @@ typedef struct {
 #include "spawn.h"
 #include "destroy.h"
 #include "console.h"
+#include "quest.h"

@@ -11,6 +11,17 @@ void trigger_playbtn(s_appdata *adata, s_ref *ref)
 {
     switch_state(adata, get_str(adata, "state_game"));
     set_container_active(adata, get_str(adata, "ctn_inv"), 0);
+
+    linked_node *quests = adata->game_data->quests;
+
+    while (quests != NULL && quests->data != NULL) {
+        s_quest *cur = (s_quest *) quests->data;
+
+        cur->popup_rect->active = 0;
+        cur->popup_text->active = 0;
+
+        quests = quests->next;
+    }
 }
 
 void trigger_settingsbtn(s_appdata *adata, s_ref *ref)

@@ -162,3 +162,11 @@ string console_background_id = console_background_id
 string console_titlebar_id = console_titlebar_id
 string console_text_id = console_text_id
 # -- console -- end
+
+# -- quest ui -- begin
+string quest_bg = quest_bg
+float quest_width = 450.0f
+float quest_padding = 10.0f
+int quest_layer = 7
+float quest_item_height = 60.0f
+# -- quest ui -- end
