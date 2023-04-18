@@ -85,7 +85,7 @@ s_bar *get_entity_hp_bar(s_appdata *adata, s_entity *entity)
     pos.y = 0;
 
     translate_bar(adata, id, pos);
-    color_bar(adata, id, get_color(150, 0, 0, 255), sfRed);
+    color_bar(adata, id, get_color(150, 0, 0, 255), sfGreen);
     set_bar_min(adata, id, 0);
     set_bar_max(adata, id, entity->st_hp);
     set_bar_current(adata, id, entity->st_hp);

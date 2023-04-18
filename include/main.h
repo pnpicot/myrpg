@@ -262,6 +262,7 @@ typedef struct {
 typedef struct {
     sfVector2f view_pos;
     sfVector2f map_size;
+    sfVector2i col_map_size;
     sfVector2f speed;
     float velocity;
     float speed_max;
@@ -273,6 +274,7 @@ typedef struct {
     int map_width;
     int map_height;
     char **map;
+    struct s_entity_s ***col_map;
     float time;
     sfBool in_inv;
 } s_game;

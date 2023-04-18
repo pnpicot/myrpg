@@ -15,13 +15,12 @@
     #define MY_CHAR ('A')
     #define MY_PATH ('*')
     #define MY_WALL ('X')
-    #define IS_WALL(c) ((c) == 'X')
     #define IS_PATH(c) ((c) == '*')
 
     typedef struct Priority_Queue_Node {
         sfVector2i co;
-        size_t g;
-        size_t f;
+        double g;
+        double f;
         struct Priority_Queue_Node *prev;
         struct Priority_Queue_Node *next;
         struct Priority_Queue_Node *parent;
@@ -46,7 +45,7 @@
     sfVector2i *end);
 
     pqnode_t *create_node(sfVector2i *coords, pqnode_t *parent,
-    sfVector2i *map_size, int g_offset);
+    sfVector2i *map_size, double g_offset);
     pqnode_t *pop_node(pqnode_t **queue, pqnode_t *node, char **map,
     sfVector2i *map_size);
     int push_node(pqnode_t **queue, pqnode_t *node, char **map,

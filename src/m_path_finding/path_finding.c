@@ -66,12 +66,9 @@ sfIntRect hitbox)
     char **new_map = malloc_new_map(map, map_size);
     if (new_map == NULL)
         return (NULL);
-    for (int i = 0; i < map_size->y; i++) {
-        for (int j = 0; j < map_size->x; j++) {
-            new_map[i][j] = (IS_PATH(new_map[i][j])) ? MY_PATH : new_map[i][j];
-            new_map[i][j] = (IS_WALL(new_map[i][j])) ? MY_WALL : new_map[i][j];
-        }
-    }
+    for (int i = 0; i < map_size->y; i++)
+        for (int j = 0; j < map_size->x; j++)
+            new_map[i][j] = (IS_PATH(new_map[i][j])) ? MY_PATH : MY_WALL;
     hitbox.width /= 2;
     hitbox.height /= 2;
     for (int i = 0; i <

@@ -7,30 +7,35 @@
 
 #include "main.h"
 
-linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
-sfVector2i start, sfVector2i end)
+static linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
+sfVector2i end)
 {
-    sfIntRect from;
-    from.left = start.x;
-    from.top = start.y;
-    from.width = 3;
-    from.height = 3;
+    float zoom = get_float(adata, "zoom");
+    sfIntRect hitbox = { entity->pos.x / (32 * zoom),
+    entity->pos.y / (32 * zoom), 3, 3};
 
-    sfVector2i *size = malloc(sizeof(sfVector2i));
-    size->x = adata->game_data->map_width;
-    size->y = adata->game_data->map_height;
+    if (abs(hitbox.left - end.x) <= 5 && abs(hitbox.top - end.y) <= 5)
+        return (NULL);
 
-    return (path_finding(adata->game_data->map, size, from, end));
+    sfVector2i size = {0};
+    size.x = adata->game_data->map_width;
+    size.y = adata->game_data->map_height;
+
+    return (path_finding(adata->game_data->map, &size, hitbox, end));
 }
 
-sfVector2f use_path(s_appdata *adata, s_entity *entity, sfVector2i start)
+static sfVector2f use_path(s_appdata *adata, s_entity *entity)
 {
     sfVector2f path = { 0, 0 };
+    float zoom = get_float(adata, "zoom");
+    sfVector2i start = { entity->pos.x / (32 * zoom),
+    entity->pos.y / (32 * zoom) };
 
     if (entity->path != NULL && entity->path->data != NULL) {
         path.x = ((sfIntRect *)entity->path->data)->left;
         path.y = ((sfIntRect *)entity->path->data)->top;
-        if ((path.x >= 0 || start.x <= ((sfIntRect *)entity->path->data)->width) &&
+        if ((path.x >= 0 || start.x <= ((sfIntRect *)entity->path->data)->width)
+        &&
         (path.x <= 0 || start.x >= ((sfIntRect *)entity->path->data)->width) &&
         (path.y >= 0 || start.y <= ((sfIntRect *)entity->path->data)->height) &&
         (path.y <= 0 || start.y >= ((sfIntRect *)entity->path->data)->height)) {
@@ -70,10 +75,7 @@ s_particle *particle, linked_node *touchs))
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
 {
     float zoom = get_float(adata, "zoom");
-    sfVector2i start;
-    start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
-    start.y = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
     if (entity->path == NULL)
-        entity->path = get_path_finding(adata, entity, start, destination);
-    return (use_path(adata, entity, start));
+        entity->path = get_path_finding(adata, entity, destination);
+    return (use_path(adata, entity));
 }

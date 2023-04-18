@@ -46,9 +46,6 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity);
 void init_entity_behaviors(s_appdata *adata);
 void init_entity_emiters(s_appdata *adata);
 void rotate_entity_abs(s_appdata *adata, s_entity *entity, float angle);
-linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
-sfVector2i start, sfVector2i end);
-sfVector2f use_path(s_appdata *adata, s_entity *entity, sfVector2i start);
 void do_particle_behavior(s_appdata *adata, s_particle_src *src,
 void (*func)(s_appdata *adata, s_particle_src *particle_src,
 s_particle *particle, linked_node *touchs));

@@ -66,6 +66,13 @@ void update_entity_bar(s_appdata *adata, s_entity *entity)
 
     pos.y -= 120.0f;
 
+    if (entity->hp < 0)
+        entity->hp = 0;
+    if (entity->hp > entity->st_hp)
+        entity->hp = entity->st_hp;
+
+    color_bar(adata, entity->hp_bar->id, get_color(150, 0, 0, 255),
+    lerp_color(sfRed, sfGreen, entity->hp / entity->st_hp));
     move_bar(adata, entity->hp_bar->id, pos);
     set_bar_current(adata, entity->hp_bar->id, entity->hp);
 }
