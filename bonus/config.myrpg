@@ -149,7 +149,10 @@ color night_color = 0,0,50,255
 
 # -- inventory -- begin
 string health_syr = health_syr
-float inv_width = 450.0f
+float inv_width = 0.3f
+int inv_layer = 3
+float inv_padding = 10.0f
+float inv_item_height = 50.0f
 # -- inventory -- end
 
 # -- console -- begin
