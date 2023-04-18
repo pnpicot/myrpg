@@ -319,7 +319,7 @@ void check_game_keys(s_appdata *adata, int keycode)
         set_container_active(adata, get_str(adata, "console_id"), active);
     }
 
-    if (keycode == sfKeyI) {
+    if (keycode == sfKeyI || keycode == sfKeyTab) {
         adata->game_data->in_inv = !adata->game_data->in_inv;
 
         char *ctn = get_str(adata, "ctn_inv");

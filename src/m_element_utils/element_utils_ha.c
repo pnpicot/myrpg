@@ -47,6 +47,21 @@ sfUint8 get_element_active(s_appdata *adata, void *ref, int type)
             s_text *text = (s_text *) ref;
             return (text->active);
             }
+        case TYPE_BUTTON:
+            {
+            s_button *button = (s_button *) ref;
+            return (button->text->active);
+            }
+        case TYPE_BAR:
+            {
+            s_bar *bar = (s_bar *) ref;
+            return (bar->back_rect->active);
+            }
+        case TYPE_SLIDER:
+            {
+            s_slider *slider = (s_slider *) ref;
+            return (slider->middle_rect->text->active);
+            }
         default:
             {
             return (get_element_active_next(adata, ref, type));
