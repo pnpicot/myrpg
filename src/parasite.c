@@ -311,11 +311,20 @@ void check_game_keys(s_appdata *adata, int keycode)
     if (keycode == sfKeyE) {
         try_transference(adata);
     }
+
     if (keycode == sfKeyC) {
         sfBool active = is_container_active(adata,
         get_str(adata, "console_id"));
         active = active == sfTrue ? sfFalse : sfTrue;
         set_container_active(adata, get_str(adata, "console_id"), active);
+    }
+
+    if (keycode == sfKeyI) {
+        adata->game_data->in_inv = !adata->game_data->in_inv;
+
+        char *ctn = get_str(adata, "ctn_inv");
+
+        set_container_active(adata, ctn, adata->game_data->in_inv ? 1 : 0);
     }
 }
 
