@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-static linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
+linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
 sfVector2i end)
 {
     float zoom = get_float(adata, "zoom");
@@ -24,7 +24,7 @@ sfVector2i end)
     return (path_finding(adata->game_data->map, &size, hitbox, end));
 }
 
-static sfVector2f use_path(s_appdata *adata, s_entity *entity)
+sfVector2f use_path(s_appdata *adata, s_entity *entity)
 {
     sfVector2f path = { 0, 0 };
     float zoom = get_float(adata, "zoom");
@@ -74,7 +74,6 @@ s_particle *particle, linked_node *touchs))
 
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
 {
-    float zoom = get_float(adata, "zoom");
     if (entity->path == NULL)
         entity->path = get_path_finding(adata, entity, destination);
     return (use_path(adata, entity));

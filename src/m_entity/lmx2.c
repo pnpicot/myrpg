@@ -15,7 +15,12 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     sfVector2i end;
     end.x = 33;
     end.y = 33;
-    path = get_way(adata, entity, end);
+    sfVector2f agro_path = agro(adata, entity);
+    if (agro_path.x == 0 && agro_path.y == 0)
+        path = get_way(adata, entity, end);
+    else {
+        path = agro_path;
+    }
 
     if (entity->init) {
         char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;

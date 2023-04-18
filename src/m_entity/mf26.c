@@ -61,7 +61,12 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfVector2i end;
     end.x = 33;
     end.y = 33;
-    path = get_way(adata, entity, end);
+    sfVector2f agro_path = agro(adata, entity);
+    if (agro_path.x == 0 && agro_path.y == 0)
+        path = get_way(adata, entity, end);
+    else {
+        path = agro_path;
+    }
 
     float seconds = get_clock_seconds(entity->clock);
     sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100 };

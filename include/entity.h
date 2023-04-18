@@ -51,3 +51,8 @@ void (*func)(s_appdata *adata, s_particle_src *particle_src,
 s_particle *particle, linked_node *touchs));
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination);
 void behavior_lp230(s_appdata *adata, s_entity *entity);
+sfVector2f agro(s_appdata *adata, s_entity *entity);
+linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
+sfVector2i end);
+sfVector2f use_path(s_appdata *adata, s_entity *entity);
+

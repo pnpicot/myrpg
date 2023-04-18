@@ -570,6 +570,7 @@ typedef struct s_entity_s {
     linked_node *floats;
     sfBool orientated;
     s_zone *zone;
+    float agro_length;
 } s_entity;
 
 typedef struct {

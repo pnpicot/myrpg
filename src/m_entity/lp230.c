@@ -13,10 +13,14 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
 
     sfVector2f path = { 0, 0 };
     sfVector2i end;
-
     end.x = 33;
     end.y = 33;
-    path = get_way(adata, entity, end);
+    sfVector2f agro_path = agro(adata, entity);
+    if (agro_path.x == 0 && agro_path.y == 0)
+        path = get_way(adata, entity, end);
+    else {
+        path = agro_path;
+    }
 
     if (entity->init) {
         add_entity_float(adata, entity, "leg_cycle", 0);

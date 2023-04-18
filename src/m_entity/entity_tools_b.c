@@ -109,6 +109,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     int model_hp = my_getnbr(entry[5]);
     float model_speed = str_to_float(entry[6]);
     int model_orientated = my_getnbr(entry[7]);
+    float agro_length = str_to_float(entry[8]);
 
     new_model->id = model_id;
     new_model->parts = linked_new();
@@ -126,6 +127,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->hp_bar = NULL;
     new_model->floats = NULL;
     new_model->orientated = model_orientated ? sfTrue : sfFalse;
+    new_model->agro_length = agro_length;
 
     free(entry[0]);
     free(entry[1]);
