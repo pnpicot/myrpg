@@ -67,8 +67,21 @@ void add_syringe(s_appdata *adata, char *id)
     new_syringe->on_use = NULL;
     new_syringe->tex = NULL;
     new_syringe->name = "New Syringe";
+    new_syringe->color = sfWhite;
 
     linked_add(adata->game_data->syringes, new_syringe);
+}
+
+void set_syringe_color(s_appdata *adata, char *id, sfColor color)
+{
+    s_syringe *syringe = get_syringe(adata, id);
+
+    if (syringe == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    syringe->color = color;
 }
 
 void set_syringe_use(s_appdata *adata, char *id, \

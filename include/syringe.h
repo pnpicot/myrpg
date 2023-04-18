@@ -21,3 +21,4 @@ void set_syringe_texture(s_appdata *adata, char *id, sfTexture *texture);
 int get_syringe_count(s_appdata *adata, char *id);
 sfTexture *get_syringe_texture(s_appdata *adata, char *id);
 void set_syringe_name(s_appdata *adata, char *id, char *name);
+void set_syringe_color(s_appdata *adata, char *id, sfColor color);

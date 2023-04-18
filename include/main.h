@@ -519,6 +519,7 @@ typedef struct s_syringe_s {
     char *name;
     int count;
     sfTexture *tex;
+    sfColor color;
     void (*on_use)(s_appdata *adata, struct s_syringe_s *syringe);
 } s_syringe;
 

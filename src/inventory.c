@@ -18,21 +18,25 @@ void init_syringes(s_appdata *adata)
     set_syringe_texture(adata, health, get_texture(adata, "health_syr"));
     set_syringe_count(adata, health, 5);
     set_syringe_name(adata, health, "Health");
+    set_syringe_color(adata, health, sfRed);
 
     add_syringe(adata, health1);
     set_syringe_texture(adata, health1, get_texture(adata, "health_syr"));
     set_syringe_count(adata, health1, 2);
     set_syringe_name(adata, health1, "Transference");
+    set_syringe_color(adata, health1, sfGreen);
 
     add_syringe(adata, health2);
     set_syringe_texture(adata, health2, get_texture(adata, "health_syr"));
     set_syringe_count(adata, health2, 8);
     set_syringe_name(adata, health2, "Attack");
+    set_syringe_color(adata, health2, sfOrange);
 
     add_syringe(adata, health3);
     set_syringe_texture(adata, health3, get_texture(adata, "health_syr"));
     set_syringe_count(adata, health3, 0);
     set_syringe_name(adata, health3, "Speed");
+    set_syringe_color(adata, health3, sfCyan);
 }
 
 void init_inventory_item_sprite(s_appdata *adata, sfVector2f syr_pos, \
@@ -46,6 +50,7 @@ char *syr_id, s_syringe *cur)
 
     add_sprite(adata, id, get_int(adata, "inv_layer") + 2);
     set_sprite_texture(adata, id, cur->tex);
+    set_sprite_color(adata, id, cur->color);
     set_sprite_rtex(adata, id, get_str(adata, "rtex_ui"));
     add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
     add_to_container(adata, ctn, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
