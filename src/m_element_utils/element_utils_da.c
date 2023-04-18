@@ -35,6 +35,12 @@ int type, char *rtex_id)
             set_button_rtex(adata, button->id, rtex_id);
             break;
             }
+        case TYPE_BAR:
+            {
+            s_bar *bar = (s_bar *) ref;
+            set_bar_rtex(adata, bar->id, rtex_id);
+            break;
+            }
     }
 }
 

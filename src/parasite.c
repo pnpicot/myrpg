@@ -348,6 +348,6 @@ void update_host_controls(s_appdata *adata)
     if (add.x != 0 || add.y != 0) {
         float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
 
-        rotate_entity_part_abs(adata, host, "body", angle);
+        rotate_entity_abs(adata, host, angle);
     }
 }

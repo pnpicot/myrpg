@@ -1,5 +1,3 @@
-#version 330
-
 uniform sampler2D texture;
 uniform vec2 blur_radius;
 

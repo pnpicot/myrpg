@@ -1,5 +1,3 @@
-#version 330
-
 uniform sampler2D texture;
 uniform sampler2D add_texture;
 

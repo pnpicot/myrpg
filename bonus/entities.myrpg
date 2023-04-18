@@ -4,15 +4,28 @@
 
 # -- factions -- begin
 faction droids 800 800 500 50
+faction insect 7000 800 500 50
+faction piaf 800 7000 500 50
+faction drone 6000 8000 500 50
+
 # -- factions -- end
 
 # -- entities -- begin
 entity droids mf26 4.0f 0.10f 500 0.50f
 part mf26 1 body mf26_body 37 44 0 0
 
-entity droids p800 4.0f 0.05f 500 0.4f
+entity insect p800 4.0f 0.05f 500 0.40f
 part p800 3 p800_body p800_body 32 32 0 0 
 part p800 2 p800_right_blade p800_right_blade 32 32 0 0 
 part p800 1 p800_left_blade p800_left_blade 32 32 0 0
+
+entity piaf lmx2 4.0f 0.10f 500 3.12f
+part lmx2 1 lmx2_body lmx2 31 12 0 0
+
+entity drone z200 4.0f 0.10f 500 3.12f
+part z200 1 chassis Z200_chassis 32 32 0 0 
+part z200 4 rotors Z200_rotors 32 32 0 0 
+part z200 3 blades_1 Z200_blades 32 32 0 0 
+part z200 2 blades_2 Z200_blades 32 32 0 0 
 
 # -- entities -- end

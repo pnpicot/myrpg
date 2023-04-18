@@ -117,6 +117,12 @@ int type, sfUint8 active)
             emiter->active = active;
             break;
             }
+        case TYPE_BAR:
+            {
+            s_bar *bar = (s_bar *) ref;
+            set_bar_active(adata, bar->id, active);
+            break;
+            }
     }
 }
 

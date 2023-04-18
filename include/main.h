@@ -20,6 +20,7 @@
 #define TYPE_LIGHT 7
 #define TYPE_EMITER 8
 #define TYPE_SLIDER 9
+#define TYPE_BAR 10
 
 #define obj_hover 0x01
 #define obj_pressed 0x02
@@ -541,6 +542,7 @@ typedef struct s_entity_s {
     sfVector2f pos;
     sfFloatRect hitbox;
     float st_hp;
+    float hp;
     float scale;
     float spawn_rate;
     s_faction *faction;
@@ -550,6 +552,9 @@ typedef struct s_entity_s {
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);
     float speed;
     sfBool inhabited;
+    sfBool init;
+    s_bar *hp_bar;
+    linked_node *floats;
 } s_entity;
 
 #include "pre_init.h"

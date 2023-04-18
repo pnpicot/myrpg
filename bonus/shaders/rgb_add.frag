@@ -1,5 +1,3 @@
-#version 330
-
 uniform sampler2D tex;
 uniform sampler2D add;
 uniform vec2 resolution;
