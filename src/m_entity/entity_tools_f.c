@@ -42,3 +42,27 @@ sfVector2f use_path(s_appdata *adata, s_entity *entity, sfVector2i start)
     }
     return (path);
 }
+
+void do_particle_behavior(s_appdata *adata, s_particle_src *src,
+void (*func)(s_appdata *adata, s_particle_src *particle_src,
+s_particle *particle, linked_node *touchs))
+{
+    if (adata == NULL || src == NULL || func == NULL)
+        return;
+    linked_node *node = src->particle_pool;
+
+    for (;node != NULL; node = node->next) {
+        s_particle *part = (s_particle *) node->data;
+        if (part == NULL)
+            continue;
+
+        sfFloatRect bounds = sfSprite_getGlobalBounds(part->model);
+
+        linked_node *touchs = what_is_touching(adata, bounds);
+
+        if (touchs != NULL && touchs->data != NULL)
+            func(adata, src, part, touchs);
+
+        free_ll_and_data(&touchs);
+    }
+}

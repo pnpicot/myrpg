@@ -11,7 +11,7 @@
 static linked_node *create_ll(pq_t *pq, char **map)
 {
     pqnode_t *node = pq->open;
-    linked_node *path = linked_new();
+    linked_node *path = NULL;
     if (node == ((void *)0))
         return (NULL);
     while (node->parent != ((void *)0)) {

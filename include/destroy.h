@@ -45,3 +45,4 @@ void linked_destroy_textures(linked_node *node);
 void linked_destroy_entity_models(linked_node *node);
 void linked_destroy_entities(linked_node *node);
 void linked_destroy_factions(linked_node *node);
+void free_ll_and_data(linked_node **list);

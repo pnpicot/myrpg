@@ -557,6 +557,18 @@ typedef struct s_entity_s {
     linked_node *floats;
 } s_entity;
 
+typedef struct {
+    enum touch_type {
+        TOUCH_WALL,
+        TOUCH_ENTITY,
+        TOUCH_PARASITE
+    } touch_type;
+    union {
+        s_wall *wall;
+        s_entity *entity;
+    };
+} s_touch_t;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"

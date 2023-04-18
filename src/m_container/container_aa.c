@@ -71,7 +71,7 @@ sfBool is_container_active(s_appdata *adata, char *id)
 
     if (container == NULL) {
         my_printf(get_error(adata, "unknown_id"));
-        return;
+        return (sfFalse);
     }
     return (container->active);
 }

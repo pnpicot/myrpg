@@ -7,6 +7,23 @@
 
 #include "main.h"
 
+void free_ll_and_data(linked_node **list)
+{
+    if (list == NULL || *list == NULL)
+        return;
+
+    linked_node *node = *list;
+
+    while (node != NULL) {
+        linked_node *save = node;
+        node = node->next;
+        if (save->data != NULL)
+            free(save->data);
+        free(save);
+    }
+    *list = NULL;
+}
+
 static void free_lists_2(s_linkeds *lists)
 {
     // linked_destroy_rtexs(lists->rtexs);

@@ -30,6 +30,16 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
     set_emiter_spawnrate(adata, emiter_id, 100.0f);
 }
 
+static void mf26_particles_behavior(s_appdata *adata,
+s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
+{
+    while (touchs != NULL) {
+        if (((s_touch_t *)touchs->data)->touch_type == TOUCH_WALL)
+            particle->life = 0;
+        touchs = touchs->next;
+    }
+}
+
 void behavior_mf26(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
@@ -78,6 +88,9 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
         angle -= 90.0f;
         set_emiter_cone(adata, emiter_id, (sfVector2f) { angle, angle });
     }
+
+    s_particle_src *src = get_emiter(adata, emiter_id);
+    do_particle_behavior(adata, src, mf26_particles_behavior);
 
     sfClock_restart(entity->clock);
 }

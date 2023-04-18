@@ -49,3 +49,6 @@ void rotate_entity_abs(s_appdata *adata, s_entity *entity, float angle);
 linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
 sfVector2i start, sfVector2i end);
 sfVector2f use_path(s_appdata *adata, s_entity *entity, sfVector2i start);
+void do_particle_behavior(s_appdata *adata, s_particle_src *src,
+void (*func)(s_appdata *adata, s_particle_src *particle_src,
+s_particle *particle, linked_node *touchs));
