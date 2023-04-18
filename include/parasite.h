@@ -17,3 +17,4 @@ void init_player_info(s_appdata *adata, char *player_id);
 void init_player(s_appdata *adata);
 void check_game_keys(s_appdata *adata, int keycode);
 void update_host_controls(s_appdata *adata);
+void try_transference(s_appdata *adata);
