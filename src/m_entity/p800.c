@@ -12,7 +12,7 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     linked_node *parts = entity->parts;
 
     update_entity_bar(adata, entity);
-    
+
     sfVector2f path = { 0, 0 };
     sfVector2i end;
     end.x = 33;

@@ -31,3 +31,9 @@ p800_body = p800_body.png
 p800_right_blade = p800_right_blade.png
 p800_left_blade = p800_left_blade.png
 epitech = epitech.png
+
+# -- lp230 -- begin
+lp230_body = lp230-body.png
+lp230_legs = lp230-legs.png
+lp230_canon = lp230-canon.png
+# -- lp230 -- end
