@@ -11,6 +11,20 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
 
+    sfVector2f path = { 0, 0 };
+    float zoom = get_float(adata, "zoom");
+    sfVector2i start;
+    start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
+    start.y = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
+    sfVector2i end;
+    end.x = 33;
+    end.y = 33;
+
+    if (entity->path == NULL)
+        entity->path = get_path_finding(adata, entity, start, end);
+
+    path = use_path(adata, entity, start);
+
     if (entity->init) {
         char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
 
@@ -27,7 +41,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
 
     float seconds = get_clock_seconds(entity->clock);
 
-    sfVector2f add = { entity->speed * seconds * 100, entity->speed * seconds * 100};
+    sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
 
     add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
 

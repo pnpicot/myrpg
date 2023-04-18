@@ -36,10 +36,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 
     if (entity->inhabited) return;
 
-    float seconds = get_clock_seconds(entity->clock);
-
     sfVector2f path = { 0, 0 };
-
     float zoom = get_float(adata, "zoom");
     sfVector2i start;
     start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
@@ -47,12 +44,11 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfVector2i end;
     end.x = 33;
     end.y = 33;
-
     if (entity->path == NULL)
         entity->path = get_path_finding(adata, entity, start, end);
-
     path = use_path(adata, entity, start);
 
+    float seconds = get_clock_seconds(entity->clock);
     sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100 };
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
     float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
@@ -60,14 +56,10 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 
     if (angle != last_angle) {
         sfVector2f origin = { 140, 60 };
-
         float ang_rad = (angle - 90.0f) * (M_PI / 180.0f);
-
         sfVector2f o_pos = ((s_entity_part *) entity->parts->data)->sprite->pos;
-
         o_pos.x -= adata->game_data->view_pos.x;
         o_pos.y -= adata->game_data->view_pos.y;
-
         sfVector2f rotated;
         rotated.x = (origin.x * cos(ang_rad)) - (origin.y * sin(ang_rad));
         rotated.y = (origin.x * sin(ang_rad)) + (origin.y * cos(ang_rad));
@@ -77,18 +69,13 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     }
 
     rotate_entity_part_abs(adata, entity, "body", angle);
-
     add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
-
     translate_entity(adata, entity, add);
 
     if (entity->emiter != NULL) {
         sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle), entity->pos.y * entity->pos.y * sin(angle) };
-
         translate_emiter(adata, emiter_id, add);
-
         angle -= 90.0f;
-
         set_emiter_cone(adata, emiter_id, (sfVector2f) { angle, angle });
     }
 
