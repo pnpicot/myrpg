@@ -66,6 +66,8 @@ void add_syringe(s_appdata *adata, char *id)
     new_syringe->id = id;
     new_syringe->on_use = NULL;
     new_syringe->tex = NULL;
+
+    linked_add(adata->game_data->syringes, new_syringe);
 }
 
 void set_syringe_use(s_appdata *adata, char *id, \

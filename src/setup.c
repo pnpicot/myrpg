@@ -169,6 +169,7 @@ void init_live(s_appdata *adata)
     init_entity_emiters(adata);
     init_entity_behaviors(adata);
     init_console(adata);
+    init_ingame_inventory(adata, get_str(adata, "ctn_game"), get_str(adata, "rtex_ui"));
 
     switch_state(adata, get_str(adata, "state_main"));
 
