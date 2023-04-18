@@ -7,6 +7,28 @@
 
 #include "main.h"
 
+static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
+{
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
+    hitbox.left -= 15;
+    hitbox.top -= 15;
+    hitbox.width += 30;
+    hitbox.height += 30;
+    linked_node *touchs = what_is_touching(adata, hitbox);
+
+    while (touchs != NULL) {
+        s_touch_t *touch = (s_touch_t *) touchs->data;
+        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
+            touch->entity->hp -= 1;
+        }
+        if (touch->touch_type == TOUCH_PARASITE) {
+            adata->player->health.x -= 1;
+        }
+        touchs = touchs->next;
+    }
+    free_ll_and_data(&touchs);
+}
+
 // TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
@@ -40,6 +62,8 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
     rotate_entity_part(adata, entity, "blades_1", (angle - blade_rot) * seconds * 0.01);
     rotate_entity_part(adata, entity, "blades_2", (angle + blade_rot) * seconds * 0.01);
     rotate_entity_part(adata, entity, "rotors", (angle - blade_rot) * seconds * 0.1);
+
+    z200_damage_behavior(adata, entity);
 
     sfClock_restart(entity->clock);
 }
