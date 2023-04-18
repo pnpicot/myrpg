@@ -128,6 +128,17 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     return (new_entity);
 }
 
+s_zone *fill_zone(s_appdata *adata, s_entity *entity, sfVector2f pos)
+{
+    sfVector2i pos_zone;
+    float zoom = get_float(adata, "zoom");
+    pos_zone.x = pos.x / ((adata->game_data->map_width * 32 * zoom) / adata->game_data->nb_zones);
+    pos_zone.y = pos.y / ((adata->game_data->map_height * 32 * zoom) / adata->game_data->nb_zones);
+    int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
+    linked_add(adata->game_data->zones[index]->entities, entity);
+    return (adata->game_data->zones[index]);
+}
+
 void try_entity_spawn(s_appdata *adata, s_entity *model)
 {
     float chance = rand_float(0, 100.0f);
@@ -144,6 +155,8 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
     pos.x = faction->spawn_point.x + rand_rad * cos(theta);
     pos.y = faction->spawn_point.y + rand_rad * sin(theta);
 
+    new_entity->zone = fill_zone(adata, new_entity, pos);
+
     move_entity(adata, new_entity, pos);
 
     if (new_entity->emiter != NULL) {
@@ -159,7 +172,6 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
 
         translate_emiter(adata, emiter_id, pos);
     }
-
     faction->entity_count++;
 
     linked_add(adata->game_data->entities, new_entity);

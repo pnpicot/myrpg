@@ -33,19 +33,6 @@ void (*emiter)(s_appdata *adata, s_entity *s_entity))
     model->emiter = emiter;
 }
 
-void update_entities(s_appdata *adata)
-{
-    linked_node *entities = adata->game_data->entities;
-
-    while (entities != NULL && entities->data != NULL) {
-        s_entity *cur = (s_entity *) entities->data;
-
-        (*cur->behavior)(adata, cur);
-
-        entities = entities->next;
-    }
-}
-
 sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
 {
     sfFloatRect hitbox =

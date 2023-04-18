@@ -9,6 +9,7 @@
 
 void update_live(s_appdata *adata)
 {
+
     update_ingame_ui(adata);
     cycle_world_time(adata);
     trigger_spawn_cycle(adata);
@@ -170,8 +171,9 @@ void init_live(s_appdata *adata)
     init_entity_behaviors(adata);
     init_console(adata);
     init_ingame_inventory(adata, get_str(adata, "ctn_game"), get_str(adata, "rtex_ui"));
+    init_zones(adata, 5);
 
-    switch_state(adata, get_str(adata, "state_main"));
+    switch_state(adata, get_str(adata, "state_main"));  
 
     set_friction(adata, 6.0f);
     set_max_speed(adata, 850.0f);
