@@ -95,10 +95,8 @@ sfVector2i end)
         return (NULL);
     map = change_wall_and_path(map, map_size, hitbox);
     if (map == NULL || map[hitbox.top][hitbox.left] == MY_WALL ||
-    map[end.y][end.x] == MY_WALL) {
-        // write(2, "Error: path_finding: invalid start or end\n", 42);
+    map[end.y][end.x] == MY_WALL)
         return (NULL);
-    }
     rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
     &end);
     for (int i = 0; i < map_size->y; i++)

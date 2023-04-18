@@ -8,14 +8,13 @@
 #include "path_finding.h"
 #include <stdlib.h>
 
-static linked_node *create_ll(pq_t *pq, char **map)
+static linked_node *create_ll(pq_t *pq)
 {
     pqnode_t *node = pq->open;
     linked_node *path = NULL;
     if (node == ((void *)0))
         return (NULL);
     while (node->parent != ((void *)0)) {
-        map[node->co.y][node->co.x] = 'o';
         sfIntRect *co = malloc(sizeof(sfIntRect));
         if (co == NULL) return (NULL);
         co->left = node->co.x - node->parent->co.x;
@@ -28,14 +27,13 @@ static linked_node *create_ll(pq_t *pq, char **map)
         path = new;
         node = node->parent;
     }
-    map[node->co.y][node->co.x] = 'o';
     return (path);
 }
 
 static linked_node *print_path_and_free(pq_t *pq, char **map,
 sfVector2i *map_size)
 {
-    linked_node *path = create_ll(pq, map);
+    linked_node *path = create_ll(pq);
 
     if (path == NULL)
         return (NULL);
@@ -43,12 +41,6 @@ sfVector2i *map_size)
         free(pop_node(&pq->open, pq->open, map, map_size));
     while (pq->closed != ((void *)0))
         free(pop_node(&pq->closed, pq->closed, map, map_size));
-    /* for (int i = 0; i < map_size->y; ++i) {
-        if (write(1, map[i], map_size->x) < 0)
-            return (NULL);
-        if (write(1, "\n", 1) < 0)
-            return (NULL);
-    } */
     return (path);
 }
 
@@ -101,7 +93,6 @@ sfVector2i *end)
         if (rvalue == 1)
             return (print_path_and_free(&pq, map, map_size));
     }
-    write(2, "Path Finding: No path found\n", 28);
     while (pq.open != ((void *)0))
         free(pop_node(&pq.open, pq.open, map, map_size));
     while (pq.closed != ((void *)0))

@@ -35,7 +35,7 @@ s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
 {
     while (touchs != NULL) {
         if (((s_touch_t *)touchs->data)->touch_type == TOUCH_WALL)
-            particle->life = 0;
+            particle->active = sfFalse;
         touchs = touchs->next;
     }
 }

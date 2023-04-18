@@ -53,7 +53,7 @@ s_particle *particle, linked_node *touchs))
 
     for (;node != NULL; node = node->next) {
         s_particle *part = (s_particle *) node->data;
-        if (part == NULL)
+        if (part == NULL || part->active == sfFalse)
             continue;
 
         sfFloatRect bounds = sfSprite_getGlobalBounds(part->model);

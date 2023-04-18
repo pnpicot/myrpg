@@ -67,7 +67,8 @@ void display_particles(s_appdata *adata, s_particle_src *emiter)
     while (particles != NULL && particles->data != NULL) {
         s_particle *cur = (s_particle *) particles->data;
 
-        sfRenderTexture_drawSprite(tex, cur->model, NULL);
+        if (cur->active == sfTrue)
+            sfRenderTexture_drawSprite(tex, cur->model, NULL);
 
         particles = particles->next;
     }
