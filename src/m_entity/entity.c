@@ -44,7 +44,7 @@ void update_entities(s_appdata *adata)
 
     while (entities != NULL && entities->data != NULL) {
         s_entity *cur = (s_entity *) entities->data;
-
+        
         update_zone(adata, cur);
 
         (*cur->behavior)(adata, cur);
