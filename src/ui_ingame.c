@@ -90,7 +90,7 @@ void init_stats_health(s_appdata *adata, char *container, char *rtex, char *rect
     pos.y = rect.top + 55.0f;
 
     move_bar(adata, id, pos);
-    color_bar(adata, id, get_color(130, 21, 9, 255), get_color(230, 37, 16, 255));
+    color_bar(adata, id, get_color(130, 21, 9, 255), sfGreen);
     resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
 }
 

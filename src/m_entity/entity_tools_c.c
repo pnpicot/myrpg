@@ -33,19 +33,6 @@ void (*emiter)(s_appdata *adata, s_entity *s_entity))
     model->emiter = emiter;
 }
 
-void update_entities(s_appdata *adata)
-{
-    linked_node *entities = adata->game_data->entities;
-
-    while (entities != NULL && entities->data != NULL) {
-        s_entity *cur = (s_entity *) entities->data;
-
-        (*cur->behavior)(adata, cur);
-
-        entities = entities->next;
-    }
-}
-
 sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
 {
     sfFloatRect hitbox =
@@ -66,6 +53,13 @@ void update_entity_bar(s_appdata *adata, s_entity *entity)
 
     pos.y -= 120.0f;
 
+    if (entity->hp < 0)
+        entity->hp = 0;
+    if (entity->hp > entity->st_hp)
+        entity->hp = entity->st_hp;
+
+    color_bar(adata, entity->hp_bar->id, get_color(150, 0, 0, 255),
+    lerp_color(sfRed, sfGreen, entity->hp / entity->st_hp));
     move_bar(adata, entity->hp_bar->id, pos);
     set_bar_current(adata, entity->hp_bar->id, entity->hp);
 }

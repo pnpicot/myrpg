@@ -51,7 +51,7 @@ sfIntRect *off)
     if (verify_successor(map, map_size, pq, &node_co) == 1)
         return (0);
     if (node = create_node(&node_co, pq->node, map_size,
-    ((off->top != 0 && off->left) ? 2 : 1)), node == ((void *)0))
+    ((off->top != 0 && off->left) ? (sqrt(2)) : 1.0)), node == ((void *)0))
         return (-1);
     if (node_co.x == off->width && node_co.y == off->height)
         return (push_node(&pq->open, node, map, map_size) < 0 ? -1 : 1);

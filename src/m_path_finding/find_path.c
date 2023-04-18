@@ -84,7 +84,7 @@ sfVector2i *end)
     pq_t pq = {((void *)0), ((void *)0), ((void *)0)};
     int rvalue = 0;
 
-    if (push_node(&pq.open, create_node(start, ((void *)0), map_size, 1), map,
+    if (push_node(&pq.open, create_node(start, ((void *)0), map_size, 1.0), map,
     map_size) < 0)
         return (NULL);
     while (pq.open != ((void *)0)) {

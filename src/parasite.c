@@ -25,7 +25,11 @@ void update_player_ui(s_appdata *adata)
 
     if (player->health.x > player->health.y)
         player->health.x = player->health.y;
+    if (player->health.x < 0)
+        player->health.x = 0;
 
+    color_bar(adata, health_id, get_color(130, 21, 9, 255),
+    lerp_color(sfRed, sfGreen, player->health.x / player->health.y));
     set_bar_current(adata, health_id, player->health.x);
     free(transference_id);
     free(health_id);

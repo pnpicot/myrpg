@@ -34,8 +34,19 @@ static void mf26_particles_behavior(s_appdata *adata,
 s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
 {
     while (touchs != NULL) {
-        if (((s_touch_t *)touchs->data)->touch_type == TOUCH_WALL)
+        s_touch_t *touch = (s_touch_t *) touchs->data;
+        if (touch->touch_type == TOUCH_WALL) {
             particle->active = sfFalse;
+            return;
+        }
+        if (touch->touch_type == TOUCH_ENTITY) {
+            touch->entity->hp -= 1;
+            particle->active = sfFalse;
+        }
+        if (touch->touch_type == TOUCH_PARASITE) {
+            adata->player->health.x -= 1;
+            particle->active = sfFalse;
+        }
         touchs = touchs->next;
     }
 }

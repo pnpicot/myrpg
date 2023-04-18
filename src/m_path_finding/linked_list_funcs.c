@@ -54,7 +54,7 @@ sfVector2i *map_size)
 }
 
 pqnode_t *create_node(sfVector2i *coords, pqnode_t *parent,
-sfVector2i *map_size, int g_offset)
+sfVector2i *map_size, double g_offset)
 {
     pqnode_t *node = malloc(sizeof(pqnode_t));
 
@@ -66,7 +66,8 @@ sfVector2i *map_size, int g_offset)
         node->g = parent->g + g_offset;
     else
         node->g = 0;
-    node->f = node->g + (map_size->x - coords->x) + (map_size->y - coords->y);
+    node->f = node->g +
+    sqrt((map_size->x - coords->x) + (map_size->y - coords->y));
     node->prev = ((void *)0);
     node->next = ((void *)0);
     return (node);
