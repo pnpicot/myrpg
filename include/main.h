@@ -188,6 +188,7 @@ typedef struct {
 
 typedef struct {
     char *id;
+    sfBool active;
     linked_node *nodes;
 } s_container;
 
@@ -613,3 +614,4 @@ typedef struct s_entity_s {
 #include "map_collision.h"
 #include "spawn.h"
 #include "destroy.h"
+#include "console.h"

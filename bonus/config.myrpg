@@ -151,3 +151,10 @@ color night_color = 0,0,50,255
 string health_syr = health_syr
 float inv_width = 450.0f
 # -- inventory -- end
+
+# -- console -- begin
+string console_id = console
+string console_background_id = console_background_id
+string console_titlebar_id = console_titlebar_id
+string console_text_id = console_text_id
+# -- console -- end

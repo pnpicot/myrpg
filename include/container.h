@@ -24,3 +24,4 @@ linked_node *nodes, sfFloatRect *max);
 sfFloatRect get_container_bounds(s_appdata *adata, char *id);
 void set_container_rtex(s_appdata *adata, char *id, char *rtex_id);
 void set_container_active(s_appdata *adata, char *id, sfUint8 active);
+sfBool is_container_active(s_appdata *adata, char *id);

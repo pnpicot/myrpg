@@ -52,6 +52,8 @@ void set_container_active(s_appdata *adata, char *id, sfUint8 active)
         return;
     }
 
+    container->active = active;
+
     linked_node *nodes = container->nodes;
 
     while (nodes != NULL && nodes->data != NULL) {
@@ -61,4 +63,15 @@ void set_container_active(s_appdata *adata, char *id, sfUint8 active)
 
         nodes = nodes->next;
     }
+}
+
+sfBool is_container_active(s_appdata *adata, char *id)
+{
+    s_container *container = get_container(adata, id);
+
+    if (container == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+    return (container->active);
 }

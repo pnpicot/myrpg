@@ -67,6 +67,7 @@ void trigger_settings_fullscreen(s_appdata *adata, s_ref *ref)
         sfRenderWindow_close(adata->win);
         adata->win = sfRenderWindow_create(mode, "MyRPG", sfFullscreen |
         sfClose | sfResize, NULL);
+        sfView_setSize(adata->view, (sfVector2f) {mode.width, mode.height});
         sfRenderWindow_setView(adata->win, adata->view);
         adata->fullscreen = 1;
     } else {
@@ -75,6 +76,7 @@ void trigger_settings_fullscreen(s_appdata *adata, s_ref *ref)
         sfRenderWindow_close(adata->win);
         adata->win = sfRenderWindow_create(mode, "MyRPG",
         sfClose | sfResize, NULL);
+        sfView_setSize(adata->view, (sfVector2f) {mode.width, mode.height});
         sfRenderWindow_setView(adata->win, adata->view);
         adata->fullscreen = 0;
     }

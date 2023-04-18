@@ -62,6 +62,7 @@ void add_container(s_appdata *adata, char *id)
         return;
     }
 
+    new_container->active = 1;
     new_container->id = id;
     new_container->nodes = linked_new();
 

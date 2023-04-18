@@ -311,6 +311,12 @@ void check_game_keys(s_appdata *adata, int keycode)
     if (keycode == sfKeyE) {
         try_transference(adata);
     }
+    if (keycode == sfKeyC) {
+        sfBool active = is_container_active(adata,
+        get_str(adata, "console_id"));
+        active = active == sfTrue ? sfFalse : sfTrue;
+        set_container_active(adata, get_str(adata, "console_id"), active);
+    }
 }
 
 void update_host_controls(s_appdata *adata)

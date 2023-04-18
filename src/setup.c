@@ -168,6 +168,7 @@ void init_live(s_appdata *adata)
     load_entity_config(adata);
     init_entity_emiters(adata);
     init_entity_behaviors(adata);
+    init_console(adata);
 
     switch_state(adata, get_str(adata, "state_main"));
 
