@@ -123,6 +123,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->init = sfTrue;
     new_entity->clock = sfClock_create();
     new_entity->floats = linked_new();
+    new_entity->orientated = model->orientated;
 
     return (new_entity);
 }

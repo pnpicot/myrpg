@@ -76,7 +76,7 @@ void add_entity_part(s_appdata *adata, char **entry)
 
 void add_entity_model(s_appdata *adata, char **entry)
 {
-    if (count_nil_str(entry) < 6 || !is_format(entry, "sssffdf"))
+    if (count_nil_str(entry) < 7 || !is_format(entry, "sssffdfd"))
         return;
 
     char *model_id = entry[2];
@@ -108,6 +108,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     float model_spawnrate = str_to_float(entry[4]);
     int model_hp = my_getnbr(entry[5]);
     float model_speed = str_to_float(entry[6]);
+    int model_orientated = my_getnbr(entry[7]);
 
     new_model->id = model_id;
     new_model->parts = linked_new();
@@ -124,6 +125,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->init = sfTrue;
     new_model->hp_bar = NULL;
     new_model->floats = NULL;
+    new_model->orientated = model_orientated ? sfTrue : sfFalse;
 
     free(entry[0]);
     free(entry[1]);

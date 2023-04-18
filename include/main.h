@@ -557,6 +557,7 @@ typedef struct s_entity_s {
     sfBool init;
     s_bar *hp_bar;
     linked_node *floats;
+    sfBool orientated;
 } s_entity;
 
 #include "pre_init.h"
