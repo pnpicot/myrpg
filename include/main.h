@@ -183,6 +183,11 @@ typedef struct {
 } s_rect;
 
 typedef struct {
+    char *id;
+    linked_node *entities;
+} s_zone;
+
+typedef struct {
     void *ref;
     int type;
 } s_ref;
@@ -277,6 +282,8 @@ typedef struct {
     struct s_entity_s ***col_map;
     float time;
     sfBool in_inv;
+    int nb_zones;
+    s_zone **zones;
 } s_game;
 
 typedef struct {
@@ -521,6 +528,7 @@ typedef struct s_syringe_s {
     char *name;
     int count;
     sfTexture *tex;
+    sfColor color;
     void (*on_use)(s_appdata *adata, struct s_syringe_s *syringe);
 } s_syringe;
 
@@ -560,6 +568,7 @@ typedef struct s_entity_s {
     s_bar *hp_bar;
     linked_node *floats;
     sfBool orientated;
+    s_zone *zone;
 } s_entity;
 
 typedef struct {

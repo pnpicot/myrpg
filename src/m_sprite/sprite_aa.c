@@ -56,3 +56,15 @@ void rotate_sprite_add(s_appdata *adata, char *id, float angle_ch)
 
     sfSprite_rotate(sprite->elem, angle_ch);
 }
+
+void set_sprite_color(s_appdata *adata, char *id, sfColor color)
+{
+    s_sprite *sprite = get_sprite(adata, id);
+
+    if (sprite == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    sfSprite_setColor(sprite->elem, color);
+}

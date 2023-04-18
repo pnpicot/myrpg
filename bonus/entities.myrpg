@@ -26,4 +26,10 @@ part z200 1 chassis Z200_chassis 32 32 0 0
 part z200 4 rotors Z200_rotors 32 32 0 0 
 part z200 3 blades_1 Z200_blades 32 32 0 0 
 part z200 2 blades_2 Z200_blades 32 32 0 0 
+
+entity insect lp230 5.0f 0.12f 800 0.80f 1 
+part lp230 1 lp230_legs_first lp230_legs 32 32 0 0 
+part lp230 2 lp230_legs_second lp230_legs 32 32 0 0 
+part lp230 3 lp230_body lp230_body 32 32 0 0 
+part lp230 4 lp230_canon lp230_canon 32 32 0 0 
 # -- entities -- end
