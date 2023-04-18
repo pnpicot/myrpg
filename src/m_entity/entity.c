@@ -45,6 +45,20 @@ void update_entities(s_appdata *adata)
     while (entities != NULL && entities->data != NULL) {
         s_entity *cur = (s_entity *) entities->data;
 
+        if (cur->hp <= 0) {
+            set_bar_active(adata, cur->hp_bar->id, sfFalse);
+            linked_node *node = cur->parts;
+            while (node != NULL && node->data != NULL) {
+                s_entity_part *part = (s_entity_part *) node->data;
+                sfSprite_setColor(part->sprite->elem, sfColor_fromRGB(50, 50, 50));
+                node = node->next;
+            }
+            linked_delete(&adata->game_data->entities, get_rank_id_entities(adata->game_data->entities, cur->id));
+            free(cur);
+            entities = entities->next;
+            continue;
+        }
+
         update_zone(adata, cur);
 
         (*cur->behavior)(adata, cur);

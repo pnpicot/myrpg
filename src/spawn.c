@@ -135,6 +135,7 @@ s_zone *fill_zone(s_appdata *adata, s_entity *entity, sfVector2f pos)
     pos_zone.x = pos.x / ((adata->game_data->map_width * 32 * zoom) / adata->game_data->nb_zones);
     pos_zone.y = pos.y / ((adata->game_data->map_height * 32 * zoom) / adata->game_data->nb_zones);
     int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
+    printf("%d, %p\n", index, adata->game_data->zones[index]);
     linked_add(adata->game_data->zones[index]->entities, entity);
     return (adata->game_data->zones[index]);
 }
