@@ -52,3 +52,4 @@ sfVector2f use_path(s_appdata *adata, s_entity *entity, sfVector2i start);
 void do_particle_behavior(s_appdata *adata, s_particle_src *src,
 void (*func)(s_appdata *adata, s_particle_src *particle_src,
 s_particle *particle, linked_node *touchs));
+sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination);

@@ -66,3 +66,14 @@ s_particle *particle, linked_node *touchs))
         free_ll_and_data(&touchs);
     }
 }
+
+sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
+{
+    float zoom = get_float(adata, "zoom");
+    sfVector2i start;
+    start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
+    start.y = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
+    if (entity->path == NULL)
+        entity->path = get_path_finding(adata, entity, start, destination);
+    return (use_path(adata, entity, start));
+}

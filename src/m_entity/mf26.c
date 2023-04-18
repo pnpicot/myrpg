@@ -47,16 +47,10 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     if (entity->inhabited) return;
 
     sfVector2f path = { 0, 0 };
-    float zoom = get_float(adata, "zoom");
-    sfVector2i start;
-    start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
-    start.y = (entity->pos.y - entity->hitbox.height / 2) / (32 * zoom);
     sfVector2i end;
     end.x = 33;
     end.y = 33;
-    if (entity->path == NULL)
-        entity->path = get_path_finding(adata, entity, start, end);
-    path = use_path(adata, entity, start);
+    path = get_way(adata, entity, end);
 
     float seconds = get_clock_seconds(entity->clock);
     sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100 };
