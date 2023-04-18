@@ -12,7 +12,8 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     linked_node *parts = entity->parts;
 
     update_entity_bar(adata, entity);
-
+    
+    sfVector2f path = { 0, 0 };
     float zoom = get_float(adata, "zoom");
     sfVector2i start;
     start.x = (entity->pos.x - entity->hitbox.width / 2) / (32 * zoom);
@@ -20,6 +21,9 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     sfVector2i end;
     end.x = 33;
     end.y = 33;
+    if (entity->path == NULL)
+        entity->path = get_path_finding(adata, entity, start, end);
+    path = use_path(adata, entity, start);
 
     if (entity->init) {
         char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
@@ -42,11 +46,11 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
 
     char *blade_id = ((s_entity_part *) parts->data)->sprite->id;
     float blade_cycle = get_entity_float(entity, "blade_cycle")->value;
-    float blade_rot = get_entity_float(entity,  "blade_rot")->value;
+    float blade_rot = get_entity_float(entity, "blade_rot")->value;
     float angle;
 
     if (!entity->inhabited) {
-        sfVector2f add = { 0.3f * seconds * 100, 0.1f * seconds * 100};
+        sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
 
         add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
         angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
@@ -58,16 +62,16 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     }
 
     if (blade_cycle) {
-        add_to_entity_float(adata, entity, "blade_rot", 0.5f);
+        add_to_entity_float(adata, entity, "blade_rot", 0.2f);
         rotate_entity_part_abs(adata, entity, "p800_left_blade", angle - blade_rot);
         rotate_entity_part_abs(adata, entity, "p800_right_blade", angle + blade_rot);
     } else {
-        add_to_entity_float(adata, entity, "blade_rot", -0.5f);
+        add_to_entity_float(adata, entity, "blade_rot", -2.5f);
         rotate_entity_part_abs(adata, entity, "p800_left_blade", angle - blade_rot);
         rotate_entity_part_abs(adata, entity, "p800_right_blade", angle + blade_rot);
     }
 
-    if ((blade_rot > 50.0f && blade_cycle) || (blade_rot < 0 && !blade_cycle)) {
+    if ((blade_rot > 50.0f && blade_cycle) || (blade_rot < -20.0f && !blade_cycle)) {
         set_entity_float(adata, entity, "blade_cycle", blade_cycle > 0 ? 0 : 1.0f);
     }
 
