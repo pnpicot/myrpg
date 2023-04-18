@@ -13,6 +13,7 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
 
     sfVector2f path = { 0, 0 };
     sfVector2i end;
+
     end.x = 33;
     end.y = 33;
     path = get_way(adata, entity, end);
