@@ -16,15 +16,54 @@ void init_syringes(s_appdata *adata)
 
     add_syringe(adata, health);
     set_syringe_texture(adata, health, get_texture(adata, "health_syr"));
+    set_syringe_count(adata, health, 5);
+    set_syringe_name(adata, health, "Health");
 
     add_syringe(adata, health1);
     set_syringe_texture(adata, health1, get_texture(adata, "health_syr"));
+    set_syringe_count(adata, health1, 2);
+    set_syringe_name(adata, health1, "Transference");
 
     add_syringe(adata, health2);
     set_syringe_texture(adata, health2, get_texture(adata, "health_syr"));
+    set_syringe_count(adata, health2, 8);
+    set_syringe_name(adata, health2, "Attack");
 
     add_syringe(adata, health3);
     set_syringe_texture(adata, health3, get_texture(adata, "health_syr"));
+    set_syringe_count(adata, health3, 0);
+    set_syringe_name(adata, health3, "Speed");
+}
+
+void init_inventory_item_sprite(s_appdata *adata, sfVector2f syr_pos, \
+char *syr_id, s_syringe *cur)
+{
+    char *id = str_add(syr_id, "@[:icon]");
+    float height = get_float(adata, "inv_item_height");
+    char *container = get_str(adata, "ctn_game");
+    float padding = get_float(adata, "inv_padding");
+    char *ctn = get_str(adata, "ctn_inv");
+
+    add_sprite(adata, id, get_int(adata, "inv_layer") + 2);
+    set_sprite_texture(adata, id, cur->tex);
+    set_sprite_rtex(adata, id, get_str(adata, "rtex_ui"));
+    add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    add_to_container(adata, ctn, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+
+    sfVector2f target_size = { height - padding * 2, height - padding * 2 };
+    sfVector2u size = sfTexture_getSize(cur->tex);
+    sfVector2f scale;
+
+    scale.x = target_size.x / size.x;
+    scale.y = target_size.y / size.y;
+
+    sfVector2f pos;
+
+    pos.x = syr_pos.x + padding;
+    pos.y = syr_pos.y + padding;
+
+    scale_sprite(adata, id, scale);
+    move_sprite(adata, id, pos);
 }
 
 void init_inventory_items(s_appdata *adata, char *container, char *rtex, \
@@ -38,6 +77,7 @@ sfFloatRect inv_bounds)
     float padding = get_float(adata, "inv_padding");
     float item_height = get_float(adata, "inv_item_height");
     int win_w = get_int(adata, "win_w");
+    char *ctn = get_str(adata, "ctn_inv");
 
     while (syringes != NULL && syringes->data != NULL) {
         s_syringe *cur = (s_syringe *) syringes->data;
@@ -45,12 +85,13 @@ sfFloatRect inv_bounds)
 
         add_button(adata, id, TYPE_RECT, inv_layer + 1);
         set_button_rtex(adata, id, rtex);
-        add_to_container(adata, id, (s_ref) { get_button(adata, id), TYPE_BUTTON });
+        add_to_container(adata, container, (s_ref) { get_button(adata, id), TYPE_BUTTON });
+        add_to_container(adata, ctn, (s_ref) { get_button(adata, id), TYPE_BUTTON });
         color_button_bg(adata, id, get_color(255, 255, 255, 10));
         color_button_fg(adata, id, sfWhite);
         set_button_font(adata, id, get_font(adata, "courier"));
         resize_button_text(adata, id, 20);
-        edit_button(adata, id, cur->id);
+        edit_button(adata, id, str_m_add(3, cur->name, " x", nbr_to_str(cur->count)));
 
         sfVector2f size;
         size.x = (inv_width * win_w) - (padding * 2);
@@ -63,6 +104,13 @@ sfFloatRect inv_bounds)
         resize_button(adata, id, size);
         move_button(adata, id, pos);
 
+        char *obj_id = str_add(id, "@[:object]");
+
+        add_object(adata, obj_id, (s_ref) { get_button(adata, id), TYPE_BUTTON });
+        set_object_hover_bg(adata, obj_id, get_color(255, 255, 255, 20));
+        set_object_pressed_bg(adata, obj_id, get_color(255, 255, 255, 30));
+        init_inventory_item_sprite(adata, pos, id, cur);
+
         ite++;
         syringes = syringes->next;
     }
@@ -73,10 +121,12 @@ sfFloatRect inv_bounds)
 {
     char *id = str_add(get_str(adata, "inventory"), "@[:title]");
     float padding = get_float(adata, "inv_padding");
+    char *ctn = get_str(adata, "ctn_inv");
 
     add_text(adata, id, get_int(adata, "inv_layer") + 1);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, ctn, (s_ref) { get_text(adata, id), TYPE_TEXT });
     set_text_font(adata, id, get_font(adata, "courier"));
     edit_text(adata, id, "Inventory");
     color_text(adata, id, sfWhite);
@@ -101,6 +151,10 @@ void init_ingame_inventory(s_appdata *adata, char *container, char *rtex)
 {
     init_syringes(adata);
 
+    char *ctn = get_str(adata, "ctn_inv");
+
+    add_container(adata, ctn);
+
     char *id = get_str(adata, "inventory");
     float width = get_float(adata, "inv_width");
     float item_height = get_float(adata, "inv_item_height");
@@ -112,6 +166,7 @@ void init_ingame_inventory(s_appdata *adata, char *container, char *rtex)
     add_rect(adata, id, get_int(adata, "inv_layer"));
     set_rect_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, ctn, (s_ref) { get_rect(adata, id), TYPE_RECT });
 
     float list_height = (syr_count * item_height) + (padding * syr_count);
     sfVector2f size = { width * win_w, (30.0f + padding * 2) + list_height + padding };
@@ -120,9 +175,10 @@ void init_ingame_inventory(s_appdata *adata, char *container, char *rtex)
     set_rect_origin(adata, id, origin);
     resize_rect(adata, id, size);
     move_rect(adata, id, (sfVector2f) { win_w / 2, win_h / 2 });
-    color_rect(adata, id, get_color(0, 0, 0, 200));
+    color_rect(adata, id, get_color(0, 0, 0, 230));
 
     sfFloatRect bounds = get_rect_bounds(adata, id);
 
     init_inventory_title(adata, container, rtex, bounds);
+    set_container_active(adata, ctn, 0);
 }

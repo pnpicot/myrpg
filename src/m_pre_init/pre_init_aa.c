@@ -31,6 +31,7 @@ void init_gamedata(s_appdata *adata)
     game_data->entity_models = linked_new();
     game_data->factions = linked_new();
     game_data->syringes = linked_new();
+    game_data->in_inv = sfFalse;
 }
 
 void init_appdata_misc(s_appdata *adata)

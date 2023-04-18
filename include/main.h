@@ -274,6 +274,7 @@ typedef struct {
     int map_height;
     char **map;
     float time;
+    sfBool in_inv;
 } s_game;
 
 typedef struct {
@@ -515,6 +516,7 @@ typedef struct {
 
 typedef struct s_syringe_s {
     char *id;
+    char *name;
     int count;
     sfTexture *tex;
     void (*on_use)(s_appdata *adata, struct s_syringe_s *syringe);
@@ -555,6 +557,7 @@ typedef struct s_entity_s {
     sfBool init;
     s_bar *hp_bar;
     linked_node *floats;
+    sfBool orientated;
 } s_entity;
 
 typedef struct {

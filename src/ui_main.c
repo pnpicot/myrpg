@@ -10,6 +10,7 @@
 void trigger_playbtn(s_appdata *adata, s_ref *ref)
 {
     switch_state(adata, get_str(adata, "state_game"));
+    set_container_active(adata, get_str(adata, "ctn_inv"), 0);
 }
 
 void trigger_settingsbtn(s_appdata *adata, s_ref *ref)

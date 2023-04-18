@@ -51,6 +51,30 @@ void switch_state_deactivate(s_appdata *adata)
     }
 }
 
+void state_deactivate_all(s_appdata *adata)
+{
+    linked_node *states = adata->lists->states;
+
+    while (states != NULL && states->data != NULL) {
+        s_state *cur = (s_state *) states->data;
+
+        if (cur->container != NULL)
+            set_container_active(adata, cur->container->id, 0);
+
+        linked_node *rtexs = cur->rtexs;
+
+        while (rtexs != NULL && rtexs->data != NULL) {
+            s_rtex *cur_rtex = (s_rtex *) rtexs->data;
+
+            cur_rtex->active = sfFalse;
+
+            rtexs = rtexs->next;
+        }
+
+        states = states->next;
+    }
+}
+
 void switch_state_activate(s_appdata *adata, s_state *state)
 {
     if (state->container != NULL)
@@ -101,7 +125,7 @@ void switch_state(s_appdata *adata, char *id)
         return;
     }
 
-    switch_state_deactivate(adata);
+    state_deactivate_all(adata);
     switch_state_activate(adata, state);
     switch_state_rtex(adata, state);
 

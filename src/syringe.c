@@ -66,6 +66,7 @@ void add_syringe(s_appdata *adata, char *id)
     new_syringe->id = id;
     new_syringe->on_use = NULL;
     new_syringe->tex = NULL;
+    new_syringe->name = "New Syringe";
 
     linked_add(adata->game_data->syringes, new_syringe);
 }
@@ -93,6 +94,18 @@ void set_syringe_count(s_appdata *adata, char *id, int count)
     }
 
     syringe->count = count;
+}
+
+void set_syringe_name(s_appdata *adata, char *id, char *name)
+{
+    s_syringe *syringe = get_syringe(adata, id);
+
+    if (syringe == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    syringe->name = name;
 }
 
 void syringe_increment(s_appdata *adata, char *id, int amount)

@@ -19,3 +19,4 @@ void switch_state_deactivate(s_appdata *adata);
 void switch_state_activate(s_appdata *adata, s_state *state);
 void switch_state_rtex(s_appdata *adata, s_state *state);
 void switch_state(s_appdata *adata, char *id);
+void state_deactivate_all(s_appdata *adata);

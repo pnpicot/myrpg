@@ -311,11 +311,20 @@ void check_game_keys(s_appdata *adata, int keycode)
     if (keycode == sfKeyE) {
         try_transference(adata);
     }
+
     if (keycode == sfKeyC) {
         sfBool active = is_container_active(adata,
         get_str(adata, "console_id"));
         active = active == sfTrue ? sfFalse : sfTrue;
         set_container_active(adata, get_str(adata, "console_id"), active);
+    }
+
+    if (keycode == sfKeyI || keycode == sfKeyTab) {
+        adata->game_data->in_inv = !adata->game_data->in_inv;
+
+        char *ctn = get_str(adata, "ctn_inv");
+
+        set_container_active(adata, ctn, adata->game_data->in_inv ? 1 : 0);
     }
 }
 
@@ -345,7 +354,7 @@ void update_host_controls(s_appdata *adata)
 
     translate_entity(adata, host, add);
 
-    if (add.x != 0 || add.y != 0) {
+    if ((add.x != 0 || add.y != 0) && host->orientated) {
         float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
 
         rotate_entity_abs(adata, host, angle);
