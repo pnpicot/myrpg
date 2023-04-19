@@ -76,7 +76,7 @@ void add_entity_part(s_appdata *adata, char **entry)
 
 void add_entity_model(s_appdata *adata, char **entry)
 {
-    if (count_nil_str(entry) < 7 || !is_format(entry, "sssffdfd"))
+    if (count_nil_str(entry) < 9 || !is_format(entry, "sssffdfdf"))
         return;
 
     char *model_id = entry[2];
@@ -128,6 +128,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->floats = NULL;
     new_model->orientated = model_orientated ? sfTrue : sfFalse;
     new_model->agro_length = agro_length;
+    new_model->clock = sfClock_create();
 
     free(entry[0]);
     free(entry[1]);

@@ -59,10 +59,17 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
 
     sfVector2f path = { 0, 0 };
     sfVector2i end;
+
     end.x = 33;
     end.y = 33;
+
     sfVector2f agro_path = agro(adata, entity);
+<<<<<<< HEAD
     if (agro_path.x == -1.0f && agro_path.y == -1.0f)
+=======
+
+    if (agro_path.x == 0 && agro_path.y == 0)
+>>>>>>> 54e3fc35c637a1e73e0b4537a4df585e7b110eb5
         path = get_way(adata, entity, end);
     else {
         path = agro_path;

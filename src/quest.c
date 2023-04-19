@@ -219,7 +219,7 @@ s_rect *get_quest_popup_rect(s_appdata *adata, s_quest *cur)
 void toggle_quest(s_appdata *adata, s_ref *ref)
 {
     s_button *button = (s_button *) ref->ref;
-    char *title = get_text_str(adata, button->text->id);
+    const char *title = get_text_str(adata, button->text->id);
     linked_node *quests = adata->game_data->quests;
 
     while (quests != NULL && quests->data != NULL) {
