@@ -19,7 +19,6 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     if (agro_path.x == -1.0f && agro_path.y == -1.0f)
         path = get_way(adata, entity, end);
     else {
-        printf("agro path\n");
         path = agro_path;
     }
 
