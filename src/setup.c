@@ -14,6 +14,7 @@ void update_live(s_appdata *adata)
     trigger_spawn_cycle(adata);
     update_entities(adata);
     update_player_info_text(adata);
+    update_quests(adata);
 }
 
 void init_live_light(s_appdata *adata)

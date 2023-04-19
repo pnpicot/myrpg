@@ -237,6 +237,7 @@ void init_player(s_appdata *adata)
     player->host = NULL;
     player->potential_host = NULL;
     player->solid = sfTrue;
+    player->transfered = sfFalse;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
@@ -302,6 +303,7 @@ void try_transference(s_appdata *adata)
         char *host_emiter_id = str_add(host->id, "@[:emiter]");
 
         host->inhabited = sfTrue;
+        player->transfered = sfTrue;
         player->body->active = 0;
         player->solid = sfFalse;
 
