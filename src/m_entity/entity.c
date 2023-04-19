@@ -53,7 +53,8 @@ void update_entities(s_appdata *adata)
                 sfSprite_setColor(part->sprite->elem, sfColor_fromRGB(50, 50, 50));
                 node = node->next;
             }
-            try_transference(adata);
+            if (cur == adata->player->host)
+                try_transference(adata);
             linked_delete(&adata->game_data->entities, get_rank_id_entities(adata->game_data->entities, cur->id));
             free(cur);
             entities = entities->next;

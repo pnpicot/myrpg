@@ -18,6 +18,7 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         float dist = get_vec_dist(cur->pos, entity->pos);
 
         if (dist <= entity->agro_length && my_strcmp(cur->id, entity->id)) {
+            printf("agro from %s to %s\n", entity->id, cur->id);
             float zoom = get_float(adata, "zoom");
             sfVector2i pos_zone;
             pos_zone.x = cur->pos.x / ((adata->game_data->map_width * 32 * zoom) / adata->game_data->nb_zones);
@@ -27,5 +28,5 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         }
         entities = entities->next;
     }
-    return ((sfVector2f) {0, 0});
+    return ((sfVector2f) {-1.0f, -1.0f});
 }
