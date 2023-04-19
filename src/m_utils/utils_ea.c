@@ -37,3 +37,13 @@ float f_abs(float value)
 
     return (value);
 }
+
+float f_max(float first, float second)
+{
+    return (first > second ? first : second);
+}
+
+float f_min(float first, float second)
+{
+    return (first < second ? first : second);
+}

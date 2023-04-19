@@ -9,7 +9,6 @@
 
 void update_live(s_appdata *adata)
 {
-
     update_ingame_ui(adata);
     cycle_world_time(adata);
     trigger_spawn_cycle(adata);

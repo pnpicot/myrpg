@@ -1,5 +1,5 @@
 # <type: faction> <faction_id> <spawnpoint: x> <spawnpoint: y> <spawnpoint: radius> <max_entity>
-# <type: entity> <faction_id> <entity_id> <scale> <stat: spawn-rate> <stat: base-hp> <stat: speed> <bool: orientated>
+# <type: entity> <faction_id> <entity_id> <scale> <stat: spawn-rate> <stat: base-hp> <stat: speed> <bool: orientated> <stat: agro-length>
 # <type: part> <entity_id> <layer> <part_id> <texture_id> <origin: x> <origin: y> <offset: x> <offset: y>
 
 # -- factions -- begin
@@ -10,7 +10,7 @@ faction drone 7500 7500 500 50
 # -- factions -- end
 
 # -- entities -- begin
-entity droids mf26 4.0f 0.10f 500 0.50f 1 40.0f
+entity droids mf26 4.0f 0.10f 50 0.50f 1 40.0f
 part mf26 1 body mf26_body 37 44 0 0
 
 entity insect p800 4.0f 0.05f 500 0.40f 1 40.0f

@@ -124,16 +124,11 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->clock = sfClock_create();
     new_entity->floats = linked_new();
     new_entity->orientated = model->orientated;
+    new_entity->agro_length = model->agro_length;
+    new_entity->pos = (sfVector2f) { 0, 0 };
+    new_entity->zone = NULL;
 
     return (new_entity);
-}
-
-float f_max(float first, float second) {
-    return (first > second ? first : second);
-}
-
-float f_min(float first, float second) {
-    return (first < second ? first : second);
 }
 
 s_zone *fill_zone(s_appdata *adata, s_entity *entity, sfVector2f pos)
@@ -157,8 +152,12 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
     float chance = rand_float(0, 100.0f);
     s_faction *faction = model->faction;
     int limit_reached = faction->entity_count >= faction->entity_max;
+    float spawn_rate = model->spawn_rate * get_clock_seconds(model->clock) * 100;
 
-    if (chance > model->spawn_rate || limit_reached) return;
+    sfClock_restart(model->clock);
+
+    if (chance > spawn_rate || limit_reached)
+        return;
 
     s_entity *new_entity = copy_entity_model(adata, model);
     float rand_rad = faction->spawn_radius * sqrt(rand_float(0, 1.0f));
@@ -185,6 +184,7 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
 
         translate_emiter(adata, emiter_id, pos);
     }
+
     faction->entity_count++;
 
     linked_add(adata->game_data->entities, new_entity);
