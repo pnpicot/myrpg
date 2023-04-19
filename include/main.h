@@ -283,6 +283,7 @@ typedef struct {
     struct s_entity_s ***col_map;
     float time;
     sfBool in_inv;
+    sfBool show_quest;
     int nb_zones;
     s_zone **zones;
 } s_game;

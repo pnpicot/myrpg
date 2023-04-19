@@ -44,7 +44,7 @@ s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= 1;
+            adata->player->health.x -= 200;
             particle->active = sfFalse;
         }
         touchs = touchs->next;

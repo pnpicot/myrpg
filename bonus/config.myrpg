@@ -165,6 +165,7 @@ string console_text_id = console_text_id
 
 # -- quest ui -- begin
 string quest_bg = quest_bg
+string ctn_quest = ctn_quest
 float quest_width = 450.0f
 float quest_padding = 10.0f
 int quest_layer = 7
