@@ -138,6 +138,7 @@ sfVector2f item_size, sfVector2f item_pos)
     add_sprite(adata, id, layer + 2);
     set_sprite_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
     set_sprite_texture(adata, id, cur->icon);
 
     sfVector2f target_size = { item_height - padding * 2, item_height - padding * 2 };
@@ -167,6 +168,7 @@ sfVector2f bg_size, sfVector2f bg_pos)
     add_text(adata, id, layer + 1);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
     edit_text(adata, id, cur->text);
     color_text(adata, id, sfWhite);
     set_text_font(adata, id, get_font(adata, "courier"));
@@ -209,6 +211,7 @@ s_rect *get_quest_popup_rect(s_appdata *adata, s_quest *cur)
     move_rect(adata, id, pos);
     set_rect_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
     color_rect(adata, id, get_color(0, 0, 0, 230));
 
     s_rect *rect = get_rect(adata, id);
@@ -256,6 +259,7 @@ void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
         add_button(adata, id, TYPE_RECT, layer + 1);
         set_button_rtex(adata, id, rtex);
         add_to_container(adata, container, (s_ref) { get_button(adata, id), TYPE_BUTTON });
+        add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_button(adata, id), TYPE_BUTTON });
         color_button_bg(adata, id, get_color(247, 245, 195, 100));
         color_button_fg(adata, id, sfWhite);
         set_button_font(adata, id, get_font(adata, "courier"));
@@ -304,6 +308,7 @@ void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
     edit_text(adata, id, str_m_add(3, "Quests (", nbr_to_str(quest_count), ")"));
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, id, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
     resize_text(adata, id, 22);
 
     sfFloatRect bounds = get_text_bounds(adata, id);
@@ -343,6 +348,7 @@ void init_quest_ui(s_appdata *adata)
     move_rect(adata, id, pos);
     set_rect_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
     color_rect(adata, id, get_color(0, 0, 0, 230));
     set_rect_outline(adata, id, get_color(40, 40, 40, 230), 1.0f);
     init_quest_title(adata, id, size, pos);
