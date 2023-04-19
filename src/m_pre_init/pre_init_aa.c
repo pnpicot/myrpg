@@ -10,19 +10,22 @@
 void init_zones(s_appdata *adata, int size)
 {
     adata->game_data->nb_zones = size;
+
     float zoom = get_float(adata, "zoom");
     float width = (adata->game_data->map_width * 32 * zoom) / size;
     float height = (adata->game_data->map_height * 32 * zoom) / size;
-    s_zone **zones = malloc(sizeof(s_zone *) * (size * size));
+    s_zone **zones = malloc(sizeof(s_zone) * size * size);
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             s_zone *zone = malloc(sizeof(s_zone));
+
             zone->id = str_m_add(3, "zone", nbr_to_str(i), nbr_to_str(j));
             zone->entities = linked_new();
             zones[i * size + j] = zone;
         }
     }
+
     adata->game_data->zones = zones;
 }
 
