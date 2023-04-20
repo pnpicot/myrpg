@@ -48,10 +48,8 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
 
     float leg_cycle = get_entity_float(entity, "leg_cycle")->value;
     float leg_rot = get_entity_float(entity, "leg_rot")->value;
-    int walking = get_key(adata, sfKeyQ)
-               || get_key(adata, sfKeyZ)
-               || get_key(adata, sfKeyD)
-               || get_key(adata, sfKeyS);
+    int walking = get_key(adata, sfKeyQ) || get_key(adata, sfKeyZ)
+    || get_key(adata, sfKeyD) || get_key(adata, sfKeyS);
 
     if (!entity->inhabited || walking) {
         if (leg_cycle) {

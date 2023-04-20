@@ -7,6 +7,31 @@
 
 #include "main.h"
 
+static void revenant_damage_behavior(s_appdata *adata, s_entity *entity,
+float angle)
+{
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
+
+    angle -= 90.0f;
+    hitbox.left += cosf(angle * (M_PI / 180.0f)) * hitbox.width / 2;
+    hitbox.top += sinf(angle * (M_PI / 180.0f)) * hitbox.height / 2;
+
+    linked_node *touchs_ll = what_is_touching(adata, hitbox);
+    linked_node *touchs = touchs_ll;
+
+    while (touchs != NULL) {
+        s_touch_t *touch = (s_touch_t *) touchs->data;
+        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
+            touch->entity->hp -= entity->damage;
+        }
+        if (touch->touch_type == TOUCH_PARASITE) {
+            adata->player->health.x -= entity->damage;
+        }
+        touchs = touchs->next;
+    }
+    free_ll_and_data(&touchs_ll);
+}
+
 void behavior_revenant(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
@@ -58,6 +83,7 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         add_to_entity_float(adata, entity, "arm_rot", -4.5f);
         rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle - arm_rot);
         rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
+        revenant_damage_behavior(adata, entity, angle);
     }
 
     if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -50.0f && !arm_cycle)) {

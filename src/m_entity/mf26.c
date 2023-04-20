@@ -40,11 +40,11 @@ s_entity *entity, s_particle *particle, linked_node *touchs)
             return;
         }
         if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
-            touch->entity->hp -= 1;
+            touch->entity->hp -= entity->damage;
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= 200;
+            adata->player->health.x -= entity->damage;
             particle->active = sfFalse;
         }
         touchs = touchs->next;
