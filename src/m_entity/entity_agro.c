@@ -32,6 +32,10 @@ sfVector2f get_path(s_appdata *adata, s_entity *entity, s_zone *zone)
             entities = entities->next;
             continue;
         }
+        if (!my_strcmp(cur->faction->id, entity->faction->id)) {
+            entities = entities->next;
+            continue;
+        }
         if (dist <= entity->agro_length && my_strcmp(cur->id, entity->id)) {
             sfVector2i pos_zone;
             pos_zone.x = cur->pos.x / ((32 * zoom));
