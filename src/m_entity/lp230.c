@@ -36,7 +36,7 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
 
-        add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+        add = is_map_colliding(adata, entity, add);
         angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
 
         translate_entity(adata, entity, add);

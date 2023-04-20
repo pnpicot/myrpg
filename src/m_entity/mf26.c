@@ -31,7 +31,7 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
 }
 
 static void mf26_particles_behavior(s_appdata *adata,
-s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
+s_entity *entity, s_particle *particle, linked_node *touchs)
 {
     while (touchs != NULL) {
         s_touch_t *touch = (s_touch_t *) touchs->data;
@@ -39,7 +39,7 @@ s_particle_src *particle_src, s_particle *particle, linked_node *touchs)
             particle->active = sfFalse;
             return;
         }
-        if (touch->touch_type == TOUCH_ENTITY) {
+        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
             touch->entity->hp -= 1;
             particle->active = sfFalse;
         }
@@ -91,7 +91,8 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     }
 
     rotate_entity_part_abs(adata, entity, "body", angle);
-    add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+    add = is_map_colliding(adata, entity, add);
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
     translate_entity(adata, entity, add);
 
     if (entity->emiter != NULL) {
@@ -102,7 +103,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     }
 
     s_particle_src *src = get_emiter(adata, emiter_id);
-    do_particle_behavior(adata, src, mf26_particles_behavior);
+    do_particle_behavior(adata, src, entity, mf26_particles_behavior);
 
     sfClock_restart(entity->clock);
 }

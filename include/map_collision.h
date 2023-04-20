@@ -11,7 +11,7 @@
 
     #include "main.h"
 
-    sfVector2f is_map_colliding(s_appdata *adata, sfFloatRect hitbox,
+    sfVector2f is_map_colliding(s_appdata *adata, s_entity *entity,
     sfVector2f movement);
     linked_node *what_is_touching(s_appdata *adata, sfFloatRect hitbox);
 #endif

@@ -21,12 +21,12 @@ static void is_touching_wall(s_appdata *adata, sfFloatRect hitbox,
 linked_node **touchs)
 {
     linked_node *walls = adata->lists->walls;
-
     for (;walls != NULL; walls = walls->next) {
-        if (walls->data == NULL)
-            continue;
+        if (walls->data == NULL) continue;
         s_wall *cur = (s_wall *)walls->data;
         sfFloatRect rect = sfRectangleShape_getGlobalBounds(cur->hitbox->elem);
+        rect.left += adata->game_data->view_pos.x;
+        rect.top += adata->game_data->view_pos.y;
         if (hitbox.left == rect.left && hitbox.top == rect.top && hitbox.width
         == rect.width && hitbox.height == rect.height)
             continue;

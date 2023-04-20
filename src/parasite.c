@@ -231,12 +231,14 @@ void init_player(s_appdata *adata)
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
     player->health_rate = 5;
-    player->hitbox = (sfFloatRect){ 910, 490 , 100, 100 };
+    player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
+    490 + adata->game_data->view_pos.y, 100, 100 };
     player->transference_rate = 1;
     player->info_text = NULL;
     player->host = NULL;
     player->potential_host = NULL;
     player->solid = sfTrue;
+    player->transfered = sfFalse;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
@@ -302,6 +304,7 @@ void try_transference(s_appdata *adata)
         char *host_emiter_id = str_add(host->id, "@[:emiter]");
 
         host->inhabited = sfTrue;
+        player->transfered = sfTrue;
         player->body->active = 0;
         player->solid = sfFalse;
 
@@ -373,7 +376,7 @@ void update_host_controls(s_appdata *adata)
         add.y += host->speed;
     }
 
-    add = is_map_colliding(adata, get_entity_hitbox(adata, host), add);
+    add = is_map_colliding(adata, host, add);
 
     translate_entity(adata, host, add);
 

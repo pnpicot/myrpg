@@ -60,7 +60,7 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
 
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
-        add = is_map_colliding(adata, get_entity_hitbox(adata, entity), add);
+        add = is_map_colliding(adata, entity, add);
         translate_entity(adata, entity, add);
     } else {
         angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
