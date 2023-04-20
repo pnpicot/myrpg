@@ -241,7 +241,7 @@ char *skill_ctn, char *game_ctn)
     set_vertex_type(adata, id, sfLinesStrip);
     set_vertex_rtex(adata, id, rtex);
     resize_vertex(adata, id, 3);
-    color_vertex_all(adata, id, sfWhite);
+    color_vertex_all(adata, id, sfLightGray);
 
     s_ref ref = { get_vertex(adata, id), TYPE_VERTEX };
 

@@ -181,11 +181,11 @@ void init_live(s_appdata *adata)
 
     switch_state(adata, get_str(adata, "state_main"));
 
-    set_friction(adata, 6.0f);
-    set_max_speed(adata, 4000.0f);
-    set_velocity(adata, 60.0f);
+    set_friction(adata, 18.0f);
+    set_max_speed(adata, 1600.0f);
+    set_velocity(adata, 80.0f);
 
-    sfVector2f add = {600, 600};
+    sfVector2f add = { 600, 600 };
 
     sfVector2f shift;
     shift.x = add.x;
