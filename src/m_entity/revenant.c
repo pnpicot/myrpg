@@ -25,6 +25,8 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
     }
 
     if (entity->init) {
+        add_entity_float(adata, entity, "arm_cycle", 0);
+        add_entity_float(adata, entity, "arm_rot", 0);
         entity->init = sfFalse;
     }
 
@@ -44,5 +46,23 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
     rotate_entity_part_abs(adata, entity, "revenant_body", angle);
     rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle);
     rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle);
+
+    float arm_cycle = get_entity_float(entity, "arm_cycle")->value;
+    float arm_rot = get_entity_float(entity, "arm_rot")->value;
+
+    if (arm_cycle) {
+        add_to_entity_float(adata, entity, "arm_rot", 0.7f);
+        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle - arm_rot);
+        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
+    } else {
+        add_to_entity_float(adata, entity, "arm_rot", -4.5f);
+        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle - arm_rot);
+        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
+    }
+
+    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -20.0f && !arm_cycle)) {
+        set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
+    }
+
     sfClock_restart(entity->clock);
 }
