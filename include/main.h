@@ -566,6 +566,7 @@ typedef struct s_entity_s {
     float speed;
     sfBool inhabited;
     sfBool init;
+    sfBool dead;
     s_bar *hp_bar;
     linked_node *floats;
     sfBool orientated;
