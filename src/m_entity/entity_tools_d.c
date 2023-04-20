@@ -7,39 +7,26 @@
 
 #include "main.h"
 
-// ! Collision map, not sure to keep
-// void update_entity_collision_map(s_appdata *adata, s_entity *entity, sfVector2f pos_ch)
-// {
-//     if (entity->pos.x < 0 || entity->pos.y < 0 ||
-//     (entity->pos.x + pos_ch.x) < 0 || (entity->pos.y + pos_ch.y) < 0)
-//         return;
-//     for (int i = entity->pos.y; i < (entity->pos.y + entity->hitbox.height) && i > 0 && i < adata->game_data->col_map_size.y; i++) {
-//         for (int j = entity->pos.x; j < (entity->pos.x + entity->hitbox.width) && j > 0 && j < adata->game_data->col_map_size.x; j++) {
-//             adata->game_data->col_map[i][j] = NULL;
-//         }
-//     }
-//     for (int i = (entity->pos.y + entity->hitbox.height); i > entity->pos.y && i > 0 && i < adata->game_data->col_map_size.y; i--) {
-//         for (int j =  (entity->pos.x + entity->hitbox.width); j > entity->pos.x && j > 0 && j < adata->game_data->col_map_size.x; j--) {
-//             adata->game_data->col_map[i][j] = NULL;
-//         }
-//     }
-//     for (int i = (entity->pos.y + pos_ch.y); i < ((entity->pos.y + pos_ch.y) + entity->hitbox.height) && i > 0 && i < adata->game_data->col_map_size.y; i++) {
-//         for (int j = (entity->pos.x + pos_ch.x); j < ((entity->pos.x + pos_ch.x) + entity->hitbox.width) && j > 0 && j < adata->game_data->col_map_size.x; j++) {
-//             adata->game_data->col_map[i][j] = entity;
-//         }
-//     }
-//     for (int i = ((entity->pos.y + pos_ch.y) + entity->hitbox.height) ; i > (entity->pos.y + pos_ch.y) && i > 0 && i < adata->game_data->col_map_size.y; i--) {
-//         for (int j = ((entity->pos.x + pos_ch.x) + entity->hitbox.width); j > (entity->pos.x + pos_ch.x) && j > 0 && j < adata->game_data->col_map_size.x; j--) {
-//             adata->game_data->col_map[i][j] = entity;
-//         }
-//     }
-// }
+#warning Collision map, not sure to keep
+void update_entity_collision_map(s_appdata *adata, s_entity *entity, void *ptr)
+{
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
+
+    for (int i = hitbox.top; i < (hitbox.top + hitbox.height) && i > 0 &&
+    i < adata->game_data->col_map_size.y; i++) {
+        for (int j = hitbox.left; j < (hitbox.left + hitbox.width) && j > 0 &&
+        j < adata->game_data->col_map_size.x; j++) {
+            adata->game_data->col_map[i][j] = ptr;
+        }
+    }
+}
 
 void translate_entity(s_appdata *adata, s_entity *entity, sfVector2f pos_ch)
 {
-    // update_entity_collision_map(adata, entity, pos_ch);
+    update_entity_collision_map(adata, entity, NULL);
     entity->pos.x += pos_ch.x;
     entity->pos.y += pos_ch.y;
+    update_entity_collision_map(adata, entity, entity);
 
     linked_node *parts = entity->parts;
 

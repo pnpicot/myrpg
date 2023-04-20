@@ -287,6 +287,7 @@ typedef struct {
     sfBool show_quest;
     int nb_zones;
     s_zone **zones;
+    sfVector2f size_zone;
 } s_game;
 
 typedef struct {
@@ -569,6 +570,7 @@ typedef struct s_entity_s {
     float speed;
     sfBool inhabited;
     sfBool init;
+    sfBool dead;
     s_bar *hp_bar;
     linked_node *floats;
     sfBool orientated;

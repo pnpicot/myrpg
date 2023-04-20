@@ -14,7 +14,7 @@ sfVector2i end)
     sfIntRect hitbox = { entity->pos.x / (32 * zoom),
     entity->pos.y / (32 * zoom), 3, 3};
 
-    if (abs(hitbox.left - end.x) <= 5 && abs(hitbox.top - end.y) <= 5)
+    if (abs(hitbox.left - end.x) <= 0 && abs(hitbox.top - end.y) <= 0)
         return (NULL);
 
     sfVector2i size = {0};
@@ -49,10 +49,10 @@ sfVector2f use_path(s_appdata *adata, s_entity *entity)
 }
 
 void do_particle_behavior(s_appdata *adata, s_particle_src *src,
-void (*func)(s_appdata *adata, s_particle_src *particle_src,
+s_entity *entity, void (*func)(s_appdata *adata, s_entity *s_entity,
 s_particle *particle, linked_node *touchs))
 {
-    if (adata == NULL || src == NULL || func == NULL)
+    if (adata == NULL || src == NULL || entity == NULL || func == NULL)
         return;
     linked_node *node = src->particle_pool;
 
@@ -66,7 +66,7 @@ s_particle *particle, linked_node *touchs))
         linked_node *touchs = what_is_touching(adata, bounds);
 
         if (touchs != NULL && touchs->data != NULL)
-            func(adata, src, part, touchs);
+            func(adata, entity, part, touchs);
 
         free_ll_and_data(&touchs);
     }

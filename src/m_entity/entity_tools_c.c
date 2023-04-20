@@ -36,10 +36,10 @@ void (*emiter)(s_appdata *adata, s_entity *s_entity))
 sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
 {
     sfFloatRect hitbox =
-    {.left = entity->pos.x + entity->hitbox.left - adata->game_data->view_pos.x
-    - entity->hitbox.width * entity->scale / 2,
-    .top = entity->pos.y + entity->hitbox.top - adata->game_data->view_pos.y
-    - entity->hitbox.height * entity->scale / 2 ,
+    {.left = entity->pos.x + (entity->hitbox.left * entity->scale)
+    - (entity->hitbox.width * entity->scale / 2),
+    .top = entity->pos.y + (entity->hitbox.top * entity->scale)
+    - (entity->hitbox.height * entity->scale / 2),
     .width = entity->hitbox.width * entity->scale,
     .height = entity->hitbox.height * entity->scale};
     return (hitbox);
@@ -49,7 +49,8 @@ void update_entity_bar(s_appdata *adata, s_entity *entity)
 {
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    sfVector2f pos = sfSprite_getPosition(((s_entity_part *) entity->parts->data)->sprite->elem);
+    sfVector2f pos = sfSprite_getPosition(((s_entity_part *)
+    entity->parts->data)->sprite->elem);
 
     pos.y -= 120.0f;
 

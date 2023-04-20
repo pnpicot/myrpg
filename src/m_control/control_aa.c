@@ -29,7 +29,17 @@ float delta, s_clocks *clocks)
     if (next_pos.y > (game_data->map_height * 32 * zoom) - win_h) add.y = 0;
 
     if (player->solid)
-        add = is_map_colliding(adata, adata->player->hitbox, add);
+        add = is_map_colliding(adata, NULL, add);
+
+    for (int i = adata->player->hitbox.top; i < (adata->player->hitbox.top +
+    adata->player->hitbox.height) && i > 0 &&
+    i < adata->game_data->col_map_size.y; i++) {
+        for (int j = adata->player->hitbox.left; j < (adata->player->hitbox.left
+        + adata->player->hitbox.width) && j > 0 &&
+        j < adata->game_data->col_map_size.x; j++) {
+            adata->game_data->col_map[i][j] = NULL;
+        }
+    }
 
     sfVector2f shift;
     shift.x = -add.x;
@@ -40,6 +50,19 @@ float delta, s_clocks *clocks)
     move_gameobject_walls(adata, shift);
     game_data->view_pos.x += add.x;
     game_data->view_pos.y += add.y;
+
+    adata->player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
+    490 + adata->game_data->view_pos.y, 100, 100 };
+    for (int i = adata->player->hitbox.top; i < (adata->player->hitbox.top +
+    adata->player->hitbox.height) && i > 0 &&
+    i < adata->game_data->col_map_size.y; i++) {
+        for (int j = adata->player->hitbox.left; j < (adata->player->hitbox.left
+        + adata->player->hitbox.width) && j > 0 &&
+        j < adata->game_data->col_map_size.x; j++) {
+            adata->game_data->col_map[i][j] = (s_entity *)2;
+        }
+    }
+
     sfMouseMoveEvent ms;
     ms.type = sfEvtMouseMoved;
     ms.x = 0;

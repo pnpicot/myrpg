@@ -64,6 +64,8 @@ void move_camera(s_appdata *adata, sfVector2f pos)
     move_gameobject_walls(adata, shift);
 
     game_data->view_pos = pos;
+    adata->player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
+    490 + adata->game_data->view_pos.y, 100, 100 };
 
     sfMouseMoveEvent ms;
     ms.type = sfEvtMouseMoved;

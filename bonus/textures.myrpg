@@ -31,6 +31,9 @@ p800_body = p800_body.png
 p800_right_blade = p800_right_blade.png
 p800_left_blade = p800_left_blade.png
 epitech = epitech.png
+revenant_body = revenant_body.png
+revenant_right_arm = revenant_right_arm.png
+revenant_left_arm = revenant_left_arm.png
 
 # -- lp230 -- begin
 lp230_body = lp230-body.png

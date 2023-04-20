@@ -39,6 +39,53 @@ float update_rate, float render_rate)
         update(adata, update_rate);
         render(adata, render_rate);
 
+        // #warning TEMPORARY
+
+        // static sfRenderTexture *rtext = NULL;
+        // static sfVertexArray *varray = NULL;
+        // static sfSprite *sprite = NULL;
+        // static int anti_lag = 0;
+        // if (rtext == NULL) {
+        //     rtext = sfRenderTexture_create(adata->game_data->col_map_size.x, adata->game_data->col_map_size.y, 0);
+        // }
+        // if (varray == NULL) {
+        //     varray = sfVertexArray_create();
+        //     sfVertexArray_setPrimitiveType(varray, sfPoints);
+        // }
+        // if (sprite == NULL) {
+        //     sprite = sfSprite_create();
+        // }
+
+        // if (anti_lag == 0) {
+        //     sfVertexArray_clear(varray);
+        //     for (int i = adata->game_data->col_map_size.y - 1; i >= 0; i--) {
+        //         if (i % 8 != 0)
+        //             continue;
+        //         for (int j = adata->game_data->col_map_size.x - 1; j >= 0; j--) {
+        //             if (j % 8 != 0)
+        //                 continue;
+        //             if (adata->game_data->col_map[i][j] != NULL) {
+        //                 sfVertexArray_append(varray, (sfVertex) {
+        //                     .position = (sfVector2f) {j, i},
+        //                     .color = sfRed
+        //                 });
+        //             }
+        //         }
+        //     }
+
+        //     sfRenderTexture_clear(rtext, sfTransparent);
+        //     sfRenderTexture_drawVertexArray(rtext, varray, NULL);
+        //     sfRenderTexture_display(rtext);
+        //     sfSprite_setTexture(sprite, sfRenderTexture_getTexture(rtext), sfTrue);
+        // }
+
+        // anti_lag = (anti_lag + 1) % 25;
+        // sfSprite_setPosition(sprite, (sfVector2f){-adata->game_data->view_pos.x,
+        // -adata->game_data->view_pos.y});
+        // sfRenderWindow_drawSprite(adata->win, sprite, NULL);
+
+        // #warning TEMPORARY
+
         sfRenderWindow_display(adata->win);
         sfClock_restart(clocks->app_clock);
     }

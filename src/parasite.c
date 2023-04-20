@@ -231,7 +231,8 @@ void init_player(s_appdata *adata)
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
     player->health_rate = 5;
-    player->hitbox = (sfFloatRect){ 910, 490 , 100, 100 };
+    player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
+    490 + adata->game_data->view_pos.y, 100, 100 };
     player->transference_rate = 1;
     player->info_text = NULL;
     player->host = NULL;
@@ -375,7 +376,7 @@ void update_host_controls(s_appdata *adata)
         add.y += host->speed;
     }
 
-    add = is_map_colliding(adata, get_entity_hitbox(adata, host), add);
+    add = is_map_colliding(adata, host, add);
 
     translate_entity(adata, host, add);
 

@@ -61,7 +61,9 @@ void update_entities(s_appdata *adata)
     while (entities != NULL && entities->data != NULL) {
         s_entity *cur = (s_entity *) entities->data;
 
-        if (cur->hp <= 0) {
+        if (cur->dead == 0 && cur->hp <= 0) {
+            cur->dead = 1;
+            update_entity_collision_map(adata, cur, NULL);
             set_bar_active(adata, cur->hp_bar->id, sfFalse);
             linked_node *parts = cur->parts;
             while (parts != NULL && parts->data != NULL) {
@@ -79,10 +81,11 @@ void update_entities(s_appdata *adata)
             free(cur);
             continue;
         }
+        if (cur->dead == 0) {
+            update_zone(adata, cur);
 
-        update_zone(adata, cur);
-
-        (*cur->behavior)(adata, cur);
+            (*cur->behavior)(adata, cur);
+        }
 
         ite++;
         entities = entities->next;
@@ -96,6 +99,7 @@ void init_entity_behaviors(s_appdata *adata)
     set_entity_behavior(adata, "p800", &behavior_p800);
     set_entity_behavior(adata, "lmx2", &behavior_lmx2);
     set_entity_behavior(adata, "lp230", &behavior_lp230);
+    set_entity_behavior(adata, "revenant", &behavior_revenant);
 }
 
 void init_entity_emiters(s_appdata *adata)
