@@ -12,8 +12,9 @@ void init_zones(s_appdata *adata, int size)
     adata->game_data->nb_zones = size;
 
     float zoom = get_float(adata, "zoom");
-    float width = (adata->game_data->map_width * 32 * zoom) / size;
-    float height = (adata->game_data->map_height * 32 * zoom) / size;
+    adata->game_data->size_zone.x = (adata->game_data->map_width * 32 * zoom) / size;
+    adata->game_data->size_zone.y = (adata->game_data->map_height * 32 * zoom) / size;
+
     s_zone **zones = malloc(sizeof(s_zone) * size * size);
 
     for (int i = 0; i < size; i++) {

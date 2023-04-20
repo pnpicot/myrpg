@@ -7,14 +7,23 @@
 
 #include "main.h"
 
-sfVector2f agro(s_appdata *adata, s_entity *entity)
+s_zone *get_zone(s_appdata *adata, char *id)
 {
-    s_zone *zone = entity->zone;
+    s_zone **zones = adata->game_data->zones;
+    int i = 0;
 
+    while (zones[i] != NULL) {
+        if (!my_strcmp(id, zones[i]->id)) {
+            return (zones[i]);
+        }
+        i++;
+    }
+}
+
+sfVector2f get_path(s_appdata *adata, s_entity *entity, s_zone *zone)
+{
     linked_node *entities = zone->entities;
-
     float zoom = get_float(adata, "zoom");
-    s_game *game_data = adata->game_data;
 
     while (entities != NULL && entities->data != NULL) {
         s_entity *cur = (s_entity *) entities->data;
@@ -32,6 +41,53 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         }
         entities = entities->next;
     }
-    
+
+    return ((sfVector2f) {-1.0f, -1.0f});
+}
+
+sfVector2f agro(s_appdata *adata, s_entity *entity)
+{
+    sfVector2i pos;
+    pos.x = my_getnbr(&entity->zone->id[5]);
+    pos.y = my_getnbr(&entity->zone->id[6]);
+
+    int len_zone_check = entity->agro_length / adata->game_data->size_zone.y + 1;
+    int nb_zone_check = 8 * len_zone_check;
+    printf("nb zone = %d\n", nb_zone_check);
+
+    s_zone *zone = entity->zone;
+    sfVector2f path = get_path(adata, entity, zone);
+    if (path.x != -1.0f && path.y != -1.0f) {
+        return (path);
+    }
+
+    pos.x--;
+    pos.y--;
+    int origin_x = pos.x;
+    int origin_y = pos.y;
+    char *next_zone_id = str_m_add(3, "zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
+    printf("%s\n", next_zone_id);
+    zone = get_zone(adata, next_zone_id);
+
+    for (int i = 0; i < nb_zone_check - 1; i++) {
+        sfVector2f path = get_path(adata, entity, zone);
+        if (path.x != -1.0f && path.y != -1.0f) {
+            return (path);
+        }
+
+        pos.x++;
+        if (pos.x == adata->game_data->nb_zones) {
+            pos.x = origin_x;
+            pos.y++;
+        }
+        
+
+        char *next_zone_id = str_m_add(3,"zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
+        printf("%s\n", next_zone_id);
+        zone = get_zone(adata, next_zone_id);
+    }
+
+    printf("pute\n");
+
     return ((sfVector2f) {-1.0f, -1.0f});
 }

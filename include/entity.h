@@ -55,4 +55,4 @@ sfVector2f agro(s_appdata *adata, s_entity *entity);
 linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
 sfVector2i end);
 sfVector2f use_path(s_appdata *adata, s_entity *entity);
-
+void behavior_revenant(s_appdata *adata, s_entity *entity);

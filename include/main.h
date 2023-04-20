@@ -286,6 +286,7 @@ typedef struct {
     sfBool show_quest;
     int nb_zones;
     s_zone **zones;
+    sfVector2f size_zone;
 } s_game;
 
 typedef struct {

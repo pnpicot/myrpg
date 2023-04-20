@@ -14,7 +14,7 @@ sfVector2i end)
     sfIntRect hitbox = { entity->pos.x / (32 * zoom),
     entity->pos.y / (32 * zoom), 3, 3};
 
-    if (abs(hitbox.left - end.x) <= 5 && abs(hitbox.top - end.y) <= 5)
+    if (abs(hitbox.left - end.x) <= 0 && abs(hitbox.top - end.y) <= 0)
         return (NULL);
 
     sfVector2i size = {0};

@@ -96,6 +96,7 @@ void init_entity_behaviors(s_appdata *adata)
     set_entity_behavior(adata, "p800", &behavior_p800);
     set_entity_behavior(adata, "lmx2", &behavior_lmx2);
     set_entity_behavior(adata, "lp230", &behavior_lp230);
+    set_entity_behavior(adata, "revenant", &behavior_revenant);
 }
 
 void init_entity_emiters(s_appdata *adata)
