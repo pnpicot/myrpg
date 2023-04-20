@@ -33,8 +33,8 @@ void update_zone(s_appdata *adata, s_entity *entity)
 
     pos_zone.x = pos.x / ((adata->game_data->map_width * 32 * zoom) / adata->game_data->nb_zones);
     pos_zone.y = pos.y / ((adata->game_data->map_height * 32 * zoom) / adata->game_data->nb_zones);
-    pos_zone.x = f_min(adata->game_data->nb_zones - 1, (0, pos_zone.x));
-    pos_zone.y = f_min(adata->game_data->nb_zones - 1, (0, pos_zone.y));
+    pos_zone.x = MIN(adata->game_data->nb_zones - 1, MAX(0, pos_zone.x));
+    pos_zone.y = MIN(adata->game_data->nb_zones - 1, MAX(0, pos_zone.y));
 
     int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
 

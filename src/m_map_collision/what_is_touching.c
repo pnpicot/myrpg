@@ -32,8 +32,9 @@ linked_node **node)
         add_it(node, TOUCH_WALL, NULL);
         return;
     }
-    if (act_entity == (s_entity *)2 && adata->player->host != NULL) {
-        add_it(node, TOUCH_PARASITE, NULL);
+    if (act_entity == (s_entity *)2) {
+        if (adata->player->host != NULL)
+            add_it(node, TOUCH_PARASITE, NULL);
         return;
     }
     if (act_entity->dead == 1)

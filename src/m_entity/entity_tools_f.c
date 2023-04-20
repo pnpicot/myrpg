@@ -36,7 +36,7 @@ sfVector2f use_path(s_appdata *adata, s_entity *entity)
         path.y = ((sfIntRect *)entity->path->data)->top;
         if ((path.x >= 0 || start.x <= ((sfIntRect *)entity->path->data)->width)
         &&
-        (path.x <= 0 || start.x >= ((sfIntRect *)entity->path->data)->width) &&
+        (path.x <= 0 || start.x >= ((sfIntRect *)entity->path->data)-> width) &&
         (path.y >= 0 || start.y <= ((sfIntRect *)entity->path->data)->height) &&
         (path.y <= 0 || start.y >= ((sfIntRect *)entity->path->data)->height)) {
             free(entity->path->data);

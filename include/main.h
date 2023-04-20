@@ -48,6 +48,9 @@
 
 #define M_PI 3.14159265358979323846
 
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 typedef struct {
     int exit_status;
     int min_layer;
@@ -577,6 +580,8 @@ typedef struct s_entity_s {
     s_zone *zone;
     float damage;
     float agro_length;
+    sfVector2f move_now;
+    struct s_entity_s *move_now_entity;
 } s_entity;
 
 typedef enum {
