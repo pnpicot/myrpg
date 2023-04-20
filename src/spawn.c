@@ -125,6 +125,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->floats = linked_new();
     new_entity->orientated = model->orientated;
     new_entity->agro_length = model->agro_length;
+    new_entity->damage = model->damage;
     new_entity->pos = (sfVector2f) { 0, 0 };
     new_entity->zone = NULL;
 
