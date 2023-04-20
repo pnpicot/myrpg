@@ -12,7 +12,7 @@ void delete_music(s_appdata *adata, char *id)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *musics = adata->lists->musics;
@@ -34,19 +34,19 @@ void add_music(s_appdata *adata, char *id, char *filename)
     s_music *music = get_music(adata, id);
 
     if (music != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     struct stat buffer;
     char *path = str_add("bonus/audios/", filename);
     if (stat(path, &buffer) == -1) {
-        my_printf(get_error(adata, "no_file"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "no_file"));
         free(path);
         return;
     }
     s_music *new_music = malloc(sizeof(s_music));
     if (new_music == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         free(path);
         return;
     }
@@ -60,7 +60,7 @@ void add_sound_next(s_appdata *adata, char *path, char *id)
 {
     s_sound *new_sound = malloc(sizeof(s_sound));
     if (new_sound == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         free(path);
         return;
     }
@@ -76,13 +76,13 @@ void add_sound(s_appdata *adata, char *id, char *filename)
 {
     s_sound *sound = get_sound(adata, id);
     if (sound != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     struct stat buffer;
     char *path = str_add("bonus/audios/", filename);
     if (stat(path, &buffer) == -1) {
-        my_printf(get_error(adata, "no_file"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "no_file"));
         free(path);
         return;
     }

@@ -12,7 +12,7 @@ void set_emiter_particle_lifetime(s_appdata *adata, char *id, int life_time)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +24,7 @@ void set_emiter_particle_max(s_appdata *adata, char *id, int max)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +36,7 @@ void set_emiter_gameobject(s_appdata *adata, char *id, sfBool game_obj)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -48,7 +48,7 @@ void set_emiter_model(s_appdata *adata, char *id, char *texture_id)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -69,7 +69,7 @@ void set_emiter_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (emiter == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -27,7 +27,7 @@ void delete_quest(s_appdata *adata, char *id)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,14 +51,14 @@ void add_quest(s_appdata *adata, char *id)
     s_quest *quest = get_quest(adata, id);
 
     if (quest != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
     s_quest *new_quest = malloc(sizeof(s_quest));
 
     if (new_quest == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -80,7 +80,7 @@ void set_quest_completed(s_appdata *adata, char *id, sfBool completed)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -93,7 +93,7 @@ void (*completion_check)(s_appdata *adata, s_quest *quest))
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -105,7 +105,7 @@ void set_quest_title(s_appdata *adata, char *id, char *title)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -117,7 +117,7 @@ void set_quest_text(s_appdata *adata, char *id, char *text)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -129,7 +129,7 @@ void set_quest_icon(s_appdata *adata, char *id, sfTexture *texture)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

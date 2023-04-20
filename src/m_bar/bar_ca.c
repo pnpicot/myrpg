@@ -32,12 +32,12 @@ void add_bar(s_appdata *adata, char *id, int layer)
     s_bar *bar = get_bar(adata, id);
 
     if (bar != NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     s_bar *new_bar = malloc(sizeof(s_bar));
     if (new_bar == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     new_bar->id = id;
@@ -57,7 +57,7 @@ void set_bar_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (bar == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -72,7 +72,7 @@ void move_bar(s_appdata *adata, char *id, sfVector2f pos)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -85,7 +85,7 @@ void translate_bar(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

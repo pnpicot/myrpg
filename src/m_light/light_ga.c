@@ -12,7 +12,7 @@ sfBool get_light_active(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (sfFalse);
     }
 
@@ -24,7 +24,7 @@ void toggle_light(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

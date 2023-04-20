@@ -12,7 +12,7 @@ void set_lightblend_rtex(s_appdata *adata, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +24,7 @@ void set_light_rtex(s_appdata *adata, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +36,7 @@ void set_lightres_rtex(s_appdata *adata, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -63,7 +63,7 @@ void delete_light(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

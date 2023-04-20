@@ -18,6 +18,8 @@ s_zone *get_zone(s_appdata *adata, char *id)
         }
         i++;
     }
+
+    return (NULL);
 }
 
 sfVector2f get_path(s_appdata *adata, s_entity *entity, s_zone *zone)
@@ -86,7 +88,6 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
             pos.x = origin_x_corner;
             pos.y += adata->game_data->nb_zones == pos.y + 1 ? 0 : 1;
         }
-        
 
         char *next_zone_id = str_m_add(3,"zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
         zone = get_zone(adata, next_zone_id);

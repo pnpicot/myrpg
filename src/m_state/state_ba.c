@@ -27,7 +27,7 @@ void delete_state(s_appdata *adata, char *id)
     s_state *state = get_state(adata, id);
 
     if (state == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,7 +51,7 @@ void set_state_container(s_appdata *adata, char *id, s_container *container)
     s_state *state = get_state(adata, id);
 
     if (state == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -63,7 +63,7 @@ void add_state_rtex(s_appdata *adata, char *id, s_rtex *rtex)
     s_state *state = get_state(adata, id);
 
     if (state == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -75,7 +75,7 @@ void set_state_ingame(s_appdata *adata, char *id, sfBool in_game)
     s_state *state = get_state(adata, id);
 
     if (state == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -12,7 +12,7 @@ sfVector2f get_switch_origin(s_appdata *adata, char *id)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 

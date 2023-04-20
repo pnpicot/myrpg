@@ -12,7 +12,7 @@ void set_animation_mode(s_appdata *adata, char *sprite_id, int mode)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
