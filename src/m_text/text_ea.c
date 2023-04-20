@@ -12,7 +12,7 @@ sfColor get_text_color(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (sfBlack);
     }
 
@@ -24,7 +24,7 @@ sfVector2f get_text_scale(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -36,7 +36,7 @@ float get_text_rotation(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -48,7 +48,7 @@ void set_text_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -60,7 +60,7 @@ sfVector2f get_text_origin(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 

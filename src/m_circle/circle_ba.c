@@ -26,7 +26,7 @@ void delete_circle(s_appdata *adata, char *id)
 {
     s_circle *circle = get_circle(adata, id);
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *circles = adata->lists->circles;
@@ -47,12 +47,12 @@ void add_circle(s_appdata *adata, char *id, int layer)
 {
     s_circle *circle = get_circle(adata, id);
     if (circle != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_circle *new_circle = malloc(sizeof(s_circle));
     if (new_circle == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     s_ints *integers = adata->integers;
@@ -74,7 +74,7 @@ void set_circle_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (circle == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -86,7 +86,7 @@ void set_circle_active(s_appdata *adata, char *id, sfUint8 active)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

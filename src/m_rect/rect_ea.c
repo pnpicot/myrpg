@@ -12,7 +12,7 @@ void set_rect_active(s_appdata *adata, char *id, sfUint8 active)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +24,7 @@ sfUint8 get_rect_active(s_appdata *adata, char *id)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (0);
     }
 

@@ -215,7 +215,7 @@ void init_player(s_appdata *adata)
     adata->player = malloc(sizeof(s_player));
 
     if (adata->player == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 

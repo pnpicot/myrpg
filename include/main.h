@@ -577,16 +577,14 @@ typedef struct s_entity_s {
     float agro_length;
 } s_entity;
 
-typedef struct {
-    enum touch_type {
+typedef enum {
         TOUCH_WALL,
         TOUCH_ENTITY,
         TOUCH_PARASITE
-    } touch_type;
-    union {
-        s_wall *wall;
-        s_entity *entity;
-    };
+    } touch_type_t;
+typedef struct {
+    touch_type_t touch_type;
+    s_entity *entity;
 } s_touch_t;
 
 typedef struct s_quest_s {

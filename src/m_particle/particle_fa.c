@@ -35,12 +35,12 @@ void add_emiter(s_appdata *adata, char *id)
 {
     s_particle_src *emiter = get_emiter(adata, id);
     if (emiter != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_particle_src *new_emiter = malloc(sizeof(s_particle_src));
     if (new_emiter == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_emiter_first(adata, id, new_emiter);
@@ -60,7 +60,7 @@ void set_emiter_cone(s_appdata *adata, char *id, sfVector2f angle_range)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -72,7 +72,7 @@ void set_emiter_colors(s_appdata *adata, char *id, sfColor start, sfColor end)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -85,7 +85,7 @@ void set_emiter_lerp_factor(s_appdata *adata, char *id, float lerp_factor)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -12,7 +12,7 @@ int get_slider_value(s_appdata *adata, char *id)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -37,7 +37,7 @@ void delete_slider(s_appdata *adata, char *id)
 {
     s_slider *slider = get_slider(adata, id);
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *sliders = adata->lists->sliders;
@@ -59,7 +59,7 @@ void set_slider_min(s_appdata *adata, char *id, int min)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -76,7 +76,7 @@ void set_slider_max(s_appdata *adata, char *id, int max)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

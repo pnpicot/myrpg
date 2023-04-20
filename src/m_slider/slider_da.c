@@ -58,7 +58,7 @@ void slider_change(s_appdata *adata, char *id)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -75,7 +75,7 @@ void (*on_change)(s_appdata *adata, s_ref *ref))
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

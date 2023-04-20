@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-void is_map_colliding_horizontal(s_appdata *adata, s_entity *act_entity,
+static void is_map_colliding_horizontal(s_appdata *adata, s_entity *act_entity,
 s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
@@ -17,7 +17,7 @@ s_entity *entity, sfVector2f *movement)
     movement->x = 0;
 }
 
-void is_map_colliding_vertical(s_appdata *adata, s_entity *act_entity,
+static void is_map_colliding_vertical(s_appdata *adata, s_entity *act_entity,
 s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
@@ -27,7 +27,7 @@ s_entity *entity, sfVector2f *movement)
     movement->y = 0;
 }
 
-void is_map_colliding_base_hitbox(s_appdata *adata, s_entity *act_entity,
+static void is_map_colliding_base_hitbox(s_appdata *adata, s_entity *act_entity,
 s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
@@ -38,9 +38,9 @@ s_entity *entity, sfVector2f *movement)
     movement->y = 0;
 }
 
-sfVector2f do_loop(s_appdata *adata, s_entity *entity, sfFloatRect rmovement,
-void (*func)(s_appdata *adata, s_entity *act_entity, s_entity *entity,
-sfVector2f *movement))
+static sfVector2f do_loop(s_appdata *adata, s_entity *entity,
+sfFloatRect rmovement, void (*func)(s_appdata *adata, s_entity *act_entity,
+s_entity *entity, sfVector2f *movement))
 {
     sfFloatRect hitbox = {0, 0, 0, 0};
     sfVector2f movement = {rmovement.left, rmovement.top};

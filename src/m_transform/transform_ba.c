@@ -36,7 +36,7 @@ void delete_transform(s_appdata *adata, char *id)
 {
     s_transform *transform = get_transform(adata, id);
     if (transform == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *transforms = adata->lists->transforms;

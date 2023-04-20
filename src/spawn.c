@@ -39,7 +39,7 @@ s_entity_part *copy_entity_part(s_appdata *adata, s_entity_part *part)
     s_entity_part *new_part = malloc(sizeof(s_entity_part));
 
     if (new_part == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return (NULL);
     }
 
@@ -100,7 +100,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     s_entity *new_entity = malloc(sizeof(s_entity));
 
     if (new_entity == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return (NULL);
     }
 
@@ -142,6 +142,7 @@ s_zone *fill_zone(s_appdata *adata, s_entity *entity, sfVector2f pos)
     pos_zone.y = f_min(adata->game_data->nb_zones - 1, f_max(0, pos_zone.y));
 
     int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
+    printf("%p\n", adata->game_data->zones[index]);
     linked_add(adata->game_data->zones[index]->entities, entity);
 
     return (adata->game_data->zones[index]);

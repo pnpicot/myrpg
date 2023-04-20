@@ -46,7 +46,7 @@ void try_new_particle(s_appdata *adata, s_particle_src *emiter)
     if (rand_float(0, 100.0f) > emiter->spawn_chance * seconds * 5000) return;
     s_particle *new_particle = malloc(sizeof(s_particle));
     if (new_particle == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     new_particle->active = 1;
@@ -80,7 +80,7 @@ void accelerate_emiter(s_appdata *adata, char *id, int cycles)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

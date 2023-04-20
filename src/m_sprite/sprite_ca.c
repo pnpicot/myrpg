@@ -12,7 +12,7 @@ void move_sprite(s_appdata *adata, char *id, sfVector2f pos)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,7 +26,7 @@ void set_sprite_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +38,7 @@ void set_sprite_rect(s_appdata *adata, char *id, sfIntRect rect)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +50,7 @@ sfVector2f get_sprite_pos(s_appdata *adata, char *id)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -62,7 +62,7 @@ void translate_sprite(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -97,12 +97,12 @@ void add_light(s_appdata *adata, char *id)
 {
     s_light *light = get_light(adata, id);
     if (light != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_light *new_light = malloc(sizeof(s_light));
     if (new_light == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_light_next(adata, id, new_light);

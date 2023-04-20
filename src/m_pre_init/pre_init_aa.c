@@ -35,7 +35,7 @@ void init_gamedata(s_appdata *adata)
     adata->game_data = malloc(sizeof(s_game));
 
     if (adata->game_data == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 

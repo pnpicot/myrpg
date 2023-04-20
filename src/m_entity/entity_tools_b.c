@@ -18,7 +18,7 @@ void add_entity_part(s_appdata *adata, char **entry)
     sfTexture *tex = get_texture(adata, tex_id);
 
     if (model == NULL || tex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,14 +26,14 @@ void add_entity_part(s_appdata *adata, char **entry)
     s_entity_part *part = get_entity_model_part(adata, model_id, part_id);
 
     if (part != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
     s_entity_part *new_part = malloc(sizeof(s_entity_part));
 
     if (new_part == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -83,7 +83,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     s_entity *model = get_entity_model(adata, model_id);
 
     if (model != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
@@ -91,14 +91,14 @@ void add_entity_model(s_appdata *adata, char **entry)
     s_faction *faction = get_faction(adata, faction_id);
 
     if (faction == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
     s_entity *new_model = malloc(sizeof(s_entity));
 
     if (new_model == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 

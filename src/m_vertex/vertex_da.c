@@ -12,7 +12,7 @@ void translate_vertex_all(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -30,7 +30,7 @@ void color_vertex_all(s_appdata *adata, char *id, sfColor color)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -47,7 +47,7 @@ int get_vertex_size(s_appdata *adata, char *id)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -59,7 +59,7 @@ sfVector2f get_vertex_pos(s_appdata *adata, char *id, int index)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -80,7 +80,7 @@ sfColor get_vertex_color(s_appdata *adata, char *id, int index)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (sfBlack);
     }
 

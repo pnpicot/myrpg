@@ -13,7 +13,7 @@ float value)
     s_float *tmp_float = get_entity_float(entity, id);
 
     if (tmp_float == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -27,14 +27,14 @@ float default_value)
     s_float *tmp_float = get_entity_float(entity, id);
 
     if (tmp_float != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
     s_float *new_float = malloc(sizeof(s_float));
 
     if (new_float == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -50,7 +50,7 @@ float value)
     s_float *tmp_float = get_entity_float(entity, id);
 
     if (tmp_float == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

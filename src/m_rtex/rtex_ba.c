@@ -57,12 +57,12 @@ void add_rtex(s_appdata *adata, char *id, int depth)
 {
     s_rtex *rtex = get_rtex(adata, id);
     if (rtex != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_rtex *new_rtex = malloc(sizeof(s_rtex));
     if (new_rtex == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_rtex_next(adata, id, depth, new_rtex);
@@ -72,7 +72,7 @@ void delete_rtex(s_appdata *adata, char *id)
 {
     s_rtex *rtex = get_rtex(adata, id);
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *rtexs = adata->lists->rtexs;
