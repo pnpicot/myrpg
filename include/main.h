@@ -277,6 +277,7 @@ typedef struct {
     linked_node *factions;
     linked_node *syringes;
     linked_node *quests;
+    linked_node *skill_trees;
     int map_width;
     int map_height;
     char **map;
@@ -599,6 +600,18 @@ typedef struct s_quest_s {
     sfBool completed;
 } s_quest;
 
+typedef struct s_skill_node_s {
+    char *id;
+    sfTexture *icon;
+    char *name;
+    int level;
+} s_skill_node;
+
+typedef struct {
+    char *id;
+    linked_node *nodes;
+} s_skill_tree;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -663,3 +676,4 @@ typedef struct s_quest_s {
 #include "destroy.h"
 #include "console.h"
 #include "quest.h"
+#include "skill_tree.h"

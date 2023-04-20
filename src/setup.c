@@ -149,6 +149,7 @@ void init_live_states(s_appdata *adata)
     set_state_container(adata, settings_state, get_container(adata, settings_ctn));
 
     add_container(adata, get_str(adata, "ctn_quest"));
+    add_container(adata, get_str(adata, "ctn_skill"));
 
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_game));
@@ -176,6 +177,7 @@ void init_live(s_appdata *adata)
     init_quests(adata);
     init_quest_ui(adata);
     init_zones(adata, 5);
+    init_skill_tree(adata);
 
     switch_state(adata, get_str(adata, "state_main"));
 
