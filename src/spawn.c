@@ -142,7 +142,6 @@ s_zone *fill_zone(s_appdata *adata, s_entity *entity, sfVector2f pos)
     pos_zone.y = f_min(adata->game_data->nb_zones - 1, f_max(0, pos_zone.y));
 
     int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
-    printf("%p\n", adata->game_data->zones[index]);
     linked_add(adata->game_data->zones[index]->entities, entity);
 
     return (adata->game_data->zones[index]);
