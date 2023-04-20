@@ -13,8 +13,8 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
 
     sfVector2f path = { 0, 0 };
     sfVector2i end;
-    end.x = 33;
-    end.y = 33;
+    end.x = 125;
+    end.y = 125;
     sfVector2f agro_path = agro(adata, entity);
     if (agro_path.x == -1.0f && agro_path.y == -1.0f)
         path = get_way(adata, entity, end);

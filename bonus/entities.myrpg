@@ -5,36 +5,36 @@
 # -- factions -- begin
 faction droids 1000 1500 500 50
 faction insect 10000 1000 500 50
-faction piaf 1000 10000 500 50
-faction drone 10000 10000 500 50
-faction forgotten 10000 10000 500 50
+faction piaf 1000 11000 500 50
+faction drone 11000 11000 500 50
+faction forgotten 6000 6000 500 50
 # -- factions -- end
 
 # -- entities -- begin
-entity droids mf26 2.0f 0.10f 500 20.0f 0.50f 1 2000.0f
+entity droids mf26 2.0f 0.10f 500 200.0f 0.50f 1 2000.0f
 part mf26 1 body mf26_body 37 44 0 0
 
-entity insect p800 2.0f 0.05f 500 20.0f 0.40f 1 2000.0f
+entity insect p800 2.0f 0.05f 500 200.0f 0.40f 1 2000.0f
 part p800 3 p800_body p800_body 32 32 0 0 
 part p800 2 p800_right_blade p800_right_blade 32 32 0 0 
 part p800 1 p800_left_blade p800_left_blade 32 32 0 0
 
-entity piaf lmx2 2.0f 0.10f 500 20.0f 3.12f 1 2000.0f
+entity piaf lmx2 2.0f 0.10f 500 200.0f 3.12f 1 2000.0f
 part lmx2 1 lmx2_body lmx2 31 12 0 0
 
-entity drone z200 2.0f 0.10f 500 20.0f 3.12f 0 2000.0f
+entity drone z200 2.0f 0.10f 500 200.0f 3.12f 0 2000.0f
 part z200 1 chassis Z200_chassis 32 32 0 0 
 part z200 4 rotors Z200_rotors 32 32 0 0 
 part z200 3 blades_1 Z200_blades 32 32 0 0 
 part z200 2 blades_2 Z200_blades 32 32 0 0 
 
-entity insect lp230 2.0f 0.12f 800 20.0f 0.80f 1 2000.0f
+entity insect lp230 2.0f 0.12f 800 200.0f 0.80f 1 2000.0f
 part lp230 1 lp230_legs_first lp230_legs 32 32 0 0 
 part lp230 2 lp230_legs_second lp230_legs 32 32 0 0 
 part lp230 3 lp230_body lp230_body 32 32 0 0 
 part lp230 4 lp230_canon lp230_canon 32 32 0 0 
 
-entity forgotten revenant 2.0f 0.12f 800 20.0f 1.0f 1 2000.0f
+entity forgotten revenant 2.0f 0.12f 800 200.0f 1.0f 1 2000.0f
 part revenant 3 revenant_body revenant_body 32 32 0 0 
 part revenant 2 revenant_right_arm revenant_right_arm 32 32 0 0 
 part revenant 1 revenant_left_arm revenant_left_arm 32 32 0 0 
