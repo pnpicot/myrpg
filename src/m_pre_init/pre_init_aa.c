@@ -54,6 +54,7 @@ void init_gamedata(s_appdata *adata)
     game_data->factions = linked_new();
     game_data->syringes = linked_new();
     game_data->quests = linked_new();
+    game_data->skill_trees = linked_new();
     game_data->in_inv = sfFalse;
     game_data->show_quest = sfFalse;
     game_data->zones = NULL;

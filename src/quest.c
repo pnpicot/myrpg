@@ -158,7 +158,7 @@ void init_quests(s_appdata *adata)
 
     add_quest(adata, first);
     set_quest_icon(adata, first, get_texture(adata, "health_syr"));
-    set_quest_title(adata, first, "First quest");
+    set_quest_title(adata, first, "Use your transference");
     set_quest_text(adata, first, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent \nvolutpat nibh dolor, blandit laoreet ante porttitor sit amet. Duis \ntempus congue tempus. Pellentesque euismod condimentum nisi nec \ncongue. Etiam quis metus id ex finibus porta eget sed nunc. Sed \nlacus elit, pharetra ac felis ut, sagittis ornare erat. Mauris \ninterdum, velit ut hendrerit ultricies, lectus urna vehicula dolor,\n sed interdum lorem nibh a elit. Fusce tempus mauris ex, a rutrum \n elit porttitor sed. In quis ultricies enim, nec venenatis risus.");
     set_quest_check(adata, first, &check_first_quest);
 
