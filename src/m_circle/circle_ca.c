@@ -12,7 +12,7 @@ void move_circle(s_appdata *adata, char *id, sfVector2f pos)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,7 +26,7 @@ void resize_circle(s_appdata *adata, char *id, float radius)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +38,7 @@ sfVector2f get_circle_pos(s_appdata *adata, char *id)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -50,7 +50,7 @@ float get_circle_radius(s_appdata *adata, char *id)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -62,7 +62,7 @@ void translate_circle(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -12,7 +12,7 @@ void set_bar_max(s_appdata *adata, char *id, float max)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -29,7 +29,7 @@ void set_bar_current(s_appdata *adata, char *id, float current)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -43,7 +43,7 @@ int get_bar_current(s_appdata *adata, char *id)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -55,7 +55,7 @@ int get_bar_min(s_appdata *adata, char *id)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -67,7 +67,7 @@ int get_bar_max(s_appdata *adata, char *id)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 

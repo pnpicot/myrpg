@@ -13,7 +13,7 @@ void (*behavior)(s_appdata *adata, s_entity *s_entity))
     s_entity *model = get_entity_model(adata, id);
 
     if (model == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,7 +26,7 @@ void (*emiter)(s_appdata *adata, s_entity *s_entity))
     s_entity *model = get_entity_model(adata, id);
 
     if (model == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

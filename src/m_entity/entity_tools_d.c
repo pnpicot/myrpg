@@ -7,7 +7,6 @@
 
 #include "main.h"
 
-#warning Collision map, not sure to keep
 void update_entity_collision_map(s_appdata *adata, s_entity *entity, void *ptr)
 {
     sfFloatRect hitbox = get_entity_hitbox(adata, entity);

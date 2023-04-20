@@ -21,7 +21,11 @@ void init_zones(s_appdata *adata, int size)
         for (int j = 0; j < size; j++) {
             s_zone *zone = malloc(sizeof(s_zone));
 
-            zone->id = str_m_add(3, "zone", nbr_to_str(i), nbr_to_str(j));
+            char *str_i = nbr_to_str(i);
+            char *str_j = nbr_to_str(j);
+            zone->id = str_m_add(3, "zone", str_i, str_j);
+            free(str_i);
+            free(str_j);
             zone->entities = linked_new();
             zones[i * size + j] = zone;
         }
@@ -35,7 +39,7 @@ void init_gamedata(s_appdata *adata)
     adata->game_data = malloc(sizeof(s_game));
 
     if (adata->game_data == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 

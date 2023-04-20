@@ -18,7 +18,7 @@ void add_entity_part(s_appdata *adata, char **entry)
     sfTexture *tex = get_texture(adata, tex_id);
 
     if (model == NULL || tex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,14 +26,14 @@ void add_entity_part(s_appdata *adata, char **entry)
     s_entity_part *part = get_entity_model_part(adata, model_id, part_id);
 
     if (part != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
     s_entity_part *new_part = malloc(sizeof(s_entity_part));
 
     if (new_part == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -76,14 +76,14 @@ void add_entity_part(s_appdata *adata, char **entry)
 
 void add_entity_model(s_appdata *adata, char **entry)
 {
-    if (count_nil_str(entry) < 9 || !is_format(entry, "sssffdfdf"))
+    if (count_nil_str(entry) < 10 || !is_format(entry, "sssffdffdf"))
         return;
 
     char *model_id = entry[2];
     s_entity *model = get_entity_model(adata, model_id);
 
     if (model != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
@@ -91,14 +91,14 @@ void add_entity_model(s_appdata *adata, char **entry)
     s_faction *faction = get_faction(adata, faction_id);
 
     if (faction == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
     s_entity *new_model = malloc(sizeof(s_entity));
 
     if (new_model == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -107,9 +107,10 @@ void add_entity_model(s_appdata *adata, char **entry)
     float model_scale = str_to_float(entry[3]);
     float model_spawnrate = str_to_float(entry[4]);
     int model_hp = my_getnbr(entry[5]);
-    float model_speed = str_to_float(entry[6]);
-    int model_orientated = my_getnbr(entry[7]);
-    float agro_length = str_to_float(entry[8]);
+    float damage = str_to_float(entry[6]);
+    float model_speed = str_to_float(entry[7]);
+    int model_orientated = my_getnbr(entry[8]);
+    float agro_length = str_to_float(entry[9]);
 
     new_model->id = model_id;
     new_model->parts = linked_new();
@@ -128,6 +129,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->floats = NULL;
     new_model->orientated = model_orientated ? sfTrue : sfFalse;
     new_model->agro_length = agro_length;
+    new_model->damage = damage;
     new_model->clock = sfClock_create();
 
     free(entry[0]);

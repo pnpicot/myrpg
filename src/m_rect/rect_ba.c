@@ -26,7 +26,7 @@ void delete_rect(s_appdata *adata, char *id)
 {
     s_rect *rect = get_rect(adata, id);
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *rects = adata->lists->rects;
@@ -47,12 +47,12 @@ void add_rect(s_appdata *adata, char *id, int layer)
 {
     s_rect *rect = get_rect(adata, id);
     if (rect != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_rect *new_rect = malloc(sizeof(s_rect));
     if (new_rect == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     s_ints *integers = adata->integers;
@@ -73,7 +73,7 @@ void resize_rect(s_appdata *adata, char *id, sfVector2f size)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -85,7 +85,7 @@ void move_rect(s_appdata *adata, char *id, sfVector2f pos)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

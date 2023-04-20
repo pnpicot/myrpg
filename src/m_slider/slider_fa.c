@@ -34,12 +34,12 @@ void add_slider(s_appdata *adata, char *id, int layer)
 {
     s_slider *slider = get_slider(adata, id);
     if (slider != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_slider *new_slider = malloc(sizeof(s_slider));
     if (new_slider == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_slider_next(adata, id, layer, new_slider);
@@ -51,7 +51,7 @@ void set_slider_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (slider == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -72,7 +72,7 @@ void set_slider_active(s_appdata *adata, char *id, sfUint8 active)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -89,7 +89,7 @@ void move_slider(s_appdata *adata, char *id, sfVector2f pos)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

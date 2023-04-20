@@ -26,7 +26,7 @@ void delete_emiter(s_appdata *adata, char *id)
 {
     s_particle_src *emiter = get_emiter(adata, id);
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
     linked_node *emiters = adata->lists->emiters;
@@ -49,7 +49,7 @@ void set_emiter_lifetime(s_appdata *adata, char *id, int life_time)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -61,7 +61,7 @@ void move_emiter(s_appdata *adata, char *id, sfVector2f pos)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -73,7 +73,7 @@ void translate_emiter(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

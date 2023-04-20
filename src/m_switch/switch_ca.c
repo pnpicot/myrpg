@@ -49,12 +49,12 @@ void add_switch(s_appdata *adata, char *id, int layer)
 {
     s_switch *switch_ = get_switch(adata, id);
     if (switch_ != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_switch *new_switch = malloc(sizeof(s_switch));
     if (new_switch == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_switch_next(adata, id, layer, new_switch);
@@ -66,7 +66,7 @@ void set_switch_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (switch_ == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -82,7 +82,7 @@ void (*on_toggle)(s_appdata *adata, s_ref *ref))
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

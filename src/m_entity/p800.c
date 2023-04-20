@@ -7,6 +7,31 @@
 
 #include "main.h"
 
+static void p800_damage_behavior(s_appdata *adata, s_entity *entity,
+float angle)
+{
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
+
+    angle -= 90.0f;
+    hitbox.left += cosf(angle * (M_PI / 180.0f)) * hitbox.width / 2;
+    hitbox.top += sinf(angle * (M_PI / 180.0f)) * hitbox.height / 2;
+
+    linked_node *touchs_ll = what_is_touching(adata, hitbox);
+    linked_node *touchs = touchs_ll;
+
+    while (touchs != NULL) {
+        s_touch_t *touch = (s_touch_t *) touchs->data;
+        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
+            touch->entity->hp -= entity->damage;
+        }
+        if (touch->touch_type == TOUCH_PARASITE) {
+            adata->player->health.x -= entity->damage;
+        }
+        touchs = touchs->next;
+    }
+    free_ll_and_data(&touchs_ll);
+}
+
 void behavior_p800(s_appdata *adata, s_entity *entity)
 {
     linked_node *parts = entity->parts;
@@ -68,6 +93,7 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
         add_to_entity_float(adata, entity, "blade_rot", -2.5f);
         rotate_entity_part_abs(adata, entity, "p800_left_blade", angle - blade_rot);
         rotate_entity_part_abs(adata, entity, "p800_right_blade", angle + blade_rot);
+        p800_damage_behavior(adata, entity, angle);
     }
 
     if ((blade_rot > 50.0f && blade_cycle) || (blade_rot < -20.0f && !blade_cycle)) {

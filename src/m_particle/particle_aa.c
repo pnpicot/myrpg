@@ -50,7 +50,7 @@ void set_emiter_layer(s_appdata *adata, char *id, int layer)
     s_ints *integers = adata->integers;
 
     if (emiter == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

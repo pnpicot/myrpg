@@ -12,14 +12,14 @@ void add_wall(s_appdata *adata, char *id, sfFloatRect hitbox)
     s_wall *wall = get_wall(adata, id);
 
     if (wall != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
 
     s_wall *new_wall = malloc(sizeof(s_wall));
 
     if (new_wall == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -34,7 +34,7 @@ void move_wall(s_appdata *adata, char *id, sfVector2f pos)
     s_wall *wall = get_wall(adata, id);
 
     if (wall == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -46,7 +46,7 @@ void resize_wall(s_appdata *adata, char *id, sfVector2f size)
     s_wall *wall = get_wall(adata, id);
 
     if (wall == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -58,7 +58,7 @@ void translate_wall(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_wall *wall = get_wall(adata, id);
 
     if (wall == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -70,7 +70,7 @@ void set_wall_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_wall *wall = get_wall(adata, id);
 
     if (wall == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

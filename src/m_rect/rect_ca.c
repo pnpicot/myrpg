@@ -12,7 +12,7 @@ void color_rect(s_appdata *adata, char *id, sfColor color)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +25,7 @@ sfColor color, float thickness)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +38,7 @@ void set_rect_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +50,7 @@ void rotate_rect(s_appdata *adata, char *id, float angle)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -62,7 +62,7 @@ void scale_rect(s_appdata *adata, char *id, sfVector2f factors)
     s_rect *rect = get_rect(adata, id);
 
     if (rect == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

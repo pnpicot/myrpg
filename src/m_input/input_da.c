@@ -68,12 +68,12 @@ void add_input(s_appdata *adata, char *id, int layer)
 {
     s_input *input = get_input(adata, id);
     if (input != NULL) {
-        my_printf(get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
         return;
     }
     s_input *new_input = malloc(sizeof(s_input));
     if (new_input == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
     add_input_next(adata, id, layer, new_input);
@@ -85,7 +85,7 @@ void set_input_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (input == NULL || rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

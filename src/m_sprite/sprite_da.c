@@ -12,7 +12,7 @@ void scale_sprite(s_appdata *adata, char *id, sfVector2f factors)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +24,7 @@ void rotate_sprite(s_appdata *adata, char *id, float angle)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +36,7 @@ sfFloatRect get_sprite_bounds(s_appdata *adata, char *id)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfFloatRect) { -1, -1, -1, -1 });
     }
 
@@ -48,7 +48,7 @@ float get_sprite_rotation(s_appdata *adata, char *id)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -60,7 +60,7 @@ sfVector2f get_sprite_scale(s_appdata *adata, char *id)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 

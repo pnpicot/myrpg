@@ -28,8 +28,19 @@ void destroy_clocks(s_clocks *clocks)
     free(clocks);
 }
 
+void destroy_maps(s_appdata *adata)
+{
+    for (int i = 0; i < adata->game_data->col_map_size.y; ++i)
+        free(adata->game_data->col_map[i]);
+    free(adata->game_data->col_map);
+    for (int i = 0; adata->game_data->map[i] != NULL; ++i)
+        free(adata->game_data->map[i]);
+    free(adata->game_data->map);
+}
+
 void destroy(s_appdata *adata)
 {
+    destroy_maps(adata);
     free(adata->floats);
     free(adata->integers);
     sfClock_destroy(adata->player->transference_clock);

@@ -1,90 +1,62 @@
 /*
 ** EPITECH PROJECT, 2023
-** m_map_collision
+** src
 ** File description:
-** what_is_touching
+** map_collision_aa
 */
 
 #include "main.h"
 
-static int _is_colliding(sfFloatRect hitbox, sfFloatRect other)
+static void add_it(linked_node **node, touch_type_t touch_type,
+s_entity *entity)
 {
-    if (hitbox.left >= other.left + other.width ||
-    hitbox.left + hitbox.width <= other.left ||
-    hitbox.top >= other.top + other.height ||
-    hitbox.top + hitbox.height <= other.top)
-        return (0);
-    return (1);
+    linked_node *new_node = linked_new();
+    s_touch_t *touch = malloc(sizeof(s_touch_t));
+
+    if (new_node == NULL || touch == NULL)
+        return;
+
+    touch->touch_type = touch_type;
+    touch->entity = entity;
+    new_node->data = touch;
+    new_node->next = *node;
+    *node = new_node;
 }
 
-static void is_touching_wall(s_appdata *adata, sfFloatRect hitbox,
-linked_node **touchs)
+static void add_to_linked(s_appdata *adata, s_entity *act_entity,
+linked_node **node)
 {
-    linked_node *walls = adata->lists->walls;
-    for (;walls != NULL; walls = walls->next) {
-        if (walls->data == NULL) continue;
-        s_wall *cur = (s_wall *)walls->data;
-        sfFloatRect rect = sfRectangleShape_getGlobalBounds(cur->hitbox->elem);
-        rect.left += adata->game_data->view_pos.x;
-        rect.top += adata->game_data->view_pos.y;
-        if (hitbox.left == rect.left && hitbox.top == rect.top && hitbox.width
-        == rect.width && hitbox.height == rect.height)
-            continue;
-        if (_is_colliding(hitbox, rect)) {
-            linked_node *new = linked_new();
-            s_touch_t *touch = malloc(sizeof(s_touch_t));
-            touch->touch_type = TOUCH_WALL;
-            touch->wall = cur;
-            new->data = touch;
-            new->next = *touchs;
-            *touchs = new;
-        }
+    if (act_entity == NULL)
+        return;
+    if (act_entity == (s_entity *)1) {
+        add_it(node, TOUCH_WALL, NULL);
+        return;
     }
+    if (act_entity == (s_entity *)2 && adata->player->host != NULL) {
+        add_it(node, TOUCH_PARASITE, NULL);
+        return;
+    }
+    if (act_entity->dead == 1)
+        return;
+    add_it(node, TOUCH_ENTITY, act_entity);
 }
 
-static void is_touching_entity(s_appdata *adata, sfFloatRect hitbox,
-linked_node **touchs)
+static void do_loop(s_appdata *adata, sfFloatRect hitbox, linked_node **node,
+void (*func)(s_appdata *adata, s_entity *act_entity, linked_node **node))
 {
-    linked_node *entity = adata->game_data->entities;
-
-    for (;entity != NULL; entity = entity->next) {
-        if (entity->data == NULL)
-            continue;
-        s_entity *cur = (s_entity *) entity->data;
-        sfFloatRect rect = get_entity_hitbox(adata, cur);
-        if (hitbox.left == rect.left && hitbox.top == rect.top && hitbox.width
-        == rect.width && hitbox.height == rect.height)
-            continue;
-        if (_is_colliding(hitbox, rect)) {
-            linked_node *new = linked_new();
-            s_touch_t *touch = malloc(sizeof(s_touch_t));
-            touch->touch_type = TOUCH_ENTITY;
-            touch->entity = cur;
-            new->data = touch;
-            new->next = *touchs;
-            *touchs = new;
+    for (int i = hitbox.top; i < (hitbox.top +
+    hitbox.height) && i > 0 && i < adata->game_data->col_map_size.y; i++) {
+        for (int j = hitbox.left; j < (hitbox.left +
+        hitbox.width) && j > 0 && j < adata->game_data->col_map_size.x; j++) {
+            func(adata, adata->game_data->col_map[i][j], node);
         }
     }
 }
 
 linked_node *what_is_touching(s_appdata *adata, sfFloatRect hitbox)
 {
-    linked_node *touchs = NULL;
+    linked_node *node = NULL;
 
-    if (adata->player->host == NULL &&
-    (hitbox.left != adata->player->hitbox.left ||
-    hitbox.top != adata->player->hitbox.top ||
-    hitbox.width != adata->player->hitbox.width ||
-    hitbox.height != adata->player->hitbox.height) &&
-    _is_colliding(hitbox, adata->player->hitbox)) {
-        linked_node *new = linked_new();
-        s_touch_t *touch = malloc(sizeof(s_touch_t));
-        touch->touch_type = TOUCH_PARASITE;
-        new->data = touch;
-        new->next = touchs;
-        touchs = new;
-    }
-    is_touching_wall(adata, hitbox, &touchs);
-    is_touching_entity(adata, hitbox, &touchs);
-    return (touchs);
+    do_loop(adata, hitbox, &node, add_to_linked);
+    return (node);
 }

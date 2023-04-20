@@ -132,7 +132,7 @@ string inventory = inv
 
 # -- map -- begin
 string default_map = dev.map
-float zoom = 3.5f
+float zoom = 1.5f
 # -- map -- end
 
 # -- parasite -- begin

@@ -12,7 +12,7 @@ float get_light_outer(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -24,7 +24,7 @@ float get_light_intensity(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -36,7 +36,7 @@ void set_light_active(s_appdata *adata, char *id, sfBool active)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -48,7 +48,7 @@ void enable_light(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -60,7 +60,7 @@ void disable_light(s_appdata *adata, char *id)
     s_light *light = get_light(adata, id);
 
     if (light == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

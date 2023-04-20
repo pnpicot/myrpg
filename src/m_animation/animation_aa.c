@@ -55,14 +55,14 @@ void animate_sprite(s_appdata *adata, char *sprite_id)
     s_sprite *sprite = get_sprite(adata, sprite_id);
 
     if (sprite == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
     s_animation *new_animation = malloc(sizeof(s_animation));
 
     if (new_animation == NULL) {
-        my_printf(get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -74,7 +74,7 @@ void pause_animation(s_appdata *adata, char *sprite_id)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -86,7 +86,7 @@ void start_animation(s_appdata *adata, char *sprite_id)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

@@ -13,7 +13,7 @@ void (*on_pressed)(s_appdata *adata, s_ref *ref))
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -27,7 +27,7 @@ void (*on_click)(s_appdata *adata, s_ref *ref))
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -41,7 +41,7 @@ void (*on_hover)(s_appdata *adata, s_ref *ref))
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

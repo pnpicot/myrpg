@@ -86,7 +86,9 @@ sfFloatRect inv_bounds)
 
     while (syringes != NULL && syringes->data != NULL) {
         s_syringe *cur = (s_syringe *) syringes->data;
-        char *id = str_m_add(4, inv_id, "@[:item-", nbr_to_str(ite), "]");
+        char *str_ite = nbr_to_str(ite);
+        char *id = str_m_add(4, inv_id, "@[:item-", str_ite, "]");
+        free(str_ite);
 
         add_button(adata, id, TYPE_RECT, inv_layer + 1);
         set_button_rtex(adata, id, rtex);

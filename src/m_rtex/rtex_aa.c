@@ -27,7 +27,7 @@ void set_rtex_shader(s_appdata *adata, char *id, sfShader *shader)
     s_rtex *rtex = get_rtex(adata, id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -40,7 +40,7 @@ const sfTexture *get_rtex_tex(s_appdata *adata, char *id)
     s_rtex *rtex = get_rtex(adata, id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return (NULL);
     }
 
@@ -52,7 +52,7 @@ void set_rtex_clear(s_appdata *adata, char *id, sfColor color)
     s_rtex *rtex = get_rtex(adata, id);
 
     if (rtex == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 

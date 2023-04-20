@@ -12,7 +12,7 @@ void set_button_out(s_appdata *adata, char *id, sfColor color, float thickness)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +25,7 @@ void color_button_fg(s_appdata *adata, char *id, sfColor color)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -37,7 +37,7 @@ void scale_button(s_appdata *adata, char *id, sfVector2f factors)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +50,7 @@ void rotate_button(s_appdata *adata, char *id, float angle)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
@@ -62,7 +62,7 @@ void set_button_font(s_appdata *adata, char *id, sfFont *font)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf(get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
         return;
     }
 
