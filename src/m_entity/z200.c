@@ -10,10 +10,10 @@
 static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
 {
     sfFloatRect hitbox = get_entity_hitbox(adata, entity);
-    hitbox.left -= 15;
-    hitbox.top -= 15;
-    hitbox.width += 30;
-    hitbox.height += 30;
+    hitbox.left -= 30;
+    hitbox.top -= 30;
+    hitbox.width += 45;
+    hitbox.height += 45;
     linked_node *touchs_ll = what_is_touching(adata, hitbox);
     linked_node *touchs = touchs_ll;
 

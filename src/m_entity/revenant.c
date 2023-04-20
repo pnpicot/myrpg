@@ -60,7 +60,7 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
     }
 
-    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -20.0f && !arm_cycle)) {
+    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -50.0f && !arm_cycle)) {
         set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
     }
 
