@@ -299,7 +299,9 @@ void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
 
     while (quests != NULL && quests->data != NULL) {
         s_quest *cur = (s_quest *) quests->data;
-        char *id = str_m_add(4, bg_id, "@[:item-", nbr_to_str(ite), "]");
+        char *str_ite = nbr_to_str(ite);
+        char *id = str_m_add(4, bg_id, "@[:item-", str_ite, "]");
+        free(str_ite);
 
         add_button(adata, id, TYPE_RECT, layer + 1);
         set_button_rtex(adata, id, rtex);
@@ -352,7 +354,9 @@ void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
     add_text(adata, id, layer + 1);
     set_text_font(adata, id, get_font(adata, "courier"));
     color_text(adata, id, sfWhite);
-    edit_text(adata, id, str_m_add(3, "Quests (", nbr_to_str(quest_count), ")"));
+    char *str_quest_count = nbr_to_str(quest_count);
+    edit_text(adata, id, str_m_add(3, "Quests (", str_quest_count, ")"));
+    free(str_quest_count);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, id, (s_ref) { get_text(adata, id), TYPE_TEXT });
     add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });

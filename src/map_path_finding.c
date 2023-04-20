@@ -7,8 +7,6 @@
 
 #include "main.h"
 
-#warning Collision map, not sure to keep
-
 static void fill_with_type(s_appdata *adata, s_entity ***map, char **entry_data,
 float mult)
 {
@@ -51,7 +49,6 @@ static void init_col_map(s_appdata *adata, char **entries, float mult)
 static void fill_map_path_finding(s_appdata *adata, char **lignes)
 {
     int i = 0;
-
     while (lignes[i] != NULL) {
         char **ligne = str_split(lignes[i], ' ');
         char c = get_tile(adata, ligne[0][0])->wall ? 'X' : '*';
@@ -59,7 +56,6 @@ static void fill_map_path_finding(s_appdata *adata, char **lignes)
         int origin_x = my_getnbr(ligne[1]);
         int len_tile_x = my_getnbr(ligne[3]);
         int len_tile_y = my_getnbr(ligne[4]);
-
         int y = my_getnbr(ligne[2]);
         for (y; y < len_tile_y + origin_y; y++) {
             int x = my_getnbr(ligne[1]);
@@ -67,6 +63,9 @@ static void fill_map_path_finding(s_appdata *adata, char **lignes)
                 adata->game_data->map[y][x] = c;
             }
         }
+        for (int i = 0; ligne[i] != NULL; i++)
+            free(ligne[i]);
+        free(ligne);
         i++;
     }
 }

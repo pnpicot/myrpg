@@ -77,6 +77,7 @@ void linked_destroy_entities(linked_node *node)
         }
         if (((s_entity *)save->data) != NULL) {
             sfClock_destroy(((s_entity *)save->data)->clock);
+            free_ll_and_data(&((s_entity *)save->data)->path);
             free(save->data);
         }
         free(save);

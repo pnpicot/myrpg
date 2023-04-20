@@ -73,8 +73,13 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
     pos.y -= pos.y - 1 == -1 ? 0 : 1;
     int origin_x_corner = pos.x;
     int origin_y_corner = pos.y;
-    char *next_zone_id = str_m_add(3, "zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
+    char *s_posx = nbr_to_str(pos.x);
+    char *s_posy = nbr_to_str(pos.y);
+    char *next_zone_id = str_m_add(3, "zone", s_posx, s_posy);
+    free(s_posx);
+    free(s_posy);
     zone = get_zone(adata, next_zone_id);
+    free(next_zone_id);
 
     for (int i = 0; i < 9; i++) {
         sfVector2f path = get_path(adata, entity, zone);
@@ -89,8 +94,13 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
             pos.y += adata->game_data->nb_zones == pos.y + 1 ? 0 : 1;
         }
 
-        char *next_zone_id = str_m_add(3,"zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
+        s_posx = nbr_to_str(pos.x);
+        s_posy = nbr_to_str(pos.y);
+        char *next_zone_id = str_m_add(3, "zone", s_posx, s_posy);
+        free(s_posx);
+        free(s_posy);
         zone = get_zone(adata, next_zone_id);
+        free(next_zone_id);
     }
 
     return ((sfVector2f) {-1.0f, -1.0f});

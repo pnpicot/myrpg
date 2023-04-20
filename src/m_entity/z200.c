@@ -14,7 +14,8 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
     hitbox.top -= 15;
     hitbox.width += 30;
     hitbox.height += 30;
-    linked_node *touchs = what_is_touching(adata, hitbox);
+    linked_node *touchs_ll = what_is_touching(adata, hitbox);
+    linked_node *touchs = touchs_ll;
 
     while (touchs != NULL) {
         s_touch_t *touch = (s_touch_t *) touchs->data;
@@ -26,7 +27,7 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
         }
         touchs = touchs->next;
     }
-    free_ll_and_data(&touchs);
+    free_ll_and_data(&touchs_ll);
 }
 
 // TODO: add clock so we can use a delta in velocity vector formulas
