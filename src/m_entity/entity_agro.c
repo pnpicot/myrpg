@@ -55,11 +55,7 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
 
     int len_zone_check = entity->agro_length / adata->game_data->size_zone.y + 1;
     int nb_zone_check = 8 * len_zone_check;
-<<<<<<< HEAD
-    // printf("nb zone = %d\n", nb_zone_check);
-=======
     //printf("nb zone = %d\n", nb_zone_check);
->>>>>>> df38c39af7057bc4c75cfb72f337c2a272354d69
 
     s_zone *zone = entity->zone;
     sfVector2f path = get_path(adata, entity, zone);
