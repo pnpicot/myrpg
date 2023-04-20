@@ -176,8 +176,9 @@ float quest_item_height = 60.0f
 string ctn_skill = ctn_skill
 string skill_tree = skill_tree
 int skill_layer = 7
-float skill_width = 0.7f
-float skill_height = 0.8f
+float skill_width = 1.0f
+float skill_height = 1.0f
 color skill_primary = 0,0,0,230
 color skill_secondary = 3,232,252,255
+float skill_node_size = 50.0f
 # -- skill tree -- end

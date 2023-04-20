@@ -58,9 +58,12 @@ void init_gamedata(s_appdata *adata)
     game_data->skill_trees = linked_new();
     game_data->in_inv = sfFalse;
     game_data->show_quest = sfFalse;
+    game_data->in_stree = sfFalse;
+    game_data->mouse_down = sfFalse;
     game_data->zones = NULL;
     game_data->nb_zones = 0;
-    game_data->size_zone = (sfVector2f) {0, 0};
+    game_data->size_zone = (sfVector2f) { 0, 0 };
+    game_data->mouse_last = (sfVector2f) { 0, 0 };
 }
 
 void init_appdata_misc(s_appdata *adata)
