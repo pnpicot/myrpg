@@ -12,7 +12,8 @@ s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
     act_entity == (s_entity *)2) || (act_entity != (s_entity *)1 &&
-    act_entity != (s_entity *)2 && act_entity->dead == 1))
+    act_entity != (s_entity *)2 && act_entity->dead == 1) ||
+    (act_entity == (s_entity *)2 && adata->player->host != NULL))
         return;
     movement->x = 0;
 }
@@ -22,7 +23,8 @@ s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
     act_entity == (s_entity *)2) || (act_entity != (s_entity *)1 &&
-    act_entity != (s_entity *)2 && act_entity->dead == 1))
+    act_entity != (s_entity *)2 && act_entity->dead == 1) ||
+    (act_entity == (s_entity *)2 && adata->player->host != NULL))
         return;
     movement->y = 0;
 }
@@ -32,7 +34,8 @@ s_entity *entity, sfVector2f *movement)
 {
     if (act_entity == NULL || act_entity == entity || (entity == NULL &&
     act_entity == (s_entity *)2) || (act_entity != (s_entity *)1 &&
-    act_entity != (s_entity *)2 && act_entity->dead == 1))
+    act_entity != (s_entity *)2 && act_entity->dead == 1) ||
+    (act_entity == (s_entity *)2 && adata->player->host != NULL))
         return;
     movement->x = 0;
     movement->y = 0;

@@ -32,7 +32,7 @@ linked_node **node)
         add_it(node, TOUCH_WALL, NULL);
         return;
     }
-    if (act_entity == (s_entity *)2) {
+    if (act_entity == (s_entity *)2 && adata->player->host != NULL) {
         add_it(node, TOUCH_PARASITE, NULL);
         return;
     }
