@@ -86,7 +86,7 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         revenant_damage_behavior(adata, entity, angle);
     }
 
-    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -50.0f && !arm_cycle)) {
+    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -35.0f && !arm_cycle)) {
         set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
     }
 
