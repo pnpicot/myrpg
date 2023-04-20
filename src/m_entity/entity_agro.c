@@ -80,7 +80,7 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         if (pos.x == origin_x) pos.x++;
         if (pos.x == adata->game_data->nb_zones) {
             pos.x = origin_x_corner;
-            pos.y++;
+            pos.y += adata->game_data->nb_zones == pos.y + 1 ? 0 : 1;
         }
         
 

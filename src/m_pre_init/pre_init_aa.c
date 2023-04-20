@@ -60,6 +60,7 @@ void init_gamedata(s_appdata *adata)
     game_data->show_quest = sfFalse;
     game_data->zones = NULL;
     game_data->nb_zones = 0;
+    game_data->size_zone = (sfVector2f) {0, 0};
 }
 
 void init_appdata_misc(s_appdata *adata)
