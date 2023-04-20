@@ -352,6 +352,17 @@ void check_game_keys(s_appdata *adata, int keycode)
             quests = quests->next;
         }
     }
+
+    if (keycode == sfKeyT) {
+        adata->game_data->in_stree = !adata->game_data->in_stree;
+
+        sfUint8 active = adata->game_data->in_stree ? 1 : 0;
+        char *ctn = get_str(adata, "ctn_skill");
+
+        set_container_active(adata, ctn, active);
+        set_rect_active(adata, get_str(adata, "skill_tree"), active);
+        set_text_active(adata, str_add(get_str(adata, "skill_tree"), "@[:title]"), active);
+    }
 }
 
 void update_host_controls(s_appdata *adata)

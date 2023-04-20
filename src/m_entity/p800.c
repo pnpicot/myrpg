@@ -40,8 +40,8 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
 
     sfVector2f path = { 0, 0 };
     sfVector2i end;
-    end.x = 33;
-    end.y = 33;
+    end.x = 125;
+    end.y = 125;
     sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
         path = entity->move_now;

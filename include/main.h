@@ -288,6 +288,9 @@ typedef struct {
     float time;
     sfBool in_inv;
     sfBool show_quest;
+    sfBool in_stree;
+    sfBool mouse_down;
+    sfVector2f mouse_last;
     int nb_zones;
     s_zone **zones;
     sfVector2f size_zone;
@@ -611,11 +614,15 @@ typedef struct s_skill_node_s {
     sfTexture *icon;
     char *name;
     int level;
+    struct s_skill_node_s *parent;
+    s_sprite *node_sprite;
+    sfVector2f pos;
 } s_skill_node;
 
 typedef struct {
     char *id;
     linked_node *nodes;
+    float y_end;
 } s_skill_tree;
 
 #include "pre_init.h"

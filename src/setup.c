@@ -181,7 +181,19 @@ void init_live(s_appdata *adata)
 
     switch_state(adata, get_str(adata, "state_main"));
 
-    set_friction(adata, 6.0f);
-    set_max_speed(adata, 850.0f);
-    set_velocity(adata, 60.0f);
+    set_friction(adata, 18.0f);
+    set_max_speed(adata, 1600.0f);
+    set_velocity(adata, 80.0f);
+
+    sfVector2f add = { 600, 600 };
+
+    sfVector2f shift;
+    shift.x = add.x;
+    shift.y = add.y;
+
+    move_gameobject_lights(adata, shift);
+    move_gameobject_emiters(adata, shift);
+    move_gameobject_walls(adata, shift);
+    adata->game_data->view_pos.x += add.x;
+    adata->game_data->view_pos.y += add.y;
 }

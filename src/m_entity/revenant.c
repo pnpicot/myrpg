@@ -39,8 +39,8 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
     sfVector2f path = { 0, 0 };
     sfVector2i end;
 
-    end.x = 33;
-    end.y = 33;
+    end.x = 125;
+    end.y = 125;
 
     sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
@@ -89,7 +89,7 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         revenant_damage_behavior(adata, entity, angle);
     }
 
-    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -20.0f && !arm_cycle)) {
+    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -35.0f && !arm_cycle)) {
         set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
     }
 

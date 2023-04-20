@@ -23,11 +23,6 @@ float delta, s_clocks *clocks)
     int win_h = get_int(adata, "win_h");
     float zoom = get_float(adata, "zoom");
 
-    // if (next_pos.x < 0) add.x = 0;
-    // if (next_pos.y < 0) add.y = 0;
-    // if (next_pos.x > (game_data->map_width * 32 * zoom) - win_w) add.x = 0;
-    // if (next_pos.y > (game_data->map_height * 32 * zoom) - win_h) add.y = 0;
-
     if (player->solid)
         add = is_map_colliding(adata, NULL, add);
 

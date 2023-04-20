@@ -10,10 +10,10 @@
 static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
 {
     sfFloatRect hitbox = get_entity_hitbox(adata, entity);
-    hitbox.left -= 15;
-    hitbox.top -= 15;
-    hitbox.width += 30;
-    hitbox.height += 30;
+    hitbox.left -= 30;
+    hitbox.top -= 30;
+    hitbox.width += 45;
+    hitbox.height += 45;
     linked_node *touchs_ll = what_is_touching(adata, hitbox);
     linked_node *touchs = touchs_ll;
 
@@ -38,8 +38,8 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
     sfVector2f path = { 0, 0 };
     sfVector2i end;
 
-    end.x = 33;
-    end.y = 33;
+    end.x = 125;
+    end.y = 125;
 
     sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
