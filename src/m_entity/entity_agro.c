@@ -61,33 +61,32 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         return (path);
     }
 
-    pos.x--;
-    pos.y--;
     int origin_x = pos.x;
     int origin_y = pos.y;
+    pos.x -= pos.x - 1 == -1 ? 0 : 1;
+    pos.y -= pos.y - 1 == -1 ? 0 : 1;
+    int origin_x_corner = pos.x;
+    int origin_y_corner = pos.y;
     char *next_zone_id = str_m_add(3, "zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
-    printf("%s\n", next_zone_id);
     zone = get_zone(adata, next_zone_id);
 
-    for (int i = 0; i < nb_zone_check - 1; i++) {
+    for (int i = 0; i < 9; i++) {
         sfVector2f path = get_path(adata, entity, zone);
         if (path.x != -1.0f && path.y != -1.0f) {
             return (path);
         }
 
         pos.x++;
+        if (pos.x == origin_x) pos.x++;
         if (pos.x == adata->game_data->nb_zones) {
-            pos.x = origin_x;
+            pos.x = origin_x_corner;
             pos.y++;
         }
         
 
         char *next_zone_id = str_m_add(3,"zone", nbr_to_str(pos.x), nbr_to_str(pos.y));
-        printf("%s\n", next_zone_id);
         zone = get_zone(adata, next_zone_id);
     }
-
-    printf("pute\n");
 
     return ((sfVector2f) {-1.0f, -1.0f});
 }
