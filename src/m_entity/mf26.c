@@ -44,7 +44,7 @@ s_entity *entity, s_particle *particle, linked_node *touchs)
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= 1;
+            adata->player->health.x -= 200;
             particle->active = sfFalse;
         }
         touchs = touchs->next;
@@ -64,8 +64,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     end.y = 33;
 
     sfVector2f agro_path = agro(adata, entity);
-
-    if (agro_path.x == 0 && agro_path.y == 0)
+    if (agro_path.x == -1.0f && agro_path.y == -1.0f)
         path = get_way(adata, entity, end);
     else {
         path = agro_path;

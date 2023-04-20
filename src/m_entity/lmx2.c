@@ -11,12 +11,12 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
 
-    sfVector2f path = { 0, 0 };
+    sfVector2f path = { 0.0f, 0.0f };
     sfVector2i end;
     end.x = 33;
     end.y = 33;
     sfVector2f agro_path = agro(adata, entity);
-    if (agro_path.x == 0 && agro_path.y == 0)
+    if (agro_path.x == -1.0f && agro_path.y == -1.0f)
         path = get_way(adata, entity, end);
     else {
         path = agro_path;

@@ -14,6 +14,7 @@ void update_live(s_appdata *adata)
     trigger_spawn_cycle(adata);
     update_entities(adata);
     update_player_info_text(adata);
+    update_quests(adata);
 }
 
 void init_live_light(s_appdata *adata)
@@ -146,6 +147,8 @@ void init_live_states(s_appdata *adata)
 
     add_container(adata, settings_ctn);
     set_state_container(adata, settings_state, get_container(adata, settings_ctn));
+
+    add_container(adata, get_str(adata, "ctn_quest"));
 
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_game));

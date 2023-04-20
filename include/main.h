@@ -283,6 +283,7 @@ typedef struct {
     struct s_entity_s ***col_map;
     float time;
     sfBool in_inv;
+    sfBool show_quest;
     int nb_zones;
     s_zone **zones;
 } s_game;
@@ -299,6 +300,7 @@ typedef struct {
     sfBool solid;
     void *host;
     void *potential_host;
+    sfBool transfered;
 } s_player;
 
 typedef struct {
@@ -586,13 +588,16 @@ typedef struct {
     };
 } s_touch_t;
 
-typedef struct {
+typedef struct s_quest_s {
     char *id;
     char *text;
     char *title;
     sfTexture *icon;
     s_rect *popup_rect;
     s_text *popup_text;
+    s_button *item;
+    void (*completion_check)(s_appdata *adata, struct s_quest_s *quest);
+    sfBool completed;
 } s_quest;
 
 #include "pre_init.h"

@@ -68,8 +68,36 @@ void add_quest(s_appdata *adata, char *id)
     new_quest->icon = NULL;
     new_quest->popup_rect = NULL;
     new_quest->popup_text = NULL;
+    new_quest->completion_check = NULL;
+    new_quest->item = NULL;
+    new_quest->completed = sfFalse;
 
     linked_add(adata->game_data->quests, new_quest);
+}
+
+void set_quest_completed(s_appdata *adata, char *id, sfBool completed)
+{
+    s_quest *quest = get_quest(adata, id);
+
+    if (quest == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    quest->completed = completed;
+}
+
+void set_quest_check(s_appdata *adata, char *id, \
+void (*completion_check)(s_appdata *adata, s_quest *quest))
+{
+    s_quest *quest = get_quest(adata, id);
+
+    if (quest == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    quest->completion_check = completion_check;
 }
 
 void set_quest_title(s_appdata *adata, char *id, char *title)
@@ -108,6 +136,22 @@ void set_quest_icon(s_appdata *adata, char *id, sfTexture *texture)
     quest->icon = texture;
 }
 
+void update_quest_ui(s_appdata *adata, s_quest *quest)
+{
+    if (quest->completed) {
+        color_button_bg(adata, quest->item->id, get_color(0, 100, 30, 220));
+    }
+}
+
+void check_first_quest(s_appdata *adata, s_quest *quest)
+{
+    s_player *player = adata->player;
+
+    if (player->transfered) {
+        quest->completed = sfTrue;
+    }
+}
+
 void init_quests(s_appdata *adata)
 {
     char *first = "duqdzqiu";
@@ -116,6 +160,7 @@ void init_quests(s_appdata *adata)
     set_quest_icon(adata, first, get_texture(adata, "health_syr"));
     set_quest_title(adata, first, "First quest");
     set_quest_text(adata, first, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent \nvolutpat nibh dolor, blandit laoreet ante porttitor sit amet. Duis \ntempus congue tempus. Pellentesque euismod condimentum nisi nec \ncongue. Etiam quis metus id ex finibus porta eget sed nunc. Sed \nlacus elit, pharetra ac felis ut, sagittis ornare erat. Mauris \ninterdum, velit ut hendrerit ultricies, lectus urna vehicula dolor,\n sed interdum lorem nibh a elit. Fusce tempus mauris ex, a rutrum \n elit porttitor sed. In quis ultricies enim, nec venenatis risus.");
+    set_quest_check(adata, first, &check_first_quest);
 
     char *second = "eoapea";
 
@@ -138,6 +183,7 @@ sfVector2f item_size, sfVector2f item_pos)
     add_sprite(adata, id, layer + 2);
     set_sprite_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
     set_sprite_texture(adata, id, cur->icon);
 
     sfVector2f target_size = { item_height - padding * 2, item_height - padding * 2 };
@@ -167,6 +213,7 @@ sfVector2f bg_size, sfVector2f bg_pos)
     add_text(adata, id, layer + 1);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
     edit_text(adata, id, cur->text);
     color_text(adata, id, sfWhite);
     set_text_font(adata, id, get_font(adata, "courier"));
@@ -209,6 +256,7 @@ s_rect *get_quest_popup_rect(s_appdata *adata, s_quest *cur)
     move_rect(adata, id, pos);
     set_rect_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
     color_rect(adata, id, get_color(0, 0, 0, 230));
 
     s_rect *rect = get_rect(adata, id);
@@ -256,11 +304,14 @@ void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
         add_button(adata, id, TYPE_RECT, layer + 1);
         set_button_rtex(adata, id, rtex);
         add_to_container(adata, container, (s_ref) { get_button(adata, id), TYPE_BUTTON });
+        add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_button(adata, id), TYPE_BUTTON });
         color_button_bg(adata, id, get_color(247, 245, 195, 100));
         color_button_fg(adata, id, sfWhite);
         set_button_font(adata, id, get_font(adata, "courier"));
         edit_button(adata, id, substr(cur->title, 0, 40));
         resize_button_text(adata, id, 18);
+
+        cur->item = get_button(adata, id);
 
         sfVector2f size;
         size.x = width - (padding * 2);
@@ -304,6 +355,7 @@ void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
     edit_text(adata, id, str_m_add(3, "Quests (", nbr_to_str(quest_count), ")"));
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, id, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
     resize_text(adata, id, 22);
 
     sfFloatRect bounds = get_text_bounds(adata, id);
@@ -343,7 +395,29 @@ void init_quest_ui(s_appdata *adata)
     move_rect(adata, id, pos);
     set_rect_rtex(adata, id, rtex);
     add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
     color_rect(adata, id, get_color(0, 0, 0, 230));
     set_rect_outline(adata, id, get_color(40, 40, 40, 230), 1.0f);
     init_quest_title(adata, id, size, pos);
+}
+
+void update_quests(s_appdata *adata)
+{
+    linked_node *quests = adata->game_data->quests;
+
+    while (quests != NULL && quests->data != NULL) {
+        s_quest *cur = (s_quest *) quests->data;
+
+        update_quest_ui(adata, cur);
+
+        if (cur->completed) {
+            quests = quests->next;
+            continue;
+        }
+
+        if (cur->completion_check != NULL)
+            (*cur->completion_check)(adata, cur);
+
+        quests = quests->next;
+    }
 }

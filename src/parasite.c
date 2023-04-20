@@ -29,7 +29,7 @@ void update_player_ui(s_appdata *adata)
         player->health.x = 0;
 
     color_bar(adata, health_id, get_color(130, 21, 9, 255),
-    lerp_color(sfRed, sfGreen, player->health.x / player->health.y));
+    lerp_color(sfRed, sfGreen, (float) player->health.x / (float) player->health.y));
     set_bar_current(adata, health_id, player->health.x);
     free(transference_id);
     free(health_id);
@@ -227,17 +227,18 @@ void init_player(s_appdata *adata)
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
 
-    player->health = (sfVector2i) { 5, 5 };
+    player->health = (sfVector2i) { 50000, 50000 };
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
-    player->health_rate = 1;
+    player->health_rate = 5;
     player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
     490 + adata->game_data->view_pos.y, 100, 100 };
-    player->transference_rate = 0.7f;
+    player->transference_rate = 1;
     player->info_text = NULL;
     player->host = NULL;
     player->potential_host = NULL;
     player->solid = sfTrue;
+    player->transfered = sfFalse;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
@@ -303,6 +304,7 @@ void try_transference(s_appdata *adata)
         char *host_emiter_id = str_add(host->id, "@[:emiter]");
 
         host->inhabited = sfTrue;
+        player->transfered = sfTrue;
         player->body->active = 0;
         player->solid = sfFalse;
 
@@ -330,6 +332,25 @@ void check_game_keys(s_appdata *adata, int keycode)
         char *ctn = get_str(adata, "ctn_inv");
 
         set_container_active(adata, ctn, adata->game_data->in_inv ? 1 : 0);
+    }
+
+    if (keycode == sfKeyA) {
+        adata->game_data->show_quest = !adata->game_data->show_quest;
+
+        char *ctn = get_str(adata, "ctn_quest");
+
+        set_container_active(adata, ctn, adata->game_data->show_quest ? 1 : 0);
+
+        linked_node *quests = adata->game_data->quests;
+
+        while (quests != NULL && quests->data != NULL) {
+            s_quest *cur = (s_quest *) quests->data;
+
+            cur->popup_rect->active = 0;
+            cur->popup_text->active = 0;
+
+            quests = quests->next;
+        }
     }
 }
 
