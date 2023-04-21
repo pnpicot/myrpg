@@ -7,6 +7,34 @@
 
 #include "main.h"
 
+void add_player_health(s_appdata *adata, float value)
+{
+    s_player *player = adata->player;
+
+    player->health.y += value;
+}
+
+void add_player_attack(s_appdata *adata, float value)
+{
+    s_player *player = adata->player;
+
+    player->attack += value;
+}
+
+void add_player_defense(s_appdata *adata, float value)
+{
+    s_player *player = adata->player;
+
+    player->defense += value;
+}
+
+void add_player_trflevel(s_appdata *adata, float value)
+{
+    s_player *player = adata->player;
+
+    player->transference_level += (int) value;
+}
+
 void update_player_ui(s_appdata *adata)
 {
     char *id = get_str(adata, "stats_widget");
@@ -188,6 +216,14 @@ void update_player_info_text(s_appdata *adata)
     pos.y = (win_h / 2) - 85.0f;
 
     move_text(adata, info->id, pos);
+
+    char *stats_text = str_add(nbr_to_str((int) player->attack), " Atk / ");
+    stats_text = str_m_add(3, stats_text, nbr_to_str((int) player->defense), " Def / ");
+    stats_text = str_m_add(3, stats_text, "Trans. LV. ", nbr_to_str(player->transference_level));
+    stats_text = str_m_add(4, stats_text, " / ", nbr_to_str(player->moula), " Moula");
+
+    if (player->stats != NULL)
+        edit_text(adata, player->stats->id, stats_text);
 }
 
 void init_player_info(s_appdata *adata, char *player_id)
@@ -239,6 +275,11 @@ void init_player(s_appdata *adata)
     player->potential_host = NULL;
     player->solid = sfTrue;
     player->transfered = sfFalse;
+    player->transference_level = 1;
+    player->stats = NULL;
+    player->attack = 5.0f;
+    player->defense = 1.0f;
+    player->moula = 50000;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);

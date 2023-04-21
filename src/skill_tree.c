@@ -37,6 +37,22 @@ s_skill_node *get_skill_node(s_appdata *adata, s_skill_tree *tree, char *id)
     return (NULL);
 }
 
+s_skill_node *get_skill_node_abs(s_appdata *adata, char *id)
+{
+    linked_node *trees = adata->game_data->skill_trees;
+
+    while (trees != NULL && trees->data != NULL) {
+        s_skill_tree *cur = (s_skill_tree *) trees->data;
+        s_skill_node *query = get_skill_node(adata, cur, id);
+
+        if (query != NULL) return (query);
+
+        trees = trees->next;
+    }
+
+    return (NULL);
+}
+
 void add_skill_tree(s_appdata *adata, char *id)
 {
     s_skill_tree *tree = get_skill_tree(adata, id);
@@ -83,6 +99,10 @@ void add_skill_node(s_appdata *adata, s_skill_tree *tree, char *id, int level)
     new_node->parent = NULL;
     new_node->node_sprite = NULL;
     new_node->pos = (sfVector2f) { 0, 0 };
+    new_node->price = 0;
+    new_node->unlocked = level ? sfFalse : sfTrue;
+    new_node->unlock_trigger = NULL;
+    new_node->trigger_value = 0;
 
     linked_add(tree->nodes, new_node);
 }
@@ -109,6 +129,45 @@ void delete_skill_node(s_appdata *adata, char *id)
     }
 
     linked_delete(&adata->game_data->skill_trees, ite);
+}
+
+void set_skill_node_value(s_appdata *adata, s_skill_tree *tree, \
+char *id, float value)
+{
+    s_skill_node *node = get_skill_node(adata, tree, id);
+
+    if (node == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    node->trigger_value = value;
+}
+
+void set_skill_node_trigger(s_appdata *adata, s_skill_tree *tree, \
+char *id, void (*unlock_trigger)(s_appdata *adata, float value))
+{
+    s_skill_node *node = get_skill_node(adata, tree, id);
+
+    if (node == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    node->unlock_trigger = unlock_trigger;
+}
+
+void set_skill_node_price(s_appdata *adata, s_skill_tree *tree, \
+char *id, int price)
+{
+    s_skill_node *node = get_skill_node(adata, tree, id);
+
+    if (node == NULL) {
+        my_printf(get_error(adata, "unknown_id"));
+        return;
+    }
+
+    node->price = price;
 }
 
 void set_skill_node_parent(s_appdata *adata, s_skill_tree *tree, \
@@ -272,7 +331,10 @@ char *skill_ctn, char *game_ctn)
     set_text_font(adata, id, get_font(adata, "lobster"));
     resize_text(adata, id, 20);
     color_text(adata, id, sfLightGray);
-    edit_text(adata, id, node->name);
+
+    char *text = str_m_add(4, node->name, " (", nbr_to_str(node->price), " M)");
+
+    edit_text(adata, id, text);
 
     sfFloatRect bounds = get_text_bounds(adata, id);
     sfVector2f origin = { bounds.width / 2, bounds.height / 2 };
@@ -286,11 +348,33 @@ char *skill_ctn, char *game_ctn)
     move_text(adata, id, pos);
 }
 
+void try_unlock_skill(s_appdata *adata, s_ref *ref)
+{
+    s_rect *rect = (s_rect *) ref->ref;
+    char *node_id = str_split(rect->id, '/')[1];
+    s_skill_node *node = get_skill_node_abs(adata, node_id);
+
+    if (node == NULL || node->unlocked || !node->parent->unlocked) return;
+
+    s_player *player = adata->player;
+
+    if (player->moula >= node->price) {
+        player->moula -= node->price;
+        node->unlocked = sfTrue;
+
+        if (node->unlock_trigger != NULL)
+            (*node->unlock_trigger)(adata, node->trigger_value);
+    }
+}
+
 void init_stree_hitbox(s_appdata *adata, s_skill_node *node, \
 char *skill_ctn, char *game_ctn)
 {
     char *rtex = get_str(adata, "rtex_ui");
     char *id = str_add("node-link-", get_random_id(5));
+
+    id = str_m_add(3, id, "/", node->id);
+
     int layer = get_int(adata, "skill_layer");
     sfColor primary = get_config_color(adata, "skill_primary");
     sfColor secondary = get_config_color(adata, "skill_secondary");
@@ -315,7 +399,9 @@ char *skill_ctn, char *game_ctn)
     char *obj_id = str_add(id, "@[:object]");
 
     add_object(adata, obj_id, ref);
-    set_object_hover_bg(adata, obj_id, get_color(255, 255, 255, 40));
+    set_object_hover_bg(adata, obj_id, get_color(255, 255, 255, 20));
+    set_object_pressed_bg(adata, obj_id, get_color(255, 255, 255, 40));
+    set_object_onclick(adata, obj_id, &try_unlock_skill);
 }
 
 void init_stree_nodes(s_appdata *adata, char *skill_ctn, \
@@ -470,36 +556,45 @@ void init_skills(s_appdata *adata)
     set_skill_node_name(adata, skill0, node_0_1, "Node_0_1");
     set_skill_node_parent(adata, skill0, node_0_1, NULL);
     set_skill_node_icon(adata, skill0, node_0_1, get_texture(adata, "wall"));
+    set_skill_node_price(adata, skill0, node_0_1, 300);
 
     add_skill_node(adata, skill0, node_0_2, 1);
     set_skill_node_name(adata, skill0, node_0_2, "Node_0_2");
     set_skill_node_parent(adata, skill0, node_0_2, get_skill_node(adata, skill0, node_0_1));
     set_skill_node_icon(adata, skill0, node_0_2, get_texture(adata, "wall2"));
+    set_skill_node_price(adata, skill0, node_0_2, 600);
+    set_skill_node_trigger(adata, skill0, node_0_2, &add_player_trflevel);
+    set_skill_node_value(adata, skill0, node_0_2, 2);
 
     add_skill_node(adata, skill0, node_0_4, 2);
     set_skill_node_name(adata, skill0, node_0_4, "Node_0_4");
     set_skill_node_parent(adata, skill0, node_0_4, get_skill_node(adata, skill0, node_0_2));
     set_skill_node_icon(adata, skill0, node_0_4, get_texture(adata, "wall2"));
+    set_skill_node_price(adata, skill0, node_0_4, 3000);
 
     add_skill_node(adata, skill0, node_0_5, 2);
     set_skill_node_name(adata, skill0, node_0_5, "Node_0_5");
     set_skill_node_parent(adata, skill0, node_0_5, get_skill_node(adata, skill0, node_0_2));
     set_skill_node_icon(adata, skill0, node_0_5, get_texture(adata, "wall2"));
+    set_skill_node_price(adata, skill0, node_0_5, 5000);
 
     add_skill_node(adata, skill0, node_0_3, 1);
     set_skill_node_name(adata, skill0, node_0_3, "Node_0_3");
     set_skill_node_parent(adata, skill0, node_0_3, get_skill_node(adata, skill0, node_0_1));
     set_skill_node_icon(adata, skill0, node_0_3, get_texture(adata, "wall2"));
+    set_skill_node_price(adata, skill0, node_0_3, 1800);
 
     add_skill_node(adata, skill1, node_1_1, 0);
     set_skill_node_name(adata, skill1, node_1_1, "Node_1_1");
     set_skill_node_parent(adata, skill1, node_1_1, NULL);
     set_skill_node_icon(adata, skill1, node_1_1, get_texture(adata, "wall"));
+    set_skill_node_price(adata, skill1, node_1_1, 300);
 
     add_skill_node(adata, skill1, node_1_2, 1);
     set_skill_node_name(adata, skill1, node_1_2, "Node_1_2");
     set_skill_node_parent(adata, skill1, node_1_2, get_skill_node(adata, skill1, node_1_1));
     set_skill_node_icon(adata, skill1, node_1_2, get_texture(adata, "wall2"));
+    set_skill_node_price(adata, skill1, node_1_2, 15000);
 }
 
 void init_skill_tree(s_appdata *adata)
@@ -511,4 +606,34 @@ void init_skill_tree(s_appdata *adata)
     init_stree_title(adata, game_ctn, skill_ctn, background_bounds);
     init_skills(adata);
     init_stree_trees(adata, game_ctn, skill_ctn, background_bounds);
+}
+
+void update_stree_nodes(s_appdata *adata, s_skill_tree *tree)
+{
+    linked_node *nodes = tree->nodes;
+
+    while (nodes != NULL && nodes->data != NULL) {
+        s_skill_node *cur = (s_skill_node *) nodes->data;
+
+        if (cur->unlocked) {
+            set_sprite_color(adata, cur->node_sprite->id, sfWhite);
+        } else {
+            set_sprite_color(adata, cur->node_sprite->id, sfRed);
+        }
+
+        nodes = nodes->next;
+    }
+}
+
+void update_skill_tree(s_appdata *adata)
+{
+    linked_node *trees = adata->game_data->skill_trees;
+
+    while (trees != NULL && trees->data != NULL) {
+        s_skill_tree *cur = (s_skill_tree *) trees->data;
+
+        update_stree_nodes(adata, cur);
+
+        trees = trees->next;
+    }
 }

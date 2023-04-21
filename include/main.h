@@ -320,6 +320,7 @@ typedef struct {
     void *host;
     void *potential_host;
     sfBool transfered;
+    int moula;
 } s_player;
 
 typedef struct {
@@ -628,6 +629,10 @@ typedef struct s_skill_node_s {
     struct s_skill_node_s *parent;
     s_sprite *node_sprite;
     sfVector2f pos;
+    int price;
+    sfBool unlocked;
+    void (*unlock_trigger)(s_appdata *adata, float value);
+    float trigger_value;
 } s_skill_node;
 
 typedef struct {
