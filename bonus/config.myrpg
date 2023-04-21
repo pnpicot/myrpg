@@ -2,7 +2,7 @@
 
 # -- misc -- begin
 string default_font = mono
-int enable_shader = 1 
+int enable_shader = 0 
 int dev_mode = 0 
 # -- misc -- end
 
@@ -113,6 +113,7 @@ string ctn_settings = ctn_settings
 
 # -- main menu ui -- begin
 string play_btn = main_play_btn
+string save_btn = main_save_btn
 string quit_btn = main_quit_btn
 string settings_btn = main_settings_btn
 string main_part = main_part

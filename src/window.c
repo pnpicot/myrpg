@@ -104,7 +104,7 @@ float update_rate, float render_rate)
         END(total)
         END(fps)
         GVNAME(fps) /= 2;
-        printf("update: %.4f : %.2f%%\n"
+        /* printf("update: %.4f : %.2f%%\n"
         "update_entities: %.4f : %.2f%%\n"
         "agro: %.4f : %.2f%%\n"
         "what_is_touching: %.4f : %.2f%%\n"
@@ -121,7 +121,7 @@ float update_rate, float render_rate)
         GVNAME(get_way), GVNAME(get_way) / GVNAME(total) * 100,
         GVNAME(render), GVNAME(render) / GVNAME(total) * 100,
         GVNAME(total), 100.0,
-        1.0 / GVNAME(fps));
+        1.0 / GVNAME(fps)); */
     }
 }
 

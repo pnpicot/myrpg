@@ -3,11 +3,12 @@
 # <type: part> <entity_id> <layer> <part_id> <texture_id> <origin: x> <origin: y> <offset: x> <offset: y>
 
 # -- factions -- begin
-faction droids 10000 10000 500 50
-faction insect 10000 1000 500 50
-faction piaf 1000 11000 500 50
-faction drone 11000 11000 500 50
-faction forgotten 6000 6000 500 50
+faction droids 10000 10000 500 5
+faction insect 10000 1000 500 5
+faction piaf 1000 11000 500 5
+faction drone 11000 11000 500 5
+faction forgotten 6000 6000 500 5
+faction parasites 1000 1000 300 20
 # -- factions -- end
 
 # -- entities -- begin
@@ -38,4 +39,7 @@ entity forgotten revenant 2.0f 0.12f 800 200.0f 1.0f 1 2000.0f
 part revenant 3 revenant_body revenant_body 32 32 0 0 
 part revenant 2 revenant_right_arm revenant_right_arm 32 32 0 0 
 part revenant 1 revenant_left_arm revenant_left_arm 32 32 0 0 
+
+entity parasites parasite 2.0f 0.20f 1000 0.5f 1.3f 1 5000.0f
+part parasite 1 parasite_body parasite 24 24 0 0 
 # -- entities -- end

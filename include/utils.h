@@ -35,3 +35,4 @@ sfVector2f lerp_vec2(sfVector2f from, sfVector2f to, float factor);
 float f_abs(float value);
 float f_max(float first, float second);
 float f_min(float first, float second);
+char *float_to_str(float value, int dec_count, int specifier);

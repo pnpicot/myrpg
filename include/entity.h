@@ -57,3 +57,4 @@ sfVector2i end);
 sfVector2f use_path(s_appdata *adata, s_entity *entity);
 void update_entity_collision_map(s_appdata *adata, s_entity *entity, void *ptr);
 void behavior_revenant(s_appdata *adata, s_entity *entity);
+void behavior_parasite(s_appdata *adata, s_entity *entity);

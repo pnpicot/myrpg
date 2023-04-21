@@ -129,6 +129,7 @@ s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
     new_entity->pos = (sfVector2f) { 0, 0 };
     new_entity->zone = NULL;
     new_entity->dead = sfFalse;
+    new_entity->name = model->name;
 
     return (new_entity);
 }

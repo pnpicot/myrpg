@@ -597,6 +597,7 @@ typedef struct s_entity_s {
     float agro_length;
     sfVector2f move_now;
     struct s_entity_s *move_now_entity;
+    char *name;
 } s_entity;
 
 typedef enum {
@@ -707,3 +708,4 @@ typedef struct {
 #include "quest.h"
 #include "skill_tree.h"
 #include "linked_add_sorted_layer.h"
+#include "save.h"

@@ -104,6 +104,7 @@ void add_entity_model(s_appdata *adata, char **entry)
 
     *new_model = (s_entity) { 0 };
 
+    char *model_name = entry[2];
     float model_scale = str_to_float(entry[3]);
     float model_spawnrate = str_to_float(entry[4]);
     int model_hp = my_getnbr(entry[5]);
@@ -132,6 +133,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->damage = damage;
     new_model->clock = sfClock_create();
     new_model->dead = sfFalse;
+    new_model->name = model_name;
 
     free(entry[0]);
     free(entry[1]);
