@@ -58,13 +58,13 @@ void set_slider_rtex(s_appdata *adata, char *id, char *rtex_id)
     set_button_rtex(adata, slider->left_round->id, rtex_id);
     set_button_rtex(adata, slider->right_round->id, rtex_id);
     set_button_rtex(adata, slider->middle_rect->id, rtex_id);
-    slider->left_hover->rtex_id = rtex_id;
-    slider->right_hover->rtex_id = rtex_id;
-    slider->middle_hover->rtex_id = rtex_id;
-    slider->node->rtex_id = rtex_id;
-    slider->indicator_text->rtex_id = rtex_id;
-    slider->indicator_rect->rtex_id = rtex_id;
-    slider->indicator_triangle->rtex_id = rtex_id;
+    set_circle_rtex(adata, slider->left_hover->id, rtex_id);
+    set_circle_rtex(adata, slider->right_hover->id, rtex_id);
+    set_rect_rtex(adata, slider->middle_hover->id, rtex_id);
+    set_circle_rtex(adata, slider->node->id, rtex_id);
+    set_text_rtex(adata, slider->indicator_text->id, rtex_id);
+    set_rect_rtex(adata, slider->indicator_rect->id, rtex_id);
+    set_vertex_rtex(adata, slider->indicator_triangle->id, rtex_id);
 }
 
 void set_slider_active(s_appdata *adata, char *id, sfUint8 active)

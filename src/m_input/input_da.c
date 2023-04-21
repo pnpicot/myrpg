@@ -89,7 +89,7 @@ void set_input_rtex(s_appdata *adata, char *id, char *rtex_id)
         return;
     }
 
-    input->input_rect->rtex_id = rtex_id;
-    input->input_text->rtex_id = rtex_id;
-    input->input_caret->rtex_id = rtex_id;
+    set_rect_rtex(adata, input->input_rect->id, rtex_id);
+    set_text_rtex(adata, input->input_text->id, rtex_id);
+    set_rect_rtex(adata, input->input_caret->id, rtex_id);
 }

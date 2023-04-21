@@ -18,8 +18,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
         path = entity->move_now;
-        entity->move_now = (sfVector2f){0, 0};
-    } else if (agro_path.x == -1.0f && agro_path.y == -1.0f)
+    } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
         path = get_way(adata, entity, end);
     else {
         path = agro_path;
@@ -46,6 +45,14 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     add = is_map_colliding(adata, entity, add);
 
     float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
+
+    if ((entity->move_now.x != 0 && entity->move_now.y != 0) ||
+        entity->move_now_entity != NULL) {
+        entity->move_now.x = 0;
+        entity->move_now.y = 0;
+        entity->move_now_entity = NULL;
+        angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
 
     translate_entity(adata, entity, add);
     rotate_entity_part_abs(adata, entity, "lmx2_body", angle);

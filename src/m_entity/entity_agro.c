@@ -48,11 +48,12 @@ sfVector2f get_path(s_appdata *adata, s_entity *entity, s_zone *zone)
         entities = entities->next;
     }
 
-    return ((sfVector2f) {-1.0f, -1.0f});
+    return ((sfVector2f) {-11.0f, -11.0f});
 }
 
 sfVector2f agro(s_appdata *adata, s_entity *entity)
 {
+    START(agro)
     sfVector2i pos;
     pos.x = my_getnbr(&entity->zone->id[5]);
     pos.y = my_getnbr(&entity->zone->id[6]);
@@ -64,6 +65,7 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
     s_zone *zone = entity->zone;
     sfVector2f path = get_path(adata, entity, zone);
     if (path.x != -1.0f && path.y != -1.0f) {
+        END(agro)
         return (path);
     }
 
@@ -83,7 +85,8 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
 
     for (int i = 0; i < 9; i++) {
         sfVector2f path = get_path(adata, entity, zone);
-        if (path.x != -1.0f && path.y != -1.0f) {
+        if (path.x != -11.0f && path.y != -11.0f) {
+            END(agro)
             return (path);
         }
 
@@ -103,5 +106,6 @@ sfVector2f agro(s_appdata *adata, s_entity *entity)
         free(next_zone_id);
     }
 
-    return ((sfVector2f) {-1.0f, -1.0f});
+    END(agro)
+    return ((sfVector2f) {-11.0f, -11.0f});
 }

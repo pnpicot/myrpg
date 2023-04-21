@@ -14,7 +14,7 @@ void trigger_playbtn(s_appdata *adata, s_ref *ref)
     set_container_active(adata, get_str(adata, "ctn_quest"), 0);
     set_container_active(adata, get_str(adata, "ctn_skill"), 0);
     set_rect_active(adata, get_str(adata, "skill_tree"), 0);
-        set_text_active(adata, str_add(get_str(adata, "skill_tree"), "@[:title]"), 0);
+    set_text_active(adata, str_add(get_str(adata, "skill_tree"), "@[:title]"), 0);
 }
 
 void trigger_settingsbtn(s_appdata *adata, s_ref *ref)

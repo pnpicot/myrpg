@@ -61,10 +61,11 @@ void set_bar_rtex(s_appdata *adata, char *id, char *rtex_id)
         return;
     }
 
-    bar->back_rect->rtex_id = rtex_id;
-    bar->fill_rect->rtex_id = rtex_id;
+    set_rect_rtex(adata, bar->back_rect->id, rtex_id);
+    set_rect_rtex(adata, bar->fill_rect->id, rtex_id);
 
-    if (bar->text != NULL) bar->text->rtex_id = rtex_id;
+    if (bar->text != NULL)
+        set_text_rtex(adata, bar->text->id, rtex_id);
 }
 
 void move_bar(s_appdata *adata, char *id, sfVector2f pos)

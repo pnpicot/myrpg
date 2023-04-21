@@ -27,6 +27,7 @@ void translate_entity(s_appdata *adata, s_entity *entity, sfVector2f pos_ch)
     entity->pos.y += pos_ch.y;
     update_entity_collision_map(adata, entity, entity);
 
+
     linked_node *parts = entity->parts;
 
     while (parts != NULL && parts->data != NULL) {

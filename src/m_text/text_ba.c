@@ -79,6 +79,8 @@ void set_text_rtex(s_appdata *adata, char *id, char *rtex_id)
     }
 
     text->rtex_id = rtex_id;
+    s_ref *ref = get_ref(adata, text, TYPE_TEXT);
+    linked_add_sorted_layer(rtex->objects, ref);
 }
 
 void set_text_active(s_appdata *adata, char *id, sfUint8 active)

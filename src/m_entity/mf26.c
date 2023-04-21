@@ -66,8 +66,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
         path = entity->move_now;
-        entity->move_now = (sfVector2f){0, 0};
-    } else if (agro_path.x == -1.0f && agro_path.y == -1.0f)
+    } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
         path = get_way(adata, entity, end);
     else {
         path = agro_path;
@@ -79,6 +78,13 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     float last_angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
     char *emiter_id = str_add(entity->id, "@[:emiter]");
 
+    if ((entity->move_now.x != 0 && entity->move_now.y != 0) ||
+    entity->move_now_entity != NULL) {
+        entity->move_now.x = 0;
+        entity->move_now.y = 0;
+        entity->move_now_entity = NULL;
+        angle = last_angle;
+    }
     if (angle != last_angle) {
         sfVector2f origin = { 140, 60 };
         float ang_rad = (angle - 90.0f) * (M_PI / 180.0f);

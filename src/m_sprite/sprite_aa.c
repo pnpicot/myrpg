@@ -18,6 +18,8 @@ void set_sprite_rtex(s_appdata *adata, char *id, char *rtex_id)
     }
 
     sprite->rtex_id = rtex_id;
+    s_ref *ref = get_ref(adata, sprite, TYPE_SPRITE);
+    linked_add_sorted_layer(rtex->objects, ref);
 }
 
 void set_sprite_active(s_appdata *adata, char *id, sfUint8 active)

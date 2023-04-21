@@ -46,7 +46,7 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     if (entity->move_now.x != 0 && entity->move_now.y != 0) {
         path = entity->move_now;
         entity->move_now = (sfVector2f){0, 0};
-    } else if (agro_path.x == -1.0f && agro_path.y == -1.0f)
+    } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
         path = get_way(adata, entity, end);
     else {
         path = agro_path;
@@ -76,16 +76,31 @@ void behavior_p800(s_appdata *adata, s_entity *entity)
     float blade_rot = get_entity_float(entity, "blade_rot")->value;
     float angle;
 
+
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
 
         add = is_map_colliding(adata, entity, add);
         angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
+        if ((entity->move_now.x != 0 && entity->move_now.y != 0) ||
+            entity->move_now_entity != NULL) {
+            entity->move_now.x = 0;
+            entity->move_now.y = 0;
+            entity->move_now_entity = NULL;
+            angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+        }
 
         rotate_entity_abs(adata, entity, angle);
         translate_entity(adata, entity, add);
     } else {
         angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
+
+    if ((entity->move_now.x != 0 && entity->move_now.y != 0) ||
+        entity->move_now_entity != NULL) {
+        entity->move_now.x = 0;
+        entity->move_now.y = 0;
+        entity->move_now_entity = NULL;
     }
 
     if (blade_cycle) {

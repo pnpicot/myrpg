@@ -21,7 +21,7 @@ s_sprite *copy_entity_part_sprite(s_appdata *adata, s_sprite *sprite)
     new_sprite->hidden = 0;
     new_sprite->layer = sprite->layer;
     new_sprite->pos = sprite->pos;
-    new_sprite->rtex_id = sprite->rtex_id;
+    set_sprite_rtex(adata, id, sprite->rtex_id);
     new_sprite->texture = sprite->texture;
 
     add_to_container(adata, container, (s_ref) { new_sprite, TYPE_SPRITE });

@@ -68,7 +68,7 @@ void set_bar_display(s_appdata *adata, char *bar_id, sfBool display)
     color_text(adata, id, get_config_color(adata, "bar_foreground"));
     resize_text(adata, id, get_int(adata, "bar_font_size"));
     bar->text = get_text(adata, id);
-    bar->text->rtex_id = bar->back_rect->rtex_id;
+    set_text_rtex(adata, id, bar->back_rect->rtex_id);
     update_bar(adata, bar);
 }
 

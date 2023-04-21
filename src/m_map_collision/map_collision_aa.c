@@ -107,15 +107,19 @@ s_entity *entity, sfVector2f *movement))
 sfVector2f is_map_colliding(s_appdata *adata, s_entity *entity,
 sfVector2f movement)
 {
+    START(is_map_colliding)
+    sfVector2f save = movement;
+
     movement = do_loop(adata, entity, (sfFloatRect){0, 0, movement.x,
     movement.y}, is_map_colliding_base_hitbox);
-    if (movement.x == 0 && movement.y == 0)
+    if (movement.x != save.x || movement.y != save.y) {
+        END(is_map_colliding)
         return (movement);
+    }
     movement = do_loop(adata, entity, (sfFloatRect){movement.x, 0, movement.x,
     movement.y}, is_map_colliding_horizontal);
-    if (movement.x == 0 && movement.y == 0)
-        return (movement);
     movement = do_loop(adata, entity, (sfFloatRect){0, movement.y, movement.x,
     movement.y}, is_map_colliding_vertical);
+    END(is_map_colliding)
     return (movement);
 }

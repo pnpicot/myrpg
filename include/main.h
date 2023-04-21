@@ -51,6 +51,12 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+#define GVNAME(vname) t_##vname
+#define START(vname) clock_t start_##vname = clock();
+#define END(vname) extern float GVNAME(vname); GVNAME(vname) += (float) (clock() - start_##vname) / CLOCKS_PER_SEC;
+#define DEF_IT(vname) float GVNAME(vname) = 0.0f;
+#define GET_IT(vname) extern float GVNAME(vname);
+
 typedef struct {
     int exit_status;
     int min_layer;
@@ -96,6 +102,7 @@ typedef struct {
     int depth;
     sfColor clear_color;
     sfBool active;
+    linked_node *objects;
 } s_rtex;
 
 typedef struct {
@@ -694,3 +701,4 @@ typedef struct {
 #include "console.h"
 #include "quest.h"
 #include "skill_tree.h"
+#include "linked_add_sorted_layer.h"

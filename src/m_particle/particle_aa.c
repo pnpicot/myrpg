@@ -60,20 +60,14 @@ void set_emiter_layer(s_appdata *adata, char *id, int layer)
     if (layer < integers->min_layer) integers->min_layer = layer;
 }
 
-void update_emiters(s_appdata *adata, int layer)
+void update_emiters(s_appdata *adata, s_ref *ref)
 {
-    linked_node *emiters = adata->lists->emiters;
 
-    while (emiters != NULL && emiters->data != NULL) {
-        s_particle_src *cur = (s_particle_src *) emiters->data;
+    s_particle_src *cur = (s_particle_src *) ref->ref;
 
-        if (!cur->active || cur->layer != layer) {
-            emiters = emiters->next;
-            continue;
-        }
-
-        cycle_emiter(adata, cur);
-
-        emiters = emiters->next;
+    if (!cur->active) {
+        return;
     }
+
+    cycle_emiter(adata, cur);
 }

@@ -74,4 +74,6 @@ void set_emiter_rtex(s_appdata *adata, char *id, char *rtex_id)
     }
 
     emiter->render_tex = rtex;
+    s_ref *ref = get_ref(adata, emiter, TYPE_EMITER);
+    linked_add_sorted_layer(rtex->objects, ref);
 }

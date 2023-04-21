@@ -9,11 +9,11 @@
 
 #include "main.h"
 
-void render_rects(s_appdata *adata, int layer, s_rtex *rtex);
-void render_circles(s_appdata *adata, int layer, s_rtex *rtex);
-void render_sprites(s_appdata *adata, int layer, s_rtex *rtex);
-void render_texts(s_appdata *adata, int layer, s_rtex *rtex);
-void render_vertexes(s_appdata *adata, int layer, s_rtex *rtex);
+void render_rects(s_appdata *adata, s_rtex *rtex, s_ref *ref);
+void render_circles(s_appdata *adata, s_rtex *rtex, s_ref *ref);
+void render_sprites(s_appdata *adata, s_rtex *rtex, s_ref *ref);
+void render_texts(s_appdata *adata, s_rtex *rtex, s_ref *ref);
+void render_vertexes(s_appdata *adata, s_rtex *rtex, s_ref *ref);
 void render_elements(s_appdata *adata, s_rtex *rtex);
 void render_textures(s_appdata *adata, int depth);
 void clear_rtexs(s_appdata *adata);

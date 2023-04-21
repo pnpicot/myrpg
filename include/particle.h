@@ -54,5 +54,5 @@ void update_particle_end(s_particle_src *emiter, s_particle *cur);
 void update_particle_pos(s_particle *cur, float delta);
 void update_particles(s_appdata *adata, s_particle_src *emiter);
 void cycle_emiter(s_appdata *adata, s_particle_src *emiter);
-void update_emiters(s_appdata *adata, int layer);
+void update_emiters(s_appdata *adata, s_ref *ref);
 void set_emiter_layer(s_appdata *adata, char *id, int layer);

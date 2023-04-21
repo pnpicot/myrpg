@@ -79,6 +79,8 @@ void set_vertex_rtex(s_appdata *adata, char *id, char *rtex_id)
     }
 
     vertex->rtex_id = rtex_id;
+    s_ref *ref = get_ref(adata, vertex, TYPE_VERTEX);
+    linked_add_sorted_layer(rtex->objects, ref);
 }
 
 void set_vertex_active(s_appdata *adata, char *id, sfUint8 active)

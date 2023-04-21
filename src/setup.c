@@ -12,7 +12,9 @@ void update_live(s_appdata *adata)
     update_ingame_ui(adata);
     cycle_world_time(adata);
     trigger_spawn_cycle(adata);
+    START(update_entities)
     update_entities(adata);
+    END(update_entities)
     update_player_info_text(adata);
     update_quests(adata);
 }

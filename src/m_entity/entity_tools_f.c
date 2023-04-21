@@ -74,7 +74,10 @@ s_particle *particle, linked_node *touchs))
 
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
 {
+    START(get_way)
     if (entity->path == NULL)
         entity->path = get_path_finding(adata, entity, destination);
-    return (use_path(adata, entity));
+    sfVector2f rvalue = use_path(adata, entity);
+    END(get_way)
+    return (rvalue);
 }

@@ -14,19 +14,19 @@ int type, char *rtex_id)
         case TYPE_SPRITE:
             {
             s_sprite *sprite = (s_sprite *) ref;
-            sprite->rtex_id = rtex_id;
+            set_sprite_rtex(adata, sprite->id, rtex_id);
             break;
             }
         case TYPE_TEXT:
             {
             s_text *text = (s_text *) ref;
-            text->rtex_id = rtex_id;
+            set_text_rtex(adata, text->id, rtex_id);
             break;
             }
         case TYPE_VERTEX:
             {
             s_vertex *vertex = (s_vertex *) ref;
-            vertex->rtex_id = rtex_id;
+            set_vertex_rtex(adata, vertex->id, rtex_id);
             break;
             }
         case TYPE_BUTTON:
@@ -55,13 +55,13 @@ void set_element_rtex(s_appdata *adata, void *ref, int type, char *rtex_id)
         case TYPE_RECT:
             {
             s_rect *rect = (s_rect *) ref;
-            rect->rtex_id = rtex_id;
+            set_rect_rtex(adata, rect->id, rtex_id);
             break;
             }
         case TYPE_CIRCLE:
             {
             s_circle *circle = (s_circle *) ref;
-            circle->rtex_id = rtex_id;
+            set_circle_rtex(adata, circle->id, rtex_id);
             break;
             }
         default:

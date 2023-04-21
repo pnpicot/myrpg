@@ -7,92 +7,57 @@
 
 #include "../include/main.h"
 
-void render_rects(s_appdata *adata, int layer, s_rtex *rtex)
+void render_rects(s_appdata *adata, s_rtex *rtex, s_ref *ref)
 {
-    linked_node *rects = adata->lists->rects;
+    s_rect *cur = (s_rect *) ref->ref;
 
-    while (rects != NULL && rects->data != NULL) {
-        s_rect *cur = (s_rect *) rects->data;
-        int no_render = cur->hidden || my_strcmp(rtex->id, cur->rtex_id);
-
-        if (cur->layer != layer || !cur->active || no_render) {
-            rects = rects->next;
-            continue;
-        }
-
-        sfRenderTexture_drawRectangleShape(rtex->texture, cur->elem, NULL);
-        rects = rects->next;
+    if (!cur->active || cur->hidden) {
+        return;
     }
+
+    sfRenderTexture_drawRectangleShape(rtex->texture, cur->elem, NULL);
 }
 
-void render_circles(s_appdata *adata, int layer, s_rtex *rtex)
+void render_circles(s_appdata *adata, s_rtex *rtex, s_ref *ref)
 {
-    linked_node *circles = adata->lists->circles;
+    s_circle *cur = (s_circle *) ref->ref;
 
-    while (circles != NULL && circles->data != NULL) {
-        s_circle *cur = (s_circle *) circles->data;
-        int no_render = cur->hidden || my_strcmp(rtex->id, cur->rtex_id);
-
-        if (cur->layer != layer || !cur->active || no_render) {
-            circles = circles->next;
-            continue;
-        }
-
-        sfRenderTexture_drawCircleShape(rtex->texture, cur->elem, NULL);
-        circles = circles->next;
+    if (!cur->active || cur->hidden) {
+        return;
     }
+
+    sfRenderTexture_drawCircleShape(rtex->texture, cur->elem, NULL);
 }
 
-void render_sprites(s_appdata *adata, int layer, s_rtex *rtex)
+void render_sprites(s_appdata *adata, s_rtex *rtex, s_ref *ref)
 {
-    linked_node *sprites = adata->lists->sprites;
+    s_sprite *cur = (s_sprite *) ref->ref;
 
-    while (sprites != NULL && sprites->data != NULL) {
-        s_sprite *cur = (s_sprite *) sprites->data;
-        int no_render = cur->hidden || my_strcmp(rtex->id, cur->rtex_id);
-
-        if (cur->layer != layer || !cur->active || no_render) {
-            sprites = sprites->next;
-            continue;
-        }
-
-        sfRenderTexture_drawSprite(rtex->texture, cur->elem, NULL);
-        sprites = sprites->next;
+    if (!cur->active || cur->hidden) {
+        return;
     }
+
+    sfRenderTexture_drawSprite(rtex->texture, cur->elem, NULL);
 }
 
-void render_texts(s_appdata *adata, int layer, s_rtex *rtex)
+void render_texts(s_appdata *adata, s_rtex *rtex, s_ref *ref)
 {
-    linked_node *texts = adata->lists->texts;
+    s_text *cur = (s_text *) ref->ref;
 
-    while (texts != NULL && texts->data != NULL) {
-        s_text *cur = (s_text *) texts->data;
-        int no_render = cur->hidden || my_strcmp(rtex->id, cur->rtex_id);
-
-        if (cur->layer != layer || !cur->active || no_render) {
-            texts = texts->next;
-            continue;
-        }
-
-        sfRenderTexture_drawText(rtex->texture, cur->elem, NULL);
-        texts = texts->next;
+    if (!cur->active || cur->hidden) {
+        return;
     }
+
+    sfRenderTexture_drawText(rtex->texture, cur->elem, NULL);
 }
 
-void render_vertexes(s_appdata *adata, int layer, s_rtex *rtex)
+void render_vertexes(s_appdata *adata, s_rtex *rtex, s_ref *ref)
 {
-    linked_node *vertexes = adata->lists->vertexes;
+    s_vertex *cur = (s_vertex *) ref->ref;
 
-    while (vertexes != NULL && vertexes->data != NULL) {
-        s_vertex *cur = (s_vertex *) vertexes->data;
-        int no_render = cur->hidden || my_strcmp(rtex->id, cur->rtex_id);
-
-        if (cur->layer != layer || !cur->active || no_render) {
-            vertexes = vertexes->next;
-            continue;
-        }
-
-        sfRenderTexture_drawVertexArray(rtex->texture, cur->elem, NULL);
-        vertexes = vertexes->next;
+    if (!cur->active || cur->hidden) {
+        return;
     }
+
+    sfRenderTexture_drawVertexArray(rtex->texture, cur->elem, NULL);
 }

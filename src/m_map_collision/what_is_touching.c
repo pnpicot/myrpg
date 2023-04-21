@@ -23,23 +23,37 @@ s_entity *entity)
     *node = new_node;
 }
 
+static void already_exist(linked_node **node, touch_type_t touch_type,
+s_entity *entity)
+{
+    linked_node *copy = *node;
+    s_touch_t *touch = NULL;
+
+    for (; copy != NULL; copy = copy->next) {
+        touch = copy->data;
+        if (touch->touch_type == touch_type && touch->entity == entity)
+            return;
+    }
+    add_it(node, touch_type, entity);
+}
+
 static void add_to_linked(s_appdata *adata, s_entity *act_entity,
 linked_node **node)
 {
     if (act_entity == NULL)
         return;
     if (act_entity == (s_entity *)1) {
-        add_it(node, TOUCH_WALL, NULL);
+        already_exist(node, TOUCH_WALL, NULL);
         return;
     }
     if (act_entity == (s_entity *)2) {
         if (adata->player->host != NULL)
-            add_it(node, TOUCH_PARASITE, NULL);
+            already_exist(node, TOUCH_PARASITE, NULL);
         return;
     }
     if (act_entity->dead == 1)
         return;
-    add_it(node, TOUCH_ENTITY, act_entity);
+    already_exist(node, TOUCH_ENTITY, act_entity);
 }
 
 static void do_loop(s_appdata *adata, sfFloatRect hitbox, linked_node **node,
@@ -56,8 +70,10 @@ void (*func)(s_appdata *adata, s_entity *act_entity, linked_node **node))
 
 linked_node *what_is_touching(s_appdata *adata, sfFloatRect hitbox)
 {
+    START(what_is_touching)
     linked_node *node = NULL;
 
     do_loop(adata, hitbox, &node, add_to_linked);
+    END(what_is_touching)
     return (node);
 }

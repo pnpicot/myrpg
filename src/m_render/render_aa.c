@@ -9,15 +9,23 @@
 
 void render_elements(s_appdata *adata, s_rtex *rtex)
 {
-    s_ints *ints = adata->integers;
+    linked_node *node = rtex->objects;
 
-    for (int i = ints->min_layer; i <= ints->max_layer; i++) {
-        render_rects(adata, i, rtex);
-        render_circles(adata, i, rtex);
-        render_sprites(adata, i, rtex);
-        update_emiters(adata, i);
-        render_texts(adata, i, rtex);
-        render_vertexes(adata, i, rtex);
+    while (node != NULL && node->data != NULL) {
+        s_ref *ref = (s_ref *) node->data;
+        if (ref->type == TYPE_RECT)
+            render_rects(adata, rtex, ref);
+        if (ref->type == TYPE_SPRITE)
+            render_sprites(adata, rtex, ref);
+        if (ref->type == TYPE_TEXT)
+            render_texts(adata, rtex, ref);
+        if (ref->type == TYPE_CIRCLE)
+            render_circles(adata, rtex, ref);
+        if (ref->type == TYPE_EMITER)
+            update_emiters(adata, ref);
+        if (ref->type == TYPE_VERTEX)
+            render_vertexes(adata, rtex, ref);
+        node = node->next;
     }
 }
 

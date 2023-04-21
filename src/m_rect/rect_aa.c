@@ -66,4 +66,6 @@ void set_rect_rtex(s_appdata *adata, char *id, char *rtex_id)
     }
 
     rect->rtex_id = rtex_id;
+    s_ref *ref = get_ref(adata, rect, TYPE_RECT);
+    linked_add_sorted_layer(rtex->objects, ref);
 }
