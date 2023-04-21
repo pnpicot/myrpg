@@ -2,7 +2,7 @@
 
 # -- misc -- begin
 string default_font = mono
-int enable_shader = 0 
+int enable_shader = 1 
 int dev_mode = 0 
 # -- misc -- end
 
@@ -180,5 +180,5 @@ float skill_width = 1.0f
 float skill_height = 1.0f
 color skill_primary = 0,0,0,230
 color skill_secondary = 3,232,252,255
-float skill_node_size = 50.0f
+float skill_node_size = 100.0f
 # -- skill tree -- end
