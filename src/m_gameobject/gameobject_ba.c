@@ -26,7 +26,8 @@ void delete_gameobject(s_appdata *adata, char *id)
 {
     s_gameobj *gameobject = get_gameobject(adata, id);
     if (gameobject == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *gameobjects = adata->lists->gameobjects;
@@ -48,14 +49,16 @@ void add_gameobject(s_appdata *adata, char *id)
     s_gameobj *gameobject = get_gameobject(adata, id);
 
     if (gameobject != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
 
     s_gameobj *new_gameobject = malloc(sizeof(s_gameobj));
 
     if (new_gameobject == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -72,7 +75,8 @@ void set_gameobject_ref(s_appdata *adata, char *id, void *ref, int type)
     s_gameobj *gameobject = get_gameobject(adata, id);
 
     if (gameobject == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

@@ -65,7 +65,8 @@ void add_gameobject_hitbox(s_appdata *adata, char *id)
     s_gameobj *game_obj = get_gameobject(adata, id);
 
     if (game_obj == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

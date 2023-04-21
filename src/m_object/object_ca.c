@@ -12,7 +12,8 @@ void set_object_pressed_fg(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void set_object_pressed_out(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +40,8 @@ void set_object_hover_bg(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,7 +54,8 @@ void set_object_hover_fg(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -64,7 +68,8 @@ void set_object_hover_out(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

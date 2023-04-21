@@ -27,7 +27,8 @@ void delete_syringe(s_appdata *adata, char *id)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -42,7 +43,6 @@ void delete_syringe(s_appdata *adata, char *id)
         ite++;
         syringes = syringes->next;
     }
-
     linked_delete(&adata->game_data->syringes, ite);
 }
 
@@ -51,24 +51,22 @@ void add_syringe(s_appdata *adata, char *id)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
-
     s_syringe *new_syringe = malloc(sizeof(s_syringe));
-
     if (new_syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
-
     new_syringe->count = 0;
     new_syringe->id = id;
     new_syringe->on_use = NULL;
     new_syringe->tex = NULL;
     new_syringe->name = "New Syringe";
     new_syringe->color = sfWhite;
-
     linked_add(adata->game_data->syringes, new_syringe);
 }
 
@@ -77,7 +75,8 @@ void set_syringe_color(s_appdata *adata, char *id, sfColor color)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -90,7 +89,8 @@ void (*on_use)(s_appdata *adata, s_syringe *syringe))
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -102,7 +102,8 @@ void set_syringe_count(s_appdata *adata, char *id, int count)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -114,7 +115,8 @@ void set_syringe_name(s_appdata *adata, char *id, char *name)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -126,7 +128,8 @@ void syringe_increment(s_appdata *adata, char *id, int amount)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -138,7 +141,8 @@ void syringe_decrement(s_appdata *adata, char *id, int amount)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -150,7 +154,8 @@ void set_syringe_texture(s_appdata *adata, char *id, sfTexture *texture)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -162,7 +167,8 @@ int get_syringe_count(s_appdata *adata, char *id)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -174,7 +180,8 @@ sfTexture *get_syringe_texture(s_appdata *adata, char *id)
     s_syringe *syringe = get_syringe(adata, id);
 
     if (syringe == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (NULL);
     }
 

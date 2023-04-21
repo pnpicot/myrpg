@@ -12,7 +12,8 @@ void color_circle(s_appdata *adata, char *id, sfColor color)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +25,8 @@ void set_circle_out(s_appdata *adata, char *id, sfColor color, float thickness)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -37,7 +39,8 @@ void rotate_circle(s_appdata *adata, char *id, float angle)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -49,7 +52,8 @@ void scale_circle(s_appdata *adata, char *id, sfVector2f factors)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -61,7 +65,8 @@ void set_circle_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_circle *circle = get_circle(adata, id);
 
     if (circle == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

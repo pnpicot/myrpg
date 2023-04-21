@@ -12,7 +12,8 @@ void clear_vertex(s_appdata *adata, char *id)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +25,8 @@ sfFloatRect get_vertex_bounds(s_appdata *adata, char *id)
     s_vertex *vertex = get_vertex(adata, id);
 
     if (vertex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfFloatRect) { -1, -1, -1, -1 });
     }
 

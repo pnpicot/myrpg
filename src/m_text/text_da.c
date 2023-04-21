@@ -12,7 +12,8 @@ void color_text(s_appdata *adata, char *id, sfColor color)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +25,8 @@ void resize_text(s_appdata *adata, char *id, int font_size)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +38,8 @@ void scale_text(s_appdata *adata, char *id, sfVector2f factors)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -48,7 +51,8 @@ void rotate_text(s_appdata *adata, char *id, float angle)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -60,7 +64,8 @@ const char *get_text_str(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (NULL);
     }
 

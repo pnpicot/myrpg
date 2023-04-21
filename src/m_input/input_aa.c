@@ -12,7 +12,8 @@ sfVector2f get_input_pos(s_appdata *adata, char *id)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -24,7 +25,8 @@ sfVector2f get_input_origin(s_appdata *adata, char *id)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -36,7 +38,8 @@ void set_input_align(s_appdata *adata, char *id, char *align)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -57,7 +60,8 @@ void (*on_input)(s_appdata *adata, const char *str))
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -69,7 +73,8 @@ void set_input_maxlength(s_appdata *adata, char *id, int max_length)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

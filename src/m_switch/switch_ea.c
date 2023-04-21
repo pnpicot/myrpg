@@ -12,7 +12,8 @@ void move_switch(s_appdata *adata, char *id, sfVector2f pos)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void translate_switch(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +40,8 @@ void set_switch_active(s_appdata *adata, char *id, sfUint8 active)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -53,7 +56,8 @@ void set_switch_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -66,7 +70,8 @@ sfVector2f get_switch_pos(s_appdata *adata, char *id)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 

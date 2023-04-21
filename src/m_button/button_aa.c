@@ -12,7 +12,8 @@ sfColor get_button_out_color(s_appdata *adata, char *id)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (sfBlack);
     }
 
@@ -25,7 +26,8 @@ float get_button_out_thickness(s_appdata *adata, char *id)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (-1);
     }
 
@@ -38,7 +40,8 @@ void resize_button_text(s_appdata *adata, char *id, int font_size)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +53,8 @@ const char *get_button_string(s_appdata *adata, char *id)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (NULL);
     }
 

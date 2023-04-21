@@ -12,7 +12,8 @@ void set_bar_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void color_bar(s_appdata *adata, char *id, sfColor empty, sfColor filled)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +40,8 @@ void set_bar_out(s_appdata *adata, char *id, sfColor color, float thickness)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +53,8 @@ void set_bar_active(s_appdata *adata, char *id, sfUint8 active)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -65,7 +69,8 @@ void set_bar_min(s_appdata *adata, char *id, float min)
     s_bar *bar = get_bar(adata, id);
 
     if (bar == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

@@ -12,7 +12,8 @@ void set_text_font(s_appdata *adata, char *id, sfFont *font)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +25,8 @@ void edit_text(s_appdata *adata, char *id, char *str)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +38,8 @@ void move_text(s_appdata *adata, char *id, sfVector2f pos)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -50,7 +53,8 @@ sfVector2f get_text_pos(s_appdata *adata, char *id)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfVector2f) { -1, -1 });
     }
 
@@ -62,7 +66,8 @@ void translate_text(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

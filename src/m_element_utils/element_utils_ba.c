@@ -12,7 +12,8 @@ s_ref *get_ref(s_appdata *adata, void *ref, int type)
     s_ref *new_ref = malloc(sizeof(s_ref));
 
     if (new_ref == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return (NULL);
     }
 

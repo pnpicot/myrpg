@@ -12,7 +12,8 @@ void resize_input(s_appdata *adata, char *id, sfVector2f size)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void clear_input(s_appdata *adata, char *id)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -41,7 +43,8 @@ void edit_input(s_appdata *adata, char *id, char *str)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -58,7 +61,8 @@ void set_input_font(s_appdata *adata, char *id, sfFont *font)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -71,7 +75,8 @@ void resize_input_text(s_appdata *adata, char *id, int font_size)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

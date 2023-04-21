@@ -34,7 +34,8 @@ void set_shader_float(s_appdata *adata, char *id, char *param, float value)
     sfShader *shader = get_shader(adata, id);
 
     if (shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -46,7 +47,8 @@ void set_shader_vec2(s_appdata *adata, char *id, char *param, sfVector2f value)
     sfShader *shader = get_shader(adata, id);
 
     if (shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -58,7 +60,8 @@ void set_shader_color(s_appdata *adata, char *id, char *param, sfColor color)
     sfShader *shader = get_shader(adata, id);
 
     if (shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -71,7 +74,8 @@ const sfTexture *tex)
     sfShader *shader = get_shader(adata, id);
 
     if (shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

@@ -26,7 +26,8 @@ void delete_texture(s_appdata *adata, char *id)
 {
     sfTexture *texture = get_texture(adata, id);
     if (texture == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *textures = adata->lists->textures;
@@ -49,7 +50,8 @@ s_texture *new_texture, char *path)
     new_texture->id = id;
     new_texture->texture = sfTexture_createFromFile(path, NULL);
     if (new_texture->texture == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "tex_load_fail"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "tex_load_fail"));
         return;
     }
     free(path);
@@ -61,17 +63,20 @@ void add_texture(s_appdata *adata, char *id, char *filename)
     char *path = str_add("bonus/textures/", filename);
     struct stat buffer;
     if (stat(path, &buffer) == -1) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "no_file"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "no_file"));
         return;
     }
     sfTexture *texture = get_texture(adata, id);
     if (texture != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     s_texture *new_texture = malloc(sizeof(s_texture));
     if (new_texture == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     add_texture_next(adata, id, new_texture, path);
@@ -89,17 +94,11 @@ void load_textures(s_appdata *adata)
             ite++;
             continue;
         }
-
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
-        char *id = entry_data[0];
-        char *filename = entry_data[1];
-
-        add_texture(adata, id, filename);
-
+        add_texture(adata, entry_data[0], entry_data[1]);
         for (int i = 1; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-
         ite++;
     }
     for (int i = 0; entries[i] != NULL; i++)

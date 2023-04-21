@@ -26,7 +26,8 @@ void delete_wall(s_appdata *adata, char *id)
 {
     s_wall *wall = get_wall(adata, id);
     if (wall == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *walls = adata->lists->walls;
@@ -47,7 +48,8 @@ void set_wall_rtex(s_appdata *adata, char *rtex_id, int layer)
 {
     s_rtex *rtex = get_rtex(adata, rtex_id);
     if (rtex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     s_ints *integers = adata->integers;

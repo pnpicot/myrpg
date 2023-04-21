@@ -27,14 +27,16 @@ void add_keymap(s_appdata *adata, int keycode, char ch)
     s_keymap *keymap = get_keymap(adata, keycode);
 
     if (keymap != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
 
     s_keymap *new_keymap = malloc(sizeof(s_keymap));
 
     if (new_keymap == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 

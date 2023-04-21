@@ -11,7 +11,8 @@ sfFloatRect get_container_bounds(s_appdata *adata, char *id)
 {
     s_container *container = get_container(adata, id);
     if (container == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfFloatRect) { -1, -1, -1, -1 });
     }
     if (container->nodes->data == NULL) return ((sfFloatRect) { 0, 0, 0, 0 });
@@ -28,7 +29,8 @@ void set_container_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_container *container = get_container(adata, id);
 
     if (container == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -48,7 +50,8 @@ void set_container_active(s_appdata *adata, char *id, sfUint8 active)
     s_container *container = get_container(adata, id);
 
     if (container == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -70,7 +73,8 @@ sfBool is_container_active(s_appdata *adata, char *id)
     s_container *container = get_container(adata, id);
 
     if (container == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (sfFalse);
     }
     return (container->active);

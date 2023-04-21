@@ -12,7 +12,8 @@ void move_input(s_appdata *adata, char *id, sfVector2f pos)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void set_input_placeholder(s_appdata *adata, char *id, char *placeholder)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -42,7 +44,8 @@ void set_input_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -55,7 +58,8 @@ void translate_input(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -68,7 +72,8 @@ const char *get_input_str(s_appdata *adata, char *id)
     s_input *input = get_input(adata, id);
 
     if (input == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (NULL);
     }
 

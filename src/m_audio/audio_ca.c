@@ -27,14 +27,16 @@ void play_sound(s_appdata *adata, char *id, float volume, sfVector2f pos)
     s_sound *sound = get_sound(adata, id);
 
     if (sound == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
     s_sound *sound_copy = malloc(sizeof(s_sound));
 
     if (sound_copy == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -49,7 +51,8 @@ void delete_sound(s_appdata *adata, char *id)
 {
     s_sound *sound = get_sound(adata, id);
     if (sound == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *sounds = adata->lists->sounds;
@@ -87,7 +90,8 @@ void play_music(s_appdata *adata, char *id)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

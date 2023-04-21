@@ -47,7 +47,8 @@ void toggle_switch(s_appdata *adata, char *id)
 {
     s_switch *switch_ = get_switch(adata, id);
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     switch_->state = switch_->state ? sfFalse : sfTrue;
@@ -64,7 +65,8 @@ sfBool get_switch_state(s_appdata *adata, char *id)
     s_switch *switch_ = get_switch(adata, id);
 
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return (sfFalse);
     }
 
@@ -75,7 +77,8 @@ void delete_switch(s_appdata *adata, char *id)
 {
     s_switch *switch_ = get_switch(adata, id);
     if (switch_ == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *switches = adata->lists->switches;

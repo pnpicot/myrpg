@@ -76,12 +76,14 @@ void add_button(s_appdata *adata, char *id, int type, int layer)
 {
     s_button *button = get_button(adata, id);
     if (button != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     s_button *new_button = malloc(sizeof(s_button));
     if (new_button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     new_button->id = id;
@@ -96,7 +98,8 @@ void delete_button(s_appdata *adata, char *id)
 {
     s_button *button = get_button(adata, id);
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *buttons = adata->lists->buttons;

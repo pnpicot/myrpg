@@ -26,7 +26,8 @@ void delete_sprite(s_appdata *adata, char *id)
 {
     s_sprite *sprite = get_sprite(adata, id);
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *sprites = adata->lists->sprites;
@@ -64,12 +65,14 @@ void add_sprite(s_appdata *adata, char *id, int layer)
 {
     s_sprite *sprite = get_sprite(adata, id);
     if (sprite != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     s_sprite *new_sprite = malloc(sizeof(s_sprite));
     if (new_sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     *new_sprite = (s_sprite){0};
@@ -81,7 +84,8 @@ void set_sprite_texture(s_appdata *adata, char *id, sfTexture *texture)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

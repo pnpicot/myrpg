@@ -27,7 +27,8 @@ void delete_quest(s_appdata *adata, char *id)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,14 +52,16 @@ void add_quest(s_appdata *adata, char *id)
     s_quest *quest = get_quest(adata, id);
 
     if (quest != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
 
     s_quest *new_quest = malloc(sizeof(s_quest));
 
     if (new_quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -80,7 +83,8 @@ void set_quest_completed(s_appdata *adata, char *id, sfBool completed)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -93,7 +97,8 @@ void (*completion_check)(s_appdata *adata, s_quest *quest))
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -105,7 +110,8 @@ void set_quest_title(s_appdata *adata, char *id, char *title)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -117,7 +123,8 @@ void set_quest_text(s_appdata *adata, char *id, char *text)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -129,7 +136,8 @@ void set_quest_icon(s_appdata *adata, char *id, sfTexture *texture)
     s_quest *quest = get_quest(adata, id);
 
     if (quest == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -342,7 +350,26 @@ void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
     }
 }
 
-void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVector2f bg_pos)
+void init_quest_title_n(s_appdata *adata, char *bg_id, sfVector2f bg_size,
+sfVector2f bg_pos)
+{
+    char *id = str_add(bg_id, "@[:title]");
+    float padding = get_float(adata, "quest_padding");
+    sfFloatRect bounds = get_text_bounds(adata, id);
+    sfVector2f origin = { bounds.width / 2, bounds.height / 2 };
+
+    set_text_origin(adata, id, origin);
+
+    sfVector2f pos;
+    pos.x = bg_pos.x + (bg_size.x / 2);
+    pos.y = bg_pos.y + padding + (bounds.height / 2);
+
+    move_text(adata, id, pos);
+    init_quest_items(adata, bg_id, bg_size, bg_pos);
+}
+
+void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size,
+sfVector2f bg_pos)
 {
     char *id = str_add(bg_id, "@[:title]");
     float padding = get_float(adata, "quest_padding");
@@ -359,20 +386,25 @@ void init_quest_title(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVecto
     free(str_quest_count);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, id, (s_ref) { get_text(adata, id), TYPE_TEXT });
-    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"),
+    (s_ref) { get_text(adata, id), TYPE_TEXT });
     resize_text(adata, id, 22);
 
-    sfFloatRect bounds = get_text_bounds(adata, id);
-    sfVector2f origin = { bounds.width / 2, bounds.height / 2 };
+    init_quest_title_n(adata, bg_id, bg_size, bg_pos);
+}
 
-    set_text_origin(adata, id, origin);
+void init_quest_ui_n(s_appdata *adata, char *id)
+{
+    char *container = get_str(adata, "ctn_game");
+    char *rtex = get_str(adata, "rtex_ui");
 
-    sfVector2f pos;
-    pos.x = bg_pos.x + (bg_size.x / 2);
-    pos.y = bg_pos.y + padding + (bounds.height / 2);
-
-    move_text(adata, id, pos);
-    init_quest_items(adata, bg_id, bg_size, bg_pos);
+    set_rect_rtex(adata, id, rtex);
+    add_to_container(adata, container,
+    (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"),
+    (s_ref) { get_rect(adata, id), TYPE_RECT });
+    color_rect(adata, id, get_color(0, 0, 0, 230));
+    set_rect_outline(adata, id, get_color(40, 40, 40, 230), 1.0f);
 }
 
 void init_quest_ui(s_appdata *adata)
@@ -382,26 +414,17 @@ void init_quest_ui(s_appdata *adata)
     float padding = get_float(adata, "quest_padding");
     int layer = get_int(adata, "quest_layer");
     int win_h = get_int(adata, "win_h");
-    char *rtex = get_str(adata, "rtex_ui");
-    char *container = get_str(adata, "ctn_game");
     float item_height = get_float(adata, "quest_item_height");
     int quest_count = linked_count(adata->game_data->quests);
 
     add_rect(adata, id, layer);
-
     sfVector2f size;
     size.x = width;
     size.y = 50.0f + (item_height * quest_count) + (padding * quest_count);
-
     sfVector2f pos = { 10, (win_h / 2) - (size.y / 2) };
-
+    init_quest_ui_n(adata, id);
     resize_rect(adata, id, size);
     move_rect(adata, id, pos);
-    set_rect_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
-    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
-    color_rect(adata, id, get_color(0, 0, 0, 230));
-    set_rect_outline(adata, id, get_color(40, 40, 40, 230), 1.0f);
     init_quest_title(adata, id, size, pos);
 }
 

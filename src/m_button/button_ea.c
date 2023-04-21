@@ -12,7 +12,8 @@ void translate_button(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ void set_button_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +40,8 @@ void set_button_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,7 +54,8 @@ void set_button_active(s_appdata *adata, char *id, sfUint8 active)
     s_button *button = get_button(adata, id);
 
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -63,7 +67,8 @@ sfFloatRect get_button_bounds(s_appdata *adata, char *id)
 {
     s_button *button = get_button(adata, id);
     if (button == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return ((sfFloatRect) { -1, -1, -1, -1 });
     }
     s_ref *ref = button->elem;

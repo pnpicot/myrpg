@@ -12,7 +12,8 @@ void init_appdata_ints(s_appdata *adata)
     adata->integers = malloc(sizeof(s_ints));
 
     if (adata->integers == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -36,7 +37,8 @@ void init_appdata_floats(s_appdata *adata)
     adata->floats = malloc(sizeof(s_floats));
 
     if (adata->floats == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 }
@@ -46,7 +48,8 @@ void init_appdata_clocks(s_appdata *adata)
     adata->clocks = malloc(sizeof(s_clocks));
 
     if (adata->clocks == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 
@@ -93,7 +96,8 @@ void init_appdata_linkeds(s_appdata *adata)
     adata->lists = malloc(sizeof(s_linkeds));
 
     if (adata->lists == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
 

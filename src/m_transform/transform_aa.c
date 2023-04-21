@@ -35,7 +35,8 @@ void transform(s_appdata *adata, float delay, s_target target)
 {
     s_transform *ntrf = malloc(sizeof(s_transform));
     if (ntrf == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     transform_init(adata, ntrf, delay, target);

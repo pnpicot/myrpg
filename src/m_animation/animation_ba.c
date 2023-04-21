@@ -27,7 +27,8 @@ void set_animation_speed(s_appdata *adata, char *sprite_id, float speed)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -40,7 +41,8 @@ void set_animation_rows(s_appdata *adata, char *sprite_id, int row_count)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -53,7 +55,8 @@ void set_animation_cols(s_appdata *adata, char *sprite_id, int col_count)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -66,7 +69,8 @@ void shift_animation_row(s_appdata *adata, char *sprite_id, int row_index)
     s_animation *animation = get_animation(adata, sprite_id);
 
     if (animation == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

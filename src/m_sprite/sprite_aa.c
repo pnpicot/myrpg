@@ -13,7 +13,8 @@ void set_sprite_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (sprite == NULL || rtex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -27,7 +28,8 @@ void set_sprite_active(s_appdata *adata, char *id, sfUint8 active)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -39,7 +41,8 @@ void set_sprite_repeat(s_appdata *adata, char *id, sfBool repeat)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -52,7 +55,8 @@ void rotate_sprite_add(s_appdata *adata, char *id, float angle_ch)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -64,7 +68,8 @@ void set_sprite_color(s_appdata *adata, char *id, sfColor color)
     s_sprite *sprite = get_sprite(adata, id);
 
     if (sprite == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

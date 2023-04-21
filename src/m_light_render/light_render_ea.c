@@ -23,7 +23,8 @@ void set_lightmask_rtex(s_appdata *adata, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (rtex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

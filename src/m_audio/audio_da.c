@@ -12,7 +12,8 @@ void stop_music(s_appdata *adata, char *id)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -24,7 +25,8 @@ void pause_music(s_appdata *adata, char *id)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -36,7 +38,8 @@ void set_music_volume(s_appdata *adata, char *id, float volume)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -48,7 +51,8 @@ void set_music_loop(s_appdata *adata, char *id, sfBool loop)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -60,7 +64,8 @@ void move_music(s_appdata *adata, char *id, sfVector2f pos)
     s_music *music = get_music(adata, id);
 
     if (music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

@@ -47,12 +47,14 @@ void add_object(s_appdata *adata, char *id, s_ref ref)
 {
     s_object *object = get_object(adata, id);
     if (object != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     s_object *new_object = malloc(sizeof(s_object));
     if (new_object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     add_object_next(adata, id, ref, new_object);
@@ -63,7 +65,8 @@ void delete_object(s_appdata *adata, char *id)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -87,7 +90,8 @@ void set_object_pressed_bg(s_appdata *adata, char *id, sfColor color)
     s_object *object = get_object(adata, id);
 
     if (object == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

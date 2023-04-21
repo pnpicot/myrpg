@@ -26,7 +26,8 @@ void delete_shader(s_appdata *adata, char *id)
 {
     sfShader *shader = get_shader(adata, id);
     if (shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *shaders = adata->lists->shaders;
@@ -59,7 +60,8 @@ int add_shader_vert(s_appdata *adata, char *vert, char **vert_path)
     struct stat buffer;
 
     if (stat(*vert_path, &buffer) == -1 && !is_nil) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "no_file"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "no_file"));
         return (0);
     }
 
@@ -82,7 +84,8 @@ int add_shader_frag(s_appdata *adata, char *frag, char **frag_path)
     struct stat buffer;
 
     if(stat(*frag_path, &buffer) == -1 && !is_nil) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "no_file"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "no_file"));
         return (0);
     }
 
@@ -93,7 +96,8 @@ void add_shader(s_appdata *adata, char *id, char *paths)
 {
     sfShader *shader = get_shader(adata, id);
     if (shader != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     char **path_split = str_split(paths, ',');
@@ -105,7 +109,8 @@ void add_shader(s_appdata *adata, char *id, char *paths)
     if (!add_shader_frag(adata, frag, &frag_path)) return;
     s_shader *new_shader = malloc(sizeof(s_shader));
     if (new_shader == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     new_shader->id = id;

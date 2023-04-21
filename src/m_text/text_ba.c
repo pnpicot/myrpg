@@ -26,7 +26,8 @@ void delete_text(s_appdata *adata, char *id)
 {
     s_text *text = get_text(adata, id);
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
     linked_node *texts = adata->lists->texts;
@@ -47,12 +48,14 @@ void add_text(s_appdata *adata, char *id, int layer)
 {
     s_text *text = get_text(adata, id);
     if (text != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "already_exists"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
         return;
     }
     s_text *new_text = malloc(sizeof(s_text));
     if (new_text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "mem_alloc"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
         return;
     }
     s_ints *integers = adata->integers;
@@ -74,7 +77,8 @@ void set_text_rtex(s_appdata *adata, char *id, char *rtex_id)
     s_rtex *rtex = get_rtex(adata, rtex_id);
 
     if (text == NULL || rtex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -88,7 +92,8 @@ void set_text_active(s_appdata *adata, char *id, sfUint8 active)
     s_text *text = get_text(adata, id);
 
     if (text == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

@@ -46,10 +46,12 @@ void init_ingame_fps(s_appdata *adata, char *container, char *rtex)
     edit_text(adata, fps, "? fps");
     move_text(adata, fps, (sfVector2f) { 20, 20 });
     resize_text(adata, fps, 22);
-    add_to_container(adata, container, (s_ref) { get_text(adata, fps), TYPE_TEXT });
+    add_to_container(adata, container,
+    (s_ref) { get_text(adata, fps), TYPE_TEXT });
 }
 
-void init_stats_title(s_appdata *adata, char *container, char *rtex, char *rect_id)
+void init_stats_title(s_appdata *adata, char *container, char *rtex,
+char *rect_id)
 {
     char *id = str_add(rect_id, "@[:title]");
     sfFloatRect rect = get_sprite_bounds(adata, rect_id);
@@ -58,22 +60,21 @@ void init_stats_title(s_appdata *adata, char *container, char *rtex, char *rect_
     edit_text(adata, id, "STATS");
     set_text_font(adata, id, get_font(adata, "courier"));
     set_text_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, container,
+    (s_ref) { get_text(adata, id), TYPE_TEXT });
     color_text(adata, id, sfWhite);
     resize_text(adata, id, 22);
-
     sfFloatRect bounds = get_text_bounds(adata, id);
-
-    set_text_origin(adata, id, (sfVector2f) { bounds.width / 2, bounds.height / 2 });
-
+    set_text_origin(adata, id,
+    (sfVector2f) { bounds.width / 2, bounds.height / 2 });
     sfVector2f pos;
     pos.x = rect.left + (rect.width / 2);
     pos.y = rect.top + 18;
-
     move_text(adata, id, pos);
 }
 
-void init_stats_health(s_appdata *adata, char *container, char *rtex, char *rect_id)
+void init_stats_health(s_appdata *adata, char *container, char *rtex,
+char *rect_id)
 {
     char *id = str_add(rect_id, "@[:health]");
     sfFloatRect rect = get_sprite_bounds(adata, rect_id);
@@ -94,7 +95,8 @@ void init_stats_health(s_appdata *adata, char *container, char *rtex, char *rect
     resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
 }
 
-void init_stats_transference(s_appdata *adata, char *container, char *rtex, char *rect_id)
+void init_stats_transference(s_appdata *adata, char *container, char *rtex,
+char *rect_id)
 {
     char *id = str_add(rect_id, "@[:transference]");
     sfFloatRect rect = get_sprite_bounds(adata, rect_id);
@@ -115,7 +117,8 @@ void init_stats_transference(s_appdata *adata, char *container, char *rtex, char
     resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
 }
 
-void init_stats_text(s_appdata *adata, char *container, char *rtex, char *rect_id)
+void init_stats_text(s_appdata *adata, char *container, char *rtex,
+char *rect_id)
 {
     char *id = str_add(rect_id, "@[:text]");
     sfFloatRect rect = get_sprite_bounds(adata, rect_id);
@@ -126,7 +129,8 @@ void init_stats_text(s_appdata *adata, char *container, char *rtex, char *rect_i
     color_text(adata, id, sfWhite);
     resize_text(adata, id, 18);
     set_text_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, container, (s_ref) { get_text(adata, id),
+    TYPE_TEXT });
     edit_text(adata, id, "5 Atk / 2 Def / Trans. LV. 1");
 
     sfVector2f pos;
@@ -146,14 +150,16 @@ void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
     add_sprite(adata, id, 1);
     set_sprite_texture(adata, id, get_texture(adata, "stats_w"));
     set_sprite_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    add_to_container(adata, container, (s_ref) { get_sprite(adata, id),
+    TYPE_SPRITE });
     scale_sprite(adata, id, (sfVector2f) { zoom, zoom });
 
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
     sfFloatRect bounds = get_sprite_bounds(adata, id);
 
-    move_sprite(adata, id, (sfVector2f) { 20.0f, win_h - 20.0f - bounds.height });
+    move_sprite(adata, id,
+    (sfVector2f) { 20.0f, win_h - 20.0f - bounds.height });
     init_stats_title(adata, container, rtex, id);
     init_stats_health(adata, container, rtex, id);
     init_stats_transference(adata, container, rtex, id);

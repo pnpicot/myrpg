@@ -25,14 +25,34 @@ void update_fps(s_appdata *adata)
     }
 }
 
+void update_next(s_appdata *adata, float update_rate, float input_seconds)
+{
+    if (adata->integers->in_game) {
+        update_controls(adata);
+        update_gameobjects(adata);
+    }
+    int can_input = input_seconds >= get_float(adata, "input_speed");
+    int last_key = adata->integers->last_keycode != -1;
+    int last_input = adata->last_input != NULL;
+    if (can_input && last_key && last_input) {
+        input_type(adata, adata->integers->last_keycode);
+        sfClock_restart(adata->clocks->input_clock);
+    }
+
+    update_live(adata);
+
+    if (get_int(adata, "dev_mode")) {
+        update_current_wall(adata);
+        update_fps(adata);
+    }
+}
+
 void update(s_appdata *adata, float update_rate)
 {
-    s_clocks *clocks = adata->clocks;
-    float seconds = get_clock_seconds(clocks->update_clock);
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
 
     if (seconds >= update_rate) {
-        s_ints *integers = adata->integers;
-        float input_seconds = get_clock_seconds(clocks->input_clock);
+        float input_seconds = get_clock_seconds(adata->clocks->input_clock);
 
         slider_update_change(adata);
         input_update(adata);
@@ -41,27 +61,8 @@ void update(s_appdata *adata, float update_rate)
         update_player(adata);
         update_player_ui(adata);
 
-        if (integers->in_game) {
-            update_controls(adata);
-            update_gameobjects(adata);
-        }
+        update_next(adata, update_rate, input_seconds);
 
-        int can_input = input_seconds >= get_float(adata, "input_speed");
-        int last_key = integers->last_keycode != -1;
-        int last_input = adata->last_input != NULL;
-
-        if (can_input && last_key && last_input) {
-            input_type(adata, integers->last_keycode);
-            sfClock_restart(clocks->input_clock);
-        }
-
-        update_live(adata);
-
-        if (get_int(adata, "dev_mode")) {
-            update_current_wall(adata);
-            update_fps(adata);
-        }
-
-        sfClock_restart(clocks->update_clock);
+        sfClock_restart(adata->clocks->update_clock);
     }
 }

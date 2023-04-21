@@ -12,7 +12,8 @@ void set_emiter_spawn_yoffset(s_appdata *adata, char *id, sfVector2f offset)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -25,7 +26,8 @@ sfVector2f start_size, sfVector2f end_size)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -38,7 +40,8 @@ void set_emiter_vortex_dir(s_appdata *adata, char *id, int vortex_dir)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -51,7 +54,8 @@ sfVector2f vortex_speed)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -63,7 +67,8 @@ void set_emiter_active(s_appdata *adata, char *id, sfBool active)
     s_particle_src *emiter = get_emiter(adata, id);
 
     if (emiter == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 

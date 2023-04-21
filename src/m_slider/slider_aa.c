@@ -12,7 +12,8 @@ void set_slider_current(s_appdata *adata, char *id, int value)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -26,7 +27,8 @@ void set_slider_origin(s_appdata *adata, char *id, sfVector2f origin)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
@@ -39,7 +41,8 @@ void translate_slider(s_appdata *adata, char *id, sfVector2f pos_ch)
     s_slider *slider = get_slider(adata, id);
 
     if (slider == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__, get_error(adata, "unknown_id"));
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "unknown_id"));
         return;
     }
 
