@@ -15,6 +15,7 @@ void update_live(s_appdata *adata)
     update_entities(adata);
     update_player_info_text(adata);
     update_quests(adata);
+    update_skill_tree(adata);
 }
 
 void init_live_light(s_appdata *adata)

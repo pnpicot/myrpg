@@ -115,6 +115,29 @@ void init_stats_transference(s_appdata *adata, char *container, char *rtex, char
     resize_bar(adata, id, (sfVector2f) { rect.width - 60.0f, 10.0f });
 }
 
+void init_stats_text(s_appdata *adata, char *container, char *rtex, char *rect_id)
+{
+    char *id = str_add(rect_id, "@[:text]");
+    sfFloatRect rect = get_sprite_bounds(adata, rect_id);
+    s_player *player = adata->player;
+
+    add_text(adata, id, 2);
+    set_text_font(adata, id, get_font(adata, "courier"));
+    color_text(adata, id, sfWhite);
+    resize_text(adata, id, 18);
+    set_text_rtex(adata, id, rtex);
+    add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
+    edit_text(adata, id, "5 Atk / 2 Def / Trans. LV. 1");
+
+    sfVector2f pos;
+    pos.x = rect.left + 30.0f;
+    pos.y = rect.top + 90.0f;
+
+    move_text(adata, id, pos);
+
+    player->stats = get_text(adata, id);
+}
+
 void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
 {
     char *id = get_str(adata, "stats_widget");
@@ -134,6 +157,7 @@ void init_ingame_stats(s_appdata *adata, char *container, char *rtex)
     init_stats_title(adata, container, rtex, id);
     init_stats_health(adata, container, rtex, id);
     init_stats_transference(adata, container, rtex, id);
+    init_stats_text(adata, container, rtex, id);
 }
 
 void init_live_ingame_ui(s_appdata *adata)
