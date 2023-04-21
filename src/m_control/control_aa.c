@@ -14,6 +14,7 @@ float delta, s_clocks *clocks)
 
     sfVector2f add = {game_data->speed.x * delta, game_data->speed.y * delta};
     sfVector2f next_pos = game_data->view_pos;
+    sfVector2f save = add;
     s_player *player = adata->player;
 
     next_pos.x += add.x;
@@ -31,6 +32,11 @@ float delta, s_clocks *clocks)
             adata->game_data->col_map[i][j] = NULL;
         }
     }
+
+    if (add.x != save.x)
+        game_data->speed.x = 0;
+    if (add.y != save.y)
+        game_data->speed.y = 0;
 
     sfVector2f shift;
     shift.x = -add.x;

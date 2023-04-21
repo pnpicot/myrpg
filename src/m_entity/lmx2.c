@@ -16,7 +16,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     end.x = 125;
     end.y = 125;
     sfVector2f agro_path = agro(adata, entity);
-    if (entity->move_now.x != 0 && entity->move_now.y != 0) {
+    if (entity->move_now_entity != NULL) {
         path = entity->move_now;
     } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
         path = get_way(adata, entity, end);
@@ -46,8 +46,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
 
     float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
 
-    if ((entity->move_now.x != 0 && entity->move_now.y != 0) ||
-        entity->move_now_entity != NULL) {
+    if (entity->move_now_entity != NULL) {
         entity->move_now.x = 0;
         entity->move_now.y = 0;
         entity->move_now_entity = NULL;

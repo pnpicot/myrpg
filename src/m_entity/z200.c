@@ -42,7 +42,7 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
     end.y = 125;
 
     sfVector2f agro_path = agro(adata, entity);
-    if (entity->move_now.x != 0 && entity->move_now.y != 0) {
+    if (entity->move_now_entity != NULL) {
         path = entity->move_now;
         entity->move_now = (sfVector2f){0, 0};
     } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)

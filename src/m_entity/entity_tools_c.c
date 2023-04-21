@@ -35,6 +35,8 @@ void (*emiter)(s_appdata *adata, s_entity *s_entity))
 
 sfFloatRect get_entity_hitbox(s_appdata *adata, s_entity *entity)
 {
+    if (entity == NULL)
+        return (adata->player->hitbox);
     sfFloatRect hitbox =
     {.left = entity->pos.x + (entity->hitbox.left * entity->scale)
     - (entity->hitbox.width * entity->scale / 2),

@@ -100,9 +100,6 @@ void update_player(s_appdata *adata)
     if (player->host != NULL)
         player_host_behavior(adata);
 
-    if (get_clock_seconds(player->transference_clock) >= 5.0f && !player->solid)
-        player->solid = sfTrue;
-
     if (in_range(speed.x, -epsilon, epsilon) && in_range(speed.y, -epsilon, epsilon)) {
         pause_animation(adata, sprite_id);
         return;
@@ -347,7 +344,6 @@ void try_transference(s_appdata *adata)
         host->inhabited = sfTrue;
         player->transfered = sfTrue;
         player->body->active = 0;
-        player->solid = sfFalse;
 
         set_emiter_active(adata, emiter_id, sfFalse);
         set_emiter_active(adata, host_emiter_id, sfFalse);

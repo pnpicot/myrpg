@@ -20,12 +20,8 @@ s_entity *entity, sfVector2f *movement)
         movement->x = 0;
         return (1);
     }
-    sfFloatRect hitbox = (entity == NULL) ? adata->player->hitbox :
-    get_entity_hitbox(adata, entity);
-    sfFloatRect ahitbox = get_entity_hitbox(adata, act_entity);
-
-    movement->x = (hitbox.left + hitbox.width - ahitbox.left < 0) ? 1 : -1;
-    act_entity->move_now.x = movement->x;
+    movement->x = MAX(-2, MIN(2, movement->x));
+    act_entity->move_now.x = movement->x * 10;
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
 }
@@ -43,12 +39,8 @@ s_entity *entity, sfVector2f *movement)
         movement->y = 0;
         return (1);
     }
-    sfFloatRect hitbox = (entity == NULL) ? adata->player->hitbox :
-    get_entity_hitbox(adata, entity);
-    sfFloatRect ahitbox = get_entity_hitbox(adata, act_entity);
-
-    movement->y = (hitbox.top + hitbox.height - ahitbox.top < 0) ? 1 : -1;
-    act_entity->move_now.y = movement->y;
+    movement->y = MAX(-2, MIN(2, movement->y));
+    act_entity->move_now.y = movement->y * 10;
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
 }
@@ -67,12 +59,11 @@ s_entity *entity, sfVector2f *movement)
         movement->y = 0;
         return (1);
     }
-    sfFloatRect hitbox = (entity == NULL) ? adata->player->hitbox :
-    get_entity_hitbox(adata, entity);
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
     sfFloatRect ahitbox = get_entity_hitbox(adata, act_entity);
 
-    movement->x = (hitbox.left + hitbox.width - ahitbox.left < 0) ? -1 : 1;
-    movement->y = (hitbox.top + hitbox.height - ahitbox.top < 0) ? -1 : 1;
+    movement->x = (hitbox.left < ahitbox.left) ? -2 : 2;
+    movement->y = (hitbox.top  < ahitbox.top) ? -2 : 2;
     act_entity->move_now = (sfVector2f){-movement->x, -movement->y};
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
@@ -82,23 +73,20 @@ static sfVector2f do_loop(s_appdata *adata, s_entity *entity,
 sfFloatRect rmovement, int (*func)(s_appdata *adata, s_entity *act_entity,
 s_entity *entity, sfVector2f *movement))
 {
-    sfFloatRect hitbox = {0, 0, 0, 0};
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
     sfVector2f movement = {rmovement.left, rmovement.top};
     sfVector2f new_movement = {rmovement.width, rmovement.height};
-    int rvalue = 0;
 
-    if (entity != NULL)
-        hitbox = get_entity_hitbox(adata, entity);
-    else
-        hitbox = adata->player->hitbox;
+    hitbox = not_overlapping_rect(hitbox, movement);
 
-    for (int i = hitbox.top + movement.y; i < (hitbox.top + movement.y +
-    hitbox.height) && i >= 0 && i < adata->game_data->col_map_size.y; i++) {
-        for (int j = hitbox.left + movement.x; j < (hitbox.left + movement.x +
-        hitbox.width) && j >= 0 && j < adata->game_data->col_map_size.x; j++) {
-            rvalue = func(adata, adata->game_data->col_map[i][j],
+    for (int i = hitbox.top; i < hitbox.top + hitbox.height &&
+    i >= 0 && i < adata->game_data->col_map_size.y; i++) {
+        for (int j = hitbox.left; j < hitbox.left + hitbox.width &&
+        j >= 0 && j < adata->game_data->col_map_size.x; j++) {
+            int rv = func(adata, adata->game_data->col_map[i][j],
             entity, &new_movement);
-            j = (rvalue == 1) ? -11 : j;
+            j = (rv == 1) ? -11 : j;
+            i = (rv == 1) ? -11 : i;
         }
     }
     return (new_movement);
@@ -112,14 +100,14 @@ sfVector2f movement)
 
     movement = do_loop(adata, entity, (sfFloatRect){0, 0, movement.x,
     movement.y}, is_map_colliding_base_hitbox);
-    if (movement.x != save.x || movement.y != save.y) {
-        END(is_map_colliding)
-        return (movement);
+    if (movement.x != 0) {
+        movement = do_loop(adata, entity, (sfFloatRect){movement.x, 0,
+        movement.x, movement.y}, is_map_colliding_horizontal);
     }
-    movement = do_loop(adata, entity, (sfFloatRect){movement.x, 0, movement.x,
-    movement.y}, is_map_colliding_horizontal);
-    movement = do_loop(adata, entity, (sfFloatRect){0, movement.y, movement.x,
-    movement.y}, is_map_colliding_vertical);
+    if (movement.y != 0) {
+        movement = do_loop(adata, entity, (sfFloatRect){0, movement.y,
+        movement.x, movement.y}, is_map_colliding_vertical);
+    }
     END(is_map_colliding)
     return (movement);
 }
