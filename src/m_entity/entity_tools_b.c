@@ -131,6 +131,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->agro_length = agro_length;
     new_model->damage = damage;
     new_model->clock = sfClock_create();
+    new_model->dead = sfFalse;
 
     free(entry[0]);
     free(entry[1]);

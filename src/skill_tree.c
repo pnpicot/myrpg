@@ -286,6 +286,38 @@ char *skill_ctn, char *game_ctn)
     move_text(adata, id, pos);
 }
 
+void init_stree_hitbox(s_appdata *adata, s_skill_node *node, \
+char *skill_ctn, char *game_ctn)
+{
+    char *rtex = get_str(adata, "rtex_ui");
+    char *id = str_add("node-link-", get_random_id(5));
+    int layer = get_int(adata, "skill_layer");
+    sfColor primary = get_config_color(adata, "skill_primary");
+    sfColor secondary = get_config_color(adata, "skill_secondary");
+    float size = get_float(adata, "skill_node_size");
+
+    add_rect(adata, id, layer + 3);
+    set_rect_rtex(adata, id, rtex);
+
+    s_ref ref = { get_rect(adata, id), TYPE_RECT };
+
+    add_to_container(adata, game_ctn, ref);
+    add_to_container(adata, skill_ctn, ref);
+    color_rect(adata, id, sfTransparent);
+
+    sfVector2f rect_size = { size, size };
+    sfVector2f origin = { rect_size.x / 2, rect_size.y / 2 };
+
+    resize_rect(adata, id, rect_size);
+    set_rect_origin(adata, id, origin);
+    move_rect(adata, id, node->pos);
+
+    char *obj_id = str_add(id, "@[:object]");
+
+    add_object(adata, obj_id, ref);
+    set_object_hover_bg(adata, obj_id, get_color(255, 255, 255, 40));
+}
+
 void init_stree_nodes(s_appdata *adata, char *skill_ctn, \
 sfFloatRect bg_bounds, int index)
 {
@@ -362,6 +394,7 @@ sfFloatRect bg_bounds, int index)
         if (ite == f_max(0, node_count - 2)) tree->y_end = start.y;
 
         init_stree_name(adata, cur, skill_ctn, game_ctn);
+        init_stree_hitbox(adata, cur, skill_ctn, game_ctn);
 
         last = cur->level;
         ite++;

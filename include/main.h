@@ -305,6 +305,10 @@ typedef struct {
     sfClock *transference_clock;
     s_sprite *body;
     s_text *info_text;
+    s_text *stats;
+    float attack;
+    float defense;
+    int transference_level;
     sfBool solid;
     void *host;
     void *potential_host;

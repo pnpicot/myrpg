@@ -17,3 +17,4 @@ void move_camera(s_appdata *adata, sfVector2f pos);
 void update_controls_next(s_appdata *adata, s_game *game_data, \
 float delta, s_clocks *clocks);
 void update_controls(s_appdata *adata);
+void translate_player(s_appdata *adata, sfVector2f pos_ch);

@@ -3,7 +3,7 @@
 # <type: part> <entity_id> <layer> <part_id> <texture_id> <origin: x> <origin: y> <offset: x> <offset: y>
 
 # -- factions -- begin
-faction droids 1000 1500 500 50
+faction droids 10000 10000 500 50
 faction insect 10000 1000 500 50
 faction piaf 1000 11000 500 50
 faction drone 11000 11000 500 50
