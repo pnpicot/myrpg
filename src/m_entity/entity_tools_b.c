@@ -148,4 +148,5 @@ void add_entity_model(s_appdata *adata, char **entry)
     free(entry);
 
     linked_add(adata->game_data->entity_models, new_model);
+    linked_add(new_model->faction->models, new_model);
 }

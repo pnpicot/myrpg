@@ -574,6 +574,7 @@ typedef struct {
     float spawn_radius;
     int entity_count;
     int entity_max;
+    linked_node *models;
 } s_faction;
 
 typedef struct s_entity_s {

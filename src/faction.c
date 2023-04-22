@@ -79,6 +79,7 @@ void add_faction(s_appdata *adata, char **entry)
     new_faction->spawn_radius = faction_r;
     new_faction->entity_count = 0;
     new_faction->entity_max = faction_max;
+    new_faction->models = linked_new();
 
     free(entry[0]);
     for (int i = 2; entry[i] != NULL; i++)

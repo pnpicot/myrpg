@@ -18,6 +18,7 @@ void update_live(s_appdata *adata)
     update_player_info_text(adata);
     update_quests(adata);
     update_skill_tree(adata);
+    update_wave_count(adata);
 }
 
 void init_live_light(s_appdata *adata)
