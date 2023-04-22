@@ -26,11 +26,12 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
 
         player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
         player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
-        path = get_way(adata, entity, fvec_to_i(player_pos));
 
         if (get_clock_seconds(entity->path_clock) > update_rate) {
-            free_ll_and_data(&entity->path);
+            path = actualize_path(adata, entity, fvec_to_i(player_pos));
             sfClock_restart(entity->path_clock);
+        } else {
+            path = get_way(adata, entity, fvec_to_i(player_pos));
         }
     }
 

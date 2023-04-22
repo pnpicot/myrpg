@@ -601,6 +601,8 @@ typedef struct s_entity_s {
     sfBool orientated;
     s_zone *zone;
     float damage;
+    float defense;
+    int trf_require;
     float agro_length;
     sfVector2f move_now;
     struct s_entity_s *move_now_entity;

@@ -26,7 +26,7 @@ void free_ll_and_data(linked_node **list)
 
 static void free_lists_2(s_linkeds *lists)
 {
-    // linked_destroy_rtexs(lists->rtexs);
+    linked_destroy_rtexs(lists->rtexs);
     linked_destroy_shaders(lists->shaders);
     linked_destroy_sliders(lists->sliders);
     linked_destroy_sound_queue(lists->sound_queue);
@@ -40,7 +40,7 @@ static void free_lists_2(s_linkeds *lists)
     linked_destroy_vertexes(lists->vertexes);
     linked_destroy_walls(lists->walls);
     linked_destroy_textures(lists->textures);
-    // linked_destroy_config_strings(lists->config_strings);
+    linked_destroy_config_strings(lists->config_strings);
     free(lists);
 }
 

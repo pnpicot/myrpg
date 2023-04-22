@@ -36,8 +36,7 @@ void linked_destroy_config_strings(linked_node *node)
         node = node->next;
         free(((s_str *)save->data)->id);
         #warning "Need to copy value instead of using pointer"
-        free(((s_str *)save->data)->value);
-        ((s_str *)save->data)->value = NULL;
+        // free(((s_str *)save->data)->value);
         free(save->data);
         free(save);
     }

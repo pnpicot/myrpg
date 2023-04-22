@@ -51,25 +51,18 @@ void load_keymaps(s_appdata *adata)
     char *file_content = file_extract("bonus/keymap.myrpg");
     char **entries = str_split(file_content, '\n');
     int ite = 0;
-
     free(file_content);
-    while (entries[ite] != NULL) {
+    for (; entries[ite] != NULL; ++ite) {
         if (entries[ite][0] == '#') {
-            ite++;
             continue;
         }
-
         char **entry_data = str_split(entries[ite], '=');
         char *keycode = entry_data[0];
         char ch = entry_data[1][0];
-
         add_keymap(adata, my_getnbr(keycode), ch);
-
         for (int i = 0; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-
-        ite++;
     }
     for (int i = 0; entries[i] != NULL; i++)
         free(entries[i]);

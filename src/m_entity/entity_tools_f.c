@@ -8,13 +8,9 @@
 #include "main.h"
 
 linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
-sfVector2i end)
+sfVector2i end, sfIntRect hitbox)
 {
-    float zoom = get_float(adata, "zoom");
-    sfIntRect hitbox = { entity->pos.x / (32 * zoom),
-    entity->pos.y / (32 * zoom), 3, 3};
-
-    if (abs(hitbox.left - end.x) <= 0 && abs(hitbox.top - end.y) <= 0)
+    if (sqrt(abs(hitbox.left - end.x) + abs(hitbox.top - end.y)) <= 1)
         return (NULL);
 
     sfVector2i size = {0};
@@ -36,7 +32,7 @@ sfVector2f use_path(s_appdata *adata, s_entity *entity)
         path.y = ((sfIntRect *)entity->path->data)->top;
         if ((path.x >= 0 || start.x <= ((sfIntRect *)entity->path->data)->width)
         &&
-        (path.x <= 0 || start.x >= ((sfIntRect *)entity->path->data)-> width) &&
+        (path.x <= 0 || start.x >= ((sfIntRect *)entity->path->data)->width) &&
         (path.y >= 0 || start.y <= ((sfIntRect *)entity->path->data)->height) &&
         (path.y <= 0 || start.y >= ((sfIntRect *)entity->path->data)->height)) {
             free(entity->path->data);
@@ -75,8 +71,39 @@ s_particle *particle, linked_node *touchs))
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
 {
     START(get_way)
+    if (entity->path == NULL) {
+        float zoom = get_float(adata, "zoom");
+        sfIntRect hitbox = { entity->pos.x / (32 * zoom),
+        entity->pos.y / (32 * zoom), 3, 3};
+        entity->path = get_path_finding(adata, entity, destination, hitbox);
+    }
+    sfVector2f rvalue = use_path(adata, entity);
+    END(get_way)
+    return (rvalue);
+}
+
+sfVector2f actualize_path(s_appdata *adata, s_entity *entity, sfVector2i end)
+{
+    START(get_way)
+    linked_node *node = entity->path;
+    linked_node *closest = node;
     if (entity->path == NULL)
-        entity->path = get_path_finding(adata, entity, destination);
+        return (get_way(adata, entity, end));
+    while (node->next != NULL) {
+        if (sqrt(abs(((sfIntRect *)node->data)->width - end.x) +
+        abs(((sfIntRect *)node->data)->height - end.y)) <
+        sqrt(abs(((sfIntRect *)closest->data)->width - end.x) +
+        abs(((sfIntRect *)closest->data)->height - end.y)))
+            closest = node;
+        node = node->next;
+    }
+    if (closest == entity->path) {
+        free_ll_and_data(&entity->path);
+        return (get_way(adata, entity, end));
+    }
+    sfIntRect hitbox = {((sfIntRect *)closest->data)->width,
+    ((sfIntRect *)closest->data)->height, 3, 3};
+    closest->next = get_path_finding(adata, entity, end, hitbox);
     sfVector2f rvalue = use_path(adata, entity);
     END(get_way)
     return (rvalue);

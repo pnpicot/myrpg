@@ -164,20 +164,18 @@ void init_live_states(s_appdata *adata)
     char *main_state = get_str(adata, "state_main");
     char *game_state = get_str(adata, "state_game");
     char *settings_state = get_str(adata, "state_settings");
-
     char *main_ctn = get_str(adata, "ctn_main");
     char *settings_ctn = get_str(adata, "ctn_settings");
-
     char *rtex_settings = get_str(adata, "rtex_settings");
     char *rtex_menu = get_str(adata, "rtex_menu");
-
     add_state(adata, main_state);
     add_state(adata, game_state);
     add_state(adata, settings_state);
     add_container(adata, main_ctn);
     set_state_container(adata, main_state, get_container(adata, main_ctn));
     add_container(adata, settings_ctn);
-    set_state_container(adata, settings_state, get_container(adata,settings_ctn));
+    set_state_container(adata, settings_state,
+    get_container(adata,settings_ctn));
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, settings_state, get_rtex(adata, rtex_settings));
     init_live_states_n(adata, game_state, main_state, settings_state);

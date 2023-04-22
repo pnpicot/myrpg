@@ -46,6 +46,16 @@ static void init_col_map(s_appdata *adata, char **entries, float mult)
     }
 }
 
+static void just_a_loop(s_appdata *adata, char **ligne, char c, int y)
+{
+    int origin_x = my_getnbr(ligne[1]);
+    int len_tile_x = my_getnbr(ligne[3]);
+    int x = my_getnbr(ligne[1]);
+    for (x; x < len_tile_x + origin_x; x++) {
+        adata->game_data->map[y][x] = c;
+    }
+}
+
 static void fill_map_path_finding(s_appdata *adata, char **lignes)
 {
     int i = 0;
@@ -53,15 +63,10 @@ static void fill_map_path_finding(s_appdata *adata, char **lignes)
         char **ligne = str_split(lignes[i], ' ');
         char c = get_tile(adata, ligne[0][0])->wall ? 'X' : '*';
         int origin_y = my_getnbr(ligne[2]);
-        int origin_x = my_getnbr(ligne[1]);
-        int len_tile_x = my_getnbr(ligne[3]);
         int len_tile_y = my_getnbr(ligne[4]);
         int y = my_getnbr(ligne[2]);
         for (y; y < len_tile_y + origin_y; y++) {
-            int x = my_getnbr(ligne[1]);
-            for (x; x < len_tile_x + origin_x; x++) {
-                adata->game_data->map[y][x] = c;
-            }
+            just_a_loop(adata, ligne, c, y);
         }
         for (int i = 0; ligne[i] != NULL; i++)
             free(ligne[i]);

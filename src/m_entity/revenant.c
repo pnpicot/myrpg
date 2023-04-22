@@ -22,7 +22,7 @@ float angle)
     while (touchs != NULL) {
         s_touch_t *touch = (s_touch_t *) touchs->data;
         if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
-            touch->entity->hp -= entity->damage;
+            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.001f;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
             adata->player->health.x -= entity->damage;
@@ -51,11 +51,12 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
 
         player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
         player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
-        path = get_way(adata, entity, fvec_to_i(player_pos));
 
         if (get_clock_seconds(entity->path_clock) > update_rate) {
-            free_ll_and_data(&entity->path);
+            path = actualize_path(adata, entity, fvec_to_i(player_pos));
             sfClock_restart(entity->path_clock);
+        } else {
+            path = get_way(adata, entity, fvec_to_i(player_pos));
         }
     }
 

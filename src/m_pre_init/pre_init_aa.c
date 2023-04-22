@@ -71,7 +71,7 @@ void init_gamedata(s_appdata *adata)
     game_data->mouse_last = (sfVector2f) { 0, 0 };
     game_data->wave_clock = sfClock_create();
     game_data->faction_index = 0;
-    game_data->wave_count = 1;
+    game_data->wave_count = 0;
 }
 
 void init_appdata_misc(s_appdata *adata)
