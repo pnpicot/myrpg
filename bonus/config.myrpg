@@ -101,13 +101,19 @@ string rtex_menu = rtex_menu
 string rtex_wall = rtex_wall
 string rtex_wall_light = rtex_wall_l
 string rtex_settings = rtex_settings
+string rtex_load = rtex_load
 
 string state_main = st_main
 string state_game = st_game
 string state_settings = st_settings
+string state_load = st_load
+string load_btn = load_btn
+string back_btn_load = back_btn_load
+string btn_load = btn_load
 
 string ctn_main = ctn_main
 string ctn_game = ctn_game
+string ctn_load = ctn_load
 string ctn_settings = ctn_settings
 # -- setup -- end
 
@@ -121,6 +127,8 @@ string main_part = main_part
 
 # -- settings menu ui -- begin
 string back_btn = settings_back_btn
+string input_load = input_load
+string load_back_btn = load_back_btn
 string volume_slider = settings_volume
 string fullscreen_button = fullscreen_button
 # -- settings menu ui -- end

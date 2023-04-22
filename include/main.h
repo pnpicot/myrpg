@@ -22,6 +22,7 @@
 #define TYPE_EMITER 8
 #define TYPE_SLIDER 9
 #define TYPE_BAR 10
+#define TYPE_INPUT 11
 
 #define obj_hover 0x01
 #define obj_pressed 0x02

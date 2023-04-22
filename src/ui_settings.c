@@ -41,6 +41,30 @@ void init_settings_backbtn(s_appdata *adata, char *container, char *rtex)
     set_object_onclick(adata, obj, &trigger_settings_backbtn);
 }
 
+void init_load_backbtn(s_appdata *adata, char *container, char *rtex)
+{
+    char *back_btn = get_str(adata, "back_btn_load");
+
+    add_button(adata, back_btn, TYPE_RECT, 1);
+    edit_button(adata, back_btn, "Back");
+    set_button_font(adata, back_btn, get_font(adata, "lobster"));
+    color_button_fg(adata, back_btn, sfWhite);
+    color_button_bg(adata, back_btn, get_color(255, 255, 255, 10));
+    set_button_rtex(adata, back_btn, rtex);
+    add_to_container(adata, container, (s_ref) {
+    get_button(adata, back_btn), TYPE_BUTTON });
+    resize_button(adata, back_btn, (sfVector2f) { 280, 60 });
+    move_button(adata, back_btn, (sfVector2f) { 20, 20 });
+    set_button_out(adata, back_btn, sfWhite, 2.0f);
+
+    char *obj = str_add(back_btn, "@[:object]");
+
+    add_object(adata, obj, (s_ref) { get_button(adata, back_btn), TYPE_BUTTON});
+    set_object_hover_bg(adata, obj, get_color(255, 255, 255, 30));
+    set_object_pressed_bg(adata, obj, get_color(255, 255, 255, 50));
+    set_object_onclick(adata, obj, &trigger_settings_backbtn);
+}
+
 void init_settings_volumebtn(s_appdata *adata, char *container, char *rtex)
 {
     int win_w = get_int(adata, "win_w");
@@ -133,4 +157,14 @@ void init_live_settings_menu(s_appdata *adata)
     init_settings_volumetxt(adata, container, rtex);
     init_settings_volumebtn(adata, container, rtex);
     init_settings_fullscrenbtn(adata, container, rtex);
+}
+
+void init_live_load_menu(s_appdata *adata)
+{
+    char *container = get_str(adata, "ctn_load");
+    char *rtex = get_str(adata, "rtex_load");
+
+    init_load_backbtn(adata, container, rtex);
+    init_load_input(adata, container, rtex);
+    init_load_btn(adata, container, rtex);
 }

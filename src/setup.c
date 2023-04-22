@@ -45,6 +45,7 @@ void init_live_textures(s_appdata *adata)
     char *rtex_game = get_str(adata, "rtex_game");
     char *rtex_ui = get_str(adata, "rtex_ui");
     char *rtex_menu = get_str(adata, "rtex_menu");
+    char *rtex_load = get_str(adata, "rtex_load");
     char *rtex_wall = get_str(adata, "rtex_wall");
     char *rtex_wall_light = get_str(adata, "rtex_wall_light");
     char *rtex_settings = get_str(adata, "rtex_settings");
@@ -117,16 +118,31 @@ void init_live_textures(s_appdata *adata)
     set_rtex_blendmode(adata, rtex_settings, sfBlendNone);
     set_rtex_clear(adata, rtex_settings, sfTransparent);
     set_rtex_active(adata, rtex_settings, sfFalse);
+
+    add_rtex(adata, rtex_load, 14);
+    set_rtex_blendmode(adata, rtex_load, sfBlendNone);
+    set_rtex_clear(adata, rtex_load, sfTransparent);
+    set_rtex_active(adata, rtex_load, sfFalse);
 }
 
 void init_live_states_n(s_appdata *adata, char *game_state, char *main_state,
 char *settings_state)
 {
+
+    char *rtex_load = get_str(adata, "rtex_load");
+    char *load_ctn = get_str(adata, "ctn_load");
+    char *load_state = get_str(adata, "state_load");
+    add_state(adata, load_state);
+    add_container(adata, load_ctn);
+    add_state_rtex(adata, load_state, get_rtex(adata, rtex_load));
+    set_state_container(adata, load_state, get_container(adata, load_ctn));
+
     char *rtex_game = get_str(adata, "rtex_game");
     char *rtex_ui = get_str(adata, "rtex_ui");
     char *rtex_wall = get_str(adata, "rtex_wall");
     char *rtex_wall_light = get_str(adata, "rtex_wall_light");
     char *game_ctn = get_str(adata, "ctn_game");
+    
 
     set_state_ingame(adata, game_state, sfTrue);
 
@@ -190,6 +206,7 @@ void init_live(s_appdata *adata)
     init_live_states(adata);
     init_live_main_menu(adata);
     init_live_settings_menu(adata);
+    init_live_load_menu(adata);
     init_player(adata);
     init_live_ingame_ui(adata);
     init_map(adata, get_str(adata, "default_map"));
