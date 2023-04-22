@@ -21,11 +21,11 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
     set_emiter_lifetime(adata, emiter_id, 150000);
     set_emiter_particle_lifetime(adata, emiter_id, 1500);
     set_emiter_particle_max(adata, emiter_id, 50);
-    set_emiter_particle_speed(adata, emiter_id, (sfVector2f) {3000, 3000});
+    set_emiter_particle_speed(adata, emiter_id, (sfVector2f) { 3000, 3000 });
     set_emiter_rtex(adata, emiter_id, get_str(adata, "rtex_game"));
     add_to_container(adata, get_str(adata, "ctn_game"), (s_ref) { get_emiter(adata, emiter_id), TYPE_EMITER });
     sfVector2f scale = { 3.0f, 3.0f };
-    move_emiter(adata, emiter_id, (sfVector2f) {140, 60});
+    move_emiter(adata, emiter_id, (sfVector2f) { 140, 60 });
     set_emiter_size_range(adata, emiter_id, scale, (sfVector2f) { 3.0f, 3.0f });
     set_emiter_spawnrate(adata, emiter_id, 100.0f);
 }
@@ -39,8 +39,10 @@ s_entity *entity, s_particle *particle, linked_node *touchs)
             particle->active = sfFalse;
             return;
         }
-        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
-            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.001f;
+        int same_fac = touch->touch_type == TOUCH_ENTITY &&
+            !my_strcmp(touch->entity->faction->id, entity->faction->id);
+        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity && !same_fac) {
+            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.01f;
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {

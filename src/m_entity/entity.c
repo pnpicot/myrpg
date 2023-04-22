@@ -63,6 +63,7 @@ void update_entities(s_appdata *adata)
 
         if (cur->dead == 0 && cur->hp <= 0) {
             cur->dead = 1;
+            adata->player->moula += 50;
             update_entity_collision_map(adata, cur, NULL);
             set_bar_active(adata, cur->hp_bar->id, sfFalse);
             linked_node *parts = cur->parts;

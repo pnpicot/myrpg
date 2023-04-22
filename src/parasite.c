@@ -277,7 +277,7 @@ void init_player(s_appdata *adata)
     player->stats = NULL;
     player->attack = 5.0f;
     player->defense = 1.0f;
-    player->moula = 50000;
+    player->moula = 0;
 
     add_sprite(adata, sprite_id, 5);
     set_sprite_rtex(adata, sprite_id, rtex);
