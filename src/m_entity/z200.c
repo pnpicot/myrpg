@@ -20,7 +20,7 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
     while (touchs != NULL) {
         s_touch_t *touch = (s_touch_t *) touchs->data;
         if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
-            touch->entity->hp -= entity->damage;
+            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.001f;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
             adata->player->health.x -= entity->damage;
