@@ -12,7 +12,6 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
     update_entity_bar(adata, entity);
 
     sfVector2f path = { 0, 0 };
-    sfVector2f agro_path = agro(adata, entity);
 
     if (entity->move_now_entity != NULL) {
         path = entity->move_now;

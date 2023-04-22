@@ -128,7 +128,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->speed = model_speed;
     new_model->spawn_rate = model_spawnrate;
     new_model->scale = model_scale;
-    new_model->faction = faction_id;
+    new_model->faction = faction;
     new_model->inhabited = sfFalse;
     new_model->behavior = NULL;
     new_model->init = sfTrue;

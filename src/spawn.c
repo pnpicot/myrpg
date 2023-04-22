@@ -113,7 +113,6 @@ s_entity *new_entity)
     new_entity->dead = sfFalse;
     new_entity->name = model->name;
     new_entity->path_clock = sfClock_create();
-    new_entity->faction = model->faction;
 }
 
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
@@ -214,7 +213,7 @@ void trigger_spawn_cycle(s_appdata *adata)
     while (models != NULL && models->data != NULL) {
         s_entity *cur = (s_entity *) models->data;
 
-        if (my_strcmp(cur->faction, faction->id)) {
+        if (my_strcmp(cur->faction->id, faction->id)) {
             models = models->next;
             continue;
         }
