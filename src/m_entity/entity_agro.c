@@ -51,6 +51,11 @@ sfVector2f get_path(s_appdata *adata, s_entity *entity, s_zone *zone)
     return ((sfVector2f) {-11.0f, -11.0f});
 }
 
+sfVector2f agro_v2(s_appdata *adata, s_entity *entity)
+{
+    // ...
+}
+
 sfVector2f agro(s_appdata *adata, s_entity *entity)
 {
     START(agro)

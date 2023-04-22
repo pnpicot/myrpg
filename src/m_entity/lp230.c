@@ -12,17 +12,27 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
     update_entity_bar(adata, entity);
 
     sfVector2f path = { 0, 0 };
-    sfVector2i end;
-    end.x = 125;
-    end.y = 125;
     sfVector2f agro_path = agro(adata, entity);
+
     if (entity->move_now_entity != NULL) {
         path = entity->move_now;
         entity->move_now = (sfVector2f){0, 0};
-    } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
-        path = get_way(adata, entity, end);
-    else {
-        path = agro_path;
+    } else {
+        s_game *game_data = adata->game_data;
+        int win_w = get_int(adata, "win_w");
+        int win_h = get_int(adata, "win_h");
+        float tile_size = 32 * get_float(adata, "zoom");
+        sfVector2f player_pos;
+        float update_rate = get_float(adata, "path_update");
+
+        player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
+        player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
+        path = get_way(adata, entity, fvec_to_i(player_pos));
+
+        if (get_clock_seconds(entity->path_clock) > update_rate) {
+            free_ll_and_data(&entity->path);
+            sfClock_restart(entity->path_clock);
+        }
     }
 
     if (entity->init) {

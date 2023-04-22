@@ -30,25 +30,31 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
     free_ll_and_data(&touchs_ll);
 }
 
-// TODO: add clock so we can use a delta in velocity vector formulas
 void behavior_z200(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
 
     sfVector2f path = { 0, 0 };
-    sfVector2i end;
 
-    end.x = 125;
-    end.y = 125;
-
-    sfVector2f agro_path = agro(adata, entity);
     if (entity->move_now_entity != NULL) {
         path = entity->move_now;
         entity->move_now = (sfVector2f){0, 0};
-    } else if (agro_path.x == -11.0f && agro_path.y == -11.0f)
-        path = get_way(adata, entity, end);
-    else {
-        path = agro_path;
+    } else {
+        s_game *game_data = adata->game_data;
+        int win_w = get_int(adata, "win_w");
+        int win_h = get_int(adata, "win_h");
+        float tile_size = 32 * get_float(adata, "zoom");
+        sfVector2f player_pos;
+        float update_rate = get_float(adata, "path_update");
+
+        player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
+        player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
+        path = get_way(adata, entity, fvec_to_i(player_pos));
+
+        if (get_clock_seconds(entity->path_clock) > update_rate) {
+            free_ll_and_data(&entity->path);
+            sfClock_restart(entity->path_clock);
+        }
     }
 
     if (entity->init) {
@@ -57,14 +63,23 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
         entity->init = sfFalse;
     }
 
+    if (entity->move_now_entity != NULL) {
+        entity->move_now.x = 0;
+        entity->move_now.y = 0;
+        entity->move_now_entity = NULL;
+    }
+
     float seconds = get_clock_seconds(entity->clock);
     float angle = 5.0f;
     float blade_rot = get_entity_float(entity, "rotation")->value;
+
     add_to_entity_float(adata, entity, "rotation", 5.0f);
 
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
+
         add = is_map_colliding(adata, entity, add);
+
         translate_entity(adata, entity, add);
     } else {
         angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
@@ -75,6 +90,5 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
     rotate_entity_part(adata, entity, "rotors", (angle - blade_rot) * seconds * 0.1);
 
     z200_damage_behavior(adata, entity);
-
     sfClock_restart(entity->clock);
 }

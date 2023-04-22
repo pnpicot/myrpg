@@ -132,6 +132,27 @@ void save_fill(s_appdata *adata, linked_node *lines)
     save_fill_gamedata(adata, lines);
 }
 
+void save_to_file(s_appdata *adata, char *save)
+{
+    linked_node *files = linked_new();
+
+    get_files("bonus/saves", 0, files);
+
+    int count = linked_count(files);
+    char *filename = str_add("save-", nbr_to_str(count + 1));
+    FILE *new_fp = fopen(str_add("bonus/saves/", filename), "w");
+
+    if (new_fp == NULL) {
+        my_printf("error\n");
+        return;
+    }
+
+    size_t size = (size_t) my_strlen(save);
+    size_t nmemb = (size_t) sizeof(*save);
+
+    fwrite((const char *) save, size, nmemb, new_fp);
+}
+
 void save_game(s_appdata *adata)
 {
     char *save = "";
@@ -151,5 +172,5 @@ void save_game(s_appdata *adata)
         lines = lines->next;
     }
 
-    my_printf("%s\n\n", save);
+    save_to_file(adata, save);
 }

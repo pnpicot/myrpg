@@ -69,6 +69,9 @@ void init_gamedata(s_appdata *adata)
     game_data->nb_zones = 0;
     game_data->size_zone = (sfVector2f) { 0, 0 };
     game_data->mouse_last = (sfVector2f) { 0, 0 };
+    game_data->wave_clock = sfClock_create();
+    game_data->faction_index = 0;
+    game_data->wave_count = 1;
 }
 
 void init_appdata_misc(s_appdata *adata)

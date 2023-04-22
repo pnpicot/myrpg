@@ -90,7 +90,7 @@ s_bar *get_entity_hp_bar(s_appdata *adata, s_entity *entity)
 }
 
 void copy_entity_model_n(s_appdata *adata, s_entity *model,
-s_entity *new_model)
+s_entity *new_entity)
 {
     new_entity->hitbox = model->hitbox;
     new_entity->scale = model->scale;
@@ -112,6 +112,8 @@ s_entity *new_model)
     new_entity->zone = NULL;
     new_entity->dead = sfFalse;
     new_entity->name = model->name;
+    new_entity->path_clock = sfClock_create();
+    new_entity->faction = model->faction;
 }
 
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
@@ -176,37 +178,55 @@ s_entity *new_entity, sfVector2f pos)
 
 void try_entity_spawn(s_appdata *adata, s_entity *model)
 {
-    float chance = rand_float(0, 100.0f);
     s_faction *faction = model->faction;
-    int limit_reached = faction->entity_count >= faction->entity_max;
-    float spawn_rate = model->spawn_rate * get_clock_seconds(model->clock) * 100;
 
     sfClock_restart(model->clock);
 
-    if (chance > spawn_rate || limit_reached)
-        return;
-
     s_entity *new_entity = copy_entity_model(adata, model);
-    float rand_rad = faction->spawn_radius * sqrt(rand_float(0, 1.0f));
-    float theta = rand_float(0, 1.0f) * M_PI * 2;
-    sfVector2f pos;
-    pos.x = faction->spawn_point.x + rand_rad * cos(theta);
-    pos.y = faction->spawn_point.y + rand_rad * sin(theta);
+    float tile_size = 32 * get_float(adata, "zoom");
+    sfVector2f pos = { 124 * tile_size, 124 * tile_size };
+
     new_entity->zone = fill_zone(adata, new_entity, pos);
+
     try_entity_spawn_n(adata, model, new_entity, pos);
+
     faction->entity_count++;
+
     linked_add(adata->game_data->entities, new_entity);
 }
 
 void trigger_spawn_cycle(s_appdata *adata)
 {
-    linked_node *models = adata->game_data->entity_models;
+    s_game *game_data = adata->game_data;
+    int faction_count = linked_count(game_data->factions);
+
+    if (get_clock_seconds(game_data->wave_clock) < 10.0f
+        && game_data->wave_count > 1)
+        return;
+
+    if (game_data->faction_index > faction_count - 1)
+        game_data->faction_index = 0;
+
+    s_faction *faction = (s_faction *) linked_get(game_data->factions,
+                                        game_data->faction_index)->data;
+    linked_node *models = game_data->entity_models;
 
     while (models != NULL && models->data != NULL) {
         s_entity *cur = (s_entity *) models->data;
 
-        try_entity_spawn(adata, cur);
+        if (my_strcmp(cur->faction, faction->id)) {
+            models = models->next;
+            continue;
+        }
+
+        for (int i = 0; i < 20; i++) {
+            try_entity_spawn(adata, cur);
+        }
 
         models = models->next;
     }
+
+    sfClock_restart(game_data->wave_clock);
+    game_data->faction_index++;
+    game_data->wave_count++;
 }

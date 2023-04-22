@@ -10,6 +10,7 @@
 #include "my.h"
 #include <math.h>
 #include <time.h>
+#include <stdio.h>
 
 #define TYPE_RECT 1
 #define TYPE_CIRCLE 2
@@ -301,6 +302,9 @@ typedef struct {
     int nb_zones;
     s_zone **zones;
     sfVector2f size_zone;
+    sfClock *wave_clock;
+    int faction_index;
+    int wave_count;
 } s_game;
 
 typedef struct {
@@ -582,6 +586,7 @@ typedef struct s_entity_s {
     float spawn_rate;
     s_faction *faction;
     sfClock *clock;
+    sfClock *path_clock;
     linked_node *path;
     void (*emiter)(s_appdata *adata, struct s_entity_s *entity);
     void (*behavior)(s_appdata *adata, struct s_entity_s *entity);

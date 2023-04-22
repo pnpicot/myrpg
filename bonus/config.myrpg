@@ -133,7 +133,7 @@ string inventory = inv
 
 # -- map -- begin
 string default_map = dev.map
-float zoom = 1.5f
+float zoom = 2.3f
 # -- map -- end
 
 # -- parasite -- begin
@@ -183,3 +183,7 @@ color skill_primary = 0,0,0,230
 color skill_secondary = 3,232,252,255
 float skill_node_size = 100.0f
 # -- skill tree -- end
+
+# -- waves -- begin
+float path_update = 2.0f
+# -- waves -- end

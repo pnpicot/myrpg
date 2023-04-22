@@ -128,7 +128,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->speed = model_speed;
     new_model->spawn_rate = model_spawnrate;
     new_model->scale = model_scale;
-    new_model->faction = faction;
+    new_model->faction = faction_id;
     new_model->inhabited = sfFalse;
     new_model->behavior = NULL;
     new_model->init = sfTrue;
@@ -138,6 +138,7 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->agro_length = agro_length;
     new_model->damage = damage;
     new_model->clock = sfClock_create();
+    new_model->path_clock = sfClock_create();
     new_model->dead = sfFalse;
     new_model->name = model_name;
 
