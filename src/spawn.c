@@ -198,9 +198,9 @@ void trigger_spawn_cycle(s_appdata *adata)
 {
     s_game *game_data = adata->game_data;
     int faction_count = linked_count(game_data->factions);
+    int wave = game_data->wave_count;
 
-    if (get_clock_seconds(game_data->wave_clock) < 50.0f
-        && game_data->wave_count > 1)
+    if (get_clock_seconds(game_data->wave_clock) < 20.0f && wave > 1)
         return;
 
     if (game_data->faction_index > faction_count - 1)
@@ -208,24 +208,19 @@ void trigger_spawn_cycle(s_appdata *adata)
 
     s_faction *faction = (s_faction *) linked_get(game_data->factions,
                                         game_data->faction_index)->data;
-    linked_node *models = game_data->entity_models;
+    int model_count = linked_count(faction->models);
+    int wave_size = 5 + ((int) wave / 5) * 5;
 
-    while (models != NULL && models->data != NULL) {
-        s_entity *cur = (s_entity *) models->data;
+    for (int i = 0; i < wave_size; i++) {
+        int model_index = rand_int(0, f_max(0, model_count - 1));
+        s_entity *model = (s_entity *) linked_get(faction->models,
+                                    model_index)->data;
 
-        if (my_strcmp(cur->faction->id, faction->id)) {
-            models = models->next;
-            continue;
-        }
-
-        for (int i = 0; i < 5; i++) {
-            try_entity_spawn(adata, cur);
-        }
-
-        models = models->next;
+        try_entity_spawn(adata, model);
     }
 
     sfClock_restart(game_data->wave_clock);
+
     game_data->faction_index++;
     game_data->wave_count++;
 }
