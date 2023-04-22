@@ -57,6 +57,7 @@ void linked_destroy_rtexs(linked_node *node)
         node = node->next;
         sfSprite_destroy(((s_rtex *)save->data)->sprite);
         sfRenderTexture_destroy(((s_rtex *)save->data)->texture);
+        free_ll_and_data(&((s_rtex *)save->data)->objects);
         free(((s_rtex *)save->data)->state);
         free(((s_rtex *)save->data)->id);
         free(save->data);

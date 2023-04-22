@@ -53,7 +53,8 @@ sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination);
 void behavior_lp230(s_appdata *adata, s_entity *entity);
 sfVector2f agro(s_appdata *adata, s_entity *entity);
 linked_node *get_path_finding(s_appdata *adata, s_entity *entity,
-sfVector2i end);
+sfVector2i end, sfIntRect hitbox);
 sfVector2f use_path(s_appdata *adata, s_entity *entity);
 void update_entity_collision_map(s_appdata *adata, s_entity *entity, void *ptr);
 void behavior_revenant(s_appdata *adata, s_entity *entity);
+sfVector2f actualize_path(s_appdata *adata, s_entity *entity, sfVector2i end);

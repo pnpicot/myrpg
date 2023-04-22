@@ -50,31 +50,20 @@ void delete_quest(s_appdata *adata, char *id)
 void add_quest(s_appdata *adata, char *id)
 {
     s_quest *quest = get_quest(adata, id);
-
     if (quest != NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "already_exists"));
         return;
     }
-
     s_quest *new_quest = malloc(sizeof(s_quest));
-
     if (new_quest == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
+    *new_quest = (s_quest) {0};
     new_quest->id = id;
-    new_quest->text = NULL;
-    new_quest->title = NULL;
-    new_quest->icon = NULL;
-    new_quest->popup_rect = NULL;
-    new_quest->popup_text = NULL;
-    new_quest->completion_check = NULL;
-    new_quest->item = NULL;
     new_quest->completed = sfFalse;
-
     linked_add(adata->game_data->quests, new_quest);
 }
 
@@ -160,6 +149,23 @@ void check_first_quest(s_appdata *adata, s_quest *quest)
     }
 }
 
+void init_quets_n(s_appdata *adata)
+{
+    char *second = "eoapea";
+
+    add_quest(adata, second);
+    set_quest_icon(adata, second, get_texture(adata, "wall"));
+    set_quest_title(adata, second, "Second quest");
+    set_quest_text(adata, second, "Integer pulvinar leo urna, id ultricies libe"
+    "ro venenatis ut. Fusce\n suscipit nec justo id iaculis. Morbi sapien sapie"
+    "n, tempus sit amet\n urna nec, finibus pellentesque augue. In rutrum sagit"
+    "tis feugiat. \nProin lobortis feugiat feugiat. Sed ac consequat massa, a v"
+    "iverra \nnunc. Mauris elementum ac tellus nec placerat. Interdum et malesu"
+    "ada\n fames ac ante ipsum primis in faucibus. Etiam tristique erat sit \na"
+    "met tellus auctor, quis facilisis est pellentesque. Quisque a \nlectus sed"
+    " ex accumsan posuere vitae id odio.");
+}
+
 void init_quests(s_appdata *adata)
 {
     char *first = "duqdzqiu";
@@ -167,34 +173,46 @@ void init_quests(s_appdata *adata)
     add_quest(adata, first);
     set_quest_icon(adata, first, get_texture(adata, "health_syr"));
     set_quest_title(adata, first, "Use your transference");
-    set_quest_text(adata, first, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent \nvolutpat nibh dolor, blandit laoreet ante porttitor sit amet. Duis \ntempus congue tempus. Pellentesque euismod condimentum nisi nec \ncongue. Etiam quis metus id ex finibus porta eget sed nunc. Sed \nlacus elit, pharetra ac felis ut, sagittis ornare erat. Mauris \ninterdum, velit ut hendrerit ultricies, lectus urna vehicula dolor,\n sed interdum lorem nibh a elit. Fusce tempus mauris ex, a rutrum \n elit porttitor sed. In quis ultricies enim, nec venenatis risus.");
+    set_quest_text(adata, first, "Lorem ipsum dolor sit amet, consectetur adipi"
+    "scing elit. Praesent \nvolutpat nibh dolor, blandit laoreet ante porttitor"
+    " sit amet. Duis \ntempus congue tempus. Pellentesque euismod condimentum n"
+    "isi nec \ncongue. Etiam quis metus id ex finibus porta eget sed nunc. Sed "
+    "\nlacus elit, pharetra ac felis ut, sagittis ornare erat. Mauris \ninterdu"
+    "m, velit ut hendrerit ultricies, lectus urna vehicula dolor,\n sed interdu"
+    "m lorem nibh a elit. Fusce tempus mauris ex, a rutrum \n elit porttitor se"
+    "d. In quis ultricies enim, nec venenatis risus.");
     set_quest_check(adata, first, &check_first_quest);
 
-    char *second = "eoapea";
+    init_quets_n(adata);
+}
 
-    add_quest(adata, second);
-    set_quest_icon(adata, second, get_texture(adata, "wall"));
-    set_quest_title(adata, second, "Second quest");
-    set_quest_text(adata, second, "Integer pulvinar leo urna, id ultricies libero venenatis ut. Fusce\n suscipit nec justo id iaculis. Morbi sapien sapien, tempus sit amet\n urna nec, finibus pellentesque augue. In rutrum sagittis feugiat. \nProin lobortis feugiat feugiat. Sed ac consequat massa, a viverra \nnunc. Mauris elementum ac tellus nec placerat. Interdum et malesuada\n fames ac ante ipsum primis in faucibus. Etiam tristique erat sit \namet tellus auctor, quis facilisis est pellentesque. Quisque a \nlectus sed ex accumsan posuere vitae id odio.");
+void init_quest_item_icon_n(s_appdata *adata, s_quest *cur)
+{
+    char *id = str_add(cur->id, "@[:icon]");
+    char *rtex = get_str(adata, "rtex_ui");
+    char *container = get_str(adata, "ctn_game");
+    int layer = get_int(adata, "quest_layer");
+
+    add_sprite(adata, id, layer + 2);
+    set_sprite_rtex(adata, id, rtex);
+    add_to_container(adata, container,
+    (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    add_to_container(adata, get_str(adata, "ctn_quest"),
+    (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
+    set_sprite_texture(adata, id, cur->icon);
 }
 
 void init_quest_item_icon(s_appdata *adata, s_quest *cur, \
 sfVector2f item_size, sfVector2f item_pos)
 {
     char *id = str_add(cur->id, "@[:icon]");
-    char *rtex = get_str(adata, "rtex_ui");
-    char *container = get_str(adata, "ctn_game");
     float item_height = get_float(adata, "quest_item_height");
     float padding = get_float(adata, "quest_padding");
-    int layer = get_int(adata, "quest_layer");
 
-    add_sprite(adata, id, layer + 2);
-    set_sprite_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
-    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_sprite(adata, id), TYPE_SPRITE });
-    set_sprite_texture(adata, id, cur->icon);
+    init_quest_item_icon_n(adata, cur);
 
-    sfVector2f target_size = { item_height - padding * 2, item_height - padding * 2 };
+    sfVector2f target_size = {
+    item_height - padding * 2, item_height - padding * 2 };
     sfVector2u size = sfTexture_getSize(cur->icon);
     sfVector2f scale;
 
@@ -209,22 +227,33 @@ sfVector2f item_size, sfVector2f item_pos)
     move_sprite(adata, id, pos);
 }
 
+s_text *get_quest_popup_text_n(s_appdata *adata, s_quest *cur)
+{
+    char *id = str_add(cur->id, "@[:popup_text]");
+    char *rtex = get_str(adata, "rtex_ui");
+    int layer = get_int(adata, "quest_layer");
+    char *container = get_str(adata, "ctn_game");
+
+    add_text(adata, id, layer + 1);
+    set_text_rtex(adata, id, rtex);
+    add_to_container(adata, container,
+    (s_ref) { get_text(adata, id), TYPE_TEXT });
+    add_to_container(adata, get_str(adata, "ctn_quest"),
+    (s_ref) { get_text(adata, id), TYPE_TEXT });
+    edit_text(adata, id, cur->text);
+    color_text(adata, id, sfWhite);
+    set_text_font(adata, id, get_font(adata, "courier"));
+
+}
+
 s_text *get_quest_popup_text(s_appdata *adata, s_quest *cur, \
 sfVector2f bg_size, sfVector2f bg_pos)
 {
     char *id = str_add(cur->id, "@[:popup_text]");
     int layer = get_int(adata, "quest_layer");
-    char *rtex = get_str(adata, "rtex_ui");
     float padding = get_float(adata, "quest_padding");
-    char *container = get_str(adata, "ctn_game");
 
-    add_text(adata, id, layer + 1);
-    set_text_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_text(adata, id), TYPE_TEXT });
-    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_text(adata, id), TYPE_TEXT });
-    edit_text(adata, id, cur->text);
-    color_text(adata, id, sfWhite);
-    set_text_font(adata, id, get_font(adata, "courier"));
+    get_quest_popup_text_n(adata, cur);
 
     sfFloatRect bounds = get_text_bounds(adata, id);
     sfVector2f origin = { 0, bounds.height / 2 };
@@ -241,13 +270,32 @@ sfVector2f bg_size, sfVector2f bg_pos)
     return (text);
 }
 
+void get_quest_popup_rect_n(s_appdata *adata, s_quest *cur, sfVector2f size,
+sfFloatRect bounds)
+{
+    char *id = str_add(cur->id, "@[:popup_rect]");
+    char *container = get_str(adata, "ctn_game");
+    float padding = get_float(adata, "quest_padding");
+    char *rtex = get_str(adata, "rtex_ui");
+    sfVector2f pos;
+    pos.x = bounds.left - padding;
+    pos.y = bounds.top - padding;
+
+    resize_rect(adata, id, size);
+    move_rect(adata, id, pos);
+    set_rect_rtex(adata, id, rtex);
+    add_to_container(adata, container,
+    (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_to_container(adata, get_str(adata, "ctn_quest"),
+    (s_ref) { get_rect(adata, id), TYPE_RECT });
+    color_rect(adata, id, get_color(0, 0, 0, 230));
+}
+
 s_rect *get_quest_popup_rect(s_appdata *adata, s_quest *cur)
 {
     char *id = str_add(cur->id, "@[:popup_rect]");
     int layer = get_int(adata, "quest_layer");
-    char *rtex = get_str(adata, "rtex_ui");
     float padding = get_float(adata, "quest_padding");
-    char *container = get_str(adata, "ctn_game");
     sfFloatRect bounds = get_text_bounds(adata, cur->popup_text->id);
 
     add_rect(adata, id, layer);
@@ -256,16 +304,6 @@ s_rect *get_quest_popup_rect(s_appdata *adata, s_quest *cur)
     size.x = bounds.width + (padding * 2);
     size.y = bounds.height + padding;
 
-    sfVector2f pos;
-    pos.x = bounds.left - padding;
-    pos.y = bounds.top - padding;
-
-    resize_rect(adata, id, size);
-    move_rect(adata, id, pos);
-    set_rect_rtex(adata, id, rtex);
-    add_to_container(adata, container, (s_ref) { get_rect(adata, id), TYPE_RECT });
-    add_to_container(adata, get_str(adata, "ctn_quest"), (s_ref) { get_rect(adata, id), TYPE_RECT });
-    color_rect(adata, id, get_color(0, 0, 0, 230));
 
     s_rect *rect = get_rect(adata, id);
 
@@ -293,7 +331,8 @@ void toggle_quest(s_appdata *adata, s_ref *ref)
     }
 }
 
-void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size, sfVector2f bg_pos)
+void init_quest_items(s_appdata *adata, char *bg_id, sfVector2f bg_size,
+sfVector2f bg_pos)
 {
     char *id = str_add(bg_id, "@[:title]");
     float width = get_float(adata, "quest_width");

@@ -48,26 +48,18 @@ void init_errors(s_appdata *adata)
 {
     char *errors_content = file_extract("bonus/errors.myrpg");
     char **entries = str_split(errors_content, '\n');
-    int ite = 0;
-
     free(errors_content);
-    while (entries[ite] != NULL) {
-        if (entries[ite][0] == '#') {
-            ite++;
+    for (int ite = 0; entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#')
             continue;
-        }
-
         char **entry_data = str_split(entries[ite], '=');
         char *id = substr(entry_data[0], 0, my_strlen(entry_data[0]) - 2);
         char *format = substr(entry_data[1], 1, my_strlen(entry_data[1]) - 1);
-
         add_error(adata, id, str_add(format, "\n"));
-
         free(format);
         for (int i = 0; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-        ite++;
     }
     for (int i = 0; entries[i] != NULL; i++)
         free(entries[i]);

@@ -92,31 +92,22 @@ void load_entity_config(s_appdata *adata)
 {
     char *file_content = file_extract("bonus/entities.myrpg");
     char **entries = str_split(file_content, '\n');
-    int ite = 0;
-
     free(file_content);
-    for (;entries[ite] != NULL; ++ite) {
-        if (entries[ite][0] == '#')
-            continue;
-
+    for (int ite = 0;entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#') continue;
         char **entry_data = str_split(entries[ite], ' ');
-        char *entry_type = entry_data[0];
-
-        if (!my_strcmp(entry_type, "faction")) {
+        if (!my_strcmp(entry_data[0], "faction")) {
             add_faction(adata, entry_data);
             continue;
-        } else if (!my_strcmp(entry_type, "entity")) {
+        } if (!my_strcmp(entry_data[0], "entity")) {
             add_entity_model(adata, entry_data);
             continue;
-        } else if (!my_strcmp(entry_type, "part")) {
+        } if (!my_strcmp(entry_data[0], "part")) {
             add_entity_part(adata, entry_data);
             continue;
-        }
-        for (int i = 0; entry_data[i] != NULL; i++)
-            free(entry_data[i]);
+        } for (int i = 0; entry_data[i] != NULL; i++) free(entry_data[i]);
         free(entry_data);
     }
-    for (int i = 0; entries[i] != NULL; i++)
-        free(entries[i]);
+    for (int i = 0; entries[i] != NULL; i++) free(entries[i]);
     free(entries);
 }
