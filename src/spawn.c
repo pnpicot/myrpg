@@ -200,7 +200,7 @@ void trigger_spawn_cycle(s_appdata *adata)
     s_game *game_data = adata->game_data;
     int faction_count = linked_count(game_data->factions);
 
-    if (get_clock_seconds(game_data->wave_clock) < 10.0f
+    if (get_clock_seconds(game_data->wave_clock) < 50.0f
         && game_data->wave_count > 1)
         return;
 
@@ -219,7 +219,7 @@ void trigger_spawn_cycle(s_appdata *adata)
             continue;
         }
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             try_entity_spawn(adata, cur);
         }
 

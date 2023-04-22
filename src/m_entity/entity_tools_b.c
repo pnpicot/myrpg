@@ -143,7 +143,6 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->name = model_name;
 
     free(entry[0]);
-    free(entry[1]);
     for (int i = 3; entry[i] != NULL; i++)
         free(entry[i]);
     free(entry);
