@@ -50,6 +50,50 @@ void init_ingame_fps(s_appdata *adata, char *container, char *rtex)
     (s_ref) { get_text(adata, fps), TYPE_TEXT });
 }
 
+void update_wave_count(s_appdata *adata)
+{
+    char *id = get_str(adata, "wave_count");
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+    s_game *game_data = adata->game_data;
+
+    edit_text(adata, id, str_add("wave ", nbr_to_str(game_data->wave_count)));
+
+    sfFloatRect bounds = get_text_bounds(adata, id);
+    sfVector2f pos;
+
+    pos.x = win_w - bounds.width - 25.0f;
+    pos.y = win_h - bounds.height - 20.0f;
+
+    move_text(adata, id, pos);
+}
+
+void init_ingame_waves(s_appdata *adata, char *container, char *rtex)
+{
+    char *id = get_str(adata, "wave_count");
+    int win_w = get_int(adata, "win_w");
+    int win_h = get_int(adata, "win_h");
+
+    add_text(adata, id, 3);
+    set_text_rtex(adata, id, rtex);
+
+    s_ref ref = { get_text(adata, id), TYPE_TEXT };
+
+    add_to_container(adata, container, ref);
+    set_text_font(adata, id, get_font(adata, "lobster"));
+    color_text(adata, id, sfCyan);
+    edit_text(adata, id, "wave 1");
+    resize_text(adata, id, 34);
+
+    sfFloatRect bounds = get_text_bounds(adata, id);
+    sfVector2f pos;
+
+    pos.x = win_w - bounds.width - 25.0f;
+    pos.y = win_h - bounds.height - 20.0f;
+
+    move_text(adata, id, pos);
+}
+
 void init_stats_title(s_appdata *adata, char *container, char *rtex,
 char *rect_id)
 {
@@ -173,4 +217,5 @@ void init_live_ingame_ui(s_appdata *adata)
 
     init_ingame_fps(adata, container, rtex);
     init_ingame_stats(adata, container ,rtex);
+    init_ingame_waves(adata, container, rtex);
 }

@@ -186,4 +186,5 @@ float skill_node_size = 100.0f
 
 # -- waves -- begin
 float path_update = 2.0f
+string wave_count = wave_count
 # -- waves -- end
