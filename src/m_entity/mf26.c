@@ -40,7 +40,7 @@ s_entity *entity, s_particle *particle, linked_node *touchs)
             return;
         }
         if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity) {
-            touch->entity->hp -= entity->damage;
+            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.001f;
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {

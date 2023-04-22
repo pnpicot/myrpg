@@ -113,6 +113,8 @@ s_entity *new_entity)
     new_entity->dead = sfFalse;
     new_entity->name = model->name;
     new_entity->path_clock = sfClock_create();
+    new_entity->defense = model->defense;
+    new_entity->trf_require = model->trf_require;
 }
 
 s_entity *copy_entity_model(s_appdata *adata, s_entity *model)
@@ -200,7 +202,7 @@ void trigger_spawn_cycle(s_appdata *adata)
     int faction_count = linked_count(game_data->factions);
     int wave = game_data->wave_count;
 
-    if (get_clock_seconds(game_data->wave_clock) < 20.0f && wave > 1)
+    if (get_clock_seconds(game_data->wave_clock) < 20.0f && wave)
         return;
 
     if (game_data->faction_index > faction_count - 1)

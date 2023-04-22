@@ -79,7 +79,7 @@ void add_entity_part(s_appdata *adata, char **entry)
 
 void add_entity_model(s_appdata *adata, char **entry)
 {
-    if (count_nil_str(entry) < 10 || !is_format(entry, "sssffdffdf"))
+    if (count_nil_str(entry) < 12 || !is_format(entry, "sssffdffdffd"))
         return;
 
     char *model_id = entry[2];
@@ -118,6 +118,8 @@ void add_entity_model(s_appdata *adata, char **entry)
     float model_speed = str_to_float(entry[7]);
     int model_orientated = my_getnbr(entry[8]);
     float agro_length = str_to_float(entry[9]);
+    float model_defense = str_to_float(entry[10]);
+    int model_trf = my_getnbr(entry[11]);
 
     new_model->id = model_id;
     new_model->parts = linked_new();
@@ -141,6 +143,8 @@ void add_entity_model(s_appdata *adata, char **entry)
     new_model->path_clock = sfClock_create();
     new_model->dead = sfFalse;
     new_model->name = model_name;
+    new_model->defense = model_defense;
+    new_model->trf_require = model_trf;
 
     free(entry[0]);
     for (int i = 3; entry[i] != NULL; i++)
