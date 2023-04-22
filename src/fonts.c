@@ -29,23 +29,20 @@ void add_font(s_appdata *adata, char *id, char *filename)
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "already_exists"));
         return;
-    }
-    char *path = str_m_add(3, "bonus/fonts/", filename, ".ttf");
-    struct stat buffer;
+    } char *path = str_m_add(3, "bonus/fonts/", filename, ".ttf");
+    struct stat buffer = {0};
     if (stat(path, &buffer) == -1) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "no_file"));
         return;
-    }
-    s_font *new_font = malloc(sizeof(s_font));
+    } s_font *new_font = malloc(sizeof(s_font));
     if (new_font == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-    new_font->font = sfFont_createFromFile(path);
+    *new_font = (s_font) {.font = sfFont_createFromFile(path), .id = id};
     free(path);
-    new_font->id = id;
     linked_add(adata->lists->fonts, new_font);
 }
 
@@ -53,26 +50,18 @@ void load_fonts(s_appdata *adata)
 {
     char *file_content = file_extract("bonus/fonts.myrpg");
     char **entries = str_split(file_content, '\n');
-    int ite = 0;
-
     free(file_content);
-    while (entries[ite] != NULL) {
+    for (int ite = 0; entries[ite] != NULL; ++ite) {
         if (entries[ite][0] == '#') {
-            ite++;
             continue;
         }
-
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
         char *id = entry_data[0];
         char *filename = entry_data[1];
-
         add_font(adata, id, filename);
-
         for (int i = 1; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-
-        ite++;
     }
     for (int i = 0; entries[i] != NULL; i++)
         free(entries[i]);

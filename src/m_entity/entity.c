@@ -83,9 +83,11 @@ void update_entities(s_appdata *adata)
             continue;
         }
         if (cur->dead == 0) {
-            update_zone(adata, cur);
+            // update_zone(adata, cur);
 
+            START(behavior)
             (*cur->behavior)(adata, cur);
+            END(behavior)
         }
 
         ite++;

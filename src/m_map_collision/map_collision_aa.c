@@ -21,7 +21,7 @@ s_entity *entity, sfVector2f *movement)
         return (1);
     }
     movement->x = MAX(-2, MIN(2, movement->x));
-    act_entity->move_now.x = movement->x * 10;
+    act_entity->move_now.x = movement->x * 2    ;
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
 }
@@ -40,7 +40,7 @@ s_entity *entity, sfVector2f *movement)
         return (1);
     }
     movement->y = MAX(-2, MIN(2, movement->y));
-    act_entity->move_now.y = movement->y * 10;
+    act_entity->move_now.y = movement->y * 2;
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
 }

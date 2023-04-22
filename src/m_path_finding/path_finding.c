@@ -85,17 +85,19 @@ sfIntRect hitbox)
 linked_node *path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
 sfVector2i end)
 {
-    linked_node *rvalue = NULL;
+    linked_node *rvalue = (linked_node *)1;
 
     if (verify_map(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
     &end) < 0)
         return (NULL);
     map = change_wall_and_path(map, map_size, hitbox);
-    if (map == NULL || map[hitbox.top][hitbox.left] == MY_WALL ||
-    map[end.y][end.x] == MY_WALL)
+    if (map == NULL)
         return (NULL);
-    rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top},
-    &end);
+    if (map[hitbox.top][hitbox.left] == MY_WALL || map[end.y][end.x] == MY_WALL)
+        rvalue = NULL;
+    if (rvalue != NULL)
+        rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top}
+        , &end);
     for (int i = 0; i < map_size->y; i++)
         free(map[i]);
     free(map);

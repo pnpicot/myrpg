@@ -95,33 +95,50 @@ float update_rate, float render_rate)
         sfRenderWindow_display(adata->win);
         sfClock_restart(clocks->app_clock);
 
+
         GET_IT(update_entities)
-        GET_IT(agro)
         GET_IT(what_is_touching)
         GET_IT(is_map_colliding)
         GET_IT(get_way)
+        GET_IT(behavior)
 
         END(total)
         END(fps)
         GVNAME(fps) /= 2;
-        /* printf("update: %.4f : %.2f%%\n"
+        printf("update: %.4f : %.2f%%\n"
         "update_entities: %.4f : %.2f%%\n"
-        "agro: %.4f : %.2f%%\n"
         "what_is_touching: %.4f : %.2f%%\n"
         "is_map_colliding: %.4f : %.2f%%\n"
         "get_way: %.4f : %.2f%%\n"
+        "behavior: %.4f : %.2f%%\n"
         "render: %.4f : %.2f%%\n"
         "total: %.4f : %.2f%%\n"
         "average fps: %.4f\n\n",
         GVNAME(update), GVNAME(update) / GVNAME(total) * 100,
         GVNAME(update_entities), GVNAME(update_entities) / GVNAME(total) * 100,
-        GVNAME(agro), GVNAME(agro) / GVNAME(total) * 100,
         GVNAME(what_is_touching), GVNAME(what_is_touching) / GVNAME(total) * 100,
         GVNAME(is_map_colliding), GVNAME(is_map_colliding) / GVNAME(total) * 100,
         GVNAME(get_way), GVNAME(get_way) / GVNAME(total) * 100,
+        GVNAME(behavior), GVNAME(behavior) / GVNAME(total) * 100,
         GVNAME(render), GVNAME(render) / GVNAME(total) * 100,
         GVNAME(total), 100.0,
-        1.0 / GVNAME(fps)); */
+        1.0 / GVNAME(fps));
+
+        // static int count = 0;
+
+        // count++;
+
+        // if (count == 1000) {
+        //     GVNAME(update) = 0;
+        //     GVNAME(render) = 0;
+        //     GVNAME(update_entities) = 0;
+        //     GVNAME(total) = 0;
+        //     GVNAME(what_is_touching) = 0;
+        //     GVNAME(is_map_colliding) = 0;
+        //     GVNAME(get_way) = 0;
+        //     GVNAME(fps) = 0;
+        //     count = 0;
+        // }
     }
 }
 
