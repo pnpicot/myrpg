@@ -139,7 +139,7 @@ void save_to_file(s_appdata *adata, char *save)
     get_files("bonus/saves", 0, files);
 
     int count = linked_count(files);
-    char *filename = str_add("save-", nbr_to_str(count + 1));
+    char *filename = str_add("save", nbr_to_str(count + 1));
     FILE *new_fp = fopen(str_add("bonus/saves/", filename), "w");
 
     if (new_fp == NULL) {

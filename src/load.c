@@ -7,9 +7,51 @@
 
 #include "main.h"
 
-void load_game(s_appdata *adata, char *path)
+void modify_game(s_appdata *adata, char *content)
 {
-    printf("salut\n");
+    char **lines = str_split(content, '#');
+    
+    s_player *player = adata->player;
+
+    player->attack = str_to_float(lines[0]);
+    player->defense = str_to_float(lines[1]);
+    player->health_rate = str_to_float(lines[2]);
+    player->health.x = str_to_float(lines[3]);
+    player->health.y = str_to_float(lines[4]);
+    player->moula = str_to_float(lines[5]);
+    player->transference_rate = str_to_float(lines[6]);
+    player->transference.x = str_to_float(lines[7]);
+    player->transference.y = str_to_float(lines[8]);
+    player->transference_level = my_getnbr(lines[9]);
+
+
+    int i = 11;
+    while (my_strcmp(lines[i], "$array")) {
+        linked_node *syringe = adata->game_data->syringes;
+        char **syr_stat = str_split(lines[i], '~');
+        while (syringe != NULL && syringe->data != NULL) {
+            s_syringe *syr_cur = (s_syringe *) syringe->data;
+            if (!my_strcmp(syr_cur->name, syr_stat[0])) {
+                syr_cur->count = my_getnbr(syr_stat[1]);
+                break;
+            }
+            syringe = syringe->next;
+        }
+        i++;
+    }
+
+    printf("done\n");
+}
+
+void load_game(s_appdata *adata)
+{
+    char *input_load = get_str(adata, "input_load");
+    const char *input_text = get_input_str(adata, input_load);
+
+    char *path = str_add("bonus/saves/", input_text);
+
+    char *content = file_extract(path);
+    modify_game(adata, content);
 }
 
 void init_load_input(s_appdata *adata, char *container, char *rtex)
