@@ -64,7 +64,6 @@ void init_skills(s_appdata *adata)
     s_skill_tree *skill1 = get_skill_tree(adata, tree_1);
     s_skill_tree *skill2 = get_skill_tree(adata, tree_2);
     s_skill_tree *skill3 = get_skill_tree(adata, tree_3);
-    
     init_skill0(adata, skill0);
     init_skill1(adata, skill1);
     init_skill2(adata, skill2);

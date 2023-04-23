@@ -75,7 +75,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
     if (entity->inhabited) return;
     float seconds = get_clock_seconds(adata->clocks->update_clock);
     sfVector2f add = { path.x * seconds * entity->speed,
-                       path.y * seconds * entity->speed };
+    path.y * seconds * entity->speed };
     add = is_map_colliding(adata, entity, add);
     float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
     if (entity->move_now_entity != NULL) {
@@ -83,8 +83,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
         entity->move_now.y = 0;
         entity->move_now_entity = NULL;
         angle = sfSprite_getRotation(
-                ((s_entity_part *) entity->parts->data)->sprite->elem
-            );
+        ((s_entity_part *) entity->parts->data)->sprite->elem);
     }
     lmx2_damage_behavior(adata, entity, angle);
     translate_entity(adata, entity, add);

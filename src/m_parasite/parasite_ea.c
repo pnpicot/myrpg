@@ -84,11 +84,10 @@ void check_game_keys_n(s_appdata *adata, int keycode)
         char *ctn = get_str(adata, "ctn_quest");
         set_container_active(adata, ctn, adata->game_data->show_quest ? 1 : 0);
         linked_node *quests = adata->game_data->quests;
-        while (quests != NULL && quests->data != NULL) {
+        for (;quests != NULL && quests->data != NULL; quests = quests->next) {
             s_quest *cur = (s_quest *) quests->data;
             cur->popup_rect->active = 0;
             cur->popup_text->active = 0;
-            quests = quests->next;
         }
     } if (keycode == sfKeyT) {
         adata->game_data->in_stree = !adata->game_data->in_stree;

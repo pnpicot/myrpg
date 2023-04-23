@@ -25,34 +25,6 @@ int get_rank_id_entities(s_zone *zone, char *id)
     return (0);
 }
 
-void update_zone(s_appdata *adata, s_entity *entity)
-{
-    sfVector2f pos = entity->pos;
-    float zoom = get_float(adata, "zoom");
-    sfVector2i pos_zone;
-
-    pos_zone.x = pos.x / ((adata->game_data->map_width * 32 * zoom) / adata->game_data->nb_zones);
-    pos_zone.y = pos.y / ((adata->game_data->map_height * 32 * zoom) / adata->game_data->nb_zones);
-    pos_zone.x = MIN(adata->game_data->nb_zones - 1, MAX(0, pos_zone.x));
-    pos_zone.y = MIN(adata->game_data->nb_zones - 1, MAX(0, pos_zone.y));
-
-    int index = (pos_zone.y * adata->game_data->nb_zones) + pos_zone.x;
-
-    if (entity->zone == NULL || entity->zone->id == NULL ||
-        adata->game_data->zones[index]->id == NULL)
-        return;
-
-    if (my_strcmp(entity->zone->id, adata->game_data->zones[index]->id)) {
-        linked_add(adata->game_data->zones[index]->entities, entity);
-
-        int ite = get_rank_id_entities(entity->zone, entity->id);
-
-        linked_delete(&entity->zone->entities, ite);
-
-        entity->zone = adata->game_data->zones[index];
-    }
-}
-
 void update_entities(s_appdata *adata)
 {
     linked_node *entities = adata->game_data->entities;
@@ -68,8 +40,6 @@ void update_entities(s_appdata *adata)
             continue;
         }
         if (cur->dead == 0) {
-            // update_zone(adata, cur);
-
             (*cur->behavior)(adata, cur);
         }
 
