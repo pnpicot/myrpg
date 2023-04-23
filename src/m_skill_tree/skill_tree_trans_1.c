@@ -66,7 +66,7 @@ void init_stree_node36(s_appdata *adata, s_skill_tree *skill3)
     add_skill_node(adata, skill3, node_3_6, 1);
     set_skill_node_name(adata, skill3, node_3_6, "LEVEL 6");
     set_skill_node_parent(adata, skill3, node_3_6,
-        get_skill_node(adata, skill3, "node_3_6"));
+        get_skill_node(adata, skill3, "node_3_5"));
     set_skill_node_icon(adata, skill3, node_3_6, get_texture(adata, "tree_cube"));
     set_skill_node_price(adata, skill3, node_3_6, 3500);
     set_skill_node_trigger(adata, skill3, node_3_6, &add_transference);

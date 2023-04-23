@@ -53,14 +53,25 @@ void init_stree_title(s_appdata *adata, char *game_ctn, char *skill_ctn, \
 sfFloatRect bg_bounds);
 
 void init_stree_node01(s_appdata *adata, s_skill_tree *skill0);
+void init_stree_node02(s_appdata *adata, s_skill_tree *skill0);
+void init_stree_node03(s_appdata *adata, s_skill_tree *skill0);
+void init_stree_node04(s_appdata *adata, s_skill_tree *skill0);
+void init_stree_node05(s_appdata *adata, s_skill_tree *skill0);
+void init_stree_node06(s_appdata *adata, s_skill_tree *skill0);
 
 void init_stree_node11(s_appdata *adata, s_skill_tree *skill1);
+void init_stree_node12(s_appdata *adata, s_skill_tree *skill1);
+void init_stree_node13(s_appdata *adata, s_skill_tree *skill1);
+void init_stree_node14(s_appdata *adata, s_skill_tree *skill1);
+void init_stree_node15(s_appdata *adata, s_skill_tree *skill1);
+void init_stree_node16(s_appdata *adata, s_skill_tree *skill1);
 
 void init_stree_node21(s_appdata *adata, s_skill_tree *skill2);
 void init_stree_node22(s_appdata *adata, s_skill_tree *skill2);
 void init_stree_node23(s_appdata *adata, s_skill_tree *skill2);
 void init_stree_node24(s_appdata *adata, s_skill_tree *skill2);
 void init_stree_node25(s_appdata *adata, s_skill_tree *skill2);
+void init_stree_node26(s_appdata *adata, s_skill_tree *skill2);
 
 void init_stree_node31(s_appdata *adata, s_skill_tree *skill3);
 void init_stree_node32(s_appdata *adata, s_skill_tree *skill3);

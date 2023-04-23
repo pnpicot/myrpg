@@ -67,14 +67,25 @@ void init_skills(s_appdata *adata)
     s_skill_tree *skill3 = get_skill_tree(adata, tree_3);
 
     init_stree_node01(adata, skill0);
+    init_stree_node02(adata, skill0);
+    init_stree_node03(adata, skill0);
+    init_stree_node04(adata, skill0);
+    init_stree_node05(adata, skill0);
+    init_stree_node06(adata, skill0);
 
     init_stree_node11(adata, skill1);
+    init_stree_node12(adata, skill1);
+    init_stree_node13(adata, skill1);
+    init_stree_node14(adata, skill1);
+    init_stree_node15(adata, skill1);
+    init_stree_node16(adata, skill1);
 
     init_stree_node21(adata, skill2);
     init_stree_node22(adata, skill2);
     init_stree_node23(adata, skill2);
     init_stree_node24(adata, skill2);
     init_stree_node25(adata, skill2);
+    init_stree_node26(adata, skill2);
 
     init_stree_node31(adata, skill3);
     init_stree_node32(adata, skill3);
@@ -85,4 +96,6 @@ void init_skills(s_appdata *adata)
     init_stree_node37(adata, skill3);
     init_stree_node38(adata, skill3);
     init_stree_node39(adata, skill3);
+
+    printf("1\n");
 }
