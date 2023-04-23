@@ -12,14 +12,14 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
     sfFloatRect hitbox = get_entity_hitbox(adata, entity);
     hitbox.left -= 30;
     hitbox.top -= 30;
-    hitbox.width += 45;
-    hitbox.height += 45;
+    hitbox.width += 60;
+    hitbox.height += 60;
     linked_node *touchs_ll = what_is_touching(adata, hitbox);
     for (linked_node *tch = touchs_ll; tch != NULL; tch = tch->next) {
         s_touch_t *touch = (s_touch_t *) tch->data;
         int same_fac = touch->touch_type == TOUCH_ENTITY &&
         !my_strcmp(touch->entity->faction->id, entity->faction->id) &&
-        adata->player->host != touch->entity;
+        adata->player->host != touch->entity && entity != adata->player->host;
         if (touch->touch_type == TOUCH_ENTITY &&
         touch->entity != entity && !same_fac)
             touch->entity->hp -= entity->damage  *
