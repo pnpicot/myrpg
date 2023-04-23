@@ -37,7 +37,8 @@ s_entity *entity, s_particle *particle, linked_node *touchs)
     for (linked_node *tch = touchs; tch != NULL; tch = tch->next) {
         s_touch_t *touch = (s_touch_t *) tch->data;
         int same_fac = touch->touch_type == TOUCH_ENTITY &&
-            !my_strcmp(touch->entity->faction->id, entity->faction->id);
+        !my_strcmp(touch->entity->faction->id, entity->faction->id) &&
+        adata->player->host != touch->entity;
         if (touch->touch_type == TOUCH_WALL) {
             particle->active = sfFalse;
         }
