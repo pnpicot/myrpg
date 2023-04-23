@@ -89,7 +89,7 @@ float angle, float last_angle)
         entity->move_now_entity = NULL;
         angle = last_angle;
     }
-    if (angle != last_angle) {
+    if (angle != last_angle || entity->inhabited) {
         sfVector2f origin = { 140, 60 };
         float ang_rad = (angle - 90.0f) * (M_PI / 180.0f);
         sfVector2f o_pos = ((s_entity_part *) entity->parts->data)->sprite->pos;
@@ -108,7 +108,12 @@ sfVector2f add, float angle)
 {
     char *emiter_id = str_add(entity->id, "@[:emiter]");
 
-    if (entity->emiter != NULL && !entity->inhabited) {
+    if (entity->inhabited) {
+        angle = sfSprite_getRotation(
+            ((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
+
+    if (entity->emiter != NULL) {
         sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle),
                                   entity->pos.y * entity->pos.y * sin(angle) };
         translate_emiter(adata, emiter_id, add);
