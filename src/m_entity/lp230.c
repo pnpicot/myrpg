@@ -54,17 +54,18 @@ float *angle)
 
 void behavior_lp230_legs(s_appdata *adata, s_entity *entity, float angle)
 {
-    float leg_cycle = get_entity_float(entity, "leg_cycle")->value;
+    float leg_cycle = get_entity_float(entity, "cycle")->value;
     float leg_rot = get_entity_float(entity, "leg_rot")->value;
+    float sec = get_clock_seconds(adata->clocks->update_clock);
     int walking = get_key(adata, sfKeyQ) || get_key(adata, sfKeyZ)
     || get_key(adata, sfKeyD) || get_key(adata, sfKeyS);
     if (!entity->inhabited || walking) {
         if (leg_cycle) {
-            add_to_entity_float(adata, entity, "leg_rot", entity->speed);
+            add_to_entity_float(adata, entity, "leg_rot", entity->speed * sec);
             rotate_entity_part_abs(adata, entity, "lpleg1", angle - leg_rot);
             rotate_entity_part_abs(adata, entity, "lpleg2", angle + leg_rot);
         } else {
-            add_to_entity_float(adata, entity, "leg_rot", -entity->speed);
+            add_to_entity_float(adata, entity, "leg_rot", -entity->speed * sec);
             rotate_entity_part_abs(adata, entity, "lpleg1", angle - leg_rot);
             rotate_entity_part_abs(adata, entity, "lpleg2", angle + leg_rot);
         }

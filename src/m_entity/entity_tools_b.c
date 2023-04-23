@@ -56,7 +56,7 @@ void add_entity_part(s_appdata *adata, char **entry)
 void add_entity_model_n(s_appdata *adata, char **entry, s_entity *new_model)
 {
     *new_model = (s_entity) {.id = entry[2], .parts = linked_new(),
-    .pos = (sfVector2f) { 0, 0 }, .hitbox = (sfFloatRect) {0, 0, 0, 0},
+    .pos = (sfVector2f) { 0, 0 }, .hitbox = (sfFloatRect) { 0, 0, 0, 0 },
     .st_hp = my_getnbr(entry[5]), .hp = my_getnbr(entry[5]),
     .speed = str_to_float(entry[7]), .spawn_rate = str_to_float(entry[4]),
     .scale = str_to_float(entry[3]), .faction = NULL, .inhabited = sfFalse,
