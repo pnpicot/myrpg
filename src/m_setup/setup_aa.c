@@ -53,6 +53,7 @@ void init_live_states(s_appdata *adata)
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, settings_state, get_rtex(adata, rtex_settings));
     add_state(adata, load_state);
+    init_gameover(adata);
     init_live_states_n(adata, game_state, main_state, settings_state);
 }
 

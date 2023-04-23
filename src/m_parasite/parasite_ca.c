@@ -60,12 +60,12 @@ void init_player_particles_n(s_appdata *adata, sfVector2f part_angle)
     set_emiter_lifetime(adata, particles, 1500000);
     set_emiter_particle_lifetime(adata, particles, 1000);
     set_emiter_particle_max(adata, particles, 1000);
-    set_emiter_spawnrate(adata, particles, 1.0f);
+    set_emiter_spawnrate(adata, particles, 3.0f);
     set_emiter_model(adata, particles, "gen");
     set_emiter_colors(adata, particles, sfBlack, sfDarkGray);
     set_emiter_gameobject(adata, particles, sfFalse);
     set_emiter_size_range(adata, particles,
-    (sfVector2f) { 4.0f, 4.0f }, (sfVector2f) { 0, 0 });
+    (sfVector2f) { 10.0f, 10.0f }, (sfVector2f) { 0, 0 });
     set_emiter_cone(adata, particles, part_angle);
     set_emiter_particle_speed(adata, particles, (sfVector2f) {250.0f, 380.0f});
     set_emiter_vortex_dir(adata, particles, clockwise);
