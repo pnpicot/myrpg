@@ -300,6 +300,8 @@ typedef struct {
     sfClock *wave_clock;
     int faction_index;
     int wave_count;
+    linked_node *npc_text;
+    sfClock *npc_clock;
 } s_game;
 
 typedef struct {

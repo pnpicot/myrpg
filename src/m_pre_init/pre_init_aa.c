@@ -40,7 +40,6 @@ void init_gamedata(s_appdata *adata)
         get_error(adata, "mem_alloc"));
         return;
     }
-
     s_game *game_data = adata->game_data;
     *game_data = (s_game) {.view_pos = (sfVector2f) { 0, 0 },
     .map_size = (sfVector2f) { 0, 0 }, .friction = 0, .speed = (sfVector2f) { 0,
@@ -51,7 +50,8 @@ void init_gamedata(s_appdata *adata)
     .show_quest = sfFalse, .in_stree = sfFalse, .mouse_down = sfFalse,
     .zones = NULL, .nb_zones = 0, .size_zone = (sfVector2f) { 0, 0 },
     .mouse_last = (sfVector2f) { 0, 0 }, .wave_clock = sfClock_create(),
-    .faction_index = 0, .wave_count = 0
+    .faction_index = 0, .wave_count = 0, .npc_text = linked_new(),
+    .npc_clock = sfClock_create()
     };
 }
 
