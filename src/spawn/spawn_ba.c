@@ -75,7 +75,7 @@ void try_entity_spawn(s_appdata *adata, s_entity *model)
 
     s_entity *new_entity = copy_entity_model(adata, model);
     float tile_size = 32 * get_float(adata, "zoom");
-    sfVector2f pos = { 124 * tile_size, 124 * tile_size };
+    sfVector2f pos = { 90 * tile_size, 90 * tile_size };
 
     new_entity->zone = fill_zone(adata, new_entity, pos);
 
