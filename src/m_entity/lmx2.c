@@ -7,6 +7,30 @@
 
 #include "main.h"
 
+static void lmx2_damage_behavior(s_appdata *adata, s_entity *entity,
+float angle)
+{
+    sfFloatRect hitbox = get_entity_hitbox(adata, entity);
+    angle += 90.0f;
+    hitbox.left += cosf(angle * (M_PI / 180.0f)) * hitbox.width / 2;
+    hitbox.top += sinf(angle * (M_PI / 180.0f)) * hitbox.height / 2;
+    linked_node *touchs_ll = what_is_touching(adata, hitbox);
+    for (linked_node *tch = touchs_ll; tch != NULL; tch = tch->next) {
+        s_touch_t *touch = (s_touch_t *) tch->data;
+        int same_fac = touch->touch_type == TOUCH_ENTITY &&
+        !my_strcmp(touch->entity->faction->id, entity->faction->id) &&
+        adata->player->host != touch->entity && entity != adata->player->host;
+        if (touch->touch_type == TOUCH_ENTITY &&
+        touch->entity != entity && !same_fac)
+            touch->entity->hp -= entity->damage  *
+            (1 - touch->entity->defense);
+        if (touch->touch_type == TOUCH_PARASITE)
+            adata->player->health.x -= entity->damage  *
+            (1 - adata->player->defense);
+    }
+    free_ll_and_data(&touchs_ll);
+}
+
 void init_behavior_lmx2(s_appdata *adata, s_entity *entity)
 {
     char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
@@ -62,6 +86,7 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
                 ((s_entity_part *) entity->parts->data)->sprite->elem
             );
     }
+    lmx2_damage_behavior(adata, entity, angle);
     translate_entity(adata, entity, add);
     rotate_entity_part_abs(adata, entity, "lmx2_body", angle);
     sfClock_restart(entity->clock);
