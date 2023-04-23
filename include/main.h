@@ -665,6 +665,19 @@ typedef struct {
     sfVector2f bg_pos;
 } s_tmp_questitem;
 
+typedef struct {
+    char *id;
+    float size;
+    s_skill_node *cur;
+    s_skill_tree *tree;
+    sfVector2f *start;
+    int node_count;
+    char *skill_ctn;
+    char *game_ctn;
+    int y_shift;
+    int ite;
+} s_tmp_stree;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
