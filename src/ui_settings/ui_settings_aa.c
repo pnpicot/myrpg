@@ -12,11 +12,6 @@ void trigger_settings_backbtn(s_appdata *adata, s_ref *ref)
     close_window(adata);
 }
 
-void trigger_settings_vol(s_appdata *adata, s_ref *ref)
-{
-    slider_change(adata, get_str(adata, "volume_slider"));
-}
-
 void init_settings_backbtn(s_appdata *adata, char *container, char *rtex)
 {
     char *back_btn = get_str(adata, "back_btn");
@@ -77,8 +72,9 @@ void init_settings_volumebtn(s_appdata *adata, char *container, char *rtex)
     float rad = get_float(adata, "slider_node_size");
     move_slider(adata, volume_slider, (sfVector2f) { (win_w / 2) -
     (mid / 2) + rad, win_h / 2 });
-    set_slider_onchange(adata, volume_slider, &trigger_settings_vol);
     add_to_container(adata, container, (s_ref) { get_slider(adata,
     volume_slider), TYPE_SLIDER });
+    set_slider_min(adata, volume_slider, 0);
+    set_slider_max(adata, volume_slider, 100);
     set_slider_onchange(adata, volume_slider, &change_volume);
 }

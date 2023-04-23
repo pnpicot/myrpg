@@ -19,7 +19,8 @@ void init_live_load_menu(s_appdata *adata)
 
 void change_volume(s_appdata *adata, s_ref *ref)
 {
-    s_slider *slider = (s_slider *) ref->ref;
+    s_slider *slider = get_slider(adata, get_str(adata, "volume_slider"));
     float value = (float) slider->current;
     set_music_volume(adata, "music", value);
+    slider_change(adata, get_str(adata, "volume_slider"));
 }
