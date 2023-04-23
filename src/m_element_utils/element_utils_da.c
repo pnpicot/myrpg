@@ -2,137 +2,111 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** Elements utilities module
+** Element utilities module
 */
 
-#include "../include/main.h"
+#include "main.h"
 
-void set_element_rtex_next(s_appdata *adata, void *ref, \
-int type, char *rtex_id)
+void translate_element_next(s_appdata *adata, void *ref, \
+int type, sfVector2f pos_ch)
 {
     switch (type) {
-        case TYPE_SPRITE:
-            {
-            s_sprite *sprite = (s_sprite *) ref;
-            set_sprite_rtex(adata, sprite->id, rtex_id);
-            break;
-            }
         case TYPE_TEXT:
-            {
             s_text *text = (s_text *) ref;
-            set_text_rtex(adata, text->id, rtex_id);
+            translate_text(adata, text->id, pos_ch);
             break;
-            }
         case TYPE_VERTEX:
-            {
             s_vertex *vertex = (s_vertex *) ref;
-            set_vertex_rtex(adata, vertex->id, rtex_id);
+            translate_vertex_all(adata, vertex->id, pos_ch);
             break;
-            }
         case TYPE_BUTTON:
-            {
             s_button *button = (s_button *) ref;
-            set_button_rtex(adata, button->id, rtex_id);
+            translate_button(adata, button->id, pos_ch);
             break;
-            }
         case TYPE_BAR:
-            {
             s_bar *bar = (s_bar *) ref;
-            set_bar_rtex(adata, bar->id, rtex_id);
+            translate_bar(adata, bar->id, pos_ch);
             break;
-            }
     }
 }
 
-void set_element_rtex(s_appdata *adata, void *ref, int type, char *rtex_id)
-{
-    s_rtex *rtex = get_rtex(adata, rtex_id);
-    if (rtex == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "unknown_id"));
-        return;
-    }
-    switch (type) {
-        case TYPE_RECT:
-            {
-            s_rect *rect = (s_rect *) ref;
-            set_rect_rtex(adata, rect->id, rtex_id);
-            break;
-            }
-        case TYPE_CIRCLE:
-            {
-            s_circle *circle = (s_circle *) ref;
-            set_circle_rtex(adata, circle->id, rtex_id);
-            break;
-            }
-        default:
-            {
-            set_element_rtex_next(adata, ref, type, rtex_id);
-            }
-    }
-}
-
-void resize_element_next(s_appdata *adata, void *ref, \
-int type, sfVector2f size)
-{
-    switch (type) {
-        case TYPE_VERTEX:
-            {
-            s_vertex *vertex = (s_vertex *) ref;
-            sfVertexArray_resize(vertex->elem, size.x ? size.x : size.y);
-            break;
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            resize_button(adata, button->id, size);
-            break;
-            }
-    }
-}
-
-void resize_element(s_appdata *adata, void *ref, int type, sfVector2f size)
+void translate_element(s_appdata *adata, void *ref, int type, \
+sfVector2f pos_ch)
 {
     switch (type) {
         case TYPE_RECT:
-            {
             s_rect *rect = (s_rect *) ref;
-            sfRectangleShape_setSize(rect->elem, size);
+            translate_rect(adata, rect->id, pos_ch);
             break;
-            }
         case TYPE_CIRCLE:
-            {
             s_circle *circle = (s_circle *) ref;
-            sfCircleShape_setRadius(circle->elem, size.x ? size.x : size.y);
+            translate_circle(adata, circle->id, pos_ch);
             break;
-            }
-        case TYPE_TEXT:
-            {
-            s_text *text = (s_text *) ref;
-            sfText_setCharacterSize(text->elem, size.x ? size.x : size.y);
+        case TYPE_SPRITE:
+            s_sprite *sprite = (s_sprite *) ref;
+            translate_sprite(adata, sprite->id, pos_ch);
             break;
-            }
         default:
-            {
-            resize_element_next(adata, ref, type, size);
-            }
+            translate_element_next(adata, ref, type, pos_ch);
     }
 }
 
-void rotate_element_next(s_appdata *adata, void *ref, int type, float angle)
+void move_element_next(s_appdata *adata, void *ref, int type, sfVector2f pos)
 {
     switch (type) {
         case TYPE_TEXT:
-            {
             s_text *text = (s_text *) ref;
-            sfText_setRotation(text->elem, angle);
+            sfText_setPosition(text->elem, pos);
             break;
-            }
         case TYPE_BUTTON:
-            {
             s_button *button = (s_button *) ref;
-            rotate_button(adata, button->id, angle);
+            move_button(adata, button->id, pos);
             break;
-            }
+        case TYPE_BAR:
+            s_bar *bar = (s_bar *) ref;
+            move_bar(adata, bar->id, pos);
+            break;
     }
+}
+
+void move_element(s_appdata *adata, void *ref, int type, sfVector2f pos)
+{
+    switch (type) {
+        case TYPE_RECT:
+            s_rect *rect = (s_rect *) ref;
+            sfRectangleShape_setPosition(rect->elem, pos);
+            break;
+        case TYPE_CIRCLE:
+            s_circle *circle = (s_circle *) ref;
+            sfCircleShape_setPosition(circle->elem, pos);
+            break;
+        case TYPE_SPRITE:
+            s_sprite *sprite = (s_sprite *) ref;
+            sfSprite_setPosition(sprite->elem, pos);
+            break;
+        default:
+            move_element_next(adata, ref, type, pos);
+    }
+}
+
+sfVector2f get_element_origin(s_appdata *adata, void *ref, int type)
+{
+    switch (type) {
+        case TYPE_RECT:
+            s_rect *rect = (s_rect *) ref;
+            return (sfRectangleShape_getOrigin(rect->elem));
+        case TYPE_CIRCLE:
+            s_circle *circle = (s_circle *) ref;
+            return (sfCircleShape_getOrigin(circle->elem));
+        case TYPE_SPRITE:
+            s_sprite *sprite = (s_sprite *) ref;
+            return (sfSprite_getOrigin(sprite->elem));
+        case TYPE_TEXT:
+            s_text *text = (s_text *) ref;
+            return (sfText_getOrigin(text->elem));
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            return (get_button_origin(adata, button->id));
+    }
+    return ((sfVector2f) { -1, -1 });
 }

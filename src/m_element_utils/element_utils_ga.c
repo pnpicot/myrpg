@@ -2,132 +2,96 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** Elements utilities module
+** Element utilities module
 */
 
-#include "../include/main.h"
+#include "main.h"
 
-sfVector2f get_element_scale(s_appdata *adata, void *ref, int type)
+void rotate_element_next(s_appdata *adata, void *ref, int type, float angle)
+{
+    switch (type) {
+        case TYPE_TEXT:
+            s_text *text = (s_text *) ref;
+            sfText_setRotation(text->elem, angle);
+            break;
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            rotate_button(adata, button->id, angle);
+            break;
+    }
+}
+
+void set_element_origin(s_appdata *adata, void *ref, \
+int type, sfVector2f origin)
 {
     switch (type) {
         case TYPE_RECT:
-            {
             s_rect *rect = (s_rect *) ref;
-            return (sfRectangleShape_getScale(rect->elem));
-            }
+            sfRectangleShape_setOrigin(rect->elem, origin);
+            break;
         case TYPE_CIRCLE:
-            {
             s_circle *circle = (s_circle *) ref;
-            return (sfCircleShape_getScale(circle->elem));
-            }
-        case TYPE_TEXT:
-            {
-            s_text *text = (s_text *) ref;
-            return (sfText_getScale(text->elem));
-            }
+            sfCircleShape_setOrigin(circle->elem, origin);
+            break;
         case TYPE_SPRITE:
-            {
             s_sprite *sprite = (s_sprite *) ref;
-            return (sfSprite_getScale(sprite->elem));
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            return (get_button_scale(adata, button->id));
-            }
+            sfSprite_setOrigin(sprite->elem, origin);
+            break;
+        default:
+            set_element_origin_next(adata, ref, type, origin);
     }
-    return ((sfVector2f) { -1, -1 });
 }
 
-float get_element_rotation(s_appdata *adata, void *ref, int type)
+void scale_element_next(s_appdata *adata, void *ref, int type, \
+sfVector2f factors)
+{
+    switch (type) {
+        case TYPE_TEXT:
+            s_text *text = (s_text *) ref;
+            sfText_setScale(text->elem, factors);
+            break;
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            scale_button(adata, button->id, factors);
+            break;
+    }
+}
+
+void scale_element(s_appdata *adata, void *ref, int type, sfVector2f factors)
 {
     switch (type) {
         case TYPE_RECT:
-            {
             s_rect *rect = (s_rect *) ref;
-            return (sfRectangleShape_getRotation(rect->elem));
-            }
+            sfRectangleShape_setScale(rect->elem, factors);
+            break;
         case TYPE_CIRCLE:
-            {
             s_circle *circle = (s_circle *) ref;
-            return (sfCircleShape_getRotation(circle->elem));
-            }
+            sfCircleShape_setScale(circle->elem, factors);
+            break;
         case TYPE_SPRITE:
-            {
             s_sprite *sprite = (s_sprite *) ref;
-            return (sfSprite_getRotation(sprite->elem));
-            }
-        case TYPE_TEXT:
-            {
-            s_text *text = (s_text *) ref;
-            return (sfText_getRotation(text->elem));
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            return (get_button_rotation(adata, button->id));
-            }
+            sfSprite_setScale(sprite->elem, factors);
+            break;
+        default:
+            scale_element_next(adata, ref, type, factors);
     }
-    return (-1);
 }
 
-float get_element_out_thickness(s_appdata *adata, void *ref, int type)
+void set_element_active_final(s_appdata *adata, void *ref, \
+int type, sfUint8 active)
 {
     switch (type) {
-        case TYPE_RECT:
-            {
-            s_rect *rect = (s_rect *) ref;
-            return (sfRectangleShape_getOutlineThickness(rect->elem));
-            }
-        case TYPE_CIRCLE:
-            {
-            s_circle *circle = (s_circle *) ref;
-            return (sfCircleShape_getOutlineThickness(circle->elem));
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            return (get_button_out_thickness(adata, button->id));
-            }
+        case TYPE_SLIDER:
+            s_slider *slider = (s_slider *) ref;
+            set_slider_active(adata, slider->id, active);
+            break;
+        case TYPE_EMITER:
+            s_particle_src *emiter = (s_particle_src *) ref;
+            emiter->active = active;
+            break;
+        case TYPE_BAR:
+            s_bar *bar = (s_bar *) ref;
+            set_bar_active(adata, bar->id, active);
+            break;
     }
-    return (-1);
-}
-
-sfColor get_element_out_color(s_appdata *adata, void *ref, int type)
-{
-    switch (type) {
-        case TYPE_RECT:
-            {
-            s_rect *rect = (s_rect *) ref;
-            return (sfRectangleShape_getOutlineColor(rect->elem));
-            }
-        case TYPE_CIRCLE:
-            {
-            s_circle *circle = (s_circle *) ref;
-            return (sfCircleShape_getOutlineColor(circle->elem));
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            return (get_button_out_color(adata, button->id));
-            }
-    }
-    return (sfBlack);
-}
-
-sfColor get_element_fg(s_appdata *adata, void *ref, int type)
-{
-    switch (type) {
-        case TYPE_TEXT:
-            {
-            s_text *text = (s_text *) ref;
-            return (sfText_getColor(text->elem));
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            return (sfText_getColor(button->text->elem));
-            }
-    }
-    return (sfBlack);
 }

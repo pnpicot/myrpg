@@ -2,154 +2,96 @@
 ** EPITECH PROJECT, 2022
 ** MyRPG
 ** File description:
-** Elements utilities module
+** Element utilities module
 */
 
-#include "../include/main.h"
+#include "main.h"
 
-void set_element_origin(s_appdata *adata, void *ref, \
-int type, sfVector2f origin)
+sfVector2f get_element_scale(s_appdata *adata, void *ref, int type)
 {
     switch (type) {
         case TYPE_RECT:
-            {
             s_rect *rect = (s_rect *) ref;
-            sfRectangleShape_setOrigin(rect->elem, origin);
-            break;
-            }
+            return (sfRectangleShape_getScale(rect->elem));
         case TYPE_CIRCLE:
-            {
             s_circle *circle = (s_circle *) ref;
-            sfCircleShape_setOrigin(circle->elem, origin);
-            break;
-            }
+            return (sfCircleShape_getScale(circle->elem));
+        case TYPE_TEXT:
+            s_text *text = (s_text *) ref;
+            return (sfText_getScale(text->elem));
         case TYPE_SPRITE:
-            {
             s_sprite *sprite = (s_sprite *) ref;
-            sfSprite_setOrigin(sprite->elem, origin);
-            break;
-            }
-        default:
-            {
-            set_element_origin_next(adata, ref, type, origin);
-            }
+            return (sfSprite_getScale(sprite->elem));
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            return (get_button_scale(adata, button->id));
     }
+    return ((sfVector2f) { -1, -1 });
 }
 
-void scale_element_next(s_appdata *adata, void *ref, int type, \
-sfVector2f factors)
+float get_element_rotation(s_appdata *adata, void *ref, int type)
+{
+    switch (type) {
+        case TYPE_RECT:
+            s_rect *rect = (s_rect *) ref;
+            return (sfRectangleShape_getRotation(rect->elem));
+        case TYPE_CIRCLE:
+            s_circle *circle = (s_circle *) ref;
+            return (sfCircleShape_getRotation(circle->elem));
+        case TYPE_SPRITE:
+            s_sprite *sprite = (s_sprite *) ref;
+            return (sfSprite_getRotation(sprite->elem));
+        case TYPE_TEXT:
+            s_text *text = (s_text *) ref;
+            return (sfText_getRotation(text->elem));
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            return (get_button_rotation(adata, button->id));
+    }
+    return (-1);
+}
+
+float get_element_out_thickness(s_appdata *adata, void *ref, int type)
+{
+    switch (type) {
+        case TYPE_RECT:
+            s_rect *rect = (s_rect *) ref;
+            return (sfRectangleShape_getOutlineThickness(rect->elem));
+        case TYPE_CIRCLE:
+            s_circle *circle = (s_circle *) ref;
+            return (sfCircleShape_getOutlineThickness(circle->elem));
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            return (get_button_out_thickness(adata, button->id));
+    }
+    return (-1);
+}
+
+sfColor get_element_out_color(s_appdata *adata, void *ref, int type)
+{
+    switch (type) {
+        case TYPE_RECT:
+            s_rect *rect = (s_rect *) ref;
+            return (sfRectangleShape_getOutlineColor(rect->elem));
+        case TYPE_CIRCLE:
+            s_circle *circle = (s_circle *) ref;
+            return (sfCircleShape_getOutlineColor(circle->elem));
+        case TYPE_BUTTON:
+            s_button *button = (s_button *) ref;
+            return (get_button_out_color(adata, button->id));
+    }
+    return (sfBlack);
+}
+
+sfColor get_element_fg(s_appdata *adata, void *ref, int type)
 {
     switch (type) {
         case TYPE_TEXT:
-            {
             s_text *text = (s_text *) ref;
-            sfText_setScale(text->elem, factors);
-            break;
-            }
+            return (sfText_getColor(text->elem));
         case TYPE_BUTTON:
-            {
             s_button *button = (s_button *) ref;
-            scale_button(adata, button->id, factors);
-            break;
-            }
+            return (sfText_getColor(button->text->elem));
     }
-}
-
-void scale_element(s_appdata *adata, void *ref, int type, sfVector2f factors)
-{
-    switch (type) {
-        case TYPE_RECT:
-            {
-            s_rect *rect = (s_rect *) ref;
-            sfRectangleShape_setScale(rect->elem, factors);
-            break;
-            }
-        case TYPE_CIRCLE:
-            {
-            s_circle *circle = (s_circle *) ref;
-            sfCircleShape_setScale(circle->elem, factors);
-            break;
-            }
-        case TYPE_SPRITE:
-            {
-            s_sprite *sprite = (s_sprite *) ref;
-            sfSprite_setScale(sprite->elem, factors);
-            break;
-            }
-        default:
-            {
-            scale_element_next(adata, ref, type, factors);
-            }
-    }
-}
-
-void set_element_active_next(s_appdata *adata, void *ref, \
-int type, sfUint8 active)
-{
-    switch (type) {
-        case TYPE_TEXT:
-            {
-            s_text *text = (s_text *) ref;
-            text->active = active;
-            break;
-            }
-        case TYPE_VERTEX:
-            {
-            s_vertex *vertex = (s_vertex *) ref;
-            vertex->active = active;
-            break;
-            }
-        case TYPE_BUTTON:
-            {
-            s_button *button = (s_button *) ref;
-            set_button_active(adata, button->id, active);
-            break;
-            }
-        case TYPE_SLIDER:
-            {
-            s_slider *slider = (s_slider *) ref;
-            set_slider_active(adata, slider->id, active);
-            break;
-            }
-        case TYPE_EMITER:
-            {
-            s_particle_src *emiter = (s_particle_src *) ref;
-            emiter->active = active;
-            break;
-            }
-        case TYPE_BAR:
-            {
-            s_bar *bar = (s_bar *) ref;
-            set_bar_active(adata, bar->id, active);
-            break;
-            }
-    }
-}
-
-void set_element_active(s_appdata *adata, void *ref, int type, sfUint8 active)
-{
-    switch (type) {
-        case TYPE_RECT:
-            {
-            s_rect *rect = (s_rect *) ref;
-            rect->active = active;
-            break;
-            }
-        case TYPE_CIRCLE:
-            {
-            s_circle *circle = (s_circle *) ref;
-            circle->active = active;
-            break;
-            }
-        case TYPE_SPRITE:
-            {
-            s_sprite *sprite = (s_sprite *) ref;
-            sprite->active = active;
-            break;
-            }
-        default:
-            {
-            set_element_active_next(adata, ref, type, active);
-            }
-    }
+    return (sfBlack);
 }
