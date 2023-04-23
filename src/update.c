@@ -39,7 +39,10 @@ void update_next(s_appdata *adata, float update_rate, float input_seconds)
         sfClock_restart(adata->clocks->input_clock);
     }
 
-    update_live(adata);
+    if (adata->integers->in_game)
+        update_live(adata);
+    else
+        adata->game_data->speed = (sfVector2f){0, 0};
 
     if (get_int(adata, "dev_mode")) {
         update_current_wall(adata);

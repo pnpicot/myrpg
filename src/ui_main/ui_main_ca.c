@@ -28,15 +28,15 @@ void init_main_particles(s_appdata *adata, char *container, char *rtex)
     move_emiter(adata, ptc, (sfVector2f) { win_w / 2, win_h + 30.0f });
     set_emiter_rtex(adata, ptc, rtex);
     set_emiter_lifetime(adata, ptc, 150000);
-    set_emiter_particle_lifetime(adata, ptc, 800);
+    set_emiter_particle_lifetime(adata, ptc, 3000);
     set_emiter_spawnrate(adata, ptc, 0.02f);
-    set_emiter_particle_max(adata, ptc, 1300);
+    set_emiter_particle_max(adata, ptc, 10000);
     set_emiter_rotation_dir(adata, ptc, random_dir);
     set_emiter_rotation_speed(adata, ptc, 25.0f);
     set_emiter_model(adata, ptc, "gen");
     set_emiter_spawn_xoffset(adata, ptc, (sfVector2f){-(win_w / 2), win_w / 2});
     set_emiter_particle_speed(adata, ptc, (sfVector2f) { 150.0f, 350.0f });
-    set_emiter_size_range(adata, ptc, (sfVector2f) { 2.0f, 2.0f },
+    set_emiter_size_range(adata, ptc, (sfVector2f) { 5.0f, 5.0f },
     (sfVector2f) { 0, 0 });
     init_main_particles_n(adata, ptc);
 }

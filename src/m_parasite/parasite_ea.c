@@ -114,6 +114,7 @@ void check_game_keys(s_appdata *adata, int keycode)
         adata->game_data->in_inv = !adata->game_data->in_inv;
         char *ctn = get_str(adata, "ctn_inv");
         set_container_active(adata, ctn, adata->game_data->in_inv ? 1 : 0);
+        adata->integers->in_game = adata->game_data->in_inv ? 0 : 1;
     }
     check_game_keys_n(adata, keycode);
 }

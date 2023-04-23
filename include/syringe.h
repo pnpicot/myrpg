@@ -13,7 +13,7 @@ s_syringe *get_syringe(s_appdata *adata, char *id);
 void delete_syringe(s_appdata *adata, char *id);
 void add_syringe(s_appdata *adata, char *id);
 void set_syringe_use(s_appdata *adata, char *id, \
-void (*on_use)(s_appdata *adata, s_syringe *syringe));
+void (*on_use)(s_appdata *adata, s_ref *ref));
 void set_syringe_count(s_appdata *adata, char *id, int count);
 void syringe_increment(s_appdata *adata, char *id, int amount);
 void syringe_decrement(s_appdata *adata, char *id, int amount);

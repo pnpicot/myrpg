@@ -42,12 +42,14 @@ char *syr_id, s_syringe *cur)
     move_sprite(adata, id, pos);
 }
 
-void init_item_object(s_appdata *adata, char *id, s_ref ref)
+void init_item_object(s_appdata *adata, char *id, s_ref ref,
+s_syringe *syringe)
 {
     char *obj_id = str_add(id, "@[:object]");
     add_object(adata, obj_id, ref);
     set_object_hover_bg(adata, obj_id, get_color(255, 255, 255, 20));
     set_object_pressed_bg(adata, obj_id, get_color(255, 255, 255, 30));
+    set_object_onclick(adata, obj_id, syringe->on_use);
 }
 
 void init_item_next(s_appdata *adata, s_tmp_invitem tmp)
@@ -92,7 +94,7 @@ sfFloatRect inv_bounds)
         add_to_container(adata, container, ref);
         add_to_container(adata, ctn, ref);
         init_item_next(adata, (s_tmp_invitem) { id, ite, cur, inv_bounds });
-        init_item_object(adata, id, ref);
+        init_item_object(adata, id, ref, cur);
         ite++;
         syringes = syringes->next;
     }

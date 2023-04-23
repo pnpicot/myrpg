@@ -551,7 +551,7 @@ typedef struct s_syringe_s {
     int count;
     sfTexture *tex;
     sfColor color;
-    void (*on_use)(s_appdata *adata, struct s_syringe_s *syringe);
+    void (*on_use)(s_appdata *adata, s_ref *ref);
 } s_syringe;
 
 typedef struct {

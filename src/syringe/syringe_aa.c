@@ -84,7 +84,7 @@ void set_syringe_color(s_appdata *adata, char *id, sfColor color)
 }
 
 void set_syringe_use(s_appdata *adata, char *id, \
-void (*on_use)(s_appdata *adata, s_syringe *syringe))
+void (*on_use)(s_appdata *adata, s_ref *ref))
 {
     s_syringe *syringe = get_syringe(adata, id);
 
