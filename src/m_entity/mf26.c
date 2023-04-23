@@ -14,7 +14,7 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     get_mf26_path(adata, entity, &path);
     float seconds = get_clock_seconds(adata->clocks->update_clock);
     sfVector2f add = { path.x * seconds * entity->speed,
-                       path.y * seconds * entity->speed };
+    path.y * seconds * entity->speed };
     float angle = (atan2f(add.y, add.x) * (180 / M_PI)) + 90.0f;
     float last_angle = sfSprite_getRotation(
         ((s_entity_part *) entity->parts->data)->sprite->elem);

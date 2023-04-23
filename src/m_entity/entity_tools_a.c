@@ -37,13 +37,10 @@ void delete_entity_model(s_appdata *adata, char *id)
 
     while (models != NULL && models->data != NULL) {
         s_entity *cur = (s_entity *) models->data;
-
         if (!my_strcmp(cur->id, id)) break;
-
         ite++;
         models = models->next;
     }
-
     linked_delete(&adata->game_data->entity_models, ite);
 }
 

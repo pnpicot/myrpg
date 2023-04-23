@@ -110,7 +110,7 @@ sfVector2f add, float angle)
 
     if (entity->emiter != NULL) {
         sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle),
-                                  entity->pos.y * entity->pos.y * sin(angle) };
+        entity->pos.y * entity->pos.y * sin(angle) };
         translate_emiter(adata, emiter_id, add);
         angle -= 90.0f;
         set_emiter_cone(adata, emiter_id, (sfVector2f) { angle, angle });

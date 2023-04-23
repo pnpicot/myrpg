@@ -62,7 +62,7 @@ void behavior_z200_next(s_appdata *adata, s_entity *entity, sfVector2f path)
     add_to_entity_float(adata, entity, "rotation", 5.0f);
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * entity->speed,
-                           path.y * seconds * entity->speed };
+        path.y * seconds * entity->speed };
         add = is_map_colliding(adata, entity, add);
         translate_entity(adata, entity, add);
     } else {

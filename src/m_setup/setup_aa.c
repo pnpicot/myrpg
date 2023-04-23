@@ -49,7 +49,6 @@ void init_live_states(s_appdata *adata)
     char *settings_ctn = get_str(adata, "ctn_settings");
     char *rtex_settings = get_str(adata, "rtex_settings");
     char *rtex_menu = get_str(adata, "rtex_menu");
-    char *load_state = get_str(adata, "state_load");
     add_state(adata, main_state);
     add_state(adata, game_state);
     add_state(adata, settings_state);
@@ -60,7 +59,7 @@ void init_live_states(s_appdata *adata)
     get_container(adata,settings_ctn));
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, settings_state, get_rtex(adata, rtex_settings));
-    add_state(adata, load_state);
+    add_state(adata, get_str(adata, "state_load"));
     init_gameover(adata);
     init_live_states_n(adata, game_state, main_state, settings_state);
 }

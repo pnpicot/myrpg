@@ -61,7 +61,7 @@ sfVector2f path, float *angle)
     float seconds = get_clock_seconds(adata->clocks->update_clock);
     if (!entity->inhabited) {
         sfVector2f add = { path.x * seconds * entity->speed,
-                           path.y * seconds * entity->speed};
+        path.y * seconds * entity->speed};
         add = is_map_colliding(adata, entity, add);
         translate_entity(adata, entity, add);
         (*angle) = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
