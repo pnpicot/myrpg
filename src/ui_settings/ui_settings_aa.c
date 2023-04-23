@@ -70,17 +70,15 @@ void init_settings_volumebtn(s_appdata *adata, char *container, char *rtex)
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
     char *volume_slider = get_str(adata, "volume_slider");
-
     add_slider(adata, volume_slider, 1);
     set_slider_rtex(adata, volume_slider, rtex);
-
     s_slider *slider = get_slider(adata, volume_slider);
     float mid = get_float(adata, "slider_length");
     float rad = get_float(adata, "slider_node_size");
-
     move_slider(adata, volume_slider, (sfVector2f) { (win_w / 2) -
     (mid / 2) + rad, win_h / 2 });
     set_slider_onchange(adata, volume_slider, &trigger_settings_vol);
     add_to_container(adata, container, (s_ref) { get_slider(adata,
     volume_slider), TYPE_SLIDER });
+    set_slider_onchange(adata, volume_slider, &change_volume);
 }
