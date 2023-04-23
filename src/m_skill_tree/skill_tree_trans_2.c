@@ -18,6 +18,7 @@ void init_stree_node37(s_appdata *adata, s_skill_tree *skill3)
     set_skill_node_icon(adata, skill3, node_3_7, get_texture(adata, "tcube"));
     set_skill_node_price(adata, skill3, node_3_7, 4000);
     set_skill_node_trigger(adata, skill3, node_3_7, &add_transference);
+    set_skill_node_level(adata, skill3, node_3_7, 6);
 }
 
 void init_stree_node38(s_appdata *adata, s_skill_tree *skill3)
@@ -31,6 +32,7 @@ void init_stree_node38(s_appdata *adata, s_skill_tree *skill3)
     set_skill_node_icon(adata, skill3, node_3_8, get_texture(adata, "tcube"));
     set_skill_node_price(adata, skill3, node_3_8, 4500);
     set_skill_node_trigger(adata, skill3, node_3_8, &add_transference);
+    set_skill_node_level(adata, skill3, node_3_8, 7);
 }
 
 void init_stree_node39(s_appdata *adata, s_skill_tree *skill3)
@@ -44,4 +46,5 @@ void init_stree_node39(s_appdata *adata, s_skill_tree *skill3)
     set_skill_node_icon(adata, skill3, node_3_9, get_texture(adata, "tcube"));
     set_skill_node_price(adata, skill3, node_3_9, 5000);
     set_skill_node_trigger(adata, skill3, node_3_9, &add_transference);
+    set_skill_node_level(adata, skill3, node_3_9, 8);
 }

@@ -16,6 +16,7 @@ void init_stree_node01(s_appdata *adata, s_skill_tree *skill0)
     set_skill_node_parent(adata, skill0, node_0_1, NULL);
     set_skill_node_icon(adata, skill0, node_0_1, get_texture(adata, "tcube1"));
     set_skill_node_price(adata, skill0, node_0_1, 0);
+    set_skill_node_level(adata, skill0, node_0_1, 0);
 }
 
 void init_stree_node11(s_appdata *adata, s_skill_tree *skill1)
@@ -27,6 +28,7 @@ void init_stree_node11(s_appdata *adata, s_skill_tree *skill1)
     set_skill_node_parent(adata, skill1, node_1_1, NULL);
     set_skill_node_icon(adata, skill1, node_1_1, get_texture(adata, "tcube1"));
     set_skill_node_price(adata, skill1, node_1_1, 0);
+    set_skill_node_level(adata, skill1, node_1_1, 0);
 }
 
 void init_stree_node21(s_appdata *adata, s_skill_tree *skill2)
@@ -38,6 +40,7 @@ void init_stree_node21(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_parent(adata, skill2, node_2_1, NULL);
     set_skill_node_icon(adata, skill2, node_2_1, get_texture(adata, "tcube1"));
     set_skill_node_price(adata, skill2, node_2_1, 0);
+    set_skill_node_level(adata, skill2, node_2_1, 0);
 }
 
 void init_stree_node31(s_appdata *adata, s_skill_tree *skill3)
@@ -49,4 +52,5 @@ void init_stree_node31(s_appdata *adata, s_skill_tree *skill3)
     set_skill_node_parent(adata, skill3, node_3_1, NULL);
     set_skill_node_icon(adata, skill3, node_3_1, get_texture(adata, "tcube1"));
     set_skill_node_price(adata, skill3, node_3_1, 0);
+    set_skill_node_level(adata, skill3, node_3_1, 0);
 }

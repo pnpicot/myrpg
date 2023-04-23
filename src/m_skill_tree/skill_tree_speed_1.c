@@ -19,6 +19,7 @@ void init_stree_node22(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_price(adata, skill2, node_2_2, 0);
     set_skill_node_value(adata, skill2, node_2_2, 2);
     set_skill_node_trigger(adata, skill2, node_2_2, &add_speed);
+    set_skill_node_level(adata, skill2, node_2_2, 1);
 }
 
 void init_stree_node23(s_appdata *adata, s_skill_tree *skill2)
@@ -33,6 +34,7 @@ void init_stree_node23(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_price(adata, skill2, node_2_3, 0);
     set_skill_node_value(adata, skill2, node_2_3, 2);
     set_skill_node_trigger(adata, skill2, node_2_3, &add_speed);
+    set_skill_node_level(adata, skill2, node_2_3, 2);
 }
 
 void init_stree_node24(s_appdata *adata, s_skill_tree *skill2)
@@ -47,6 +49,7 @@ void init_stree_node24(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_price(adata, skill2, node_2_4, 0);
     set_skill_node_value(adata, skill2, node_2_4, 2);
     set_skill_node_trigger(adata, skill2, node_2_4, &add_speed);
+    set_skill_node_level(adata, skill2, node_2_4, 3);
 }
 
 void init_stree_node25(s_appdata *adata, s_skill_tree *skill2)
@@ -61,6 +64,7 @@ void init_stree_node25(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_price(adata, skill2, node_2_5, 0);
     set_skill_node_value(adata, skill2, node_2_5, 2);
     set_skill_node_trigger(adata, skill2, node_2_5, &add_speed);
+    set_skill_node_level(adata, skill2, node_2_5, 4);
 }
 
 void init_stree_node26(s_appdata *adata, s_skill_tree *skill2)
@@ -75,4 +79,5 @@ void init_stree_node26(s_appdata *adata, s_skill_tree *skill2)
     set_skill_node_price(adata, skill2, node_2_6, 0);
     set_skill_node_value(adata, skill2, node_2_6, 2);
     set_skill_node_trigger(adata, skill2, node_2_6, &add_speed);
+    set_skill_node_level(adata, skill2, node_2_6, 5);
 }
