@@ -85,7 +85,7 @@ void init_player_next(s_appdata *adata, s_player *player)
     player->transference_level = 1;
     player->stats = NULL;
     player->attack = 5.0f;
-    player->defense = 0.3f;
+    player->defense = 0;
     player->moula = 3000;
 }
 

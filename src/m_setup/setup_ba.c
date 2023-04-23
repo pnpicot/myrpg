@@ -21,10 +21,7 @@ void update_live(s_appdata *adata)
     update_npc(adata);
 
     if (adata->player->health.x <= 0) {
-        my_printf("You died!\n");
-        adata->integers->in_game = 0;
-        switch_state(adata, get_str(adata, "state_main"));
-        close_window(adata);
+        switch_state(adata, "state_gameover");
     }
 }
 

@@ -11,13 +11,9 @@ void init_npc_texts(s_appdata *adata)
 {
     s_game *game_data = adata->game_data;
 
-    linked_add(game_data->npc_text, "Bonjourzdqdzqdqdqd");
-    linked_add(game_data->npc_text, "eazeaeaeaze");
-    linked_add(game_data->npc_text, "vffergeteterter");
-    linked_add(game_data->npc_text, "kikululuikkkuku");
-    linked_add(game_data->npc_text, "wxcxwqdaeazruty");
-    linked_add(game_data->npc_text, "oooooooooooooooooo");
-    linked_add(game_data->npc_text, "zeazeazeaz");
+    linked_add(game_data->npc_text, "[A] To toggle quests");
+    linked_add(game_data->npc_text, "[T] To toggle skill tree");
+    linked_add(game_data->npc_text, "[Tab/I] To toggle inventory");
 }
 
 void init_npc_next(s_appdata *adata, char *id)

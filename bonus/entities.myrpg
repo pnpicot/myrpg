@@ -5,11 +5,11 @@
 # <type: part> <entity_id> <layer> <part_id> <texture_id> <origin: x> <origin: y> <offset: x> <offset: y>
 
 # -- factions -- begin
-faction droids 10000 10000 500 5
-faction insect 10000 1000 500 5
-faction piaf 1000 11000 500 5
-faction drone 11000 11000 500 5
-faction forgotten 6000 6000 500 5
+faction droids 3000 3000 500 5
+faction insect 2000 2000 500 5
+faction piaf 3000 3000 500 5
+faction drone 3000 3000 500 5
+faction forgotten 3000 3000 500 5
 # -- factions -- end
 
 # -- entities -- begin

@@ -745,3 +745,4 @@ typedef struct {
 #include "save.h"
 #include "load.h"
 #include "npc.h"
+#include "gameover.h"
