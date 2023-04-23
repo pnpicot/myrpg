@@ -18,6 +18,12 @@ void update_live(s_appdata *adata)
     update_quests(adata);
     update_skill_tree(adata);
     update_wave_count(adata);
+
+    if (adata->player->health.x <= 0) {
+        my_printf("You died!\n");
+        adata->integers->in_game = 0;
+        close_window(adata);
+    }
 }
 
 void init_live_light(s_appdata *adata)
