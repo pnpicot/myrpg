@@ -143,7 +143,6 @@ char *settings_state)
     char *rtex_wall = get_str(adata, "rtex_wall");
     char *rtex_wall_light = get_str(adata, "rtex_wall_light");
     char *game_ctn = get_str(adata, "ctn_game");
-    
 
     set_state_ingame(adata, game_state, sfTrue);
 

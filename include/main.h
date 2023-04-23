@@ -309,7 +309,7 @@ typedef struct {
 } s_game;
 
 typedef struct {
-    sfVector2i health;
+    sfVector2f health;
     sfVector2f transference;
     sfFloatRect hitbox;
     float health_rate;
@@ -651,6 +651,13 @@ typedef struct {
     float y_end;
 } s_skill_tree;
 
+typedef struct {
+    char *id;
+    int ite;
+    s_syringe *cur;
+    sfFloatRect inv_bounds;
+} s_tmp_invitem;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
@@ -718,3 +725,4 @@ typedef struct {
 #include "skill_tree.h"
 #include "linked_add_sorted_layer.h"
 #include "save.h"
+#include "load.h"

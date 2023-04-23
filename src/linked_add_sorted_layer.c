@@ -28,12 +28,10 @@ static int get_layer(s_ref *ref)
 void linked_add_sorted_layer(linked_node *node, s_ref *ref)
 {
     int layer = get_layer(ref);
-
     if (node->data == NULL) {
         node->data = ref;
         return;
     }
-
     if (get_layer(node->data) > layer) {
         linked_node *new_node = linked_new();
         new_node->data = node->data;
@@ -42,11 +40,9 @@ void linked_add_sorted_layer(linked_node *node, s_ref *ref)
         node->next = new_node;
         return;
     }
-
     while (node->next != NULL && get_layer(node->next->data) <= layer) {
         node = node->next;
     }
-
     linked_node *new_node = linked_new();
     new_node->data = ref;
     new_node->next = node->next;

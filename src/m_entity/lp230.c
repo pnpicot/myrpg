@@ -42,12 +42,12 @@ void behavior_lp230(s_appdata *adata, s_entity *entity)
         entity->init = sfFalse;
     }
 
-    float seconds = get_clock_seconds(entity->clock);
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
     float angle;
     s_entity_part *body = (s_entity_part *) linked_get(entity->parts, 2)->data;
 
     if (!entity->inhabited) {
-        sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
+        sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed };
 
         add = is_map_colliding(adata, entity, add);
         angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;

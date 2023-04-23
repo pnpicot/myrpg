@@ -11,5 +11,6 @@
 
 s_faction *get_faction(s_appdata *adata, char *id);
 void delete_faction(s_appdata *adata, char *id);
+void add_faction_next(s_appdata *adata, char **entry, s_faction *new_faction);
 void add_faction(s_appdata *adata, char **entry);
 void load_entity_config(s_appdata *adata);

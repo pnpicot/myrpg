@@ -43,50 +43,47 @@ void delete_faction(s_appdata *adata, char *id)
         ite++;
         factions = factions->next;
     }
-
     linked_delete(&adata->game_data->factions, ite);
 }
 
-void add_faction(s_appdata *adata, char **entry)
+void add_faction_next(s_appdata *adata, char **entry, s_faction *new_faction)
 {
-    if (count_nil_str(entry) < 6 || !is_format(entry, "sssfffd"))
-        return;
-
     char *faction_id = entry[1];
-    s_faction *faction = get_faction(adata, faction_id);
-
-    if (faction != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "already_exists"));
-        return;
-    }
-
-    s_faction *new_faction = malloc(sizeof(s_faction));
-
-    if (new_faction == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "mem_alloc"));
-        return;
-    }
-
     float faction_x = str_to_float(entry[2]);
     float faction_y = str_to_float(entry[3]);
     float faction_r = str_to_float(entry[4]);
     int faction_max = my_getnbr(entry[5]);
-
     new_faction->id = faction_id;
     new_faction->spawn_point = (sfVector2f) { faction_x, faction_y };
     new_faction->spawn_radius = faction_r;
     new_faction->entity_count = 0;
     new_faction->entity_max = faction_max;
     new_faction->models = linked_new();
-
     free(entry[0]);
     for (int i = 2; entry[i] != NULL; i++)
         free(entry[i]);
     free(entry);
-
     linked_add(adata->game_data->factions, new_faction);
+}
+
+void add_faction(s_appdata *adata, char **entry)
+{
+    if (count_nil_str(entry) < 6 || !is_format(entry, "sssfffd"))
+        return;
+    char *faction_id = entry[1];
+    s_faction *faction = get_faction(adata, faction_id);
+    if (faction != NULL) {
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "already_exists"));
+        return;
+    }
+    s_faction *new_faction = malloc(sizeof(s_faction));
+    if (new_faction == NULL) {
+        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
+        get_error(adata, "mem_alloc"));
+        return;
+    }
+    add_faction_next(adata, entry, new_faction);
 }
 
 void load_entity_config(s_appdata *adata)

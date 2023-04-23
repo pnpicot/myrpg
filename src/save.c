@@ -14,8 +14,8 @@ void save_fill_player(s_appdata *adata, linked_node *lines)
     linked_add(lines, float_to_str(player->attack, 2, 0));
     linked_add(lines, float_to_str(player->defense, 2, 0));
     linked_add(lines, float_to_str(player->health_rate, 2, 0));
-    linked_add(lines, nbr_to_str(player->health.x));
-    linked_add(lines, nbr_to_str(player->health.y));
+    linked_add(lines, float_to_str(player->health.x, 2, 0));
+    linked_add(lines, float_to_str(player->health.y, 2, 0));
     linked_add(lines, nbr_to_str(player->moula));
     linked_add(lines, float_to_str(player->transference_rate, 2, 0));
     linked_add(lines, float_to_str(player->transference.x, 2, 0));

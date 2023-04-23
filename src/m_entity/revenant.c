@@ -68,11 +68,11 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         entity->init = sfFalse;
     }
 
-    float seconds = get_clock_seconds(entity->clock);
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
     float angle = 5.0f;
 
     if (!entity->inhabited) {
-        sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
+        sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed};
         add = is_map_colliding(adata, entity, add);
         translate_entity(adata, entity, add);
         angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;

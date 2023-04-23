@@ -25,7 +25,8 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
             touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.01f;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= entity->damage;
+            adata->player->health.x -= 30.0f;
+            printf("debug\n");
         }
         touchs = touchs->next;
     }
@@ -72,14 +73,14 @@ void behavior_z200(s_appdata *adata, s_entity *entity)
         entity->move_now_entity = NULL;
     }
 
-    float seconds = get_clock_seconds(entity->clock);
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
     float angle = 5.0f;
     float blade_rot = get_entity_float(entity, "rotation")->value;
 
     add_to_entity_float(adata, entity, "rotation", 5.0f);
 
     if (!entity->inhabited) {
-        sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
+        sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed };
 
         add = is_map_colliding(adata, entity, add);
 

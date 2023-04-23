@@ -158,6 +158,9 @@ color night_color = 0,0,50,255
 
 # -- inventory -- begin
 string health_syr = health_syr
+string trf_syr = trf_syr
+string attack_syr = attack_syr
+string defense_syr = defense_syr
 float inv_width = 0.3f
 int inv_layer = 7
 float inv_padding = 10.0f

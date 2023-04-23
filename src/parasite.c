@@ -51,8 +51,7 @@ void update_player_ui(s_appdata *adata)
     if (player->health.x < 0)
         player->health.x = 0;
     color_bar(adata, health_id, get_color(130, 21, 9, 255),
-    lerp_color(sfRed, sfGreen, (float) player->health.x /
-    (float) player->health.y));
+    lerp_color(sfRed, sfGreen, player->health.x / player->health.y));
     set_bar_current(adata, health_id, player->health.x);
     free(transference_id);
     free(health_id);
@@ -244,10 +243,11 @@ void init_player(s_appdata *adata)
     float zoom = get_float(adata, "zoom");
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
-    player->health = (sfVector2i) { 50000, 50000 };
+
+    player->health = (sfVector2f) { 1000, 1000 };
     player->transference = (sfVector2f) { 0, 5000.0f };
     player->transference_clock = sfClock_create();
-    player->health_rate = 5;
+    player->health_rate = 0.02f;
     player->hitbox = (sfFloatRect){ 910 + adata->game_data->view_pos.x,
     490 + adata->game_data->view_pos.y, 100, 100 };
     player->transference_rate = 1;
@@ -371,14 +371,16 @@ void update_host_controls(s_appdata *adata)
     s_player *player = adata->player;
     s_entity *host = (s_entity *) player->host;
     sfVector2f add = { 0, 0 };
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
+
     if (get_key(adata, sfKeyQ))
-        add.x -= host->speed;
+        add.x -= host->speed * seconds;
     if (get_key(adata, sfKeyZ))
-        add.y -= host->speed;
+        add.y -= host->speed * seconds;
     if (get_key(adata, sfKeyD))
-        add.x += host->speed;
+        add.x += host->speed * seconds;
     if (get_key(adata, sfKeyS))
-        add.y += host->speed;
+        add.y += host->speed * seconds;
     add = is_map_colliding(adata, host, add);
     translate_entity(adata, host, add);
     if ((add.x != 0 || add.y != 0) && host->orientated) {

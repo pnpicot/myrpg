@@ -29,9 +29,20 @@ void update_ingame_fps(s_appdata *adata)
     }
 }
 
+void update_ingame_stats(s_appdata *adata)
+{
+    s_player *player = adata->player;
+    char *stats_widget = get_str(adata, "stats_widget");
+    char *health_bar = str_add(stats_widget, "@[:health]");
+
+    set_bar_max(adata, health_bar, player->health.y);
+    set_bar_current(adata, health_bar, player->health.x);
+}
+
 void update_ingame_ui(s_appdata *adata)
 {
     update_ingame_fps(adata);
+    update_ingame_stats(adata);
 }
 
 void init_ingame_fps(s_appdata *adata, char *container, char *rtex)

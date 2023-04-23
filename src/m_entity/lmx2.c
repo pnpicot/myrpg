@@ -44,9 +44,8 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
 
     if (entity->inhabited) return;
 
-    float seconds = get_clock_seconds(entity->clock);
-
-    sfVector2f add = { path.x * seconds * 100, path.y * seconds * 100};
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
+    sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed };
 
     add = is_map_colliding(adata, entity, add);
 
