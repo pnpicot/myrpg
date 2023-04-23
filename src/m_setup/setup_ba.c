@@ -23,7 +23,7 @@ void update_live(s_appdata *adata)
     if (adata->player->health.x <= 0) {
         my_printf("You died!\n");
         adata->integers->in_game = 0;
-        adata->current_state->id = NULL;
+        switch_state(adata, get_str(adata, "state_main"));
         close_window(adata);
     }
 }
