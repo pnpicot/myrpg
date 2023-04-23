@@ -322,6 +322,8 @@ typedef struct {
     void *potential_host;
     sfBool transfered;
     int moula;
+    sfBool use_syringe;
+    sfBool killed_enemy;
 } s_player;
 
 typedef struct {

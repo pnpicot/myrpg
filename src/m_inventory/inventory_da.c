@@ -11,6 +11,7 @@ void use_syringe_health(s_appdata *adata, s_ref *ref)
 {
     s_syringe *cur = (s_syringe *)ref->ref;
 
+    adata->player->use_syringe = sfTrue;
     if (cur->count <= 0)
         return;
     cur->count--;
@@ -21,6 +22,7 @@ void use_syringe_trf(s_appdata *adata, s_ref *ref)
 {
     s_syringe *cur = (s_syringe *)ref->ref;
 
+    adata->player->use_syringe = sfTrue;
     if (cur->count <= 0)
         return;
     cur->count--;
@@ -31,6 +33,7 @@ void use_syringe_attack(s_appdata *adata, s_ref *ref)
 {
     s_syringe *cur = (s_syringe *)ref->ref;
 
+    adata->player->use_syringe = sfTrue;
     if (cur->count <= 0)
         return;
     cur->count--;
@@ -41,6 +44,7 @@ void use_syringe_defense(s_appdata *adata, s_ref *ref)
 {
     s_syringe *cur = (s_syringe *)ref->ref;
 
+    adata->player->use_syringe = sfTrue;
     if (cur->count <= 0)
         return;
     cur->count--;

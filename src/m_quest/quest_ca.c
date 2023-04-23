@@ -52,12 +52,3 @@ void update_quest_ui(s_appdata *adata, s_quest *quest)
         color_button_bg(adata, quest->item->id, get_color(0, 100, 30, 220));
     }
 }
-
-void check_first_quest(s_appdata *adata, s_quest *quest)
-{
-    s_player *player = adata->player;
-
-    if (player->transfered) {
-        quest->completed = sfTrue;
-    }
-}

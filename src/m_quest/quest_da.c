@@ -7,41 +7,40 @@
 
 #include "main.h"
 
-void init_quets_n(s_appdata *adata)
+void init_quests_n(s_appdata *adata)
 {
-    char *second = "eoapea";
-
-    add_quest(adata, second);
-    set_quest_icon(adata, second, get_texture(adata, "wall"));
-    set_quest_title(adata, second, "Second quest");
-    set_quest_text(adata, second, "Integer pulvinar leo urna, id ultricies libe"
-    "ro venenatis ut. Fusce\n suscipit nec justo id iaculis. Morbi sapien sapie"
-    "n, tempus sit amet\n urna nec, finibus pellentesque augue. In rutrum sagit"
-    "tis feugiat. \nProin lobortis feugiat feugiat. Sed ac consequat massa, a v"
-    "iverra \nnunc. Mauris elementum ac tellus nec placerat. Interdum et malesu"
-    "ada\n fames ac ante ipsum primis in faucibus. Etiam tristique erat sit \na"
-    "met tellus auctor, quis facilisis est pellentesque. Quisque a \nlectus sed"
-    " ex accumsan posuere vitae id odio.");
+    char *third = "wsbiergzfrh";
+    add_quest(adata, third);
+    set_quest_icon(adata, third, get_texture(adata, "health_syr"));
+    set_quest_title(adata, third, "Use a syringe");
+    set_quest_text(adata, third, "Try to use a syringe.\n"
+    "You can do this by pressing the 'I' key or the 'Tab' key on your keyboard."
+    "\n If you succeed, you will be able to use the syringe's abilities. \n"
+    "Syringe are gathered by killing enemies. \n");
+    set_quest_check(adata, third, &check_third_quest);
 }
 
 void init_quests(s_appdata *adata)
 {
     char *first = "duqdzqiu";
-
     add_quest(adata, first);
-    set_quest_icon(adata, first, get_texture(adata, "health_syr"));
+    set_quest_icon(adata, first, get_texture(adata, "bloom_block"));
     set_quest_title(adata, first, "Use your transference");
-    set_quest_text(adata, first, "Lorem ipsum dolor sit amet, consectetur adipi"
-    "scing elit. Praesent \nvolutpat nibh dolor, blandit laoreet ante porttitor"
-    " sit amet. Duis \ntempus congue tempus. Pellentesque euismod condimentum n"
-    "isi nec \ncongue. Etiam quis metus id ex finibus porta eget sed nunc. Sed "
-    "\nlacus elit, pharetra ac felis ut, sagittis ornare erat. Mauris \ninterdu"
-    "m, velit ut hendrerit ultricies, lectus urna vehicula dolor,\n sed interdu"
-    "m lorem nibh a elit. Fusce tempus mauris ex, a rutrum \n elit porttitor se"
-    "d. In quis ultricies enim, nec venenatis risus.");
+    set_quest_text(adata, first, "Try to use your transference to take control "
+    "of an enemy. \nYou can do this by pressing the 'E' key on your keyboard.\n"
+    "If you succeed, you will be able to use the enemy's abilities. \n");
     set_quest_check(adata, first, &check_first_quest);
-
-    init_quets_n(adata);
+    char *second = "eoapea";
+    add_quest(adata, second);
+    set_quest_icon(adata, second, get_texture(adata, "ghost"));
+    set_quest_title(adata, second, "Kill an enemy");
+    set_quest_text(adata, second, "Try to kill an enemy. \nYou can do this by "
+    "taking control of an enemy and using its abilities. \n"
+    "You will gain Moula when you kill an enemy. \n"
+    "You can use Moula to buy new abilities in the skill tree. \nYou can access"
+    " the skill tree by pressing the 'T' key on your keyboard. \n");
+    set_quest_check(adata, second, &check_second_quest);
+    init_quests_n(adata);
 }
 
 void init_quest_item_icon_n(s_appdata *adata, s_quest *cur)
@@ -75,6 +74,8 @@ sfVector2f item_size, sfVector2f item_pos)
     pos.y = item_pos.y + padding;
     scale_sprite(adata, id, scale);
     move_sprite(adata, id, pos);
+    cur->popup_rect->active = 0;
+    cur->popup_text->active = 0;
 }
 
 s_text *get_quest_popup_text_n(s_appdata *adata, s_quest *cur)

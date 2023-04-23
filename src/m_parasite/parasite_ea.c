@@ -15,6 +15,7 @@ void init_player(s_appdata *adata)
         get_error(adata, "mem_alloc"));
         return;
     }
+    *adata->player = (s_player) { 0 };
     s_player *player = adata->player;
     char *sprite_id = get_str(adata, "player_body");
     char *rtex = get_str(adata, "rtex_game");

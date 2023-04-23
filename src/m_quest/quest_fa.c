@@ -86,7 +86,8 @@ sfVector2f bg_pos)
     set_text_font(adata, id, get_font(adata, "courier"));
     color_text(adata, id, sfWhite);
     char *str_quest_count = nbr_to_str(quest_count);
-    edit_text(adata, id, str_m_add(3, "Quests (", str_quest_count, ")"));
+    edit_text(adata, id, str_m_add(3, "Quests (", str_quest_count, ")"
+    "   Q to toggle"));
     free(str_quest_count);
     set_text_rtex(adata, id, rtex);
     add_to_container(adata, id, (s_ref) { get_text(adata, id), TYPE_TEXT });
