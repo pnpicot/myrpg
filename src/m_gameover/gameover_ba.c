@@ -22,7 +22,7 @@ void trigger_respawn_next(s_appdata *adata)
         linked_node *nodes = cur->nodes;
         while (nodes != NULL && nodes->data != NULL) {
             s_skill_node *cur_node = (s_skill_node *) nodes->data;
-            cur_node->unlocked = sfFalse;
+            cur_node->unlocked = !cur_node->level;
             set_sprite_color(adata, cur_node->node_sprite->id,
                 cur_node->level ? sfRed : sfWhite);
             nodes = nodes->next;
