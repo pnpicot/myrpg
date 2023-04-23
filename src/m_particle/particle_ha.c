@@ -14,7 +14,7 @@ float scale_speed, float delta)
     int in_y = emiter->start_size.y != emiter->end_size.y;
 
     if (in_x || in_y) {
-        float fa = (float) cur->life / (float) emiter->particle_max;
+        float fa = (float) cur->life / (float) emiter->life_time;
         sfVector2f scale = lerp_vec2(emiter->start_size, emiter->end_size, fa);
 
         sfSprite_setScale(cur->model, scale);
@@ -53,7 +53,8 @@ void update_particle_color(s_particle *cur, s_particle_src *emiter)
     sfSprite_setColor(cur->model, cur->color);
 }
 
-void update_particle_end(s_particle_src *emiter, s_particle *cur)
+void update_particle_end(s_appdata *adata, s_particle_src *emiter, \
+s_particle *cur)
 {
     sfVector2f xoff = emiter->spawn_offset_x;
     sfVector2f yoff = emiter->spawn_offset_y;
@@ -61,7 +62,6 @@ void update_particle_end(s_particle_src *emiter, s_particle *cur)
     float rand_y = rand_float(yoff.x, yoff.y);
     sfVector2f new_pos = emiter->emiter_pos;
     sfVector2f vspeed = emiter->vortex_speed;
-
     new_pos.x += rand_x;
     new_pos.y += rand_y;
     sfSprite_setPosition(cur->model, new_pos);
@@ -80,9 +80,10 @@ void update_particle_pos(s_particle *cur, float delta)
 {
     sfVector2f pos = sfSprite_getPosition(cur->model);
     float dir = cur->angle * (3.14159f / 180);
+    float speed_mult = 1.0f;
 
-    pos.x += (float) (cur->speed * delta * cos(dir));
-    pos.y += (float) (cur->speed * delta * sin(dir));
+    pos.x += (float) (cur->speed * delta * cos(dir) * speed_mult);
+    pos.y += (float) (cur->speed * delta * sin(dir) * speed_mult);
 
     sfSprite_setPosition(cur->model, pos);
 }

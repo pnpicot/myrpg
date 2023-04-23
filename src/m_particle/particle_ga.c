@@ -42,8 +42,8 @@ s_particle *new_particle)
 
 void try_new_particle(s_appdata *adata, s_particle_src *emiter)
 {
-    float seconds = get_clock_seconds(emiter->delta_clock);
-    if (rand_float(0, 100.0f) > emiter->spawn_chance * seconds * 5000) return;
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
+    if (rand_float(0, 100.0f) <= emiter->spawn_chance) return;
     s_particle *new_particle = malloc(sizeof(s_particle));
     if (new_particle == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,

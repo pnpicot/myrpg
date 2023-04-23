@@ -22,7 +22,7 @@ void update_particles(s_appdata *adata, s_particle_src *emiter)
         update_particle_color(cur, emiter);
         cur->life--;
         if ((scale.x <= 0.05f && scale.y <= 0.05f) || cur->life <= 0)
-            update_particle_end(emiter, cur);
+            update_particle_end(adata, emiter, cur);
         particles = particles->next;
     }
     sfClock_restart(emiter->delta_clock);
@@ -34,8 +34,6 @@ void cycle_emiter(s_appdata *adata, s_particle_src *emiter)
         delete_emiter(adata, emiter->id);
         return;
     }
-
-    if (!emiter->active) return;
 
     if (emiter->particle_count < emiter->particle_max)
         try_new_particle(adata, emiter);

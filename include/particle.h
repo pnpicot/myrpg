@@ -50,7 +50,8 @@ float scale_speed, float delta);
 void update_particle_rotation(s_particle *cur, float delta, \
 s_particle_src *emiter);
 void update_particle_color(s_particle *cur, s_particle_src *emiter);
-void update_particle_end(s_particle_src *emiter, s_particle *cur);
+void update_particle_end(s_appdata *adata, s_particle_src *emiter, \
+s_particle *cur);
 void update_particle_pos(s_particle *cur, float delta);
 void update_particles(s_appdata *adata, s_particle_src *emiter);
 void cycle_emiter(s_appdata *adata, s_particle_src *emiter);
