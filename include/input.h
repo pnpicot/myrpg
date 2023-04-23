@@ -43,3 +43,4 @@ void set_input_align(s_appdata *adata, char *id, char *align);
 void set_input_oninput(s_appdata *adata, char *id, \
 void (*on_input)(s_appdata *adata, const char *str));
 void set_input_maxlength(s_appdata *adata, char *id, int max_length);
+void change_volume(s_appdata *adata, s_ref *ref);
