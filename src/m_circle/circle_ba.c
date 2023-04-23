@@ -60,8 +60,8 @@ void add_circle(s_appdata *adata, char *id, int layer)
     }
     s_ints *integers = adata->integers;
     *new_circle = (s_circle) {.active = 1, .elem = sfCircleShape_create(),
-    .hidden = 0, .id = id, .rtex_id = NULL, .layer = layer, .pos = (sfVector2f)
-    { 0, 0 }
+    .hidden = 0, .id = id, .rtex_id = NULL, .layer = layer,
+    .pos = (sfVector2f) { 0, 0 }
     };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;

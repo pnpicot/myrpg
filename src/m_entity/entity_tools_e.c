@@ -32,18 +32,14 @@ float default_value)
         get_error(adata, "already_exists"));
         return;
     }
-
     s_float *new_float = malloc(sizeof(s_float));
-
     if (new_float == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
     new_float->id = id;
     new_float->value = default_value;
-
     linked_add(entity->floats, new_float);
 }
 

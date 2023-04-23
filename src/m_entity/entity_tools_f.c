@@ -93,8 +93,7 @@ sfVector2f actualize_path(s_appdata *adata, s_entity *entity, sfVector2i end)
         abs(((sfIntRect *)closest->data)->height - end.y)))
             closest = node;
         node = node->next;
-    }
-    if (closest == entity->path) {
+    } if (closest == entity->path) {
         free_ll_and_data(&entity->path);
         return (get_way(adata, entity, end));
     }
