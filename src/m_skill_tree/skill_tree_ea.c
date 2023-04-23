@@ -100,6 +100,8 @@ void try_unlock_skill(s_appdata *adata, s_ref *ref)
         player->moula -= node->price;
         node->unlocked = sfTrue;
 
+        set_sprite_color(adata, node->node_sprite->id, sfWhite);
+
         if (node->unlock_trigger != NULL)
             (*node->unlock_trigger)(adata, node->trigger_value);
     }

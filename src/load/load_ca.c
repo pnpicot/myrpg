@@ -29,8 +29,6 @@ void init_load_input(s_appdata *adata, char *container, char *rtex)
     set_input_maxlength(adata, input_load, 40);
     set_input_placeholder(adata, input_load, "Enter path...");
     set_input_align(adata, input_load, "center");
-    add_to_container(adata, container, (s_ref) {
-    get_input(adata, input_load), TYPE_INPUT});
     resize_input(adata, input_load, (sfVector2f) { 400, 60 });
     sfVector2f pos = { win_w / 2 - 200, win_h / 2 - 30};
     move_input(adata, input_load, pos);
