@@ -56,7 +56,7 @@ s_rect *get_input_rect(s_appdata *adata, char *input_id, int layer)
 
     char *obj_id = str_add(id, ":object");
 
-    add_object(adata, id, (s_ref) { get_rect(adata, id), TYPE_RECT });
+    add_object(adata, str_add(id, ""), (s_ref) {get_rect(adata, id),TYPE_RECT});
 
     sfColor hover_color = get_config_color(adata, "input_background_hover");
     sfColor pressed_color = get_config_color(adata, "input_background_pressed");

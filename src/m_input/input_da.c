@@ -49,11 +49,12 @@ void input_type(s_appdata *adata, int keycode)
 void add_input_next(s_appdata *adata, char *id, int layer, s_input *new_input)
 {
     new_input->id = id;
-    new_input->input_rect = get_input_rect(adata, id, layer);
+    new_input->input_rect = get_input_rect(adata, str_add(id, ""), layer);
     new_input->placeholder = get_str(adata, "input_placeholder");
     char *placeholder = new_input->placeholder;
-    new_input->input_text = get_input_text(adata, id, layer, placeholder);
-    new_input->input_caret = get_input_caret(adata, id, layer);
+    new_input->input_text = get_input_text(adata, str_add(id, ""), layer,
+    placeholder);
+    new_input->input_caret = get_input_caret(adata, str_add(id, ""), layer);
     new_input->max_length = 100;
     new_input->align = 1;
     new_input->contains = 0;

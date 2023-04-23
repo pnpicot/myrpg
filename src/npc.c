@@ -91,7 +91,7 @@ void init_npc(s_appdata *adata)
 
     char *obj_id = str_add(id, "@[:object]");
 
-    add_gameobject(adata, id);
+    add_gameobject(adata, str_add(id, ""));
     set_gameobject_ref(adata, id, ref.ref, ref.type);
     init_npc_text(adata, pos);
 }

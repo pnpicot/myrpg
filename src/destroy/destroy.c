@@ -44,7 +44,6 @@ void destroy(s_appdata *adata)
     free(adata->floats);
     free(adata->integers);
     sfClock_destroy(adata->player->transference_clock);
-    free(adata->player->stats->id);
     free(adata->player);
     destroy_clocks(adata->clocks);
     free(adata->keys);

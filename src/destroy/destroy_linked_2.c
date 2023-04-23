@@ -64,7 +64,7 @@ void linked_destroy_emiters(linked_node *node)
         node = node->next;
         sfClock_destroy(((s_particle_src *)save->data)->delta_clock);
         linked_node *node2 = ((s_particle_src *)save->data)->particle_pool;
-        while (node2 != NULL) {
+        while (node2 != NULL && node2->data) {
             linked_node *save2 = node2;
             node2 = node2->next;
             sfSprite_destroy(((s_particle *)save2->data)->model);
