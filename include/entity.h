@@ -91,3 +91,4 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity);
 void get_z200_path(s_appdata *adata, s_entity *entity, sfVector2f *path);
 void behavior_z200_next(s_appdata *adata, s_entity *entity, sfVector2f path);
 void behavior_z200(s_appdata *adata, s_entity *entity);
+void kill_entities(s_appdata *adata, s_entity *entity, int ite);
