@@ -62,7 +62,7 @@ void init_gameover_button_next(s_appdata *adata, char *id)
 
 void init_gameover_button(s_appdata *adata, char *rtex, char *ctn)
 {
-    char *id = "gameover_button";
+    char *id = str_add("gameover_button", "");
     add_button(adata, id, TYPE_RECT, 2);
     edit_button(adata, id, "Respawn");
     set_button_rtex(adata, id, rtex);
@@ -78,7 +78,7 @@ void init_gameover_button(s_appdata *adata, char *rtex, char *ctn)
 
 void init_gameover_text(s_appdata *adata, char *rtex, char *ctn)
 {
-    char *id = "gameover_text";
+    char *id = str_add("gameover_text", "");
     add_text(adata, id, 1);
     set_text_rtex(adata, id, rtex);
     s_ref ref = { get_text(adata, id), TYPE_TEXT };

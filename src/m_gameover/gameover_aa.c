@@ -9,7 +9,7 @@
 
 void init_gameover(s_appdata *adata)
 {
-    char *rtex = "rtex_gameover";
+    char *rtex = str_add("rtex_gameover", "");
     char *ctn = "ctn_gameover";
     char *state = "state_gameover";
 
