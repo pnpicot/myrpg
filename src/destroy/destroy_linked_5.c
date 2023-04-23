@@ -42,7 +42,8 @@ void linked_destroy_sounds(linked_node *node)
     while (node != NULL) {
         linked_node *save = node;
         node = node->next;
-        free(((s_sound *)save->data)->id);
+        if (save->data != NULL)
+            free(((s_sound *)save->data)->id);
         free(save->data);
         free(save);
     }
