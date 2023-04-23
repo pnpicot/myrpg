@@ -7,6 +7,14 @@
 
 #include "main.h"
 
+void init_live_music(s_appdata *adata)
+{
+    add_music(adata, "music", "../../bonus/audios/epic_music.ogg");
+    set_music_loop(adata, "music", sfTrue);
+    set_music_volume(adata, "music", 20.0f);
+    play_music(adata, "music");
+}
+
 void init_live_states_n(s_appdata *adata, char *game_state, char *main_state,
 char *settings_state)
 {
@@ -89,4 +97,5 @@ void init_live(s_appdata *adata)
     init_console(adata);
     init_npc(adata);
     init_live_n(adata);
+    init_live_music(adata);
 }
