@@ -6,6 +6,7 @@
 */
 
 #include "main.h"
+#include "unistd.h"
 
 void save_fill_gamedata(s_appdata *adata, linked_node *lines)
 {
@@ -38,17 +39,19 @@ void save_to_file(s_appdata *adata, char *save)
 
     int count = linked_count(files);
     char *filename = str_add("save", nbr_to_str(count + 1));
-    FILE *new_fp = fopen(str_add("bonus/saves/", filename), "w");
+    int fd = open(str_add("bonus/saves/", filename), O_WRONLY | O_CREAT, 0644);
 
-    if (new_fp == NULL) {
-        my_printf("error\n");
+    if (fd == 0) {
+        my_printf("Open: error\n");
         return;
     }
 
-    size_t size = (size_t) my_strlen(save);
-    size_t nmemb = (size_t) sizeof(*save);
+    size_t size = (size_t)my_strlen(save);
 
-    fwrite((const char *) save, size, nmemb, new_fp);
+    if (write(fd, save, size) < 0)
+        my_printf("Write: error\n");
+    else
+        my_printf("save %s created\n", filename);
 }
 
 void save_game(s_appdata *adata)
