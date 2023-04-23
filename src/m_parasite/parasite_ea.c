@@ -60,6 +60,9 @@ void try_transference(s_appdata *adata)
         try_transference_n(adata, emiter_id);
         return;
     }
+    if (player->transference.x != player->transference.y
+        || ((s_entity *) player->potential_host)->trf_require
+        > player->transference_level) return;
     player->host = player->potential_host;
     if (player->host != NULL) {
         s_entity *host = (s_entity *) player->host;
@@ -67,6 +70,7 @@ void try_transference(s_appdata *adata)
         host->inhabited = sfTrue;
         player->transfered = sfTrue;
         player->body->active = 0;
+        player->transference.x = 0;
         set_emiter_active(adata, emiter_id, sfFalse);
         set_emiter_active(adata, host_emiter_id, sfFalse);
     }
