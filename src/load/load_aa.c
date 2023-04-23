@@ -14,20 +14,8 @@ void modify_game_n_n(s_appdata *adata, char *content, char **lines, int i)
         modify_game_skill_trees(adata, trees, lines, i);
         i++;
     }
-    i += 2;
-    free_ll_and_data(&adata->game_data->entities);
-    adata->game_data->entities = linked_new();
-    linked_node *factions = adata->game_data->factions;
-    while (factions != NULL && factions->data != NULL) {
-        s_faction *faction = (s_faction *) factions->data;
-        faction->entity_count = 0;
-        factions = factions->next;
-    }
-    while (my_strcmp(lines[i], "$array")) {
-        linked_node *models = adata->game_data->entity_models;
-        modify_game_entities(adata, models, lines, i);
-        i++;
-    }
+    i++;
+    adata->game_data->wave_count = my_getnbr(lines[i]);
 }
 
 void modify_game_n(s_appdata *adata, char *content, char **lines, int i)

@@ -13,7 +13,8 @@ void load_game(s_appdata *adata, s_ref *ref)
     const char *input_text = get_input_str(adata, input_load);
     char *path = str_add("bonus/saves/", input_text);
     char *content = file_extract(path);
-    modify_game(adata, content);
+    if (open(path, O_RDONLY) != -1)
+        modify_game(adata, content);
     (void)ref;
 }
 

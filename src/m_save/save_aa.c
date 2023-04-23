@@ -21,6 +21,7 @@ void save_fill_gamedata(s_appdata *adata, linked_node *lines)
     linked_add(lines, float_to_str(game_data->speed.y, 2, 0));
     save_fill_skill_trees(adata, lines);
     save_fill_entities(adata, lines);
+    linked_add(lines, nbr_to_str(game_data->wave_count));
 }
 
 void save_fill(s_appdata *adata, linked_node *lines)
