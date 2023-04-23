@@ -65,11 +65,9 @@ void init_live_n(s_appdata *adata)
     init_zones(adata, 5);
     init_skill_tree(adata);
     switch_state(adata, get_str(adata, "state_main"));
-
     set_friction(adata, 18.0f);
     set_max_speed(adata, 1600.0f);
     set_velocity(adata, 80.0f);
-
     translate_player(adata, (sfVector2f) { 600.0f, 600.0f });
 }
 
@@ -88,6 +86,6 @@ void init_live(s_appdata *adata)
     init_entity_emiters(adata);
     init_entity_behaviors(adata);
     init_console(adata);
-
+    init_npc(adata);
     init_live_n(adata);
 }

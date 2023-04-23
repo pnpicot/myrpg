@@ -187,7 +187,7 @@ float quest_item_height = 60.0f
 # -- skill tree -- begin
 string ctn_skill = ctn_skill
 string skill_tree = skill_tree
-int skill_layer = 28
+int skill_layer = 7
 float skill_width = 1.0f
 float skill_height = 1.0f
 color skill_primary = 0,0,0,230
@@ -199,3 +199,7 @@ float skill_node_size = 100.0f
 float path_update = 2.0f
 string wave_count = wave_count
 # -- waves -- end
+
+# -- tutorial -- begin
+string npc_tuto = npc_tuto
+# -- tutorial -- end

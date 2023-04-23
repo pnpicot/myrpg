@@ -740,3 +740,4 @@ typedef struct {
 #include "linked_add_sorted_layer.h"
 #include "save.h"
 #include "load.h"
+#include "npc.h"

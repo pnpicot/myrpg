@@ -86,7 +86,7 @@ void init_player_next(s_appdata *adata, s_player *player)
     player->stats = NULL;
     player->attack = 5.0f;
     player->defense = 0.3f;
-    player->moula = 0;
+    player->moula = 3000;
 }
 
 void init_player_final(s_appdata *adata, s_player *player, char *sprite_id)
