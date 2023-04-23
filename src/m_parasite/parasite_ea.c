@@ -92,6 +92,7 @@ void check_game_keys_n(s_appdata *adata, int keycode)
     } if (keycode == sfKeyT) {
         adata->game_data->in_stree = !adata->game_data->in_stree;
         sfUint8 active = adata->game_data->in_stree ? 1 : 0;
+        adata->integers->in_game = adata->game_data->in_stree ? 0 : 1;
         char *ctn = get_str(adata, "ctn_skill");
         set_container_active(adata, ctn, active);
         set_rect_active(adata, get_str(adata, "skill_tree"), active);
