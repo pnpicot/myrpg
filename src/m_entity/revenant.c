@@ -31,14 +31,10 @@ float angle)
     free_ll_and_data(&touchs_ll);
 }
 
-void behavior_revenant(s_appdata *adata, s_entity *entity)
+void get_revenant_path(s_appdata *adata, s_entity *entity, sfVector2f *path)
 {
-    update_entity_bar(adata, entity);
-
-    sfVector2f path = { 0, 0 };
-
     if (entity->move_now_entity != NULL) {
-        path = entity->move_now;
+        (*path) = entity->move_now;
         entity->move_now = (sfVector2f){0, 0};
     } else {
         s_game *game_data = adata->game_data;
@@ -47,65 +43,76 @@ void behavior_revenant(s_appdata *adata, s_entity *entity)
         float tile_size = 32 * get_float(adata, "zoom");
         sfVector2f player_pos;
         float update_rate = get_float(adata, "path_update");
-
         player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
         player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
-
         if (get_clock_seconds(entity->path_clock) > update_rate) {
-            path = actualize_path(adata, entity, fvec_to_i(player_pos));
+            (*path) = actualize_path(adata, entity, fvec_to_i(player_pos));
             sfClock_restart(entity->path_clock);
         } else {
-            path = get_way(adata, entity, fvec_to_i(player_pos));
+            (*path) = get_way(adata, entity, fvec_to_i(player_pos));
         }
     }
+}
 
+void behavior_revenant_next(s_appdata *adata, s_entity *entity, \
+sfVector2f path, float *angle)
+{
+    float seconds = get_clock_seconds(adata->clocks->update_clock);
+    if (!entity->inhabited) {
+        sfVector2f add = { path.x * seconds * entity->speed,
+                           path.y * seconds * entity->speed};
+        add = is_map_colliding(adata, entity, add);
+        translate_entity(adata, entity, add);
+        (*angle) = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
+    } else {
+        (*angle) = sfSprite_getRotation(
+            ((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
+    if (entity->move_now_entity != NULL) {
+        entity->move_now.x = 0;
+        entity->move_now.y = 0;
+        entity->move_now_entity = NULL;
+        (*angle) = sfSprite_getRotation(
+            ((s_entity_part *) entity->parts->data)->sprite->elem);
+    }
+}
+
+void behavior_revenant_arms(s_appdata *adata, s_entity *entity, float angle)
+{
+    rotate_entity_part_abs(adata, entity, "revenant_body", angle);
+    rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle);
+    rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle);
+    float arm_cycle = get_entity_float(entity, "arm_cycle")->value;
+    float arm_rot = get_entity_float(entity, "arm_rot")->value;
+    float angle_minus = angle - arm_rot;
+    float angle_plus = angle + arm_rot;
+    if (arm_cycle) {
+        add_to_entity_float(adata, entity, "arm_rot", 0.7f);
+        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle_minus);
+        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle_plus);
+    } else {
+        add_to_entity_float(adata, entity, "arm_rot", -4.5f);
+        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle_minus);
+        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle_plus);
+        revenant_damage_behavior(adata, entity, angle);
+    }
+    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -35.0f && !arm_cycle)) {
+        set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
+    }
+}
+
+void behavior_revenant(s_appdata *adata, s_entity *entity)
+{
+    update_entity_bar(adata, entity);
+    sfVector2f path = { 0, 0 };
+    get_revenant_path(adata, entity, &path);
     if (entity->init) {
         add_entity_float(adata, entity, "arm_cycle", 0);
         add_entity_float(adata, entity, "arm_rot", 0);
         entity->init = sfFalse;
     }
-
-    float seconds = get_clock_seconds(adata->clocks->update_clock);
     float angle = 5.0f;
-
-    if (!entity->inhabited) {
-        sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed};
-        add = is_map_colliding(adata, entity, add);
-        translate_entity(adata, entity, add);
-        angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
-
-    } else {
-        angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
-    }
-
-    if (entity->move_now_entity != NULL) {
-        entity->move_now.x = 0;
-        entity->move_now.y = 0;
-        entity->move_now_entity = NULL;
-        angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
-    }
-
-    rotate_entity_part_abs(adata, entity, "revenant_body", angle);
-    rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle);
-    rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle);
-
-    float arm_cycle = get_entity_float(entity, "arm_cycle")->value;
-    float arm_rot = get_entity_float(entity, "arm_rot")->value;
-
-    if (arm_cycle) {
-        add_to_entity_float(adata, entity, "arm_rot", 0.7f);
-        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle - arm_rot);
-        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
-    } else {
-        add_to_entity_float(adata, entity, "arm_rot", -4.5f);
-        rotate_entity_part_abs(adata, entity, "revenant_left_arm", angle - arm_rot);
-        rotate_entity_part_abs(adata, entity, "revenant_right_arm", angle + arm_rot);
-        revenant_damage_behavior(adata, entity, angle);
-    }
-
-    if ((arm_rot > 50.0f && arm_cycle) || (arm_rot < -35.0f && !arm_cycle)) {
-        set_entity_float(adata, entity, "arm_cycle", arm_cycle > 0 ? 0 : 1.0f);
-    }
-
+    behavior_revenant_next(adata, entity, path, &angle);
+    behavior_revenant_arms(adata, entity, angle);
     sfClock_restart(entity->clock);
 }

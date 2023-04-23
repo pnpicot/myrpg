@@ -7,17 +7,28 @@
 
 #include "main.h"
 
-void behavior_lmx2(s_appdata *adata, s_entity *entity)
+void init_behavior_lmx2(s_appdata *adata, s_entity *entity)
 {
-    update_entity_bar(adata, entity);
+    char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
 
-    sfVector2f path = { 0.0f, 0.0f };
+    animate_sprite(adata, body_id);
+    set_animation_cols(adata, body_id, 4);
+    set_animation_rows(adata, body_id, 1);
+    set_animation_mode(adata, body_id, animation_restart);
+    set_animation_speed(adata, body_id, 0.1f);
+
+    entity->init = sfFalse;
+}
+
+sfVector2f get_lmx2_path(s_appdata *adata, s_entity *entity)
+{
     s_game *game_data = adata->game_data;
     int win_w = get_int(adata, "win_w");
     int win_h = get_int(adata, "win_h");
     float tile_size = 32 * get_float(adata, "zoom");
     sfVector2f player_pos;
     float update_rate = get_float(adata, "path_update");
+    sfVector2f path = { 0, 0 };
 
     player_pos.x = (game_data->view_pos.x + (win_w / 2)) / tile_size;
     player_pos.y = (game_data->view_pos.y + (win_h / 2)) / tile_size;
@@ -29,35 +40,28 @@ void behavior_lmx2(s_appdata *adata, s_entity *entity)
         path = get_way(adata, entity, fvec_to_i(player_pos));
     }
 
+    return (path);
+}
 
-    if (entity->init) {
-        char *body_id = ((s_entity_part *) entity->parts->data)->sprite->id;
-
-        animate_sprite(adata, body_id);
-        set_animation_cols(adata, body_id, 4);
-        set_animation_rows(adata, body_id, 1);
-        set_animation_mode(adata, body_id, animation_restart);
-        set_animation_speed(adata, body_id, 0.1f);
-
-        entity->init = sfFalse;
-    }
-
+void behavior_lmx2(s_appdata *adata, s_entity *entity)
+{
+    update_entity_bar(adata, entity);
+    sfVector2f path = get_lmx2_path(adata, entity);
+    if (entity->init) init_behavior_lmx2(adata, entity);
     if (entity->inhabited) return;
-
     float seconds = get_clock_seconds(adata->clocks->update_clock);
-    sfVector2f add = { path.x * seconds * entity->speed, path.y * seconds * entity->speed };
-
+    sfVector2f add = { path.x * seconds * entity->speed,
+                       path.y * seconds * entity->speed };
     add = is_map_colliding(adata, entity, add);
-
     float angle = (atan2f(add.y, add.x) * (180.0f / M_PI)) + 90.0f;
-
     if (entity->move_now_entity != NULL) {
         entity->move_now.x = 0;
         entity->move_now.y = 0;
         entity->move_now_entity = NULL;
-        angle = sfSprite_getRotation(((s_entity_part *) entity->parts->data)->sprite->elem);
+        angle = sfSprite_getRotation(
+                ((s_entity_part *) entity->parts->data)->sprite->elem
+            );
     }
-
     translate_entity(adata, entity, add);
     rotate_entity_part_abs(adata, entity, "lmx2_body", angle);
     sfClock_restart(entity->clock);
