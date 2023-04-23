@@ -10,7 +10,10 @@
 void behavior_mf26(s_appdata *adata, s_entity *entity)
 {
     update_entity_bar(adata, entity);
-    if (entity->inhabited) return;
+    if (entity->inhabited) {
+        behavior_mf26_emiter(adata, entity, (sfVector2f) { 0, 0 }, 0);
+        return;
+    }
     sfVector2f path = { 0, 0 };
     get_mf26_path(adata, entity, &path);
     float seconds = get_clock_seconds(adata->clocks->update_clock);

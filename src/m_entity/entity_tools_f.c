@@ -59,6 +59,9 @@ s_particle *particle, linked_node *touchs))
 
         sfFloatRect bounds = sfSprite_getGlobalBounds(part->model);
 
+        bounds.top += adata->game_data->view_pos.y;
+        bounds.left += adata->game_data->view_pos.x;
+
         linked_node *touchs = what_is_touching(adata, bounds);
 
         if (touchs != NULL && touchs->data != NULL)

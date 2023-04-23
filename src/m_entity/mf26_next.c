@@ -19,13 +19,13 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
     set_emiter_gameobject(adata, emiter_id, sfTrue);
     set_emiter_layer(adata, emiter_id, 5);
     set_emiter_lifetime(adata, emiter_id, 150000);
-    set_emiter_particle_lifetime(adata, emiter_id, 700);
-    set_emiter_particle_max(adata, emiter_id, 50);
-    set_emiter_particle_speed(adata, emiter_id, (sfVector2f) { 400, 500 });
+    set_emiter_particle_lifetime(adata, emiter_id, 500);
+    set_emiter_particle_max(adata, emiter_id, 2);
+    set_emiter_particle_speed(adata, emiter_id, (sfVector2f) { 1500, 1500 });
     set_emiter_rtex(adata, emiter_id, get_str(adata, "rtex_game"));
     s_ref ref = { get_emiter(adata, emiter_id), TYPE_EMITER };
     add_to_container(adata, get_str(adata, "ctn_game"), ref);
-    sfVector2f scale = { 8.0f, 8.0f };
+    sfVector2f scale = { 15.0f, 15.0f };
     move_emiter(adata, emiter_id, (sfVector2f) { 140, 60 });
     set_emiter_size_range(adata, emiter_id, scale, scale);
     set_emiter_spawnrate(adata, emiter_id, 100.0f);
@@ -108,7 +108,7 @@ sfVector2f add, float angle)
 {
     char *emiter_id = str_add(entity->id, "@[:emiter]");
 
-    if (entity->emiter != NULL) {
+    if (entity->emiter != NULL && !entity->inhabited) {
         sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle),
                                   entity->pos.y * entity->pos.y * sin(angle) };
         translate_emiter(adata, emiter_id, add);
