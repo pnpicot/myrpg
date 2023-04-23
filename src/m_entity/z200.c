@@ -15,20 +15,18 @@ static void z200_damage_behavior(s_appdata *adata, s_entity *entity)
     hitbox.width += 45;
     hitbox.height += 45;
     linked_node *touchs_ll = what_is_touching(adata, hitbox);
-    linked_node *touchs = touchs_ll;
 
-    while (touchs != NULL) {
-        s_touch_t *touch = (s_touch_t *) touchs->data;
+    for (linked_node *tch = touchs_ll; tch != NULL; tch = tch->next) {
+        s_touch_t *touch = (s_touch_t *) tch->data;
         int same_fac = touch->touch_type == TOUCH_ENTITY &&
             !my_strcmp(touch->entity->faction->id, entity->faction->id);
-        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity && !same_fac) {
-            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.01f;
-        }
-        if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= 30.0f;
-            printf("debug\n");
-        }
-        touchs = touchs->next;
+        if (touch->touch_type == TOUCH_ENTITY &&
+        touch->entity != entity && !same_fac)
+            touch->entity->hp -= entity->damage  *
+            (1 - touch->entity->defense);
+        if (touch->touch_type == TOUCH_PARASITE)
+            adata->player->health.x -= entity->damage  *
+            (1 - adata->player->defense);
     }
     free_ll_and_data(&touchs_ll);
 }

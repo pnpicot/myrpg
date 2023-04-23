@@ -33,23 +33,24 @@ void init_mf26_emiter(s_appdata *adata, s_entity *entity)
 static void mf26_particles_behavior(s_appdata *adata,
 s_entity *entity, s_particle *particle, linked_node *touchs)
 {
-    while (touchs != NULL) {
-        s_touch_t *touch = (s_touch_t *) touchs->data;
-        if (touch->touch_type == TOUCH_WALL) {
-            particle->active = sfFalse;
-            return;
-        }
+    for (linked_node *tch = touchs; tch != NULL; tch = tch->next) {
+        s_touch_t *touch = (s_touch_t *) tch->data;
         int same_fac = touch->touch_type == TOUCH_ENTITY &&
             !my_strcmp(touch->entity->faction->id, entity->faction->id);
-        if (touch->touch_type == TOUCH_ENTITY && touch->entity != entity && !same_fac) {
-            touch->entity->hp -= entity->damage  * (1 - touch->entity->defense) * 0.01f;
+        if (touch->touch_type == TOUCH_WALL) {
+            particle->active = sfFalse;
+        }
+        if (touch->touch_type == TOUCH_ENTITY &&
+        touch->entity != entity && !same_fac) {
+            touch->entity->hp -= entity->damage  *
+            (1 - touch->entity->defense);
             particle->active = sfFalse;
         }
         if (touch->touch_type == TOUCH_PARASITE) {
-            adata->player->health.x -= entity->damage;
+            adata->player->health.x -= entity->damage  *
+            (1 - adata->player->defense);
             particle->active = sfFalse;
         }
-        touchs = touchs->next;
     }
 }
 

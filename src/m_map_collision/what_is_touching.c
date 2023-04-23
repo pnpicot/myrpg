@@ -40,16 +40,14 @@ s_entity *entity)
 static void add_to_linked(s_appdata *adata, s_entity *act_entity,
 linked_node **node)
 {
-    if (act_entity == NULL || (act_entity != (s_entity *)1 &&
-    act_entity != (s_entity *)2 && act_entity->dead == 1) ||
-    (act_entity == (s_entity *)2 && adata->player->host != NULL))
+    if (act_entity == NULL)
         return;
     if (act_entity == (s_entity *)1) {
         already_exist(node, TOUCH_WALL, NULL);
         return;
     }
     if (act_entity == (s_entity *)2) {
-        if (adata->player->host != NULL)
+        if (adata->player->host == NULL)
             already_exist(node, TOUCH_PARASITE, NULL);
         return;
     }
