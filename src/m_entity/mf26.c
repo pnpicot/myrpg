@@ -19,10 +19,11 @@ void behavior_mf26(s_appdata *adata, s_entity *entity)
     float last_angle = sfSprite_getRotation(
         ((s_entity_part *) entity->parts->data)->sprite->elem);
     behavior_mf26_next(adata, entity, angle, last_angle);
-    rotate_entity_part_abs(adata, entity, "body", angle);
+    if (!entity->inhabited)
+        rotate_entity_part_abs(adata, entity, "body", angle);
     add = is_map_colliding(adata, entity, add);
     sfFloatRect hitbox = get_entity_hitbox(adata, entity);
-    translate_entity(adata, entity, add);
+    if (!entity->inhabited) translate_entity(adata, entity, add);
     behavior_mf26_emiter(adata, entity, add, angle);
     sfClock_restart(entity->clock);
 }

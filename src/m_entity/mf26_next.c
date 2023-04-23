@@ -108,7 +108,7 @@ sfVector2f add, float angle)
 {
     char *emiter_id = str_add(entity->id, "@[:emiter]");
 
-    if (entity->emiter != NULL && !entity->inhabited) {
+    if (entity->emiter != NULL) {
         sfVector2f emiter_add = { entity->pos.x * entity->pos.x * cos(angle),
                                   entity->pos.y * entity->pos.y * sin(angle) };
         translate_emiter(adata, emiter_id, add);
