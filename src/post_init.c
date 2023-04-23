@@ -12,11 +12,6 @@ void test_switch(s_appdata *adata, s_ref *ref)
     switch_state(adata, "main_game_state");
 }
 
-void init_tests(s_appdata *adata)
-{
-    // ...
-}
-
 void add_light_to_cursor(s_appdata *adata)
 {
     if (!get_int(adata, "enable_shader")) return;
@@ -38,9 +33,7 @@ void add_light_to_cursor(s_appdata *adata)
 
 void post_init(s_appdata *adata)
 {
-    if (get_int(adata, "dev_mode")) {
-        init_tests(adata);
-    } else {
+    if (!get_int(adata, "dev_mode")) {
         init_live(adata);
     }
 }

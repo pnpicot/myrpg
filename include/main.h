@@ -658,6 +658,13 @@ typedef struct {
     sfFloatRect inv_bounds;
 } s_tmp_invitem;
 
+typedef struct {
+    char *id;
+    s_quest *cur;
+    int ite;
+    sfVector2f bg_pos;
+} s_tmp_questitem;
+
 #include "pre_init.h"
 #include "error.h"
 #include "config.h"
