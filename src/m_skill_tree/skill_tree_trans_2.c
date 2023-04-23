@@ -11,7 +11,7 @@ void init_stree_node37(s_appdata *adata, s_skill_tree *skill3)
 {
     char *node_3_7 = "node_3_7";
 
-    add_skill_node(adata, skill3, node_3_7, 1);
+    add_skill_node(adata, skill3, node_3_7, 7);
     set_skill_node_name(adata, skill3, node_3_7, "LEVEL 7");
     set_skill_node_parent(adata, skill3, node_3_7,
         get_skill_node(adata, skill3, "node_3_6"));
@@ -24,7 +24,7 @@ void init_stree_node38(s_appdata *adata, s_skill_tree *skill3)
 {
     char *node_3_8 = "node_3_8";
 
-    add_skill_node(adata, skill3, node_3_8, 1);
+    add_skill_node(adata, skill3, node_3_8, 8);
     set_skill_node_name(adata, skill3, node_3_8, "LEVEL 8");
     set_skill_node_parent(adata, skill3, node_3_8,
         get_skill_node(adata, skill3, "node_3_7"));
@@ -37,7 +37,7 @@ void init_stree_node39(s_appdata *adata, s_skill_tree *skill3)
 {
     char *node_3_9 = "node_3_9";
 
-    add_skill_node(adata, skill3, node_3_9, 1);
+    add_skill_node(adata, skill3, node_3_9, 9);
     set_skill_node_name(adata, skill3, node_3_9, "LEVEL 9");
     set_skill_node_parent(adata, skill3, node_3_9,
         get_skill_node(adata, skill3, "node_3_8"));
