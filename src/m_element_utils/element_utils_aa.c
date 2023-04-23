@@ -71,7 +71,8 @@ sfVector2f get_element_rel_pos_next(s_appdata *adata, void *ref, int type)
             return (vertex->pos);
         case TYPE_BUTTON:
             s_button *button = (s_button *) ref;
-            return (get_element_rel_pos(adata, button->elem->ref, button->elem->type));
+            return (get_element_rel_pos(adata, button->elem->ref,
+            button->elem->type));
     }
 }
 

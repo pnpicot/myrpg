@@ -73,11 +73,9 @@ void update_controls(s_appdata *adata)
         update_host_controls(adata);
         return;
     }
-
     s_game *game_data = adata->game_data;
     s_clocks *clocks = adata->clocks;
     float delta = get_clock_seconds(clocks->movement_clock);
-
     if (get_key(adata, sfKeyQ))
         game_data->speed.x -= game_data->velocity;
     if (get_key(adata, sfKeyD))
@@ -86,7 +84,5 @@ void update_controls(s_appdata *adata)
         game_data->speed.y -= game_data->velocity;
     if (get_key(adata, sfKeyS))
         game_data->speed.y += game_data->velocity;
-
     update_controls_next(adata, game_data, delta, clocks);
 }
-
