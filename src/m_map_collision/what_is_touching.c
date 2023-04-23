@@ -70,10 +70,8 @@ void (*func)(s_appdata *adata, s_entity *act_entity, linked_node **node))
 
 linked_node *what_is_touching(s_appdata *adata, sfFloatRect hitbox)
 {
-    START(what_is_touching)
     linked_node *node = NULL;
 
     do_loop(adata, hitbox, &node, add_to_linked);
-    END(what_is_touching)
     return (node);
 }

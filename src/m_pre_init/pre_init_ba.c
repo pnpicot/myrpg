@@ -16,9 +16,7 @@ void init_appdata_ints(s_appdata *adata)
         get_error(adata, "mem_alloc"));
         return;
     }
-
     s_ints *integers = adata->integers;
-
     integers->exit_status = 0;
     integers->min_layer = 0;
     integers->max_layer = 0;
@@ -64,54 +62,26 @@ void init_appdata_clocks(s_appdata *adata)
     clocks->movement_clock = sfClock_create();
 }
 
-void init_appdata_linkeds_next(s_linkeds *lists)
-{
-    lists->fonts = linked_new();
-    lists->texts = linked_new();
-    lists->vertexes = linked_new();
-    lists->containers = linked_new();
-    lists->buttons = linked_new();
-    lists->objects = linked_new();
-    lists->switches = linked_new();
-    lists->sliders = linked_new();
-    lists->inputs = linked_new();
-    lists->keymaps = linked_new();
-    lists->bars = linked_new();
-    lists->transforms = linked_new();
-    lists->shaders = linked_new();
-    lists->lights = linked_new();
-    lists->walls = linked_new();
-    lists->musics = linked_new();
-    lists->sounds = linked_new();
-    lists->sound_queue = linked_new();
-    lists->animations = linked_new();
-    lists->emiters = linked_new();
-    lists->gameobjects = linked_new();
-    lists->states = linked_new();
-    lists->tiles = linked_new();
-}
-
 void init_appdata_linkeds(s_appdata *adata)
 {
     adata->lists = malloc(sizeof(s_linkeds));
-
     if (adata->lists == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
     s_linkeds *lists = adata->lists;
-
-    lists->config_ints = linked_new();
-    lists->config_floats = linked_new();
-    lists->config_strings = linked_new();
-    lists->config_colors = linked_new();
-    lists->errors = linked_new();
-    lists->rects = linked_new();
-    lists->rtexs = linked_new();
-    lists->textures = linked_new();
-    lists->sprites = linked_new();
-    lists->circles = linked_new();
-    init_appdata_linkeds_next(lists);
+    *lists = (s_linkeds){.config_ints = linked_new(), .config_floats =
+    linked_new(), .config_strings = linked_new(), .config_colors = linked_new(),
+    .errors = linked_new(), .rects = linked_new(), .rtexs = linked_new(),
+    .textures = linked_new(), .sprites = linked_new(), .circles = linked_new(),
+    .fonts = linked_new(), .texts = linked_new(), .vertexes = linked_new(),
+    .containers = linked_new(), .buttons = linked_new(), .objects =
+    linked_new(), .switches = linked_new(), .sliders = linked_new(), .inputs =
+    linked_new(), .keymaps = linked_new(), .bars = linked_new(), .transforms =
+    linked_new(), .shaders = linked_new(), .lights = linked_new(), .walls =
+    linked_new(), .musics = linked_new(), .sounds = linked_new(), .sound_queue
+    = linked_new(), .animations = linked_new(), .emiters = linked_new(),
+    .gameobjects = linked_new(), .states = linked_new(), .tiles = linked_new()
+    };
 }

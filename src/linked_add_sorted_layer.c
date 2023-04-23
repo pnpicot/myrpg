@@ -24,7 +24,6 @@ static int get_layer(s_ref *ref)
     return (0);
 }
 
-
 void linked_add_sorted_layer(linked_node *node, s_ref *ref)
 {
     int layer = get_layer(ref);

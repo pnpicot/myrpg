@@ -65,15 +65,12 @@ char **str_m_split(const char *str, int count, ...)
         last = malloc(sizeof(char *) * (linked_count(flattened) + 1));
         int ite = 0;
         while (flattened != NULL && flattened->data != NULL) {
-            char *cur = (char *) flattened->data;
-            last[ite] = cur;
-            ite++;
+            last[ite++] = (char *) flattened->data;
             linked_node *save = flattened;
             flattened = flattened->next;
             free(save);
         }
         last[ite] = NULL;
-    }
-    va_end(args);
+    } va_end(args);
     return (last);
 }

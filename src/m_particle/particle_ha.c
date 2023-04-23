@@ -64,12 +64,10 @@ void update_particle_end(s_particle_src *emiter, s_particle *cur)
 
     new_pos.x += rand_x;
     new_pos.y += rand_y;
-
     sfSprite_setPosition(cur->model, new_pos);
     sfSprite_setScale(cur->model, emiter->start_size);
     sfSprite_setOrigin(cur->model, emiter->sprite_origin);
     sfSprite_setColor(cur->model, emiter->start_color);
-
     cur->active = 1;
     cur->vortex_speed = rand_float(vspeed.x, vspeed.y);
     cur->angle = rand_float(emiter->cone_range.x, emiter->cone_range.y);

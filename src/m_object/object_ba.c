@@ -69,10 +69,8 @@ void delete_object(s_appdata *adata, char *id)
         get_error(adata, "unknown_id"));
         return;
     }
-
     linked_node *objects = adata->lists->objects;
     int ite = 0;
-
     while (objects != NULL && objects->data != NULL) {
         s_object *cur = (s_object *) objects->data;
 
@@ -81,7 +79,6 @@ void delete_object(s_appdata *adata, char *id)
         ite++;
         objects = objects->next;
     }
-
     linked_delete(&adata->lists->objects, ite);
 }
 

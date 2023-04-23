@@ -9,8 +9,8 @@
 
 void add_emiter_first(s_appdata *adata, char *id, s_particle_src *new_emiter)
 {
-    new_emiter->emiter_life = 0;
-    new_emiter->emiter_pos = (sfVector2f) { 0, 0 };
+    new_emiter->vortex_dir = clockwise;
+    new_emiter->vortex_speed = (sfVector2f) { 0, 0 };
     new_emiter->id = id;
     new_emiter->life_time = 1;
     new_emiter->particle_max = 0;
@@ -46,8 +46,6 @@ void add_emiter(s_appdata *adata, char *id)
         return;
     }
     add_emiter_first(adata, id, new_emiter);
-    new_emiter->vortex_dir = clockwise;
-    new_emiter->vortex_speed = (sfVector2f) { 0, 0 };
     new_emiter->start_color = sfWhite;
     new_emiter->end_color = sfWhite;
     new_emiter->lerp_div = 1.0f;

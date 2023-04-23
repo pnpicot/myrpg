@@ -34,23 +34,16 @@ void add_music(s_appdata *adata, char *id, char *filename)
 {
     s_music *music = get_music(adata, id);
 
-    if (music != NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "already_exists"));
+    if (music != NULL)
         return;
-    }
     struct stat buffer;
     char *path = str_add("bonus/audios/", filename);
     if (stat(path, &buffer) == -1) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "no_file"));
         free(path);
         return;
     }
     s_music *new_music = malloc(sizeof(s_music));
     if (new_music == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "mem_alloc"));
         free(path);
         return;
     }
@@ -100,25 +93,17 @@ void load_sounds(s_appdata *adata)
 {
     char *file_content = file_extract("bonus/sounds.myrpg");
     char **entries = str_split(file_content, '\n');
-    int ite = 0;
-
     free(file_content);
-    while (entries[ite] != NULL) {
-        if (entries[ite][0] == '#') {
-            ite++;
+    for (int ite = 0; entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#')
             continue;
-        }
-
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
         char *id = entry_data[0];
         char *filename = entry_data[1];
-
         add_sound(adata, id, filename);
-
         for (int i = 1; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-        ite++;
     }
     for (int i = 0; entries[i] != NULL; i++)
         free(entries[i]);

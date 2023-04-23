@@ -31,19 +31,15 @@ void play_sound(s_appdata *adata, char *id, float volume, sfVector2f pos)
         get_error(adata, "unknown_id"));
         return;
     }
-
     s_sound *sound_copy = malloc(sizeof(s_sound));
-
     if (sound_copy == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
     sound_copy->id = id;
     sound_copy->sound = sfSound_copy(sound->sound);
     sound_copy->sound_buffer = sfSoundBuffer_copy(sound->sound_buffer);
-
     play_sound_next(adata, sound_copy, pos, volume);
 }
 

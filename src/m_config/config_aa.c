@@ -54,11 +54,8 @@ void add_config_color(s_appdata *adata, char *type, char *id, char *value)
         my_printf("[MyRPG] error: invalid color configuration.\n");
         return;
     }
-    sfColor converted_value;
-    converted_value.r = my_getnbr(channels[0]);
-    converted_value.g = my_getnbr(channels[1]);
-    converted_value.b = my_getnbr(channels[2]);
-    converted_value.a = my_getnbr(channels[3]);
+    sfColor converted_value = {my_getnbr(channels[0]), my_getnbr(channels[1]),
+    my_getnbr(channels[2]), my_getnbr(channels[3])};
     new_color->id = id;
     new_color->value = converted_value;
     for (int i = 0; channels[i] != NULL; i++) free(channels[i]);
@@ -94,28 +91,21 @@ void init_config(s_appdata *adata)
 {
     char *config_content = file_extract("bonus/config.myrpg");
     char **entries = str_split(config_content, '\n');
-    int ite = 0;
-
     free(config_content);
-    while (entries[ite] != NULL) {
-        if (entries[ite][0] == '#') {
-            ite++;
+    for (int ite = 0; entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#')
             continue;
-        }
-
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
         char *type = entry_data[0];
         char *id = entry_data[1];
         char *value = entry_data[2];
-
         add_config(adata, type, id, value);
-
         free(entry_data[0]);
         for (int i = 3; entry_data[i] != NULL; i++)
             free(entry_data[i]);
         free(entry_data);
-        ite++;
     }
-    for (int i = 0; entries[i] != NULL; i++) free(entries[i]);
+    for (int i = 0; entries[i] != NULL; i++)
+        free(entries[i]);
     free(entries);
 }

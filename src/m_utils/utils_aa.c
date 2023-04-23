@@ -55,32 +55,20 @@ sfColor rand_light_color(sfUint8 alpha)
 {
     sfColor new_color;
     int rand = rand_int(0, 6);
-
-    switch (rand) {
-        case 0:
-            new_color = sfRed;
-            break;
-        case 1:
-            new_color = sfBlue;
-            break;
-        case 2:
-            new_color = sfGreen;
-            break;
-        case 3:
-            new_color = sfCyan;
-            break;
-        case 4:
-            new_color = sfYellow;
-            break;
-        case 5:
-            new_color = sfMagenta;
-            break;
-        case 6:
-            new_color = sfOrange;
-            break;
-    }
-
+    if (rand == 0)
+        new_color = sfRed;
+    if (rand == 1)
+        new_color = sfBlue;
+    if (rand == 2)
+        new_color = sfGreen;
+    if (rand == 3)
+        new_color = sfCyan;
+    if (rand == 4)
+        new_color = sfYellow;
+    if (rand == 5)
+        new_color = sfMagenta;
+    if (rand == 6)
+        new_color = sfOrange;
     new_color.a = alpha ? rand_int(0, 255) : 255;
-
     return (new_color);
 }

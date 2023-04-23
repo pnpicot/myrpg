@@ -33,28 +33,23 @@ void render_textures(s_appdata *adata, int depth)
 {
     linked_node *rtexs = adata->lists->rtexs;
     s_ints *integers = adata->integers;
-    while (rtexs != NULL && rtexs->data != NULL) {
+    for (; rtexs != NULL && rtexs->data != NULL; rtexs = rtexs->next) {
         s_rtex *cur = (s_rtex *) rtexs->data;
-        if (cur->depth != depth || !cur->active) {
-            rtexs = rtexs->next;
+        if (cur->depth != depth || !cur->active) continue;
+        int in_light_range = adata->mask_rtex != NULL && cur->depth >=
+        adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth;
+        if (in_light_range && integers->in_game)
             continue;
-        }
-        int in_light_range = adata->mask_rtex != NULL && cur->depth >= adata->mask_rtex->depth && cur->depth <= adata->light_res_rtex->depth;
-        if (in_light_range && integers->in_game) {
-            rtexs = rtexs->next;
-            continue;
-        }
-        if (get_int(adata, "enable_shader") && integers->in_game && cur->depth == adata->light_blend_rtex->depth + 1) render_lights(adata);
+        if (get_int(adata, "enable_shader") && integers->in_game && cur->depth
+        == adata->light_blend_rtex->depth + 1) render_lights(adata);
         render_elements(adata, cur);
         s_rtex *next = get_rtex_d(adata, depth + 1);
         const sfTexture *cur_tex = sfRenderTexture_getTexture(cur->texture);
         sfSprite_setTexture(cur->sprite, cur_tex, sfFalse);
         if (next == NULL || !next->inherit) {
             sfRenderWindow_drawSprite(adata->win, cur->sprite, cur->state);
-        } else {
+        } else
             sfRenderTexture_drawSprite(next->texture, cur->sprite, cur->state);
-        }
-        rtexs = rtexs->next;
     }
 }
 

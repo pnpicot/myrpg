@@ -35,7 +35,7 @@ void delete_faction(s_appdata *adata, char *id)
     linked_node *factions = adata->game_data->factions;
     int ite = 0;
 
-    while (factions != NULL && factions->data !=  NULL) {
+    while (factions != NULL && factions->data != NULL) {
         s_faction *cur = (s_faction *) factions->data;
 
         if (!my_strcmp(cur->id, id)) break;

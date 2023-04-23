@@ -7,18 +7,8 @@
 
 #include "main.h"
 
-void init_console(s_appdata *adata)
+void init_console_next(s_appdata *adata)
 {
-    char *console_id = get_str(adata, "console_id");
-    add_container(adata, console_id);
-
-    char *console_background_id = get_str(adata, "console_background_id");
-    add_rect(adata, console_background_id, 3);
-    color_rect(adata, console_background_id, get_color(0, 0, 0, 240));
-    set_rect_rtex(adata, console_background_id, get_str(adata, "rtex_ui"));
-    resize_rect(adata, console_background_id, (sfVector2f) { 600, 400 });
-    move_rect(adata, console_background_id, (sfVector2f) { 100, 125 });
-
     char *console_titlebar_id = get_str(adata, "console_titlebar_id");
     add_rect(adata, console_titlebar_id, 3);
     color_rect(adata, console_titlebar_id, get_color(25, 25, 25, 240));
@@ -35,6 +25,21 @@ void init_console(s_appdata *adata)
     edit_text(adata, consolde_text_id, "Console");
     move_text(adata, consolde_text_id, (sfVector2f) { 110, 85 });
 
+}
+
+void init_console(s_appdata *adata)
+{
+    char *console_id = get_str(adata, "console_id");
+    add_container(adata, console_id);
+    char *console_background_id = get_str(adata, "console_background_id");
+    add_rect(adata, console_background_id, 3);
+    color_rect(adata, console_background_id, get_color(0, 0, 0, 240));
+    set_rect_rtex(adata, console_background_id, get_str(adata, "rtex_ui"));
+    resize_rect(adata, console_background_id, (sfVector2f) { 600, 400 });
+    move_rect(adata, console_background_id, (sfVector2f) { 100, 125 });
+    init_console_next(adata);
+    char *console_titlebar_id = get_str(adata, "console_titlebar_id");
+    char *consolde_text_id = get_str(adata, "console_text_id");
     add_to_container(adata, console_id, (s_ref)
     { get_rect(adata, console_background_id), TYPE_RECT });
     add_to_container(adata, console_id, (s_ref)

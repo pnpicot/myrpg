@@ -12,9 +12,7 @@ void update_live(s_appdata *adata)
     update_ingame_ui(adata);
     cycle_world_time(adata);
     trigger_spawn_cycle(adata);
-    START(update_entities)
     update_entities(adata);
-    END(update_entities)
     update_player_info_text(adata);
     update_quests(adata);
     update_skill_tree(adata);
@@ -129,29 +127,22 @@ void init_live_textures(s_appdata *adata)
 void init_live_states_n(s_appdata *adata, char *game_state, char *main_state,
 char *settings_state)
 {
-
     char *rtex_load = get_str(adata, "rtex_load");
     char *load_ctn = get_str(adata, "ctn_load");
     char *load_state = get_str(adata, "state_load");
-    add_state(adata, load_state);
     add_container(adata, load_ctn);
     add_state_rtex(adata, load_state, get_rtex(adata, rtex_load));
     set_state_container(adata, load_state, get_container(adata, load_ctn));
-
     char *rtex_game = get_str(adata, "rtex_game");
     char *rtex_ui = get_str(adata, "rtex_ui");
     char *rtex_wall = get_str(adata, "rtex_wall");
     char *rtex_wall_light = get_str(adata, "rtex_wall_light");
     char *game_ctn = get_str(adata, "ctn_game");
-
     set_state_ingame(adata, game_state, sfTrue);
-
     add_container(adata, game_ctn);
     set_state_container(adata, game_state, get_container(adata, game_ctn));
-
     add_container(adata, get_str(adata, "ctn_quest"));
     add_container(adata, get_str(adata, "ctn_skill"));
-
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_game));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_ui));
     add_state_rtex(adata, game_state, get_rtex(adata, rtex_wall));
@@ -167,6 +158,7 @@ void init_live_states(s_appdata *adata)
     char *settings_ctn = get_str(adata, "ctn_settings");
     char *rtex_settings = get_str(adata, "rtex_settings");
     char *rtex_menu = get_str(adata, "rtex_menu");
+    char *load_state = get_str(adata, "state_load");
     add_state(adata, main_state);
     add_state(adata, game_state);
     add_state(adata, settings_state);
@@ -177,6 +169,7 @@ void init_live_states(s_appdata *adata)
     get_container(adata,settings_ctn));
     add_state_rtex(adata, main_state, get_rtex(adata, rtex_menu));
     add_state_rtex(adata, settings_state, get_rtex(adata, rtex_settings));
+    add_state(adata, load_state);
     init_live_states_n(adata, game_state, main_state, settings_state);
 }
 

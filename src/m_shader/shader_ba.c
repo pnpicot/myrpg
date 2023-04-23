@@ -83,7 +83,7 @@ int add_shader_frag(s_appdata *adata, char *frag, char **frag_path)
 
     struct stat buffer;
 
-    if(stat(*frag_path, &buffer) == -1 && !is_nil) {
+    if (stat(*frag_path, &buffer) == -1 && !is_nil) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "no_file"));
         return (0);
@@ -101,12 +101,10 @@ void add_shader(s_appdata *adata, char *id, char *paths)
         return;
     }
     char **path_split = str_split(paths, ',');
-    char *vert = path_split[0];
-    char *frag = path_split[1];
     char *vert_path;
     char *frag_path;
-    if (!add_shader_vert(adata, vert, &vert_path)) return;
-    if (!add_shader_frag(adata, frag, &frag_path)) return;
+    if (!add_shader_vert(adata, path_split[0], &vert_path)) return;
+    if (!add_shader_frag(adata, path_split[1], &frag_path)) return;
     s_shader *new_shader = malloc(sizeof(s_shader));
     if (new_shader == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,

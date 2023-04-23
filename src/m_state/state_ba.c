@@ -31,19 +31,14 @@ void delete_state(s_appdata *adata, char *id)
         get_error(adata, "unknown_id"));
         return;
     }
-
     linked_node *states = adata->lists->states;
     int ite = 0;
-
     while (states != NULL && states->data != NULL) {
         s_state *cur = (s_state *) states->data;
-
         if (!my_strcmp(cur->id, id)) break;
-
         ite++;
         states = states->next;
     }
-
     linked_delete(&adata->lists->states, ite);
 }
 

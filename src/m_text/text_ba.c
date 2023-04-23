@@ -59,13 +59,10 @@ void add_text(s_appdata *adata, char *id, int layer)
         return;
     }
     s_ints *integers = adata->integers;
-    new_text->active = 1;
-    new_text->elem = sfText_create();
-    new_text->hidden = 0;
-    new_text->id = id;
-    new_text->rtex_id = NULL;
-    new_text->layer = layer;
-    new_text->pos = (sfVector2f) { 0, 0 };
+    *new_text = (s_text) {.active = 1, .elem = sfText_create(),
+    .hidden = 0, .id = id, .rtex_id = NULL, .layer = layer,
+    .pos = (sfVector2f) { 0, 0 }
+    };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->texts, new_text);

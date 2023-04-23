@@ -37,8 +37,8 @@
         pqnode_t *node;
     } pq_t;
 
-    linked_node *path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
-    sfVector2i end);
+    linked_node *path_finding(char **map, sfVector2i *map_size,
+    sfIntRect hitbox, sfVector2i end);
     linked_node *find_path(char **map, sfVector2i *map_size, sfVector2i *start,
     sfVector2i *end);
     int generate_successors(char **map, sfVector2i *map_size, pq_t *pq,

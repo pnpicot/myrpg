@@ -31,19 +31,14 @@ void delete_quest(s_appdata *adata, char *id)
         get_error(adata, "unknown_id"));
         return;
     }
-
     linked_node *quests = adata->game_data->quests;
     int ite = 0;
-
     while (quests != NULL && quests->data != NULL) {
         s_quest *cur = (s_quest *) quests->data;
-
         if (!my_strcmp(cur->id, id)) break;
-
         ite++;
         quests = quests->next;
     }
-
     linked_delete(&adata->game_data->quests, ite);
 }
 

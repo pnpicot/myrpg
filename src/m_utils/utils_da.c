@@ -61,7 +61,7 @@ sfVector2f circle_pos, float radius)
     if (dist_vec.y <= half_y) return (sfTrue);
 
     float corner_dist = pow(dist_vec.x - half_x, 2)
-                      + pow(dist_vec.y - half_y, 2);
+    + pow(dist_vec.y - half_y, 2);
 
     return (corner_dist <= pow(radius, 2));
 }

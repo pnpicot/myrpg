@@ -48,7 +48,8 @@ void add_rtex_next(s_appdata *adata, char *id, int depth, s_rtex *new_rtex)
     new_rtex->state = get_default_rstate();
     new_rtex->active = sfTrue;
     new_rtex->objects = linked_new();
-    new_rtex->texture = sfRenderTexture_create(get_int(adata, "win_w"), get_int(adata, "win_h"), sfFalse);
+    new_rtex->texture = sfRenderTexture_create(get_int(adata, "win_w"),
+    get_int(adata, "win_h"), sfFalse);
     if (depth < ints->min_depth) ints->min_depth = depth;
     if (depth > ints->max_depth) ints->max_depth = depth;
     linked_add(adata->lists->rtexs, new_rtex);

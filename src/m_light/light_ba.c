@@ -73,15 +73,12 @@ void delete_light(s_appdata *adata, char *id)
 
     linked_node *lights = adata->lists->lights;
     int ite = 0;
-
     while (lights != NULL && lights->data != NULL) {
         s_light *cur = (s_light *) lights->data;
 
         if (!my_strcmp(cur->id, id)) break;
-
         ite++;
         lights = lights->next;
     }
-
     linked_delete(&adata->lists->lights, ite);
 }

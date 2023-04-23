@@ -83,7 +83,7 @@ void delete_switch(s_appdata *adata, char *id)
     }
     linked_node *switches = adata->lists->switches;
     int ite = 0;
-    while (switches != NULL && switches->data != NULL) {
+    for (;switches != NULL && switches->data != NULL; ++ite) {
         s_switch *cur = (s_switch *) switches->data;
         if (!my_strcmp(cur->id, id)) {
             delete_button(adata, cur->indicator->id);
@@ -92,7 +92,6 @@ void delete_switch(s_appdata *adata, char *id)
             delete_button(adata, cur->right_round->id);
             break;
         }
-        ite++;
         switches = switches->next;
     }
     linked_delete(&adata->lists->switches, ite);

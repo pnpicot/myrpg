@@ -63,7 +63,7 @@ s_entity *entity, sfVector2f *movement)
     sfFloatRect ahitbox = get_entity_hitbox(adata, act_entity);
 
     movement->x = (hitbox.left < ahitbox.left) ? -2 : 2;
-    movement->y = (hitbox.top  < ahitbox.top) ? -2 : 2;
+    movement->y = (hitbox.top < ahitbox.top) ? -2 : 2;
     act_entity->move_now = (sfVector2f){-movement->x, -movement->y};
     act_entity->move_now_entity = (entity == NULL) ? (s_entity *)2 : entity;
     return (0);
@@ -95,7 +95,6 @@ s_entity *entity, sfVector2f *movement))
 sfVector2f is_map_colliding(s_appdata *adata, s_entity *entity,
 sfVector2f movement)
 {
-    START(is_map_colliding)
     sfVector2f save = movement;
 
     movement = do_loop(adata, entity, (sfFloatRect){0, 0, movement.x,
@@ -108,6 +107,5 @@ sfVector2f movement)
         movement = do_loop(adata, entity, (sfFloatRect){0, movement.y,
         movement.x, movement.y}, is_map_colliding_vertical);
     }
-    END(is_map_colliding)
     return (movement);
 }

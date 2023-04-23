@@ -10,7 +10,7 @@
 
 static int verify_map(char **map, sfVector2i *map_size, sfVector2i *start,
 sfVector2i *end)
-{;
+{
     if (map == NULL || map_size == NULL || start == NULL || end == NULL)
         return (-1);
     if (start->x < 0 || start->y < 0 || end->x < 0 || end->y < 0 ||
@@ -93,9 +93,10 @@ sfVector2i end)
     map = change_wall_and_path(map, map_size, hitbox);
     if (map == NULL)
         return (NULL);
-    if (map[hitbox.top][hitbox.left] == MY_WALL || map[end.y][end.x] == MY_WALL)
+    if (map[hitbox.top][hitbox.left] == MY_WALL ||
+    map[end.y][end.x] == MY_WALL) {
         rvalue = NULL;
-    if (rvalue != NULL)
+    } if (rvalue != NULL)
         rvalue = find_path(map, map_size, &(sfVector2i){hitbox.left, hitbox.top}
         , &end);
     for (int i = 0; i < map_size->y; i++)

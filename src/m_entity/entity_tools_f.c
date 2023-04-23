@@ -70,7 +70,6 @@ s_particle *particle, linked_node *touchs))
 
 sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
 {
-    START(get_way)
     if (entity->path == NULL) {
         float zoom = get_float(adata, "zoom");
         sfIntRect hitbox = { entity->pos.x / (32 * zoom),
@@ -78,13 +77,11 @@ sfVector2f get_way(s_appdata *adata, s_entity *entity, sfVector2i destination)
         entity->path = get_path_finding(adata, entity, destination, hitbox);
     }
     sfVector2f rvalue = use_path(adata, entity);
-    END(get_way)
     return (rvalue);
 }
 
 sfVector2f actualize_path(s_appdata *adata, s_entity *entity, sfVector2i end)
 {
-    START(get_way)
     linked_node *node = entity->path;
     linked_node *closest = node;
     if (entity->path == NULL)
@@ -105,6 +102,5 @@ sfVector2f actualize_path(s_appdata *adata, s_entity *entity, sfVector2i end)
     ((sfIntRect *)closest->data)->height, 3, 3};
     closest->next = get_path_finding(adata, entity, end, hitbox);
     sfVector2f rvalue = use_path(adata, entity);
-    END(get_way)
     return (rvalue);
 }

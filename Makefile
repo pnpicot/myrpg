@@ -16,7 +16,8 @@ ALL_OBJS	:= $(OBJS)
 
 MAKE_LIB	:= lib/my
 
-rwildcard	=  $(foreach d,$(wildcard $(addsuffix *,$(1))),$(call rwildcard,$(d)/,$(2))$(filter $(subst *,%,$(2)),$(d)))
+rwildcard	=  $(foreach d,$(wildcard $(addsuffix *,$(1))),$(call \
+rwildcard,$(d)/,$(2))$(filter $(subst *,%,$(2)),$(d)))
 
 default: all
 

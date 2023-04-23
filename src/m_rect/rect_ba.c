@@ -59,13 +59,10 @@ void add_rect(s_appdata *adata, char *id, int layer)
         return;
     }
     s_ints *integers = adata->integers;
-    new_rect->active = sfTrue;
-    new_rect->elem = sfRectangleShape_create();
-    new_rect->hidden = sfFalse;
-    new_rect->id = id;
-    new_rect->rtex_id = NULL;
-    new_rect->layer = layer;
-    new_rect->pos = (sfVector2f) { 0, 0 };
+    *new_rect = (s_rect) {.active = sfTrue, .elem = sfRectangleShape_create(),
+    .hidden = sfFalse, .id = id, .rtex_id = NULL, .layer = layer,
+    .pos = (sfVector2f) { 0, 0 }
+    };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->rects, new_rect);

@@ -25,8 +25,7 @@ char *nbr_to_str(long long nb)
         res_int[0] = '0';
         res_int[1] = '\0';
         return res_int;
-    }
-    long abs = nb < 0 ? -nb : nb;
+    } long abs = nb < 0 ? -nb : nb;
     char *res_int = malloc(sizeof(char) * (get_nbr_len(abs) + 1));
     res_int[get_nbr_len(abs)] = '\0';
     char *res_final = malloc(sizeof(char) * (get_nbr_len(abs) + 2));
@@ -35,12 +34,10 @@ char *nbr_to_str(long long nb)
     find_all(res_int, abs, i);
     if (nb < 0) {
         res_final[0] = '-';
-        for (int j = 1; j < get_nbr_len(abs) + 1; j++) {
+        for (int j = 1; j < get_nbr_len(abs) + 1; j++)
             res_final[j] = res_int[j - 1];
-        }
         free(res_int);
         return (res_final);
-    }
-    free(res_final);
+    } free(res_final);
     return (res_int);
 }

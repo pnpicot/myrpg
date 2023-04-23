@@ -80,12 +80,10 @@ void (*on_change)(s_appdata *adata, s_ref *ref))
         get_error(adata, "unknown_id"));
         return;
     }
-
     char *node_obj = str_add(slider->node->id, ":object");
     char *left_obj = str_add(slider->left_round->id, ":object");
     char *middle_obj = str_add(slider->middle_rect->id, ":object");
     char *right_obj = str_add(slider->right_round->id, ":object");
-
     set_object_onpressed(adata, node_obj, on_change);
     set_object_onpressed(adata, left_obj, on_change);
     set_object_onpressed(adata, middle_obj, on_change);

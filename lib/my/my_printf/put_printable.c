@@ -21,6 +21,8 @@ char *put_oct(char c)
     int count = 0;
 
     for (int i = 4 - my_strlen(oct); i < 4; i++) {
+        if (i < 0)
+            i = 0;
         res[i] = oct[count];
         count++;
     }

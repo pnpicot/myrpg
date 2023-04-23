@@ -30,7 +30,6 @@ void update_bar(s_appdata *adata, s_bar *bar)
 void add_bar(s_appdata *adata, char *id, int layer)
 {
     s_bar *bar = get_bar(adata, id);
-
     if (bar != NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "unknown_id"));
@@ -42,13 +41,12 @@ void add_bar(s_appdata *adata, char *id, int layer)
         get_error(adata, "mem_alloc"));
         return;
     }
-    new_bar->id = id;
-    new_bar->min = get_float(adata, "bar_min");
-    new_bar->max = get_float(adata, "bar_max");
-    new_bar->current = get_float(adata, "bar_current");
-    new_bar->back_rect = get_bar_back(adata, id, layer);
-    new_bar->fill_rect = get_bar_fill(adata, id, layer);
-    new_bar->text = NULL;
+    *new_bar = (s_bar) {.id = id, .min = get_float(adata, "bar_min"),
+    .max = get_float(adata, "bar_max"), .current = get_float(adata,
+    "bar_current"), .back_rect = get_bar_back(adata, id, layer),
+    .fill_rect = get_bar_fill(adata, id, layer), .text = NULL
+    };
+    update_bar(adata, new_bar);
     update_bar(adata, new_bar);
     linked_add(adata->lists->bars, new_bar);
 }

@@ -16,20 +16,16 @@ void add_state(s_appdata *adata, char *id)
         get_error(adata, "already_exists"));
         return;
     }
-
     s_state *new_state = malloc(sizeof(s_state));
-
     if (new_state == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
     new_state->id = id;
     new_state->container = NULL;
     new_state->in_game = sfFalse;
     new_state->rtexs = linked_new();
-
     linked_add(adata->lists->states, new_state);
 }
 
@@ -116,21 +112,4 @@ void switch_state_rtex(s_appdata *adata, s_state *state)
         cur->active = sfTrue;
         l_rtexs = l_rtexs->next;
     }
-}
-
-void switch_state(s_appdata *adata, char *id)
-{
-    s_state *state = get_state(adata, id);
-
-    if (state == NULL) {
-        my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
-        get_error(adata, "unknown_id"));
-        return;
-    }
-
-    state_deactivate_all(adata);
-    switch_state_activate(adata, state);
-    switch_state_rtex(adata, state);
-
-    if (!state->in_game) adata->integers->in_game = 0;
 }

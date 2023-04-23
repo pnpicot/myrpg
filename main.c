@@ -7,16 +7,6 @@
 
 #include "include/main.h"
 
-DEF_IT(update)
-DEF_IT(render)
-DEF_IT(update_entities)
-DEF_IT(total)
-DEF_IT(what_is_touching)
-DEF_IT(is_map_colliding)
-DEF_IT(get_way)
-DEF_IT(fps)
-DEF_IT(behavior)
-
 int main(int argc, char **argv)
 {
     s_appdata *adata = malloc(sizeof(s_appdata));

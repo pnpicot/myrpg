@@ -82,18 +82,13 @@ void scale_container(s_appdata *adata, char *id, sfVector2f factors)
         get_error(adata, "unknown_id"));
         return;
     }
-
     linked_node *nodes = container->nodes;
-
     while (nodes != NULL && nodes->data != NULL) {
         s_ref *cur = (s_ref *) nodes->data;
         sfVector2f cur_scale = get_element_scale(adata, cur->ref, cur->type);
-
         cur_scale.x *= factors.x;
         cur_scale.y *= factors.y;
-
         scale_element(adata, cur->ref, cur->type, cur_scale);
-
         nodes = nodes->next;
     }
 }

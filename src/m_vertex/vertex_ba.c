@@ -59,13 +59,10 @@ void add_vertex(s_appdata *adata, char *id, int layer)
         return;
     }
     s_ints *integers = adata->integers;
-    new_vertex->active = 1;
-    new_vertex->elem = sfVertexArray_create();
-    new_vertex->hidden = 0;
-    new_vertex->id = id;
-    new_vertex->rtex_id = NULL;
-    new_vertex->layer = layer;
-    new_vertex->pos = (sfVector2f) { 0, 0 };
+    *new_vertex = (s_vertex) {.active = 1, .elem = sfVertexArray_create(),
+    .hidden = 0, .id = id, .rtex_id = NULL, .layer = layer,
+    .pos = (sfVector2f){ 0, 0 }
+    };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->vertexes, new_vertex);

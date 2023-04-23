@@ -59,15 +59,12 @@ void animate_sprite(s_appdata *adata, char *sprite_id)
         get_error(adata, "unknown_id"));
         return;
     }
-
     s_animation *new_animation = malloc(sizeof(s_animation));
-
     if (new_animation == NULL) {
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "mem_alloc"));
         return;
     }
-
     animate_sprite_next(adata, new_animation, sprite);
 }
 

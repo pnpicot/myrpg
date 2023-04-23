@@ -11,26 +11,17 @@ void load_musics(s_appdata *adata)
 {
     char *file_content = file_extract("bonus/musics.myrpg");
     char **entries = str_split(file_content, '\n');
-    int ite = 0;
-
     free(file_content);
-    while (entries[ite] != NULL) {
-        if (entries[ite][0] == '#') {
-            ite++;
+    for (int ite = 0; entries[ite] != NULL; ++ite) {
+        if (entries[ite][0] == '#')
             continue;
-        }
-
         char **entry_data = str_m_split(entries[ite], 2, '=', ' ');
         char *id = entry_data[0];
         char *filename = entry_data[1];
-
         add_music(adata, id, filename);
-
         for (int i = 0; entry_data[i] != NULL; ++i)
             free(entry_data[i]);
         free(entry_data);
-
-        ite++;
     }
     for (int i = 0; entries[i] != NULL; ++i)
         free(entries[i]);

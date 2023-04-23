@@ -34,10 +34,10 @@ void delete_gameobject(s_appdata *adata, char *id)
     int ite = 0;
     while (gameobjects != NULL && gameobjects->data != NULL) {
         s_gameobj *cur = (s_gameobj *) gameobjects->data;
-        if (!my_strcmp(cur->id, id)) {
-            if (cur->hitbox != NULL) delete_wall(adata, cur->hitbox->id);
+        if (!my_strcmp(cur->id, id) && cur->hitbox != NULL)
+            delete_wall(adata, cur->hitbox->id);
+        if (!my_strcmp(cur->id, id))
             break;
-        }
         ite++;
         gameobjects = gameobjects->next;
     }
@@ -61,12 +61,10 @@ void add_gameobject(s_appdata *adata, char *id)
         get_error(adata, "mem_alloc"));
         return;
     }
-
     new_gameobject->hitbox = NULL;
     new_gameobject->id = id;
     new_gameobject->ref = NULL;
     new_gameobject->type = 0;
-
     linked_add(adata->lists->gameobjects, new_gameobject);
 }
 

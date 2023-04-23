@@ -55,8 +55,7 @@ void set_bar_display(s_appdata *adata, char *bar_id, sfBool display)
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "unknown_id"));
         return;
-    }
-    if (!display && bar->text != NULL) {
+    } if (!display && bar->text != NULL) {
         bar->text->active = 0;
         return;
     } else if (display && bar->text != NULL) {

@@ -67,7 +67,7 @@ sfBool force)
     if (seconds >= animation->clock_rate || force) {
         if (animation->mode == animation_restart) {
             animate_restart(adata, animation);
-        } else if (animation->mode == animation_reverse) {
+        } if (animation->mode == animation_reverse) {
             animate_reverse(adata, animation);
         }
 

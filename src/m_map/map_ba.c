@@ -41,8 +41,8 @@ void add_tile(s_appdata *adata, char ch, char *tex_id, sfBool solid)
         my_printf("Line: %d File: %s %s", __LINE__, __FILE__,
         get_error(adata, "unknown_id"));
         return;
-    }
-    *new_tile = (s_tile) {.id = ch, .tex = tex, .wall = solid};
+    } *new_tile = (s_tile){.id = ch, .tex = tex, .wall = solid
+    };
     linked_add(adata->lists->tiles, new_tile);
 }
 

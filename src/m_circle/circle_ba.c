@@ -59,13 +59,10 @@ void add_circle(s_appdata *adata, char *id, int layer)
         return;
     }
     s_ints *integers = adata->integers;
-    new_circle->active = 1;
-    new_circle->elem = sfCircleShape_create();
-    new_circle->hidden = 0;
-    new_circle->id = id;
-    new_circle->rtex_id = NULL;
-    new_circle->layer = layer;
-    new_circle->pos = (sfVector2f) { 0, 0 };
+    *new_circle = (s_circle) {.active = 1, .elem = sfCircleShape_create(),
+    .hidden = 0, .id = id, .rtex_id = NULL, .layer = layer, .pos = (sfVector2f)
+    { 0, 0 }
+    };
     if (layer < integers->min_layer) integers->min_layer = layer;
     if (layer > integers->max_layer) integers->max_layer = layer;
     linked_add(adata->lists->circles, new_circle);

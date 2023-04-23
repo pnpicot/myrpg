@@ -5,10 +5,12 @@
 ** public_path_finding
 */
 
-#include "main.h"
 
-#ifndef _PUBLIC_PATH_FINGING_H_
+#ifndef _PUBLIC_PATH_FINDING_H_
     #define _PUBLIC_PATH_FINDING_H_
-    linked_node *path_finding(char **map, sfVector2i *map_size, sfIntRect hitbox,
-    sfVector2i end);
+
+    #include "main.h"
+
+    linked_node *path_finding(char **map, sfVector2i *map_size,
+    sfIntRect hitbox, sfVector2i end);
 #endif
